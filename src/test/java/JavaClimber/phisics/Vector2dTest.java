@@ -28,6 +28,9 @@ public class Vector2dTest {
       assertEquals(20, p.getY(), 0.001);
     }
 
+  /**
+   * Test for negative coordinates.
+   */
     @Test
     public void testNegativeCoordinates() {
       final Vector2d p = new Vector2dImpl(-5, -15);
@@ -35,6 +38,9 @@ public class Vector2dTest {
       assertEquals(-15, p.getY(), 0.001);
     }
 
+  /**
+   * Test for zero coordinates.
+   */
     @Test
     public void testZeroCoordinates() {
         final Vector2d p = new Vector2dImpl(0, 0);
