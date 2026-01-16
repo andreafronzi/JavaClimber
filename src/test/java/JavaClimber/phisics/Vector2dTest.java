@@ -68,6 +68,4 @@ public class Vector2dTest {
         assertEquals(30, d.getY(), 0.001);
     }
 
-
-
 }
