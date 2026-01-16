@@ -46,5 +46,4 @@ public class Vector2dImpl implements Vector2d {
   public void setY(double y) {
     this.y = y;
   }
-
 }
