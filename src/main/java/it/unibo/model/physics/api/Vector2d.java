@@ -21,11 +21,15 @@ public interface Vector2d {
 
   /**
    * Sets the X component of the vector.
+   *
+   * @param x the new X component value
    */
-  void setX();
+  void setX(double x);
 
   /**
    * Sets the Y component of the vector.
+   *
+   * @param y the new Y component value
    */
-  void setY();
+  void setY(double y);
 }
