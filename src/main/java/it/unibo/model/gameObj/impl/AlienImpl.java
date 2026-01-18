@@ -15,12 +15,28 @@ public class AlienImpl extends GameObj implements Alien {
    */
   private final Vector2d speed;
 
+  private final double width;
+  private final double heigth;
+
   /**
-   * Constructs a new Alien with the specified two-dimensional position, and null speed.
+   * Constructs a new Alien with the specified two-dimensional position, null speed, and specified width and heigth.
    */
-  public AlienImpl(final Vector2d position) {
+  public AlienImpl(final Vector2d position, final double width, final double heigth) {
     super(position);
     this.speed = new Vector2dImpl(INITIAL_SPEED_COORDINATE, INITIAL_SPEED_COORDINATE);
+    this.width = width;
+    this.heigth = heigth;
+
+  }
+
+  @Override
+  public double getWidth() {
+    return this.width;
+  }
+
+  @Override
+  public double getHeigth() {
+    return this.heigth;
   }
 
   public double getSpeedX() {
