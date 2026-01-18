@@ -23,6 +23,18 @@ public interface Alien {
 
   /**
    *
+   * @return width of the Alien
+   */
+  double getWidth();
+
+  /**
+   *
+   * @return height of the Alien
+   */
+  double getHeigth();
+
+  /**
+   *
    * @return x-coordinate of the speed of the Alien
    */
   double getSpeedX();
@@ -43,7 +55,7 @@ public interface Alien {
   /**
    * Set Alien's speed with the one provided.
    *
-   * @param speed
+   * @param speed the new speed of the Alien
    */
   void setSpeed(Vector2d speed);
 }
