@@ -5,5 +5,5 @@ package it.unibo.model.gameObj.impl;
  * @param x0 left side
  * @param x1 right side
  */
-public record Boundary(int x0, int x1) {
+public record Boundary(double x0, double x1) {
 }
