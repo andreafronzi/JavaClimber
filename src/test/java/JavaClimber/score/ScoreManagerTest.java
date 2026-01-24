@@ -61,7 +61,6 @@ public class ScoreManagerTest {
         assertEquals(10, scoreManager.getCoins());
         scoreManager.addCoins(5);
         assertEquals(15, scoreManager.getCoins());
-        //
         scoreManager.addCoins(-10);
         assertEquals(15, scoreManager.getCoins());
     }

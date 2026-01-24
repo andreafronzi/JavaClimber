@@ -5,6 +5,7 @@ package it.unibo.model.shop.api;
  * Enumeration of the types of items available in the shop.
  */
 public enum ShopItemType {
+
     /**
      * Skin type item.
      */

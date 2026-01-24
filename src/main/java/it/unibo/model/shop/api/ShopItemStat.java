@@ -4,6 +4,7 @@ package it.unibo.model.shop.api;
  * Enumeration of the player statistics that can be boosted.
  */
 public enum ShopItemStat {
+
     /**
      * Speed boost statistic.
      */
