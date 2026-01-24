@@ -56,4 +56,10 @@ public interface ShopItem {
      * @param alien the Alien to which the effect will be applied
      */
     void applyEffect(Alien alien);
+
+    /**
+     * Get the initial duration of the item in matches
+     * @return the number of matches the effect lasts (0 for permanent items)
+     */
+    int getInitialDuration();
 }

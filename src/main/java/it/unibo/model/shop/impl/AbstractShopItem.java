@@ -71,7 +71,10 @@ public abstract class AbstractShopItem implements ShopItem{
 
     @Override
     public abstract void applyEffect(Alien alien);
-    
+
+    @Override
+    public abstract int getInitialDuration();
+
 }
     
 
