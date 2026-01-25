@@ -11,7 +11,7 @@ import it.unibo.model.shop.api.ShopItemType;
  */
 public class SkinItemImpl extends AbstractShopItem {
 
-    public SkinItemImpl(String id, String name, String description, int price, ShopItemType type,
+    public SkinItemImpl(String id, String name, String description, int price,
             Map<ShopItemStat, Double> stats) {
         super(id, name, description, price, ShopItemType.SKIN, stats);
     }
