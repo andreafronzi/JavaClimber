@@ -12,7 +12,6 @@ public class ScoreManagerImpl implements ScoreManager {
     private int highScore;
     private double maxPlayerY;
 
-    
     public ScoreManagerImpl(int startingHighScore) {
         this.highScore = startingHighScore;
         this.reset();
@@ -61,6 +60,17 @@ public class ScoreManagerImpl implements ScoreManager {
         this.currentScore = 0;
         this.coins = 0;
         this.maxPlayerY = 0.0;
+    }
+
+    @Override
+    public void spend(int price) {
+        if (price < 0) {
+            throw new IllegalArgumentException("Cannot spend negative coins!");
+        }
+        if (price > this.coins) {
+            throw new IllegalStateException("Not enough coins!");
+        }
+        this.coins -= price;
     }
 
 }

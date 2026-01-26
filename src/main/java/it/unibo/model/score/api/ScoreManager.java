@@ -45,4 +45,10 @@ public interface ScoreManager {
      * Reset the score.
      */
     void reset();
+
+    /**
+     * The price of the item to be subtracted to the total price of a player.
+     * @param price to decrease to the total
+     */
+    void spend(int price);
 }
