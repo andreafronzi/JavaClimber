@@ -15,5 +15,5 @@ public interface MovementBehaviour {
    * @param dt the time interval between two updates
    * @param boundary the boundary of the world
    */
-  void updatePosition(Vector2d position, double width, double heigth, double dt, Boundary boundary);
+    void updatePosition(Vector2d position, double width, double heigth, double dt, Boundary boundary);
 }
