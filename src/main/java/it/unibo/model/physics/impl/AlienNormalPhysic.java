@@ -34,9 +34,9 @@ public class AlienNormalPhysic implements AlienPhysic {
   }
 
   /**
-   * Verify if the alien go beyond the boundary. Apply pacman effect if it happen.
+   * Verify if the alien go beyond the boundary. Apply pacman effect if it happens.
    * @param alien the alien which can go beyond the boundary
-   * @param boundary the boundaries which can be crossed by the alien
+   * @param boundary the boundaries, which can be crossed by the alien
    */
   private void verifyBoundaryTouch(final Alien alien, final Boundary boundary) {
     if(alien.getPosX() + alien.getWidth() < boundary.x0()) {
