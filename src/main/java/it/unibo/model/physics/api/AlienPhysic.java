@@ -9,7 +9,7 @@ import it.unibo.model.gameObj.impl.Boundary;
 public interface AlienPhysic {
 
   /**
-   * Upply chosen physic effect to alien's speed
+   * Upply chosen physical effect to alien's speed
    * @param alien the alien to update
    * @param dt the time step
    * @param boundary the boundary
