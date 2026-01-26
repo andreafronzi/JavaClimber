@@ -2,6 +2,8 @@ package it.unibo.model.shop.impl;
 
 import java.util.List;
 
+import it.unibo.model.persistence.api.SaveManager;
+import it.unibo.model.persistence.api.SaveState;
 import it.unibo.model.score.api.ScoreManager;
 import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.shop.api.ShopItem;
@@ -17,11 +19,13 @@ public class ShopManagerImpl implements ShopManager {
     private final ShopItemFactory itemFactory;
     private final Inventory inventory;
     private final ScoreManager scoreManager;
+    private final SaveManager storage;
 
-    public ShopManagerImpl(ShopItemFactory itemFactory, Inventory inventory, ScoreManager scoreManager) {
+    public ShopManagerImpl(ShopItemFactory itemFactory, Inventory inventory, ScoreManager scoreManager, SaveManager storage) {
         this.itemFactory = itemFactory;
         this.inventory = inventory;
         this.scoreManager = scoreManager;
+        this.storage = storage;
     }
 
     @Override
@@ -48,6 +52,9 @@ public class ShopManagerImpl implements ShopManager {
                 default:
                     throw new IllegalStateException("Unknown item type: " + item.getType());
             }
+
+            SaveState currentState = new SaveState(scoreManager.getCoins(), inventory.getOwnedItems(), inventory.getConsumablesStatus(), inventory.getSelectedSkin().orElse(null));
+            storage.save(currentState);
             return true;
         }
         return false;
