@@ -9,7 +9,7 @@ import it.unibo.model.physics.api.Vector2d;
  * This behavior updates the position of an object along the X-axis and handles
  * collisions with specified horizontal boundaries, reversing direction when a boundary is reached.
  */
-public class OrizzontalMovementBehavior implements MovementBehaviour {
+public class HorizontalMovementBehavior implements MovementBehaviour {
 
   /**
    * Displacement per unit of time.
@@ -22,7 +22,7 @@ public class OrizzontalMovementBehavior implements MovementBehaviour {
    *
    * @param ds the horizontal displacement speed for the movement behavior
    */
-  public OrizzontalMovementBehavior(final double ds) {
+  public HorizontalMovementBehavior(final double ds) {
     this.ds = ds;
   }
 
