@@ -3,66 +3,77 @@ package JavaClimber.shop;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Map;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
 import it.unibo.model.shop.api.ShopItem;
+import it.unibo.model.shop.api.ShopItemFactory;
 import it.unibo.model.shop.api.ShopItemStat;
 import it.unibo.model.shop.api.ShopItemType;
-import it.unibo.model.shop.impl.PowerUpItemImpl;
-import it.unibo.model.shop.impl.SkinItemImpl;
+import it.unibo.model.shop.impl.ShopItemFactoryImpl;
 
+/**
+ * Tests for {@link ShopItem} and {@link ShopItemFactory}.
+ */
 public class ShopItemTest {
 
-    @Test
-    void testSkinItemCreation() {
-        Map<ShopItemStat, Double> stats = Map.of(ShopItemStat.SPEED, 1.2);
-        ShopItem skin = new SkinItemImpl("skin_redAlien", "Red Skin", "Desc", 100, stats);
+    private final ShopItemFactory itemFactory = new ShopItemFactoryImpl();
 
-        assertEquals("skin_redAlien", skin.getId());
-        assertEquals("Red Skin", skin.getName());
-        assertEquals(ShopItemType.SKIN, skin.getType());
-        assertEquals("Desc", skin.getDescription());
-        assertEquals(100, skin.getPrice());
-        assertEquals(0, skin.getInitialDuration());
-        assertTrue(skin.getStats().containsKey(ShopItemStat.SPEED));
+    /**
+     * Verifies a skin item
+     */
+    @Test
+    void testSkinItem() {
+        Optional<ShopItem> skin_astronaut = itemFactory.getItemById("s_astro");    
+        assertTrue(skin_astronaut.isPresent());
+        ShopItem item = skin_astronaut.get();
+
+        assertEquals("s_astro", item.getId());
+        assertEquals("Astronaut alien", item.getName());
+        assertEquals(ShopItemType.SKIN, item.getType());
+        assertEquals("From the space", item.getDescription());
+        assertEquals(500, item.getPrice());
+        assertEquals(0, item.getInitialDuration());
+        assertTrue(item.getStats().containsKey(ShopItemStat.JUMP_HEIGHT));
+        assertEquals(1.5, item.getStats().get(ShopItemStat.JUMP_HEIGHT));
     }
 
+    /**
+     * Verifies a temporary power up item
+     */
     @Test
-    void testPowerUpItemImplementation() {
-        Map<ShopItemStat, Double> jumpStats = Map.of(ShopItemStat.JUMP_HEIGHT, 1.5);
-        Map<ShopItemStat, Double> speedStats = Map.of(ShopItemStat.SPEED, 1.2);
-        Map<ShopItemStat, Double> coinStats = Map.of(ShopItemStat.COIN_MULTIPLIER, 2.0);
+    void testTemporaryPowerUpItem() {
+        Optional<ShopItem> coinPwr = itemFactory.getItemById("pt_coin_x1.5");    
+        assertTrue(coinPwr.isPresent());
+        ShopItem item = coinPwr.get();
 
-        ShopItem tempPowerUp = new PowerUpItemImpl("temp_jump", "Jump Boost", "Temporary", 50, ShopItemType.TEMPORARY_UPGRADE, jumpStats, 3);
+        assertEquals("pt_coin_x1.5", item.getId());
+        assertEquals("Coin Multiplier x1.5", item.getName());
+        assertEquals(ShopItemType.TEMPORARY_UPGRADE, item.getType());
+        assertEquals("Coin multiplier for 10 matches", item.getDescription());
+        assertEquals(300, item.getPrice());
+        assertEquals(10, item.getInitialDuration());
+        assertTrue(item.getStats().containsKey(ShopItemStat.COIN_MULTIPLIER));
+        assertEquals(1.5, item.getStats().get(ShopItemStat.COIN_MULTIPLIER));
+    }
 
-        assertEquals("temp_jump", tempPowerUp.getId());
-        assertEquals("Jump Boost", tempPowerUp.getName());
-        assertEquals(ShopItemType.TEMPORARY_UPGRADE, tempPowerUp.getType());
-        assertEquals("Temporary", tempPowerUp.getDescription());
-        assertEquals(50, tempPowerUp.getPrice());
-        assertEquals(3, tempPowerUp.getInitialDuration());
-        assertTrue(tempPowerUp.getStats().containsKey(ShopItemStat.JUMP_HEIGHT));
+    /**
+     * Verifies a permanent power up item
+     */
+    @Test
+    void testPermanentPowerUpItem() {
+        Optional<ShopItem> permSpeed = itemFactory.getItemById("pp_speed1");
+        assertTrue(permSpeed.isPresent());
+        ShopItem item = permSpeed.get();
 
-        ShopItem permPowerUp = new PowerUpItemImpl("perm_speed", "Speed Boost", "Permanent", 200, ShopItemType.PERMANENT_UPGRADE, speedStats, 0);
-
-        assertEquals("perm_speed", permPowerUp.getId());
-        assertEquals("Speed Boost", permPowerUp.getName());
-        assertEquals(ShopItemType.PERMANENT_UPGRADE, permPowerUp.getType());
-        assertEquals("Permanent", permPowerUp.getDescription());
-        assertEquals(200, permPowerUp.getPrice());
-        assertEquals(0, permPowerUp.getInitialDuration());
-        assertTrue(permPowerUp.getStats().containsKey(ShopItemStat.SPEED));
-
-        ShopItem coinPowerUp = new PowerUpItemImpl("coin_x2", "Double Coins", "Collect double money", 300, ShopItemType.TEMPORARY_UPGRADE, coinStats, 5);
-
-        assertEquals("coin_x2", coinPowerUp.getId());
-        assertEquals("Double Coins", coinPowerUp.getName());
-        assertEquals(ShopItemType.TEMPORARY_UPGRADE, coinPowerUp.getType());
-        assertEquals("Collect double money", coinPowerUp.getDescription());
-        assertEquals(300, coinPowerUp.getPrice());
-        assertEquals(5, coinPowerUp.getInitialDuration());
-        assertTrue(coinPowerUp.getStats().containsKey(ShopItemStat.COIN_MULTIPLIER));
+        assertEquals("pp_speed1", item.getId());
+        assertEquals("Speed Boost 1", item.getName());
+        assertEquals(ShopItemType.PERMANENT_UPGRADE, item.getType());
+        assertEquals("Permanent Speed boost", item.getDescription());
+        assertEquals(500, item.getPrice());
+        assertEquals(0, item.getInitialDuration());
+        assertTrue(item.getStats().containsKey(ShopItemStat.SPEED));
+        assertEquals(1.3, item.getStats().get(ShopItemStat.SPEED));
     }
 }

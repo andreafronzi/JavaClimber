@@ -25,7 +25,7 @@ public class ShopItemFactoryImpl implements ShopItemFactory {
             new SkinItemImpl("s_basic", "Basic Alien", "Original alien", 0, Map.of()),
             new SkinItemImpl("s_primitive", "Primitive Alien", "Directly from the Flinstones", 100, Map.of(ShopItemStat.SPEED, 1.1)),
             new SkinItemImpl("s_sport", "Sportive Alien", "From the NBA", 250, Map.of(ShopItemStat.JUMP_HEIGHT, 1.2)),
-            new SkinItemImpl("s_atro", "Astronaut alien", "From the space", 500, Map.of(ShopItemStat.JUMP_HEIGHT, 1.5))
+            new SkinItemImpl("s_astro", "Astronaut alien", "From the space", 500, Map.of(ShopItemStat.JUMP_HEIGHT, 1.5))
         );
     }
 
