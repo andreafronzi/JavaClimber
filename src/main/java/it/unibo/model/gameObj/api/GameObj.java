@@ -12,7 +12,7 @@ public abstract class GameObj {
   /**
    * The two-dimensional position of the object.
    */
-  private final Vector2d position;
+  protected final Vector2d position;
 
   /**
    * Constructs a new GameObj with the specified two-dimensional position.
