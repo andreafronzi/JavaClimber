@@ -1,15 +1,17 @@
 package it.unibo.model.score.api;
 
+import it.unibo.model.persistence.api.SaveState;
+
 /**
  * Interface for managing the game score.
  */
 public interface ScoreManager {
 
     /**
-     * Update the score based on the current Y position.
-     * @param currentY the current Y position
+     * Update the score based on the current Y position and the high score.
+     * @param playerY the current player Y position
      */
-    void updateScore(double currentY);
+    void updateScore(double playerY);
 
     /**
      * Add coins to the score.
@@ -36,19 +38,21 @@ public interface ScoreManager {
     int getHighScore();
 
     /**
-     * Check if the current score is a new high score.
-     * @return true if it is a new high score, false otherwise
-     */
-    boolean isNewHighScore();
-
-    /**
-     * Reset the score.
-     */
-    void reset();
-
-    /**
-     * The price of the item to be subtracted to the total price of a player.
+     * 
      * @param price to decrease to the total
+     * @return true if the transaction is correctly happened.
      */
-    void spend(int price);
+    boolean spend(int price);
+
+    /**
+     * Set the data from the file.
+     * @param state data from the file.
+     */
+    void loadState(SaveState state);
+
+    /**
+     * Sets the initial vertical position of the player for the current session.
+     * @param y the starting Y coordinate.
+     */
+    void setStartY(double y);
 }

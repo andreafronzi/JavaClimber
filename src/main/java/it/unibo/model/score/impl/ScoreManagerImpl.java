@@ -1,5 +1,6 @@
 package it.unibo.model.score.impl;
 
+import it.unibo.model.persistence.api.SaveState;
 import it.unibo.model.score.api.ScoreManager;
 
 /**
@@ -10,18 +11,24 @@ public class ScoreManagerImpl implements ScoreManager {
     private int currentScore;
     private int coins;
     private int highScore;
-    private double maxPlayerY;
+    private double startY;
 
-    public ScoreManagerImpl(int startingHighScore) {
-        this.highScore = startingHighScore;
-        this.reset();
+    public ScoreManagerImpl(int initialCoins) {
+        this.coins = initialCoins;
+        this.currentScore = 0;
+        this.highScore = 0;
+        this.startY = 0;
     }
 
     @Override
-    public void updateScore(double currentY) {
-        if (currentY > this.maxPlayerY) {
-            this.maxPlayerY = currentY;
-            this.currentScore = (int) this.maxPlayerY;
+    public void updateScore(double playerY) {
+        int score = (int) Math.max(0, startY - playerY);
+        if (score > this.currentScore) {
+            this.currentScore = score;
+
+            if (this.currentScore > this.highScore) {
+                this.highScore = this.currentScore;
+            }
         }
     }
 
@@ -48,29 +55,23 @@ public class ScoreManagerImpl implements ScoreManager {
     }
 
     @Override
-    public boolean isNewHighScore() {
-        return this.currentScore > this.highScore && this.currentScore != 0;
+    public boolean spend(int price) {
+        if (price <= this.coins && price >= 0) {
+            this.coins -= price;
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public void reset() {
-        if (this.isNewHighScore()) {
-            this.highScore = this.currentScore;
-        }
-        this.currentScore = 0;
-        this.coins = 0;
-        this.maxPlayerY = 0.0;
+    public void loadState(SaveState state) {
+        this.coins = state.getCoins();
+        this.highScore = state.getHighestScore();
     }
 
     @Override
-    public void spend(int price) {
-        if (price < 0) {
-            throw new IllegalArgumentException("Cannot spend negative coins!");
-        }
-        if (price > this.coins) {
-            throw new IllegalStateException("Not enough coins!");
-        }
-        this.coins -= price;
+    public void setStartY(double y) {
+        this.startY = y;
     }
 
 }
