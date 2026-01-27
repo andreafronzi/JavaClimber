@@ -6,10 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.model.persistence.api.SaveState;
 import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.shop.impl.InventoryImpl;
 
@@ -18,6 +20,7 @@ import it.unibo.model.shop.impl.InventoryImpl;
  */
 public class InventoryTest {
 
+    private static final String DEFAULT_SKIN = "s_basic";
     private Inventory inventory;
 
     /**
@@ -29,6 +32,16 @@ public class InventoryTest {
     }
 
     /**
+     * Verifies at the start the base skin is already present and selected.
+     */
+    @Test
+    void testInitialization() {
+        assertTrue(inventory.hasItem(DEFAULT_SKIN));
+        assertTrue(inventory.getSelectedSkin().isPresent());
+        assertEquals(DEFAULT_SKIN, inventory.getSelectedSkin().get());
+    }
+
+    /**
      * Tests item addition and get owned.
      */
     @Test
@@ -36,7 +49,7 @@ public class InventoryTest {
         inventory.addItem("skin_redAlien");
         assertTrue(inventory.hasItem("skin_redAlien"));
         assertFalse(inventory.hasItem("skin_greenAlien"));
-        assertEquals(1, inventory.getOwnedItems().size());
+        assertEquals(2, inventory.getOwnedItems().size());
     }
 
     /**
@@ -44,7 +57,6 @@ public class InventoryTest {
      */
     @Test
     void testSkinEquipment() {
-        assertTrue(inventory.getSelectedSkin().isEmpty());
         inventory.addItem("skin_blueAlien");
         inventory.equipSkin("skin_blueAlien");
 
@@ -52,7 +64,8 @@ public class InventoryTest {
         assertEquals("skin_blueAlien", inventory.getSelectedSkin().get());
 
         inventory.deselectSkin();
-        assertTrue(inventory.getSelectedSkin().isEmpty());
+        assertTrue(inventory.getSelectedSkin().isPresent());
+        assertEquals(DEFAULT_SKIN, inventory.getSelectedSkin().get());
     }
 
     /**
@@ -107,6 +120,16 @@ public class InventoryTest {
         assertTrue(inventory.hasItem(permUpgradeId),
                 "Permanent upgrade should not be removed with updates");
         assertTrue(inventory.getOwnedItems().contains(permUpgradeId));
+    }
+
+    @Test
+    void testLoadSave() {
+        SaveState state = new SaveState(0, 0, Set.of("s_astro"), Map.of("pp_speed1", 0), "s_astro");
+        inventory.loadState(state);
+        assertTrue(inventory.hasItem("s_astro"));
+        assertTrue(inventory.hasItem(DEFAULT_SKIN));
+        assertEquals("s_astro", inventory.getSelectedSkin().get());
+        assertTrue(inventory.getConsumablesStatus().containsKey("pp_speed1"));
     }
 
 }

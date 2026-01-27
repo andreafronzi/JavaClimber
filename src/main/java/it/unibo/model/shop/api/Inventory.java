@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import it.unibo.model.persistence.api.SaveState;
+
 /**
  * Interface representing the inventory of a player in the shop.
  */
@@ -62,5 +64,11 @@ public interface Inventory {
      * Update the status of consumables, reducing their remaining matches by one.
      */
     void updateConsumables();
+
+    /**
+     * Initialize the inventory with data load from file.
+     * @param state containing all the data
+     */
+    void loadState(SaveState state);
 
 }

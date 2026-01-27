@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import it.unibo.model.persistence.api.SaveState;
 import it.unibo.model.shop.api.Inventory;
 
 /**
@@ -14,7 +15,7 @@ import it.unibo.model.shop.api.Inventory;
  */
 public class InventoryImpl implements Inventory {
 
-
+    private static final String DEFAULT_SKIN = "s_basic";
     private final Set<String> ownedItems;
     private final Map<String,Integer> consumables;
     private String selectedSkin;
@@ -25,7 +26,8 @@ public class InventoryImpl implements Inventory {
     public InventoryImpl() {
         this.ownedItems = new HashSet<>();
         this.consumables = new HashMap<>();
-        this.selectedSkin = null;
+        this.selectedSkin = DEFAULT_SKIN;
+        this.ownedItems.add(DEFAULT_SKIN);
     }
 
     @Override
@@ -52,7 +54,7 @@ public class InventoryImpl implements Inventory {
 
     @Override
     public void deselectSkin() {
-        this.selectedSkin = null;
+        this.selectedSkin = DEFAULT_SKIN;
     }
 
     @Override
@@ -81,6 +83,22 @@ public class InventoryImpl implements Inventory {
             } else {
                 entry.setValue(remaining);
             }
+        }
+    }
+
+    @Override
+    public void loadState(SaveState state) {
+        this.ownedItems.clear();
+        this.consumables.clear();
+
+        this.ownedItems.addAll(state.getOwnedItems());
+        this.consumables.putAll(state.getConsumables());
+        this.ownedItems.add(DEFAULT_SKIN);
+
+        if (state.getSelectedSkin() != null && !state.getSelectedSkin().isEmpty()) {
+            this.selectedSkin = state.getSelectedSkin();
+        } else {
+            this.selectedSkin = DEFAULT_SKIN;
         }
     }
 
