@@ -39,13 +39,14 @@ public class SaveManagerTest {
      */
     @Test
     void testSaveAndLoad(){
-        final SaveState originalState = new SaveState(1500, Set.of("s_basic", "s_astro"), Map.of("pt_jump1",3), "s_atro");
+        final SaveState originalState = new SaveState(1500, 5000, Set.of("s_basic", "s_astro"), Map.of("pt_jump1",3), "s_atro");
         saveManager.save(originalState);
 
         final Optional<SaveState> loadedState = saveManager.load();
         assertTrue(loadedState.isPresent());
 
         assertEquals(originalState.getCoins(), loadedState.get().getCoins());
+        assertEquals(originalState.getHighestScore(), loadedState.get().getHighestScore());
         assertEquals(originalState.getOwnedItems(), loadedState.get().getOwnedItems());
         assertEquals(originalState.getConsumables(), loadedState.get().getConsumables());
         assertEquals(originalState.getSelectedSkin(), loadedState.get().getSelectedSkin());

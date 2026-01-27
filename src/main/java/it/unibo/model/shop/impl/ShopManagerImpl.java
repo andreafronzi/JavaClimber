@@ -53,7 +53,7 @@ public class ShopManagerImpl implements ShopManager {
                     throw new IllegalStateException("Unknown item type: " + item.getType());
             }
 
-            SaveState currentState = new SaveState(scoreManager.getCoins(), inventory.getOwnedItems(), inventory.getConsumablesStatus(), inventory.getSelectedSkin().orElse(null));
+            SaveState currentState = new SaveState(scoreManager.getCoins(), scoreManager.getHighScore(), inventory.getOwnedItems(), inventory.getConsumablesStatus(), inventory.getSelectedSkin().orElse(null));
             storage.save(currentState);
             return true;
         }

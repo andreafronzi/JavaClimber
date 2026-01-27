@@ -9,12 +9,14 @@ import java.util.Set;
 public class SaveState {
 
     private final int coins;
+    private final int highestScore;
     private final Set<String> ownedItems;
     private final Map<String, Integer> consumables;
     private final String selectedSkin;
 
-    public SaveState(int coins, Set<String> ownedItems, Map<String, Integer> consumables, String selectedSkin) {
+    public SaveState(int coins, int highestScore, Set<String> ownedItems, Map<String, Integer> consumables, String selectedSkin) {
         this.coins = coins;
+        this.highestScore = highestScore;
         this.ownedItems = ownedItems;
         this.consumables = consumables;
         this.selectedSkin = selectedSkin;
@@ -26,6 +28,14 @@ public class SaveState {
      */
     public int getCoins() {
         return this.coins;
+    }
+
+    /**
+     * 
+     * @return the highest score of the player
+     */
+    public int getHighestScore() {
+        return this.highestScore;
     }
 
     /**
