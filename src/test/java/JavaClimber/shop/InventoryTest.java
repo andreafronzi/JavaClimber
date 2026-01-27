@@ -13,15 +13,24 @@ import org.junit.jupiter.api.Test;
 import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.shop.impl.InventoryImpl;
 
+/**
+ * Tests for {@link Inventory} interface.
+ */
 public class InventoryTest {
 
     private Inventory inventory;
 
+    /**
+     * Initializes inventory.
+     */
     @BeforeEach
     void setUp() {
         inventory = new InventoryImpl();
     }
 
+    /**
+     * Tests item addition and get owned.
+     */
     @Test
     void testAddAndHasItems() {
         inventory.addItem("skin_redAlien");
@@ -30,6 +39,9 @@ public class InventoryTest {
         assertEquals(1, inventory.getOwnedItems().size());
     }
 
+    /**
+     * Tests equipment and deselection logic for skin item.
+     */
     @Test
     void testSkinEquipment() {
         assertTrue(inventory.getSelectedSkin().isEmpty());
@@ -43,6 +55,9 @@ public class InventoryTest {
         assertTrue(inventory.getSelectedSkin().isEmpty());
     }
 
+    /**
+     * Tests the temporary power up, equipment and expiration.
+     */
     @Test
     void testConsumableAndDuration() {
         inventory.addConsumable("powerup_jump", 2);
@@ -55,6 +70,9 @@ public class InventoryTest {
         assertFalse(inventory.hasItem("powerup_jump"));
     }
 
+    /**
+     * Tests integrity and immutability of the map of consumables.
+     */
     @Test
     void testConsumableStatus() {
         inventory.addConsumable("potion_speed", 3);
@@ -75,6 +93,9 @@ public class InventoryTest {
         }, "The map cannot be modified from outside");
     }
 
+    /**
+     * Tests the behaviour of permanent power up that is different from temporary.
+     */
     @Test
     void testPermanentPowerUp() {
         String permUpgradeId = "permanent_speed_boost";
