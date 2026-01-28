@@ -71,17 +71,42 @@ public interface Inventory {
      */
     void loadState(SaveState state);
 
+    /**
+     * 
+     * @return the currenly selected jump level.
+     */
     int getSelectedJumpLevel();
 
+    /**
+     * Sets the jump level to use.
+     * @param level level of the jump to select
+     */
     void setSelectedJumpLevel(int level);
 
+    /**
+     * 
+     * @return the currenly selected speed level.
+     */
     int getSelectedSpeedLevel();
 
+    /**
+     * Sets the speed level to use.
+     * @param level level of the speed to select
+     */
     void setSelectedSpeedLevel(int level);
 
-
+    /**
+     * Toggle the activation status of temporary power ups.
+     * Deselect automatically previus items with the same type.
+     * @param itemId id of the item to toggle
+     * @param factory the factory to retrieve item type information
+     */
     void toggleConsumable(String itemId, ShopItemFactory factory);
 
+    /**
+     * 
+     * @return the Set of Id of currently active temporary power ups.
+     */
     Set<String> getActiveConsumables();
 
 }
