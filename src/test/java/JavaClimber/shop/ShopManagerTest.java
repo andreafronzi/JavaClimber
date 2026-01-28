@@ -57,7 +57,7 @@ public class ShopManagerTest {
         scoreManager.addCoins(1000);
         ShopItem skin = itemFactory.getItemById("s_astro").get();
         assertTrue(shopManager.buyItem(skin));
-        assertEquals(500, scoreManager.getCoins());
+        assertEquals(600, scoreManager.getCoins());
         assertTrue(shopManager.isAlreadyOwned(skin));
         assertEquals("s_astro", shopManager.getInventory().getSelectedSkin().get());
     }
@@ -71,7 +71,7 @@ public class ShopManagerTest {
         scoreManager.addCoins(500);
         ShopItem temp_pwr = itemFactory.getItemById("pt_jump1").get();
         assertTrue(shopManager.buyItem(temp_pwr));
-        assertEquals(450, scoreManager.getCoins());
+        assertEquals(550, scoreManager.getCoins());
         Integer duration = shopManager.getInventory().getConsumablesStatus().get("pt_jump1");
         assertNotNull(duration);
         assertEquals(3, duration);
@@ -88,13 +88,32 @@ public class ShopManagerTest {
     @Test
     void testSuccessfulPermanentPWRPurchase() {
         scoreManager.addCoins(1000);
-        ShopItem perm_pwr = itemFactory.getItemById("pp_speed1").get();
+        ShopItem perm_pwr = itemFactory.getItemById("pp_speed_1").get();
         assertTrue(shopManager.buyItem(perm_pwr));
-        assertEquals(500, scoreManager.getCoins());
+        assertEquals(800, scoreManager.getCoins());
         assertTrue(shopManager.isAlreadyOwned(perm_pwr));
-        assertTrue(shopManager.getInventory().getOwnedItems().contains("pp_speed1"));
-        assertFalse(shopManager.getInventory().getConsumablesStatus().containsKey("pp_speed1"));
-        assertTrue(shopManager.getInventory().getSelectedSkin().isEmpty());
+        assertTrue(shopManager.getInventory().getOwnedItems().contains("pp_speed_1"));
+        assertFalse(shopManager.getInventory().getConsumablesStatus().containsKey("pp_speed_1"));
+    }
+
+    /**
+     * Tests the correct sequential for permanent power up.
+     * Verifies that an higher level upgrade can't be purchased if the previus level isn't owned
+     */
+    @Test
+    void testSequentialPermanentUpgrade() {
+        scoreManager.addCoins(1000);
+        ShopItem speedLevel1 = itemFactory.getItemById("pp_speed_1").get();
+        ShopItem speedLevel2 = itemFactory.getItemById("pp_speed_2").get();
+
+        assertFalse(shopManager.canBuyItem(speedLevel2));
+        assertFalse(shopManager.buyItem(speedLevel2));
+
+        assertTrue(shopManager.buyItem(speedLevel1));
+        
+        assertTrue(shopManager.canBuyItem(speedLevel2));
+        assertTrue(shopManager.buyItem(speedLevel2));
+        assertEquals(300, scoreManager.getCoins());
     }
 
     /**
@@ -104,9 +123,9 @@ public class ShopManagerTest {
     @Test
     void testFailedPurchaseInsufficientCoins() {
         scoreManager.addCoins(10);
-        ShopItem item = itemFactory.getItemById("s_primitive").get();
+        ShopItem item = itemFactory.getItemById("s_astro").get();
         assertFalse(shopManager.buyItem(item));
-        assertEquals(10, scoreManager.getCoins());
+        assertEquals(110, scoreManager.getCoins());
         assertFalse(shopManager.isAlreadyOwned(item));
     }
 
@@ -141,7 +160,7 @@ public class ShopManagerTest {
         assertTrue(loadedState.isPresent());
         
         SaveState data = loadedState.get();
-        assertEquals(400, data.getCoins());
+        assertEquals(500, data.getCoins());
         assertTrue(data.getOwnedItems().contains("s_primitive"));
         assertEquals("s_primitive", data.getSelectedSkin());
     }

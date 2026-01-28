@@ -21,6 +21,18 @@ public class ShopItemTest {
     private final ShopItemFactory itemFactory = new ShopItemFactoryImpl();
 
     /**
+     * Verifies the separation of lists in the factory.
+     */
+    @Test
+    void testFactoryLists() {
+        assertEquals(4, itemFactory.getSkins().size());
+        assertEquals(3, itemFactory.getPowerUpsTemporary().size());
+        assertEquals(10, itemFactory.getPowerUpsPermanent().size());
+        
+        assertEquals(17, itemFactory.getAllItems().size());
+    }
+
+    /**
      * Verifies a skin item
      */
     @Test
@@ -63,12 +75,12 @@ public class ShopItemTest {
      */
     @Test
     void testPermanentPowerUpItem() {
-        Optional<ShopItem> permSpeed = itemFactory.getItemById("pp_speed1");
+        Optional<ShopItem> permSpeed = itemFactory.getItemById("pp_speed_2");
         assertTrue(permSpeed.isPresent());
         ShopItem item = permSpeed.get();
 
-        assertEquals("pp_speed1", item.getId());
-        assertEquals("Speed Boost 1", item.getName());
+        assertEquals("pp_speed_2", item.getId());
+        assertEquals("Speed Boost 2", item.getName());
         assertEquals(ShopItemType.PERMANENT_UPGRADE, item.getType());
         assertEquals("Permanent Speed boost", item.getDescription());
         assertEquals(500, item.getPrice());

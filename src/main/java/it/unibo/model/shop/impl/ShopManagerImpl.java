@@ -99,7 +99,8 @@ public class ShopManagerImpl implements ShopManager {
         }
         try {
             String prefix = id.substring(0, lastUnderscore + 1);
-            int level = Integer.parseInt(prefix);
+            String levelPart = id.substring(lastUnderscore + 1);
+            int level = Integer.parseInt(levelPart);
             if (level > 1) {
                 String prevLevel = prefix + (level - 1);
                 return inventory.hasItem(prevLevel);
