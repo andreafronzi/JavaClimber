@@ -14,9 +14,14 @@ public interface ShopItemFactory {
     List<ShopItem> getSkins();
 
     /**
-     * @return a list containing all the power-ups (temporary or permanent).
+     * @return a list containing all the temporary power-ups.
      */
-    List<ShopItem> getPowerUps();
+    List<ShopItem> getPowerUpsTemporary();
+
+    /**
+     * @return a list containing all the permanent power-ups.
+     */
+    List<ShopItem> getPowerUpsPermanent();
 
     /**
      * @return a list containing every single item in the shop.

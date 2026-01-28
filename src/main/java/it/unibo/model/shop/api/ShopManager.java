@@ -44,4 +44,23 @@ public interface ShopManager {
      * @return the player's {@link Inventory}
      */
     Inventory getInventory();
+
+    /**
+     * Get all skin items avaiable.
+     * 
+     * @return a list of skins in the catalog
+     */
+    List<ShopItem> getSkins();
+
+    /**
+     * Get all permanent power ups avaiable.
+     * @return a list of permanent power up
+     */
+    List<ShopItem> getPermanentUpgrades();
+
+    /**
+     * Get all temporary power ups avaiable.
+     * @return a list of temporary power up
+     */
+    List<ShopItem> getTemporaryUpgrades();
 }

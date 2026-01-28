@@ -30,7 +30,7 @@ public class ShopManagerImpl implements ShopManager {
 
     @Override
     public List<ShopItem> getCatalog() {
-        return itemFactory.getAllItems();
+        return this.itemFactory.getAllItems();
     }
 
     @Override
@@ -70,15 +70,59 @@ public class ShopManagerImpl implements ShopManager {
         boolean hasEnough = scoreManager.getCoins() >= item.getPrice();
 
         if (item.getType() == ShopItemType.SKIN || item.getType() == ShopItemType.PERMANENT_UPGRADE) {
-            return hasEnough && !isAlreadyOwned(item);
+            if (hasEnough && !isAlreadyOwned(item)) {
+                if (item.getType() == ShopItemType.PERMANENT_UPGRADE) {
+                    return checkSequentialPermanentUpgrade(item);
+                }
+                return true;
+            }
+            return false;
         }
-
         return hasEnough;
     }
 
     @Override
     public Inventory getInventory() {
         return this.inventory;
+    }
+
+    /**
+     * Check if we're following the right sequence of purchasing of progressive Id for permanent power ups.
+     * @param item the object to check
+     * @return true if the sequence is correct, false otherwise
+     */
+    private boolean checkSequentialPermanentUpgrade(ShopItem item) {
+        String id = item.getId();
+        int lastUnderscore = id.lastIndexOf("_");
+        if (lastUnderscore == -1) {
+            return true;
+        }
+        try {
+            String prefix = id.substring(0, lastUnderscore + 1);
+            int level = Integer.parseInt(prefix);
+            if (level > 1) {
+                String prevLevel = prefix + (level - 1);
+                return inventory.hasItem(prevLevel);
+            }
+        } catch (NumberFormatException e) {
+            return true;
+        }
+        return true;
+    }
+
+    @Override
+    public List<ShopItem> getSkins() {
+        return this.itemFactory.getSkins();
+    }
+
+    @Override
+    public List<ShopItem> getPermanentUpgrades() {
+        return this.itemFactory.getPowerUpsPermanent();
+    }
+
+    @Override
+    public List<ShopItem> getTemporaryUpgrades() {
+        return this.itemFactory.getPowerUpsTemporary();
     }
 
 }

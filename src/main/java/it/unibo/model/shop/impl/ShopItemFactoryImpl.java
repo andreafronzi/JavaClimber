@@ -13,11 +13,13 @@ import it.unibo.model.shop.api.ShopItemType;
 public class ShopItemFactoryImpl implements ShopItemFactory {
 
     private final List<ShopItem> skins;
-    private final List<ShopItem> powerUps;
+    private final List<ShopItem> powerUpsTemporary;
+    private final List<ShopItem> powerUpsPermanent;
 
     public ShopItemFactoryImpl() {
         this.skins = createSkins();
-        this.powerUps = createPowerUps();
+        this.powerUpsTemporary = createPowerUpsTemporary();
+        this.powerUpsPermanent = createPowerUpsPermanent();
     }
 
     private List<ShopItem> createSkins(){
@@ -29,14 +31,29 @@ public class ShopItemFactoryImpl implements ShopItemFactory {
         );
     }
 
-    private List<ShopItem> createPowerUps() {
+    private List<ShopItem> createPowerUpsTemporary() {
         return List.of(
+            /* PowerUp temporary */
             new PowerUpItemImpl("pt_jump1", "Power Jump 1", "Jump higher for 3 matches", 50, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.3), 3),
             new PowerUpItemImpl("pt_speed1", "Speed Boost 1", "Speed boost for 5 matches", 150, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.SPEED, 1.5), 5),
-            new PowerUpItemImpl("pt_coin_x1.5", "Coin Multiplier x1.5", "Coin multiplier for 10 matches", 300, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.COIN_MULTIPLIER, 1.5), 10),
+            new PowerUpItemImpl("pt_coin_x1.5", "Coin Multiplier x1.5", "Coin multiplier for 10 matches", 300, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.COIN_MULTIPLIER, 1.5), 10)
+        );
+    }
 
-            new PowerUpItemImpl("pp_speed1", "Speed Boost 1", "Permanent Speed boost", 500, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.SPEED, 1.3), 0),
-            new PowerUpItemImpl("pp_jump1", "Power Jump 1", "Permanent Jump higher", 600, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.2), 0)
+    private List<ShopItem> createPowerUpsPermanent() {
+        return List.of(
+            /* Speed PowerUp permanent */
+            new PowerUpItemImpl("pp_speed_1", "Speed Boost 1", "Permanent Speed boost", 300, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.SPEED, 1.1), 0),
+            new PowerUpItemImpl("pp_speed_2", "Speed Boost 2", "Permanent Speed boost", 500, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.SPEED, 1.3), 0),
+            new PowerUpItemImpl("pp_speed_3", "Speed Boost 3", "Permanent Speed boost", 600, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.SPEED, 1.4), 0),
+            new PowerUpItemImpl("pp_speed_4", "Speed Boost 4", "Permanent Speed boost", 700, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.SPEED, 1.5), 0),
+            new PowerUpItemImpl("pp_speed_5", "Speed Boost 5", "Permanent Speed boost", 1000, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.SPEED, 1.7), 0),
+            /* Jump PowerUp permanent */
+            new PowerUpItemImpl("pp_jump_1", "Power Jump 1", "Permanent Jump higher", 300, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.1), 0),
+            new PowerUpItemImpl("pp_jump_2", "Power Jump 2", "Permanent Jump higher", 500, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.3), 0),
+            new PowerUpItemImpl("pp_jump_3", "Power Jump 3", "Permanent Jump higher", 600, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.4), 0),
+            new PowerUpItemImpl("pp_jump_4", "Power Jump 4", "Permanent Jump higher", 700, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.5), 0),
+            new PowerUpItemImpl("pp_jump_5", "Power Jump 5", "Permanent Jump higher", 1000, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.7), 0)
         );
     }
 
@@ -46,13 +63,20 @@ public class ShopItemFactoryImpl implements ShopItemFactory {
     }
 
     @Override
-    public List<ShopItem> getPowerUps() {
-        return List.copyOf((this.powerUps));
+    public List<ShopItem> getPowerUpsTemporary() {
+        return List.copyOf((this.powerUpsTemporary));
+    }
+
+    @Override
+    public List<ShopItem> getPowerUpsPermanent() {
+        return List.copyOf((this.powerUpsPermanent));
     }
 
     @Override
     public List<ShopItem> getAllItems() {
-        return Stream.concat(skins.stream(), powerUps.stream()).toList();
+        return Stream.of(skins, powerUpsTemporary, powerUpsPermanent)
+                 .flatMap(List::stream)
+                 .toList();
     }
 
     @Override
