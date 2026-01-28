@@ -71,4 +71,17 @@ public interface Inventory {
      */
     void loadState(SaveState state);
 
+    int getSelectedJumpLevel();
+
+    void setSelectedJumpLevel(int level);
+
+    int getSelectedSpeedLevel();
+
+    void setSelectedSpeedLevel(int level);
+
+
+    void toggleConsumable(String itemId, ShopItemFactory factory);
+
+    Set<String> getActiveConsumables();
+
 }

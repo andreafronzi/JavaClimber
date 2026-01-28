@@ -32,7 +32,7 @@ public class ShopManagerTest {
     private ScoreManager scoreManager = new ScoreManagerImpl(100);
     private ShopItemFactory itemFactory = new ShopItemFactoryImpl();
     private SaveManager storage = new SaveManagerImpl(TEST_FILE);
-    private ShopManager shopManager = new ShopManagerImpl(itemFactory, new InventoryImpl(), scoreManager, storage);
+    private ShopManager shopManager = new ShopManagerImpl(itemFactory, new InventoryImpl(itemFactory), scoreManager, storage);
 
     /**
      * After tests delete the file if exist.

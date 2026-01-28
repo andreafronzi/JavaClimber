@@ -34,9 +34,17 @@ public class ShopItemFactoryImpl implements ShopItemFactory {
     private List<ShopItem> createPowerUpsTemporary() {
         return List.of(
             /* PowerUp temporary */
-            new PowerUpItemImpl("pt_jump1", "Power Jump 1", "Jump higher for 3 matches", 50, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.3), 3),
-            new PowerUpItemImpl("pt_speed1", "Speed Boost 1", "Speed boost for 5 matches", 150, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.SPEED, 1.5), 5),
-            new PowerUpItemImpl("pt_coin_x1.5", "Coin Multiplier x1.5", "Coin multiplier for 10 matches", 300, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.COIN_MULTIPLIER, 1.5), 10)
+            new PowerUpItemImpl("pt_jump1", "Power Jump 1", "Jump higher x1.3 for 3 matches", 50, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.3), 3),
+            new PowerUpItemImpl("pt_jump2", "Power Jump 2", "Jump higher x1.3 for 5 matches", 70, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.3), 5),
+            new PowerUpItemImpl("pt_jump3", "Power Jump 3", "Jump higher x1.5 for 5 matches", 150, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.5), 5),
+
+            new PowerUpItemImpl("pt_speed1", "Speed Boost 1", "Speed boost x1.3 for 5 matches", 100, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.SPEED, 1.3), 5),
+            new PowerUpItemImpl("pt_speed2", "Speed Boost 2", "Speed boost x1.3 for 7 matches", 150, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.SPEED, 1.3), 7),
+            new PowerUpItemImpl("pt_speed3", "Speed Boost 3", "Speed boost x1.5 for 7 matches", 350, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.SPEED, 1.5), 7),
+
+            new PowerUpItemImpl("pt_coin_1", "Coin Multiplier 1", "Coin multiplier x1.2 for 10 matches", 300, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.COIN_MULTIPLIER, 1.2), 3),
+            new PowerUpItemImpl("pt_coin_2", "Coin Multiplier 2", "Coin multiplier x1.3 for 5 matches", 350, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.COIN_MULTIPLIER, 1.3), 5),
+            new PowerUpItemImpl("pt_coin_3", "Coin Multiplier 3", "Coin multiplier x1.5 for 5 matches", 500, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.COIN_MULTIPLIER, 1.5), 5)
         );
     }
 
