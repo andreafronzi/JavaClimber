@@ -7,11 +7,17 @@ import it.unibo.controller.api.ShopController;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopManager;
 
+/**
+ * Implementation of {@link ShopController} interface.
+ */
 public class ShopControllerImpl implements ShopController {
 
     private final ShopManager shopManager;
     
-
+    /**
+     * Construct new ShopControllerImpl with specified shop manager.
+     * @param shopManager the model manager
+     */
     public ShopControllerImpl(final ShopManager shopManager) {
         this.shopManager = shopManager;
     }
@@ -48,6 +54,10 @@ public class ShopControllerImpl implements ShopController {
         throw new UnsupportedOperationException("Unimplemented method 'exit'");
     }
 
+    /**
+     * Identifies and attemps to purchase the next avaiable level for a specific type of permanent power ups.
+     * @param prefix the Id prefix for the power up type
+     */
     private void buyNextLevel(String prefix){
         shopManager.getPermanentUpgrades().stream()
                 .filter(item -> item.getId().startsWith(prefix))
