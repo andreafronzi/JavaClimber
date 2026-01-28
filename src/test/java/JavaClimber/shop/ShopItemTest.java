@@ -26,10 +26,10 @@ public class ShopItemTest {
     @Test
     void testFactoryLists() {
         assertEquals(4, itemFactory.getSkins().size());
-        assertEquals(3, itemFactory.getPowerUpsTemporary().size());
+        assertEquals(9, itemFactory.getPowerUpsTemporary().size());
         assertEquals(10, itemFactory.getPowerUpsPermanent().size());
         
-        assertEquals(17, itemFactory.getAllItems().size());
+        assertEquals(23, itemFactory.getAllItems().size());
     }
 
     /**
@@ -56,18 +56,18 @@ public class ShopItemTest {
      */
     @Test
     void testTemporaryPowerUpItem() {
-        Optional<ShopItem> coinPwr = itemFactory.getItemById("pt_coin_x1.5");    
+        Optional<ShopItem> coinPwr = itemFactory.getItemById("pt_coin_1");    
         assertTrue(coinPwr.isPresent());
         ShopItem item = coinPwr.get();
 
-        assertEquals("pt_coin_x1.5", item.getId());
-        assertEquals("Coin Multiplier x1.5", item.getName());
+        assertEquals("pt_coin_1", item.getId());
+        assertEquals("Coin Multiplier 1", item.getName());
         assertEquals(ShopItemType.TEMPORARY_UPGRADE, item.getType());
-        assertEquals("Coin multiplier for 10 matches", item.getDescription());
+        assertEquals("Coin multiplier x1.2 for 10 matches", item.getDescription());
         assertEquals(300, item.getPrice());
-        assertEquals(10, item.getInitialDuration());
+        assertEquals(3, item.getInitialDuration());
         assertTrue(item.getStats().containsKey(ShopItemStat.COIN_MULTIPLIER));
-        assertEquals(1.5, item.getStats().get(ShopItemStat.COIN_MULTIPLIER));
+        assertEquals(1.2, item.getStats().get(ShopItemStat.COIN_MULTIPLIER));
     }
 
     /**
