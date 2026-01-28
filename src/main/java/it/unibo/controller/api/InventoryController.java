@@ -1,5 +1,8 @@
 package it.unibo.controller.api;
 
+/**
+ * Controller interface for managing activation of power ups and skins.
+ */
 public interface InventoryController {
 
     /**
