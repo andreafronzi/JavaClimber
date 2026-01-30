@@ -14,6 +14,11 @@ public class AlienNormalPhysic implements AlienPhysic {
 
   private static final double GRAVITY = 50.0;
 
+  /**
+   * Constructs an instance of {@code AlienNormalPhysic}.
+   */
+  public AlienNormalPhysic() {}
+
   @Override
   public void update(final Alien alien, final double dt, final Boundary boundary) {
     moveAlien(alien, dt);
