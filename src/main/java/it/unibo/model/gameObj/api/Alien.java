@@ -33,7 +33,7 @@ public interface Alien {
    *
    * @return height of the Alien
    */
-  double getHeigth();
+  double getHeight();
 
   /**
    *
