@@ -6,7 +6,11 @@ import it.unibo.model.physics.api.AlienPhysic;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.AlienNormalPhysic;
 
-
+/**
+ * A concrete implementation of the {@link Alien} interface.
+ * This class represents an alien entity within the game, providing
+ * logic for its dimensions, speed, physic behavior, and position updates.
+ */
 public class AlienImpl extends GameObj implements Alien {
 
   /**
