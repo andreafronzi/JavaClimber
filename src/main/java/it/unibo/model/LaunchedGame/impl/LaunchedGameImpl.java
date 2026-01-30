@@ -1,8 +1,8 @@
-package it.unibo.model.menu.LaunchedGame.impl;
+package it.unibo.model.LaunchedGame.impl;
 
-import it.unibo.model.menu.LaunchedGame.api.BaseLaunchedState;
-import it.unibo.model.menu.LaunchedGame.api.LaunchedGame;
-import it.unibo.model.menu.LaunchedGame.api.StateOfLaunchedGame;
+import it.unibo.model.LaunchedGame.api.BaseLaunchedState;
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
+import it.unibo.model.LaunchedGame.api.StateOfLaunchedGame;
 
 public class LaunchedGameImpl implements LaunchedGame{
 

@@ -1,4 +1,4 @@
-package it.unibo.model.menu.LaunchedGame.api;
+package it.unibo.model.LaunchedGame.api;
 
 public abstract class BaseLaunchedState implements StateOfLaunchedGame {
 

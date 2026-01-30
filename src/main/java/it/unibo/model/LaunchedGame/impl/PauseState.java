@@ -1,6 +1,6 @@
-package it.unibo.model.menu.LaunchedGame.impl;
+package it.unibo.model.LaunchedGame.impl;
 
-import it.unibo.model.menu.LaunchedGame.api.*;
+import it.unibo.model.LaunchedGame.api.*;
 
 public class PauseState extends BaseLaunchedState {
 
