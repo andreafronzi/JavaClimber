@@ -43,16 +43,16 @@ public class AlienTest {
   @Test
   void testGetWidth() {
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGTH);
-    assertEquals(HEIGTH, alien.getHeigth(), EPSILON);
+    assertEquals(HEIGTH, alien.getHeight(), EPSILON);
   }
 
   /**
-   * Tests the {@link Alien#getHeigth()} method.
+   * Tests the {@link Alien#getHeight()} method.
    */
   @Test
   void testGetHeigth() {
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGTH);
-    assertEquals(HEIGTH, alien.getHeigth(), EPSILON);
+    assertEquals(HEIGTH, alien.getHeight(), EPSILON);
   }
 
   /**
