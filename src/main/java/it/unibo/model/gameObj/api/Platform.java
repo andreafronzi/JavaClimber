@@ -33,13 +33,14 @@ public interface Platform {
   double getHeight();
 
   /**
-   * 
+   *
    * @return width of the platform
    */
   double getWidth();
 
   /**
    * Platform's touch reaction.
+   *
    * @param boundary the boundary of the world
    */
   void onTouch(final Boundary boundary);
@@ -53,6 +54,7 @@ public interface Platform {
 
   /**
    * Update Platform's position. Computed position deals with elapsed time between two updates.
+   *
    * @param dt  the time interval between two updates
    * @param boundary the boundary of the world
    */
