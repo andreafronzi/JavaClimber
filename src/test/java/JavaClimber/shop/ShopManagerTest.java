@@ -59,7 +59,7 @@ public class ShopManagerTest {
         assertTrue(shopManager.buyItem(skin));
         assertEquals(600, scoreManager.getCoins());
         assertTrue(shopManager.isAlreadyOwned(skin));
-        assertEquals("s_astro", shopManager.getInventory().getSelectedSkin().get());
+        assertEquals("s_astro", shopManager.getInventory().getSelectedSkin());
     }
 
     /**
@@ -163,5 +163,7 @@ public class ShopManagerTest {
         assertEquals(500, data.getCoins());
         assertTrue(data.getOwnedItems().contains("s_primitive"));
         assertEquals("s_primitive", data.getSelectedSkin());
+        assertEquals(0, data.getSelectedJumpLevel());
+        assertEquals(0, data.getSelectedSpeedLevel());
     }
 }

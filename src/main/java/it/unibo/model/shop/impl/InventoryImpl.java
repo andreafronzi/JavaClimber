@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 import it.unibo.model.persistence.api.SaveState;
@@ -85,8 +84,8 @@ public class InventoryImpl implements Inventory {
     }
 
     @Override
-    public Optional<String> getSelectedSkin() {
-        return Optional.ofNullable(this.selectedSkin);
+    public String getSelectedSkin() {
+        return this.selectedSkin;
     }
 
     @Override
@@ -123,12 +122,12 @@ public class InventoryImpl implements Inventory {
         this.activeConsumables.clear();
         this.ownedItems.clear();
         this.consumables.clear();
-        this.selectedJumpLevel = 0;
-        this.selectedSpeedLevel = 0;
 
         this.ownedItems.addAll(state.getOwnedItems());
         this.consumables.putAll(state.getConsumables());
         this.ownedItems.add(DEFAULT_SKIN);
+        this.selectedJumpLevel = state.getSelectedJumpLevel();
+        this.selectedSpeedLevel = state.getSelectedSpeedLevel();
 
         if (state.getSelectedSkin() != null && !state.getSelectedSkin().isEmpty()) {
             this.selectedSkin = state.getSelectedSkin();

@@ -13,13 +13,17 @@ public class SaveState {
     private final Set<String> ownedItems;
     private final Map<String, Integer> consumables;
     private final String selectedSkin;
+    private final int selectedJumpLevel;
+    private final int selectedSpeedLevel;
 
-    public SaveState(int coins, int highestScore, Set<String> ownedItems, Map<String, Integer> consumables, String selectedSkin) {
+    public SaveState(int coins, int highestScore, Set<String> ownedItems, Map<String, Integer> consumables, String selectedSkin, int selectedJumpLevel, int selectedSpeedLevel) {
         this.coins = coins;
         this.highestScore = highestScore;
         this.ownedItems = ownedItems;
         this.consumables = consumables;
         this.selectedSkin = selectedSkin;
+        this.selectedJumpLevel = selectedJumpLevel;
+        this.selectedSpeedLevel = selectedSpeedLevel;
     }
 
     /**
@@ -56,10 +60,26 @@ public class SaveState {
 
     /**
      * 
-     * @return an Optional containing the selected skin ID, or empty if none is selected
+     * @return a String containing the selected skin ID.
      */
     public String getSelectedSkin() {
         return this.selectedSkin;
+    }
+
+    /**
+     * 
+     * @return a int containing the selected level of jump power level.
+     */
+    public int getSelectedJumpLevel() { 
+        return this.selectedJumpLevel; 
+    }
+
+    /**
+     * 
+     * @return a int containing the selected level of speed power level.
+     */
+    public int getSelectedSpeedLevel() {
+        return this.selectedSpeedLevel; 
     }
     
 }

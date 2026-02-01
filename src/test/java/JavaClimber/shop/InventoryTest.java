@@ -41,8 +41,7 @@ public class InventoryTest {
     @Test
     void testInitialization() {
         assertTrue(inventory.hasItem(DEFAULT_SKIN));
-        assertTrue(inventory.getSelectedSkin().isPresent());
-        assertEquals(DEFAULT_SKIN, inventory.getSelectedSkin().get());
+        assertEquals(DEFAULT_SKIN, inventory.getSelectedSkin());
     }
 
     /**
@@ -64,15 +63,13 @@ public class InventoryTest {
         inventory.addItem("s_astro");
         inventory.equipSkin("s_astro");
 
-        assertTrue(inventory.getSelectedSkin().isPresent());
-        assertEquals("s_astro", inventory.getSelectedSkin().get());
+        assertEquals("s_astro", inventory.getSelectedSkin());
 
         inventory.deselectSkin();
-        assertTrue(inventory.getSelectedSkin().isPresent());
-        assertEquals(DEFAULT_SKIN, inventory.getSelectedSkin().get());
+        assertEquals(DEFAULT_SKIN, inventory.getSelectedSkin());
 
         inventory.addItem("s_primitive");
-        assertEquals("s_primitive", inventory.getSelectedSkin().get());
+        assertEquals("s_primitive", inventory.getSelectedSkin());
     }
 
     /**
@@ -156,16 +153,15 @@ public class InventoryTest {
 
     @Test
     void testLoadSave() {
-        inventory.setSelectedJumpLevel(2);
-        SaveState state = new SaveState(0, 0, Set.of("s_astro"), Map.of("pp_speed1", 0), "s_astro");
+        SaveState state = new SaveState(0, 0, Set.of("s_astro"), Map.of("pp_speed1", 0), "s_astro", 4, 2);
         inventory.loadState(state);
 
         assertTrue(inventory.hasItem("s_astro"));
         assertTrue(inventory.hasItem(DEFAULT_SKIN));
-        assertEquals("s_astro", inventory.getSelectedSkin().get());
+        assertEquals("s_astro", inventory.getSelectedSkin());
         assertTrue(inventory.getConsumablesStatus().containsKey("pp_speed1"));
-        assertEquals(0, inventory.getSelectedJumpLevel());
-        assertEquals(0, inventory.getSelectedSpeedLevel());
+        assertEquals(4, inventory.getSelectedJumpLevel());
+        assertEquals(2, inventory.getSelectedSpeedLevel());
         assertTrue(inventory.getActiveConsumables().isEmpty());
     }
 

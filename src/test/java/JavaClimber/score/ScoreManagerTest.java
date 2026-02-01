@@ -35,7 +35,7 @@ public class ScoreManagerTest {
      */
     @Test
     void testInitialValuesAndLoad() {
-        SaveState state = new SaveState(1500, 5000, Set.of(), Map.of(), "skin_basic");
+        SaveState state = new SaveState(1500, 5000, Set.of(), Map.of(), "skin_basic", 3, 1);
         scoreManager.loadState(state);
 
         assertEquals(0, scoreManager.getCurrentScore());
@@ -86,7 +86,7 @@ public class ScoreManagerTest {
      */
     @Test
     void testHighScoreLogic() {
-        scoreManager.loadState(new SaveState(0, 100, Set.of(), Map.of(), "")); // Record vecchio: 100
+        scoreManager.loadState(new SaveState(0, 100, Set.of(), Map.of(), "", 4, 2));
         scoreManager.setStartY(600.0);
 
         scoreManager.updateScore(400.0);

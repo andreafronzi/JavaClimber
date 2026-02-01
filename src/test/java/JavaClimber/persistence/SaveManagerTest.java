@@ -39,7 +39,7 @@ public class SaveManagerTest {
      */
     @Test
     void testSaveAndLoad(){
-        final SaveState originalState = new SaveState(1500, 5000, Set.of("s_basic", "s_astro"), Map.of("pt_jump1",3), "s_atro");
+        final SaveState originalState = new SaveState(1500, 5000, Set.of("s_basic", "s_astro"), Map.of("pt_jump1",3), "s_atro", 2, 1);
         saveManager.save(originalState);
 
         final Optional<SaveState> loadedState = saveManager.load();
@@ -50,6 +50,8 @@ public class SaveManagerTest {
         assertEquals(originalState.getOwnedItems(), loadedState.get().getOwnedItems());
         assertEquals(originalState.getConsumables(), loadedState.get().getConsumables());
         assertEquals(originalState.getSelectedSkin(), loadedState.get().getSelectedSkin());
+        assertEquals(originalState.getSelectedJumpLevel(), loadedState.get().getSelectedJumpLevel());
+        assertEquals(originalState.getSelectedSpeedLevel(), loadedState.get().getSelectedSpeedLevel());
     }
 
     /**

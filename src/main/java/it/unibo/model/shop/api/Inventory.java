@@ -1,7 +1,6 @@
 package it.unibo.model.shop.api;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 import it.unibo.model.persistence.api.SaveState;
@@ -43,9 +42,9 @@ public interface Inventory {
 
     /**
      * Get the currently selected skin, if any.
-     * @return an Optional containing the selected skin ID, or empty if none is selected
+     * @return a string with the selected skin ID, or default skin if none is selected
      */
-    Optional<String> getSelectedSkin();
+    String getSelectedSkin();
 
     /**
      * Add a consumable item with its duration in matches.
