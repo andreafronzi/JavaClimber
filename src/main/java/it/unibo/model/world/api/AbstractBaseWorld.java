@@ -2,12 +2,12 @@ package it.unibo.model.world.api;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
-import it.unibo.model.world.Gadjet;
+import it.unibo.model.world.Gadget;
 import it.unibo.model.world.Money;
 import it.unibo.model.world.Monster;
 import it.unibo.model.gameObj.api.Platform;
-import it.unibo.model.world.PowerUp;
 import it.unibo.model.world.Trap;
 
 public abstract class AbstractBaseWorld implements BaseWorld {
@@ -15,8 +15,7 @@ public abstract class AbstractBaseWorld implements BaseWorld {
     private List<Platform> platforms;
     private List<Money> moneys;
     private List<Monster> monsters;
-    private List<Gadjet> gadgets;
-    private List<PowerUp> powerUps;
+    private List<Gadget> gadgets;
     private List<Trap> traps;
 
     public AbstractBaseWorld() {
@@ -24,12 +23,11 @@ public abstract class AbstractBaseWorld implements BaseWorld {
         this.moneys = new LinkedList<>();
         this.gadgets = new LinkedList<>();
         this.monsters = new LinkedList<>();
-        this.powerUps = new LinkedList<>();
         this.traps = new LinkedList<>();
     }
 
     @Override
-    public boolean addGadgets(final Gadjet gadget) {
+    public boolean addGadget(final Gadget gadget) {
         if (this.gadgets.add(gadget)) {
             return true;
         } else {
@@ -64,7 +62,7 @@ public abstract class AbstractBaseWorld implements BaseWorld {
         }
     }
 
-        @Override
+    @Override
     public boolean addTrap(final Trap trap) {
         if (this.traps.add(trap)) {
             return true;
@@ -73,72 +71,69 @@ public abstract class AbstractBaseWorld implements BaseWorld {
         }
     }
 
-        @Override
-    public boolean addPowerUp(final PowerUp powerUp) {
-        if (this.powerUps.add(powerUp)) {
-            return true;
-        } else {
-            return false;
+    @Override
+    public Optional<Gadget> removeGadget() {
+        if (!this.gadgets.isEmpty()) {
+            return Optional.of(this.gadgets.remove(0));
         }
+        return Optional.empty();
     }
 
     @Override
-    public List<Gadjet> getGadgets() {
-        return this.gadgets;
+    public Optional<Money> removeMoney() {
+        if (!this.moneys.isEmpty()) {
+            return Optional.of(this.moneys.remove(0));
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Monster> removeMonster() {
+        if (!this.monsters.isEmpty()) {
+            return Optional.of(this.monsters.remove(0));
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Platform> removePlatform() {
+        if (!this.platforms.isEmpty()) {
+            return Optional.of(this.platforms.remove(0));
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Trap> removeTrap() {
+        if (!this.traps.isEmpty()) {
+            return Optional.of(this.traps.remove(0));
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public List<Gadget> getGadgets() {
+        return List.copyOf(this.gadgets);
     }
 
     @Override
     public List<Money> getMoneys() {
-        return this.moneys;
+        return List.copyOf(this.moneys);
     }
 
     @Override
     public List<Monster> getMonsters() {
-        return this.monsters;
+        return List.copyOf(this.monsters);
     }
 
     @Override
     public List<Platform> getPlatforms() {
-        return this.platforms;
+        return List.copyOf(this.platforms);
     }
 
     @Override
     public List<Trap> getTraps() {
-        return this.traps;
+        return List.copyOf(this.traps);
     }
 
-    @Override
-    public List<PowerUp> getPowerUps() {
-        return this.powerUps;
-    }
-
-    @Override
-    public void setGadgets(final List<Gadjet> gadgets) {
-        this.gadgets = gadgets;
-    }
-
-    @Override
-    public void setMoneys(final List<Money> moneys) {
-        this.moneys = moneys;
-    }
-
-    @Override
-    public void setMonsters(final List<Monster> monsters) {
-        this.monsters = monsters;
-    }
-
-    @Override
-    public void setPlatforms(final List<Platform> platforms) {
-        this.platforms = platforms;
-    }
-
-    @Override
-    public void setTraps(final List<Trap> traps) {
-        this.traps = traps;
-    }
-
-    @Override
-    public void setPowerUps(final List<PowerUp> powerUps) {
-        this.powerUps = powerUps;
-    }
 }
