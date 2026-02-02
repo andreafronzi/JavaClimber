@@ -1,6 +1,6 @@
-package it.unibo.model.World.impl;
+package it.unibo.model.world.impl;
 
-import it.unibo.model.World.api.AbstractBaseWorld;
+import it.unibo.model.world.api.AbstractBaseWorld;
 
 public class RealWorld extends AbstractBaseWorld {
 

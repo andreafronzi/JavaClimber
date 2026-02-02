@@ -1,14 +1,14 @@
-package it.unibo.model.World.api;
+package it.unibo.model.world.api;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import it.unibo.model.World.Gadjet;
-import it.unibo.model.World.Money;
-import it.unibo.model.World.Monster;
-import it.unibo.model.World.Platform;
-import it.unibo.model.World.Trap;
-import it.unibo.model.World.PowerUp;
+import it.unibo.model.world.Gadjet;
+import it.unibo.model.world.Money;
+import it.unibo.model.world.Monster;
+import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.world.PowerUp;
+import it.unibo.model.world.Trap;
 
 public abstract class AbstractBaseWorld implements BaseWorld {
 

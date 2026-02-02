@@ -1,4 +1,4 @@
-package it.unibo.model.World.impl;
+package it.unibo.model.world.impl;
 
 public class World {
     
