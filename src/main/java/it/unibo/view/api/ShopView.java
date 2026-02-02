@@ -15,5 +15,7 @@ public interface ShopView {
 
     void updateItems(List<ShopItem> skins, List<ShopItem> permUpgrades, List<ShopItem> tempUpgrades);
 
+    void showMessage(String message);
+
     void close();
 }
