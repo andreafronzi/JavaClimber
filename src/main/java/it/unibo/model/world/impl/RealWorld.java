@@ -1,6 +1,7 @@
 package it.unibo.model.world.impl;
 
 import it.unibo.model.world.api.AbstractBaseWorld;
+import it.unibo.model.world.Player;
 
 public class RealWorld extends AbstractBaseWorld {
 
