@@ -1,5 +1,7 @@
 package it.unibo.controller.api;
 
+import it.unibo.model.shop.api.ShopItem;
+
 /**
  * Controller for managing shop transaction and upgrades.
  */
@@ -26,6 +28,13 @@ public interface ShopController {
      * @param index the position of the skin in the skins list
      */
     void buySkin(int index);
+
+    /**
+     * Checks if an item is already owned by the player.
+     * @param item the item to check
+     * @return true if owned, false otherwise
+     */
+    boolean isOwned(ShopItem item);
 
     /**
      * Exit from the Shop and back to the Menù.

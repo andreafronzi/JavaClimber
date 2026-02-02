@@ -49,6 +49,11 @@ public class ShopControllerImpl implements ShopController {
     }
 
     @Override
+    public boolean isOwned(ShopItem item) {
+        return shopManager.isAlreadyOwned(item);
+    }
+
+    @Override
     public void exit() {
         // TODO Auto-generated method stub(back to menu)
         throw new UnsupportedOperationException("Unimplemented method 'exit'");
