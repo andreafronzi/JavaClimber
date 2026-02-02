@@ -4,8 +4,8 @@ import it.unibo.model.physics.api.Vector2d;
 
 public interface Pair<X> {
     
-    public Vector2d getPosition();
+    public double getChance();
 
-    public X getGameObj();
+    public X createGameObj(final Vector2d pos);
     
 }
