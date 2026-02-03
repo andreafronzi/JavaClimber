@@ -2,8 +2,8 @@ package JavaClimber.GameObj;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.model.PlatformBuilder.api.PlatformBuilder;
-import it.unibo.model.PlatformBuilder.impl.PlatformBuilderImpl;
+import it.unibo.model.gameObj.PlatformBuilder.api.PlatformBuilder;
+import it.unibo.model.gameObj.PlatformBuilder.impl.PlatformBuilderImpl;
 import it.unibo.model.physics.api.MovementBehaviour;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.HorizontalMovementBehavior;
@@ -24,7 +24,7 @@ public class PlatformsTest {
     private static final double Y = 20;
 
     private static final double NEW_X = 20;
-    
+
     private static final double WIDTH = 50;
     private static final double HEIGHT = 15;
 
@@ -42,7 +42,7 @@ public class PlatformsTest {
     public void generatePlatformsTest() {
         final Vector2d position = new Vector2dImpl(X, Y);
         final PlatformBuilder platformBuilder = new PlatformBuilderImpl();
-        
+
         final Platform platform = platformBuilder
                 .at(position)
                 .size(WIDTH, HEIGHT)
