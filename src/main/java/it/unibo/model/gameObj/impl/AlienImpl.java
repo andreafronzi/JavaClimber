@@ -2,9 +2,9 @@ package it.unibo.model.gameObj.impl;
 
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.GameObj;
-import it.unibo.model.physics.api.AlienPhysic;
+import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
+import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.api.Vector2d;
-import it.unibo.model.physics.impl.AlienNormalPhysic;
 
 /**
  * A concrete implementation of the {@link Alien} interface.
