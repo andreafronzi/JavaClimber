@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.model.gameObj.PlatformBuilder.api.PlatformBuilder;
 import it.unibo.model.gameObj.PlatformBuilder.impl.PlatformBuilderImpl;
-import it.unibo.model.physics.api.MovementBehaviour;
 import it.unibo.model.physics.api.Vector2d;
-import it.unibo.model.physics.impl.HorizontalMovementBehavior;
 import it.unibo.model.physics.impl.Vector2dImpl;
+import it.unibo.model.physics.platformPhysic.api.MovementBehaviour;
+import it.unibo.model.physics.platformPhysic.impl.HorizontalMovementBehavior;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.Boundary;
 
