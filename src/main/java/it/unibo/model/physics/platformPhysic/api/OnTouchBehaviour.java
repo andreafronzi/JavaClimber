@@ -1,6 +1,7 @@
-package it.unibo.model.physics.api;
+package it.unibo.model.physics.platformPhysic.api;
 
 import it.unibo.model.gameObj.impl.Boundary;
+import it.unibo.model.physics.api.Vector2d;
 
 /**
  * Interface representing Platform's touch reaction.

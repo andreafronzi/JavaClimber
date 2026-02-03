@@ -1,9 +1,9 @@
 package it.unibo.model.gameObj.PlatformBuilder.api;
 
 import it.unibo.model.gameObj.api.Platform;
-import it.unibo.model.physics.api.MovementBehaviour;
-import it.unibo.model.physics.api.OnTouchBehaviour;
 import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.physics.platformPhysic.api.MovementBehaviour;
+import it.unibo.model.physics.platformPhysic.api.OnTouchBehaviour;
 
 /**
  * Builder interface for creating {@link Platform} with specific attributes.

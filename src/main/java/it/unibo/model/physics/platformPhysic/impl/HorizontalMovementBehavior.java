@@ -1,8 +1,8 @@
-package it.unibo.model.physics.impl;
+package it.unibo.model.physics.platformPhysic.impl;
 
 import it.unibo.model.gameObj.impl.Boundary;
-import it.unibo.model.physics.api.MovementBehaviour;
 import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.physics.platformPhysic.api.MovementBehaviour;
 
 /**
  * Defines horizontal movement behavior for game objects.

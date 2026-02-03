@@ -1,4 +1,4 @@
-package it.unibo.model.physics.api;
+package it.unibo.model.physics.alienPhysic.api;
 
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.impl.Boundary;

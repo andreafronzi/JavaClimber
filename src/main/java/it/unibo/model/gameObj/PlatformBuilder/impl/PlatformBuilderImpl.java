@@ -3,9 +3,9 @@ package it.unibo.model.gameObj.PlatformBuilder.impl;
 import it.unibo.model.gameObj.PlatformBuilder.api.PlatformBuilder;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.PlatformImpl;
-import it.unibo.model.physics.api.MovementBehaviour;
-import it.unibo.model.physics.api.OnTouchBehaviour;
 import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.physics.platformPhysic.api.MovementBehaviour;
+import it.unibo.model.physics.platformPhysic.api.OnTouchBehaviour;
 
 import java.util.Optional;
 
@@ -13,7 +13,7 @@ import java.util.Optional;
  * Implementation of the {@link PlatformBuilder} interface for building {@link Platform} objects.
  */
 public class PlatformBuilderImpl implements PlatformBuilder {
-  
+
   private Vector2d position;
 
   private double width;

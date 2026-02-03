@@ -2,9 +2,9 @@ package it.unibo.model.gameObj.impl;
 
 import it.unibo.model.gameObj.api.GameObj;
 import it.unibo.model.gameObj.api.Platform;
-import it.unibo.model.physics.api.MovementBehaviour;
-import it.unibo.model.physics.api.OnTouchBehaviour;
 import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.physics.platformPhysic.api.MovementBehaviour;
+import it.unibo.model.physics.platformPhysic.api.OnTouchBehaviour;
 
 import java.util.Optional;
 
