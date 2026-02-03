@@ -14,16 +14,6 @@ import it.unibo.model.physics.impl.AlienNormalPhysic;
 public class AlienImpl extends GameObj implements Alien {
 
   /**
-   * The width of the Alien.
-   */
-  private final double width;
-
-  /**
-   * The height of the Alien.
-   */
-  private final double height;
-
-  /**
    * The two-dimensional speed of the Alien.
    */
   private final Vector2d speed;
@@ -37,28 +27,17 @@ public class AlienImpl extends GameObj implements Alien {
    * Constructs a new Alien with the specified two-dimensional position, null speed, and specified width and height.
    */
   public AlienImpl(final Vector2d position, final Vector2d speed, final double width, final double height) {
-    super(position);
+    super(height, width, position);
     this.speed = speed;
-    this.width = width;
-    this.height = height;
     this.physic = new AlienNormalPhysic();
 
   }
-
   @Override
-  public double getWidth() {
-    return this.width;
-  }
-
-  @Override
-  public double getHeight() {
-    return this.height;
-  }
-
   public double getSpeedX() {
     return this.speed.getX();
   }
 
+  @Override
   public double getSpeedY() {
     return this.speed.getY();
   }
