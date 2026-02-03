@@ -13,7 +13,9 @@ import it.unibo.model.gameObj.impl.Boundary;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
+/**
+ * Test class for Platform game object.
+ */
 public class PlatformsTest {
 
     private static final double EPSILON = 0.001;
@@ -52,6 +54,9 @@ public class PlatformsTest {
         assertEquals(Y, platform.getPosY(), EPSILON);
     }
 
+    /**
+     * Tests the {@link Platform#updatePosition(Vector2d)} method.
+     */
     @Test
     public void testUpdatePosition() {
         final Vector2d position = new Vector2dImpl(X, Y);
@@ -70,8 +75,11 @@ public class PlatformsTest {
         assertEquals(NEW_X, platform.getPosX(), EPSILON);
         assertEquals(Y, platform.getPosY(), EPSILON);
     }
-
-    @Test void updatePositionWithoutMovementBehaviourTest() {
+    /**
+     * Tests the {@link Platform#updatePosition(Vector2d)} method without movement behaviour.
+     */
+    @Test
+    void updatePositionWithoutMovementBehaviourTest() {
         final Vector2d position = new Vector2dImpl(X, Y);
         final Boundary boundary = new Boundary(X0, X1);
 
