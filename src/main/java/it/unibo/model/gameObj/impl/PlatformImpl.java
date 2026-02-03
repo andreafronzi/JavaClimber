@@ -9,8 +9,6 @@ import it.unibo.model.physics.api.Vector2d;
 import java.util.Optional;
 
 public class PlatformImpl extends GameObj implements Platform {
-  private final double width;
-  private final double height;
 
   private final Optional<MovementBehaviour> movementBehaviour;
   private final Optional<OnTouchBehaviour> onTouchBehaviour;
@@ -30,36 +28,19 @@ public class PlatformImpl extends GameObj implements Platform {
     final Optional<MovementBehaviour> movementBehaviour,
     final Optional<OnTouchBehaviour> onTouchBehaviour)
   {
-    super(position);
-    this.width = width;
-    this.height = height;
+    super(height, width, position);
     this.movementBehaviour = movementBehaviour;
     this.onTouchBehaviour = onTouchBehaviour;
   }
 
   @Override
-  public boolean containsGadget() {
-    return false;
-  }
-  
-  @Override
-  public double getHeight() {
-    return this.height;
-  }
-  
-  @Override
-  public double getWidth() {
-    return this.width;
-  }
-
-  @Override
   public void onTouch(final Boundary boundary) {
-    this.onTouchBehaviour.ifPresent(otb -> otb.onTouch(this.position, this.width, this.height, boundary));
+    this.onTouchBehaviour.ifPresent(otb -> otb.onTouch(this.position, super.getWidth(), super.getHeight(), boundary));
   }
 
   @Override
   public void updatePosition(final double dt, final Boundary boundary) {
-    this.movementBehaviour.ifPresent(mb -> mb.updatePosition(this.position, this.width, this.height, dt, boundary));
+    this.movementBehaviour.ifPresent(mb -> mb.updatePosition(this.position, super.getHeight(), super.getHeight(), dt, boundary));
   }
 
 }
