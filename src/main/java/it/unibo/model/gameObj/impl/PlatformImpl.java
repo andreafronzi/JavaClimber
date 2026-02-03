@@ -13,7 +13,6 @@ public class PlatformImpl extends GameObj implements Platform {
   private final Optional<MovementBehaviour> movementBehaviour;
   private final Optional<OnTouchBehaviour> onTouchBehaviour;
 
-
   /**
    * Constructs a new GameObj with the specified two-dimensional position.
    *
