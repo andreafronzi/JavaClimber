@@ -30,7 +30,7 @@ public class AlienNormalPhysic implements AlienPhysic {
    * @param alien the alien to update
    * @param dt the time step
    */
-  private void moveAlien(final Alien alien, double dt) {
+  private void moveAlien(final Alien alien, final double dt) {
     double speedY = alien.getSpeedY();
 
     final double newVelY = speedY + (GRAVITY * dt);
