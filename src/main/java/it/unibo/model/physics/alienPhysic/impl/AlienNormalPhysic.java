@@ -21,7 +21,8 @@ public class AlienNormalPhysic extends TemplatePhysic implements AlienPhysic {
   public AlienNormalPhysic() {}
 
   /**
-   * Update alien position and speed.
+   * Update alien position and speed applying gravity.
+   *
    * @param alien the alien to update
    * @param dt the time step
    */
