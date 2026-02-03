@@ -1,7 +1,7 @@
 package it.unibo.model.gameObj.api;
 
 import it.unibo.model.gameObj.impl.Boundary;
-import it.unibo.model.physics.api.AlienPhysic;
+import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.api.Vector2d;
 
 /**
