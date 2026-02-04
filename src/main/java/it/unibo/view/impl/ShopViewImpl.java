@@ -1,5 +1,6 @@
 package it.unibo.view.impl;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.*;
@@ -77,7 +78,10 @@ public class ShopViewImpl implements ShopView {
     private JPanel createSkinWidget(ShopItem item, int index) {
         JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
-        card.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        card.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(Color.GRAY),
+            BorderFactory.createEmptyBorder(10, 10, 10, 10)
+        ));
         card.setMaximumSize(new Dimension(280, 250));
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -114,6 +118,79 @@ public class ShopViewImpl implements ShopView {
         return card;  
     }
 
+    private JPanel createPermanentWidget(String title, String prefix, List<ShopItem> items) {
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        container.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(Color.GRAY),
+            BorderFactory.createEmptyBorder(10, 10, 10, 10)
+        ));
+    
+        container.setMaximumSize(new Dimension(300, 250));
+        container.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel titleLabel = new JLabel(title);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        int currentLevel = controller.getCurrentLevel(prefix);
+
+        List<ShopItem> categoryItems = items.stream()
+                .filter(i -> i.getId().startsWith(prefix))
+                .sorted(Comparator.comparing(ShopItem::getId))
+                .toList();
+        int maxLevel = categoryItems.size();
+
+        JProgressBar progressBar = new JProgressBar(0, maxLevel);
+        progressBar.setValue(currentLevel);
+        progressBar.setStringPainted(true);
+        progressBar.setString("Level " + currentLevel + "/" + maxLevel);
+        progressBar.setMaximumSize(new Dimension(250, 25));
+        progressBar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        
+        container.add(titleLabel);
+        container.add(Box.createVerticalStrut(20));
+        container.add(progressBar);
+        container.add(Box.createVerticalStrut(20));
+
+        ShopItem nextItem = categoryItems.stream()
+                .filter(i -> !controller.isOwned(i))
+                .findFirst()
+                .orElse(null);
+
+        if (nextItem != null) {
+            JLabel nextname = new JLabel("Next: " + nextItem.getName());
+            nextname.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JLabel nextDesc = new JLabel(nextItem.getDescription());
+            nextDesc.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JLabel price = new JLabel("Cost: " + nextItem.getPrice() + "$");
+            price.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JButton upgradeButton = new JButton("UPGRADE");
+            upgradeButton.addActionListener(e -> {
+                if (prefix.contains("jump")) {
+                    controller.upgradeJump();
+                } else {
+                    controller.upgradeSpeed();
+                }
+            });
+            upgradeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            container.add(nextname);
+            container.add(Box.createVerticalStrut(10));
+            container.add(nextDesc);
+            container.add(Box.createVerticalStrut(10));
+            container.add(price);
+            container.add(Box.createVerticalGlue());
+            container.add(upgradeButton);
+        } else {
+            JLabel maxReachedLabel = new JLabel("MAX LEVEL REACHED");
+            maxReachedLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            container.add(maxReachedLabel);
+        }
+        return container;
+    }
+
     @Override
     public void display() {
         this.frame.setVisible(true);
@@ -132,6 +209,11 @@ public class ShopViewImpl implements ShopView {
             skinsPanel.add(Box.createVerticalStrut(10));
             skinsPanel.add(createSkinWidget(skins.get(i), i));
         }
+
+        permPanel.add(Box.createVerticalStrut(10));
+        permPanel.add(createPermanentWidget("JUMP HEIGHT", "pp_jump", permUpgrades));
+        permPanel.add(Box.createVerticalStrut(30));
+        permPanel.add(createPermanentWidget("SPEED BOOST", "pp_speed", permUpgrades));
 
         skinsPanel.revalidate();
         skinsPanel.repaint();
@@ -154,8 +236,33 @@ public class ShopViewImpl implements ShopView {
             public void upgradeSpeed() {}
             public void buyTemporaryItem(int i) {}
             public void buySkin(int i) {}
-            public boolean isOwned(ShopItem item) { return item.getName().contains("Sportive"); }
             public void exit() { System.exit(0); }
+         
+            public boolean isOwned(ShopItem item) {
+                String itemId = item.getId();
+                //TEST: per jump simuliamo di averli tutti
+                if (itemId.startsWith("pp_jump")) {
+                    return true; 
+                }
+                //per la velocità posseduti solo livello 1 e 2
+                if (itemId.startsWith("pp_speed")) {
+                    return itemId.endsWith("_1") || itemId.endsWith("_2");
+                }
+                //Per le skin contenuta solo quella sportive
+                return item.getName().contains("Sportive");
+            }
+
+            public int getCurrentLevel(String prefix) {
+            // TEST: Se è salto, restituiamo 5(massimo); se è speed restituiamo 2 altrimenti 0
+                if (prefix.equals("pp_jump")) {
+                    return 5; 
+                }
+                if (prefix.equals("pp_speed")) {
+                    return 2; 
+                }
+                return 0;
+            }
+        
         };
 
         ShopViewImpl view = new ShopViewImpl(mockController);

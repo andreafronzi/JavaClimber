@@ -54,6 +54,14 @@ public class ShopControllerImpl implements ShopController {
     }
 
     @Override
+    public int getCurrentLevel(String prefix) {
+        return (int) shopManager.getPermanentUpgrades().stream()
+                .filter(item -> item.getId().startsWith(prefix))
+                .filter(shopManager::isAlreadyOwned)
+                .count();
+    }
+
+    @Override
     public void exit() {
         // TODO Auto-generated method stub(back to menu)
         throw new UnsupportedOperationException("Unimplemented method 'exit'");

@@ -36,6 +36,8 @@ public interface ShopController {
      */
     boolean isOwned(ShopItem item);
 
+    int getCurrentLevel(String prefix);
+    
     /**
      * Exit from the Shop and back to the Menù.
      */

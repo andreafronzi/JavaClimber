@@ -51,17 +51,17 @@ public class ShopItemFactoryImpl implements ShopItemFactory {
     private List<ShopItem> createPowerUpsPermanent() {
         return List.of(
             /* Speed PowerUp permanent */
-            new PowerUpItemImpl("pp_speed_1", "Speed Boost 1", "Permanent Speed boost", 300, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.SPEED, 1.1), 0),
-            new PowerUpItemImpl("pp_speed_2", "Speed Boost 2", "Permanent Speed boost", 500, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.SPEED, 1.3), 0),
-            new PowerUpItemImpl("pp_speed_3", "Speed Boost 3", "Permanent Speed boost", 600, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.SPEED, 1.4), 0),
-            new PowerUpItemImpl("pp_speed_4", "Speed Boost 4", "Permanent Speed boost", 700, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.SPEED, 1.5), 0),
-            new PowerUpItemImpl("pp_speed_5", "Speed Boost 5", "Permanent Speed boost", 1000, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.SPEED, 1.7), 0),
+            new PowerUpItemImpl("pp_speed_1", "Speed Boost 1", "Permanent Speed boost 1.1", 300, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.SPEED, 1.1), 0),
+            new PowerUpItemImpl("pp_speed_2", "Speed Boost 2", "Permanent Speed boost 1.3", 500, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.SPEED, 1.3), 0),
+            new PowerUpItemImpl("pp_speed_3", "Speed Boost 3", "Permanent Speed boost 1.4", 600, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.SPEED, 1.4), 0),
+            new PowerUpItemImpl("pp_speed_4", "Speed Boost 4", "Permanent Speed boost 1.5", 700, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.SPEED, 1.5), 0),
+            new PowerUpItemImpl("pp_speed_5", "Speed Boost 5", "Permanent Speed boost 1.7", 1000, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.SPEED, 1.7), 0),
             /* Jump PowerUp permanent */
-            new PowerUpItemImpl("pp_jump_1", "Power Jump 1", "Permanent Jump higher", 300, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.1), 0),
-            new PowerUpItemImpl("pp_jump_2", "Power Jump 2", "Permanent Jump higher", 500, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.3), 0),
-            new PowerUpItemImpl("pp_jump_3", "Power Jump 3", "Permanent Jump higher", 600, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.4), 0),
-            new PowerUpItemImpl("pp_jump_4", "Power Jump 4", "Permanent Jump higher", 700, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.5), 0),
-            new PowerUpItemImpl("pp_jump_5", "Power Jump 5", "Permanent Jump higher", 1000, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.7), 0)
+            new PowerUpItemImpl("pp_jump_1", "Power Jump 1", "Permanent Jump higher 1.1", 300, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.1), 0),
+            new PowerUpItemImpl("pp_jump_2", "Power Jump 2", "Permanent Jump higher 1.3", 500, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.3), 0),
+            new PowerUpItemImpl("pp_jump_3", "Power Jump 3", "Permanent Jump higher 1.4", 600, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.4), 0),
+            new PowerUpItemImpl("pp_jump_4", "Power Jump 4", "Permanent Jump higher 1.5", 700, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.5), 0),
+            new PowerUpItemImpl("pp_jump_5", "Power Jump 5", "Permanent Jump higher 1.7", 1000, ShopItemType.PERMANENT_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.7), 0)
         );
     }
 
