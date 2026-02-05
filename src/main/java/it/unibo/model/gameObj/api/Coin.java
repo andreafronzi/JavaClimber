@@ -1,6 +1,6 @@
 package it.unibo.model.gameObj.api;
 
-public interface Coin extends GameObject {
+public interface Coin extends StaticEntity {
 
   /**
    * Collects the coin within the game environment.
