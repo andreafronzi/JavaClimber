@@ -6,7 +6,7 @@ import it.unibo.model.physics.api.Vector2d;
 /**
  * Represents a Platform entity in a two-dimensional game environment.
  */
-public interface Platform extends GameObject{
+public interface Platform extends StaticEntity {
 
   /**
    * Platform's touch reaction.
