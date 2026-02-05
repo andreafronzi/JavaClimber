@@ -62,6 +62,12 @@ public class ShopControllerImpl implements ShopController {
     }
 
     @Override
+    public void openInventory() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'openInventory'");
+    }
+
+    @Override
     public void exit() {
         // TODO Auto-generated method stub(back to menu)
         throw new UnsupportedOperationException("Unimplemented method 'exit'");

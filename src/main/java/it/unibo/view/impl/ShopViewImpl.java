@@ -36,18 +36,22 @@ public class ShopViewImpl implements ShopView {
     private void initialize() {
         this.frame.setLayout(new BorderLayout());
 
-        //parte superiore COINS+EXIT
+        //parte superiore COINS+INVENTORY+EXIT
         final JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         
         this.coinsLabel = new JLabel("Coins: 0");
         this.coinsLabel.setFont(new Font("Arial", Font.BOLD, 16));
         
+        final JButton inventoryButton = new JButton("INVENTORY");
+        inventoryButton.addActionListener(e -> controller.openInventory());
+
         final JButton exitButton = new JButton("EXIT");
         exitButton.addActionListener(e -> controller.exit());
         
         final JPanel rightHeader = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 0));
         rightHeader.add(coinsLabel);
+        rightHeader.add(inventoryButton);
         rightHeader.add(exitButton);
         
         topPanel.add(rightHeader, BorderLayout.EAST);
@@ -301,6 +305,7 @@ public class ShopViewImpl implements ShopView {
             public void upgradeSpeed() {}
             public void buyTemporaryItem(int i) {}
             public void buySkin(int i) {}
+            public void openInventory() { System.out.println("Opening inventory view");}
             public void exit() { System.exit(0); }
          
             public boolean isOwned(ShopItem item) {

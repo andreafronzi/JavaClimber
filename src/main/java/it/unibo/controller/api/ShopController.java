@@ -38,6 +38,8 @@ public interface ShopController {
 
     int getCurrentLevel(String prefix);
     
+    void openInventory();
+    
     /**
      * Exit from the Shop and back to the Menù.
      */
