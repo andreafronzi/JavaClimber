@@ -41,18 +41,30 @@ public class AlienNormalPhysic extends TemplatePhysic implements AlienPhysic {
 
   @Override
   public void hitPlatform(final Alien alien, final Platform p, final Boundary boundary) {
-    final double vx = 0;
-    final double vy = -10;
-    p.onTouch(boundary);
-    alien.setSpeed(new Vector2dImpl(vx, vy));
+    final double pTollerance = 10;
+    final boolean falling = alien.getSpeedY() > 0;
+    final boolean above = (alien.getPosY() + alien.getHeight()) <= (p.getHeight() + pTollerance);
+
+    if (falling && !above) {
+      final double vx = 0;
+      final double vy = -10;
+      p.onTouch(boundary);
+      alien.setSpeed(new Vector2dImpl(vx, vy));
+    }
   }
 
   @Override
   public void hitEnemy(final Alien alien, final Enemy e) {
-    final double vx = 0;
-    final double vy = -10;
-    e.die();
-    alien.setSpeed(new Vector2dImpl(vx, vy));
+    final double eTollerance = 10;
+    final boolean falling = alien.getSpeedY() > 0;
+    final boolean above = (alien.getPosY() + alien.getHeight()) <= (e.getHeight() + eTollerance);
+
+    if (falling && !above) {
+      final double vx = 0;
+      final double vy = -10;
+      e.die();
+      alien.setSpeed(new Vector2dImpl(vx, vy));
+    }
   }
 
   @Override
