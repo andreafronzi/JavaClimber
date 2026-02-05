@@ -37,6 +37,8 @@ public interface InventoryController {
      */
     void toggleTemporaryItem(int index);
 
+    void openShop();
+
     /**
      * Exit from the Inventory and back to the menù.
      */
