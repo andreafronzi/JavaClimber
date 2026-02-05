@@ -12,6 +12,9 @@ import it.unibo.model.gameObj.impl.EliCap;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
 
+/**
+ * Test class for {@link AlienEliCapPhysic}.
+ */
 public class AlienEliCapPhysicTest {
 
     private static final double EPSILON = 0.001;
@@ -92,7 +95,7 @@ public class AlienEliCapPhysicTest {
     }
 
     /**
-     * 
+     * Test to verify if an update greater than the time interval of the EliCap gadget correctly update the alien position and speed, and if the alien physic is setted to AlienNormalPhysic after the time interval.
      */
     @Test
     public void testAlienEliCapPhysicBehaviorUpdatingWithMoreThanTimeInterval() {
