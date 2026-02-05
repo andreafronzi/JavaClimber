@@ -42,7 +42,6 @@ public class AlienEliCapPhysic extends TemplatePhysic implements AlienPhysic {
    */
   @Override
   protected void moveAlien(final Alien alien, final double dt,  final Boundary boundary) {
-    //se sei qui vuol dire che timeInterval > 0
     alien.setSpeed(new Vector2dImpl(alien.getSpeedX(), this.verticalSpeed));
     if (this.timeInterval - dt >= 0) {
       alien.setPosition(new Vector2dImpl(alien.getPosX() + alien.getSpeedX() * dt, alien.getPosY() + alien.getSpeedY() * dt));
