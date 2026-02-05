@@ -78,6 +78,44 @@ public class InventoryViewImpl implements InventoryView {
         return content;
     }
 
+    private JPanel createSkinWidget(ShopItem item, int index, boolean isEquipped) {
+        JPanel card = new JPanel();
+        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+        card.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(Color.GRAY),
+            BorderFactory.createEmptyBorder(10, 10, 10, 10)
+        ));
+        card.setMaximumSize(new Dimension(280, 250));
+        card.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel imgLabel = new JLabel("IMG");
+        imgLabel.setPreferredSize(new Dimension(100, 100));
+        imgLabel.setMaximumSize(new Dimension(100, 100));
+        imgLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        JLabel nameLabel = new JLabel(item.getName());
+        nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel descLabel = new JLabel(item.getDescription());
+        descLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel priceLabel = new JLabel(item.getPrice() + "$");
+        priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        JButton selectBtn = new JButton(isEquipped ? "EQUIPPED" : "SELECT");
+        selectBtn.setEnabled(!isEquipped);
+        selectBtn.addActionListener(e -> controller.selectSkin(index));
+        selectBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        card.add(imgLabel);
+        card.add(Box.createVerticalStrut(5));
+        card.add(nameLabel);
+        card.add(descLabel);
+        card.add(priceLabel);
+        card.add(Box.createVerticalGlue());
+        card.add(selectBtn);
+
+        return card;
+    }
+
     @Override
     public void display() {
         this.frame.setVisible(true);
@@ -86,8 +124,18 @@ public class InventoryViewImpl implements InventoryView {
     @Override
     public void updateInventory(List<ShopItem> ownedSkins, String equippedSkinId, int selectedJump, int maxJump,
             int selectedSpeed, int maxSpeed, List<ShopItem> ownedTemp, List<Boolean> tempStatus) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateInventory'");
+        skinsPanel.removeAll();
+        permPanel.removeAll();
+        tempPanel.removeAll();
+
+        //Skins
+        for(int i = 0; i < ownedSkins.size(); i++) {
+            skinsPanel.add(createSkinWidget(ownedSkins.get(i), i, ownedSkins.get(i).getId().equals(equippedSkinId)));
+        }
+
+
+        frame.revalidate();
+        frame.repaint();
     }
 
     @Override
@@ -116,10 +164,17 @@ public class InventoryViewImpl implements InventoryView {
         };
 
         InventoryViewImpl view = new InventoryViewImpl(mockController);
+        
         final ShopItemFactory factory = new ShopItemFactoryImpl();
+
+        //simuliamo che abbiamo le prime 3 skin della lista con la seconda che è selezionata
+        List<ShopItem> ownedSkins = factory.getSkins().subList(0, 3);
+        String equippedSkinId = ownedSkins.get(1).getId();
 
         view.display();
         view.updateCoins(150);
+
+        view.updateInventory(ownedSkins, equippedSkinId, 0, 0, 0, 0, null, null);
     }
 
 }
