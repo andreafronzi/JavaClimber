@@ -49,6 +49,7 @@ public class AlienNormalPhysic extends TemplatePhysic implements AlienPhysic {
       final double vx = 0;
       final double vy = -10;
       p.onTouch(boundary);
+      alien.setPosition(new Vector2dImpl(alien.getPosX(), p.getPosY() - alien.getHeight()));
       alien.setSpeed(new Vector2dImpl(vx, vy));
     }
   }
