@@ -9,13 +9,6 @@ import it.unibo.model.physics.impl.Vector2dImpl;
  */
 public abstract class TemplatePhysic implements AlienPhysic {
 
-  /**
-   * Update alien position and speed. Verify if the alien go beyond the boundary and apply pacman effect if it happens.
-   * 
-   * @param alien the alien to update
-   * @param dt the time elapsed since the last update
-   * @param boundary the world's boundaries
-   */
   @Override
   public void update(final Alien alien, final double dt, final Boundary boundary) {
     moveAlien(alien, dt, boundary);
