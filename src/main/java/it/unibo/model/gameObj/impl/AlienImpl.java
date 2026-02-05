@@ -2,6 +2,7 @@ package it.unibo.model.gameObj.impl;
 
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.GameObj;
+import it.unibo.model.gameObj.api.StaticEntity;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.api.Vector2d;
@@ -40,6 +41,11 @@ public class AlienImpl extends GameObj implements Alien {
   @Override
   public double getSpeedY() {
     return this.speed.getY();
+  }
+
+  @Override
+  public void notifyCollision(StaticEntity gObj) {
+    gObj.onHitBy(this, this.physic);
   }
 
   @Override
