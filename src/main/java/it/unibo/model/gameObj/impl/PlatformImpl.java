@@ -8,6 +8,9 @@ import it.unibo.model.physics.platformPhysic.api.OnTouchBehaviour;
 
 import java.util.Optional;
 
+/**
+ * A concrete implementation of the {@link Platform} interface.
+ */
 public class PlatformImpl extends GameObj implements Platform {
 
   private final Optional<MovementBehaviour> movementBehaviour;
