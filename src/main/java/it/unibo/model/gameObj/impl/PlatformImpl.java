@@ -1,7 +1,9 @@
 package it.unibo.model.gameObj.impl;
 
+import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.GameObj;
 import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.platformPhysic.api.MovementBehaviour;
 import it.unibo.model.physics.platformPhysic.api.OnTouchBehaviour;
@@ -38,6 +40,11 @@ public class PlatformImpl extends GameObj implements Platform {
   }
 
   @Override
+  public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary) {
+    physic.hitPlatform(alien, this, boundary);
+  }
+
+  @Override
   public void onTouch(final Boundary boundary) {
     this.onTouchBehaviour.ifPresent(otb -> otb.onTouch(this.position, super.getWidth(), super.getHeight(), boundary));
   }
@@ -46,5 +53,6 @@ public class PlatformImpl extends GameObj implements Platform {
   public void updatePosition(final double dt, final Boundary boundary) {
     this.movementBehaviour.ifPresent(mb -> mb.updatePosition(this.position, super.getHeight(), super.getHeight(), dt, boundary));
   }
+
 
 }
