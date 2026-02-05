@@ -1,6 +1,9 @@
 package it.unibo.model.physics.alienPhysic.impl;
 
 import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameObj.api.Enemy;
+import it.unibo.model.gameObj.api.Gadget;
+import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.api.TemplatePhysic;
@@ -22,7 +25,7 @@ public class AlienEliCapPhysic extends TemplatePhysic implements AlienPhysic {
 
   /**
    * Constructor of AlienEliCapPhysic.
-   * 
+   *
    * @param timeInterval the duration time of the gadget effect
    * @param verticalSpeed the vertical speed of the gadget effect
    */
@@ -50,5 +53,20 @@ public class AlienEliCapPhysic extends TemplatePhysic implements AlienPhysic {
       alien.setPhysic(new AlienNormalPhysic());
       alien.updatePosition(remainingDt, boundary);
     }
+  }
+
+  @Override
+  public void hitPlatform(final Alien alien, final Platform p, final Boundary boundary) {
+
+  }
+
+  @Override
+  public void hitEnemy(final Alien alien, final Enemy e) {
+
+  }
+
+  @Override
+  public void hitGadget(final Alien alien, final Gadget g) {
+
   }
 }
