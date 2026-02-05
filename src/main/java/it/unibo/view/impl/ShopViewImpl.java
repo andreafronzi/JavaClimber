@@ -191,6 +191,64 @@ public class ShopViewImpl implements ShopView {
         return container;
     }
 
+    private JPanel createTemporaryWidget(ShopItem item, int index) {
+        final JPanel card = new JPanel();
+        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+        card.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(Color.LIGHT_GRAY), BorderFactory.createEmptyBorder(8, 8, 8, 8)));
+        card.setMaximumSize(new Dimension(280, 150));
+        card.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel nameLabel = new JLabel(item.getName());
+        nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel descLabel = new JLabel(item.getDescription());
+        descLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel priceLabel = new JLabel(item.getPrice() + "$");
+        priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JButton buyButton = new JButton();
+        if (controller.isOwned(item)) {
+            buyButton.setText("OWNED");
+            buyButton.setEnabled(false);
+        } else {
+            buyButton.setText("BUY");
+            buyButton.addActionListener(e -> controller.buyTemporaryItem(index));
+        }
+        buyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        card.add(nameLabel);
+        card.add(Box.createVerticalStrut(5));
+        card.add(descLabel);
+        card.add(Box.createVerticalStrut(5));
+        card.add(priceLabel);
+        card.add(Box.createVerticalGlue());
+        card.add(buyButton);
+
+        return card;
+    }
+
+    private JLabel createSubHeader(String text) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("Arial", Font.BOLD, 15));
+        label.setForeground(Color.BLUE);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label.setBorder(new EmptyBorder(10, 0, 5, 0));
+        return label;
+    }
+
+    private void addTempCategory(String title, String prefix, List<ShopItem> items) {
+        tempPanel.add(createSubHeader(title));
+        for (int i = 0; i < items.size(); i++) {
+            ShopItem item = items.get(i);
+            if (item.getId().startsWith(prefix)) {
+                tempPanel.add(createTemporaryWidget(item, i));
+                tempPanel.add(Box.createVerticalStrut(10));
+            }
+        }
+    }
+
     @Override
     public void display() {
         this.frame.setVisible(true);
@@ -205,15 +263,22 @@ public class ShopViewImpl implements ShopView {
     public void updateItems(List<ShopItem> skins, List<ShopItem> permUpgrades, List<ShopItem> tempUpgrades) {
         skinsPanel.removeAll();
 
+        /* skins */
         for (int i = 0; i < skins.size(); i++) {
             skinsPanel.add(Box.createVerticalStrut(10));
             skinsPanel.add(createSkinWidget(skins.get(i), i));
         }
 
+        /* perm power ups */
         permPanel.add(Box.createVerticalStrut(10));
         permPanel.add(createPermanentWidget("JUMP HEIGHT", "pp_jump", permUpgrades));
         permPanel.add(Box.createVerticalStrut(30));
         permPanel.add(createPermanentWidget("SPEED BOOST", "pp_speed", permUpgrades));
+
+        /* temp power ups */
+        addTempCategory("JUMP HEIGHT", "pt_jump", tempUpgrades);
+        addTempCategory("SPEED BOOST", "pt_speed", tempUpgrades);
+        addTempCategory("COIN MULTIPLIER", "pt_coin", tempUpgrades);
 
         skinsPanel.revalidate();
         skinsPanel.repaint();
@@ -244,10 +309,15 @@ public class ShopViewImpl implements ShopView {
                 if (itemId.startsWith("pp_jump")) {
                     return true; 
                 }
+
                 //per la velocità posseduti solo livello 1 e 2
                 if (itemId.startsWith("pp_speed")) {
                     return itemId.endsWith("_1") || itemId.endsWith("_2");
                 }
+
+                //per temp jump 1 posseduto
+                if (itemId.equals("pt_jump1")) return true;
+                
                 //Per le skin contenuta solo quella sportive
                 return item.getName().contains("Sportive");
             }
