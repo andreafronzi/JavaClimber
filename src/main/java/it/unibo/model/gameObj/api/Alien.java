@@ -23,6 +23,14 @@ public interface Alien extends GameObject{
   double getSpeedY();
 
   /**
+   * Notifies the Alien of a collision with a {@link StaticEntity}.
+   * This method is called when the Alien comes into contact with a StaticEntity
+   *
+   * @param gObj the {@link StaticEntity} that the Alien has collided with
+   */
+  void notifyCollision(StaticEntity gObj);
+
+  /**
    * Set Alien's physic
    *
    * @param physic the new physic of the Alien
