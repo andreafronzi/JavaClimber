@@ -1,6 +1,7 @@
 package it.unibo.model.physics.alienPhysic.impl;
 
 import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.api.TemplatePhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
@@ -27,7 +28,7 @@ public class AlienNormalPhysic extends TemplatePhysic implements AlienPhysic {
    * @param dt the time step
    */
   @Override
-  protected void moveAlien(final Alien alien, final double dt) {
+  protected void moveAlien(final Alien alien, final double dt, final Boundary boundary) {
     double speedY = alien.getSpeedY();
 
     final double newVelY = speedY + (GRAVITY * dt);
