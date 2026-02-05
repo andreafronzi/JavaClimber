@@ -6,20 +6,22 @@ import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.api.TemplatePhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
 
+/**
+ * Represents the alien physic when the alien collects the EliCap gadget. The alien will have a vertical speed for a certain time interval, then it will return to normal physic.
+ */
 public class AlienEliCapPhysic extends TemplatePhysic implements AlienPhysic {
-
   /**
    * Represents the duration time of the gadget effect.
    */
-  private double time_interval;
+  private double timeInterval;
 
   /**
    * Represents the vertical speed of the gadget effect.
    */
   private final double verticalSpeed;
 
-  public AlienEliCapPhysic(final double time_interval, final double verticalSpeed) {
-      this.time_interval = time_interval;
+  public AlienEliCapPhysic(final double timeInterval, final double verticalSpeed) {
+      this.timeInterval = timeInterval;
       this.verticalSpeed = verticalSpeed;
   }
 
@@ -30,14 +32,17 @@ public class AlienEliCapPhysic extends TemplatePhysic implements AlienPhysic {
    * @param dt the time step
    */
   @Override
-  protected void moveAlien(final Alien alien, final double dt) {
-    if (this.time_interval > 0) {
-      alien.setSpeed(new Vector2dImpl(alien.getSpeedX(), this.verticalSpeed));
+  protected void moveAlien(final Alien alien, final double dt,  final Boundary boundary) {
+    //se sei qui vuol dire che timeInterval > 0
+    alien.setSpeed(new Vector2dImpl(alien.getSpeedX(), this.verticalSpeed));
+    if (this.timeInterval - dt >= 0) {
       alien.setPosition(new Vector2dImpl(alien.getPosX() + alien.getSpeedX() * dt, alien.getPosY() + alien.getSpeedY() * dt));
-    }
-    this.time_interval -= dt;
-    if (this.time_interval <= 0) {
+      this.timeInterval -= dt;
+    } else {
+      final double remainingDt = dt - this.timeInterval;
+      alien.setPosition(new Vector2dImpl(alien.getPosX() + alien.getSpeedX() * this.timeInterval, alien.getPosY() + alien.getSpeedY() * this.timeInterval));
       alien.setPhysic(new AlienNormalPhysic());
+      alien.updatePosition(remainingDt, boundary);
     }
   }
 }
