@@ -3,6 +3,7 @@ package it.unibo.model.gameObj.impl;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.GameObj;
+import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienEliCapPhysic;
 import it.unibo.model.physics.api.Vector2d;
 
@@ -37,4 +38,8 @@ public class EliCap extends GameObj implements Gadget{
         alien.setPhysic(new AlienEliCapPhysic(TIME_INTERVALL, VERTICAL_SPEED));
     }
 
+  @Override
+  public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary) {
+    physic.hitGadget(alien, this);
+  }
 }
