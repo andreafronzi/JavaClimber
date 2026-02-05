@@ -27,8 +27,9 @@ public interface Alien extends GameObject{
    * This method is called when the Alien comes into contact with a StaticEntity
    *
    * @param gObj the {@link StaticEntity} that the Alien has collided with
+   * @param boundary the boundary of the world
    */
-  void notifyCollision(StaticEntity gObj);
+  void notifyCollision(StaticEntity gObj, Boundary boundary);
 
   /**
    * Set Alien's physic
