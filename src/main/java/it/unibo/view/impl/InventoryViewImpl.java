@@ -1,5 +1,6 @@
 package it.unibo.view.impl;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.*;
@@ -35,34 +36,34 @@ public class InventoryViewImpl implements InventoryView {
     private void initialize() {
         this.frame.setLayout(new BorderLayout());
 
-        //parte superiore COINS+SHOP+EXIT
+        // parte superiore COINS+SHOP+EXIT
         final JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        
+
         this.coinsLabel = new JLabel("Coins: 0");
         this.coinsLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        
+
         final JButton inventoryButton = new JButton("SHOP");
         inventoryButton.addActionListener(e -> controller.openShop());
 
         final JButton exitButton = new JButton("EXIT");
         exitButton.addActionListener(e -> controller.exit());
-        
+
         final JPanel rightHeader = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 0));
         rightHeader.add(coinsLabel);
         rightHeader.add(inventoryButton);
         rightHeader.add(exitButton);
-        
+
         topPanel.add(rightHeader, BorderLayout.EAST);
         this.frame.add(topPanel, BorderLayout.NORTH);
-        
-        //parte centrale ITEMS
+
+        // parte centrale ITEMS
         this.itemsPanel = new JPanel(new GridLayout(1, 3, 10, 0));
-        
+
         this.skinsPanel = createCategoryPanel("SKINS");
         this.permPanel = createCategoryPanel("PERMANENT POWER-UPS");
         this.tempPanel = createCategoryPanel("TEMPORARY POWER-UPS");
-        
+
         JScrollPane scrollPane = new JScrollPane(itemsPanel);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         this.frame.add(scrollPane, BorderLayout.CENTER);
@@ -82,9 +83,8 @@ public class InventoryViewImpl implements InventoryView {
         JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.GRAY),
-            BorderFactory.createEmptyBorder(10, 10, 10, 10)
-        ));
+                BorderFactory.createLineBorder(Color.GRAY),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         card.setMaximumSize(new Dimension(280, 250));
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -92,19 +92,19 @@ public class InventoryViewImpl implements InventoryView {
         imgLabel.setPreferredSize(new Dimension(100, 100));
         imgLabel.setMaximumSize(new Dimension(100, 100));
         imgLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
+
         JLabel nameLabel = new JLabel(item.getName());
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel descLabel = new JLabel(item.getDescription());
         descLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel priceLabel = new JLabel(item.getPrice() + "$");
         priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
+
         JButton selectBtn = new JButton(isEquipped ? "EQUIPPED" : "SELECT");
         selectBtn.setEnabled(!isEquipped);
         selectBtn.addActionListener(e -> controller.selectSkin(index));
         selectBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
+
         card.add(imgLabel);
         card.add(Box.createVerticalStrut(5));
         card.add(nameLabel);
@@ -116,13 +116,94 @@ public class InventoryViewImpl implements InventoryView {
         return card;
     }
 
+    private JPanel createPermanentWidget(String title, String prefix, List<ShopItem> items, int selectedLevel, int maxOwnedLevel) {
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        container.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.GRAY),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+
+        container.setMaximumSize(new Dimension(300, 250));
+        container.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel titleLabel = new JLabel(title);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        List<ShopItem> categoryItems = items.stream()
+                .filter(i -> i.getId().startsWith(prefix))
+                .sorted(Comparator.comparing(ShopItem::getId))
+                .toList();
+        int maxLevel = categoryItems.size();
+
+        JProgressBar progressBar = new JProgressBar(0, maxLevel);
+        progressBar.setValue(selectedLevel);
+        progressBar.setStringPainted(true);
+        progressBar.setString("Active/Bought: " + selectedLevel + "/" + maxOwnedLevel + "  TOTAL: " + maxLevel);
+        progressBar.setMaximumSize(new Dimension(250, 25));
+        progressBar.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        container.add(titleLabel);
+        container.add(Box.createVerticalStrut(20));
+        container.add(progressBar);
+        container.add(Box.createVerticalStrut(20));
+
+        ShopItem actualItem = items.get(selectedLevel - 1);
+        JLabel name = new JLabel("Actual: " + actualItem.getName());
+        name.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel desc = new JLabel(actualItem.getDescription());
+        desc.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        JButton minusButton = new JButton("-");
+        JButton plusButton = new JButton("+");
+        
+        if (selectedLevel == 0) {
+            minusButton.setEnabled(false);
+        } else {
+            minusButton.addActionListener(e -> {
+                if (prefix.contains("jump")) {
+                    controller.minusJump();
+                }
+                if (prefix.contains("speed")) {
+                    controller.minusVelocity();
+                }
+            });
+        }
+
+        if (selectedLevel == maxOwnedLevel) {
+            plusButton.setEnabled(false);
+        } else {
+            plusButton.addActionListener(e -> {
+                if (prefix.contains("jump")) {
+                    controller.plusJump();
+                }
+                if (prefix.contains("speed")) {
+                    controller.plusJump();
+                }
+            });
+        }
+
+        buttonsPanel.add(minusButton);
+        buttonsPanel.add(plusButton);
+        buttonsPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        container.add(name);
+        container.add(Box.createVerticalStrut(10));
+        container.add(desc);
+        container.add(Box.createVerticalGlue());
+        container.add(buttonsPanel);
+    
+        return container;
+    }
+
     @Override
     public void display() {
         this.frame.setVisible(true);
     }
 
     @Override
-    public void updateInventory(List<ShopItem> ownedSkins, String equippedSkinId, int selectedJump, int maxJump,
+    public void updateInventory(List<ShopItem> ownedSkins, String equippedSkinId, List<ShopItem> allPermItems, int selectedJump, int maxJump,
             int selectedSpeed, int maxSpeed, List<ShopItem> ownedTemp, List<Boolean> tempStatus) {
         skinsPanel.removeAll();
         permPanel.removeAll();
@@ -130,9 +211,15 @@ public class InventoryViewImpl implements InventoryView {
 
         //Skins
         for(int i = 0; i < ownedSkins.size(); i++) {
+            skinsPanel.add(Box.createVerticalStrut(10));
             skinsPanel.add(createSkinWidget(ownedSkins.get(i), i, ownedSkins.get(i).getId().equals(equippedSkinId)));
         }
 
+        //permanent upgrades
+        permPanel.add(Box.createVerticalStrut(10));
+        permPanel.add(createPermanentWidget("JUMP HEIGHT", "pp_jump", allPermItems, selectedJump, maxJump));
+        permPanel.add(Box.createVerticalStrut(30));
+        permPanel.add(createPermanentWidget("SPEED BOOST", "pp_speed", allPermItems, selectedSpeed, maxSpeed));
 
         frame.revalidate();
         frame.repaint();
@@ -147,7 +234,6 @@ public class InventoryViewImpl implements InventoryView {
     public void close() {
         this.frame.dispose();
     }
-
 
     public static void main(String[] args) {
 
@@ -171,10 +257,16 @@ public class InventoryViewImpl implements InventoryView {
         List<ShopItem> ownedSkins = factory.getSkins().subList(0, 3);
         String equippedSkinId = ownedSkins.get(1).getId();
 
+        //simulazione per permanent power up
+        int selectedJump = 2;
+        int maxJumpOwned = 4;
+        int selectedSpeed = 1;
+        int maxSpeedOwned = 3;
+
         view.display();
         view.updateCoins(150);
 
-        view.updateInventory(ownedSkins, equippedSkinId, 0, 0, 0, 0, null, null);
+        view.updateInventory(ownedSkins, equippedSkinId, factory.getPowerUpsPermanent(), selectedJump, maxJumpOwned, selectedSpeed, maxSpeedOwned, null, null);
     }
 
 }
