@@ -8,7 +8,7 @@ public abstract class TemplatePhysic implements AlienPhysic {
 
   @Override
   public void update(final Alien alien, final double dt, final Boundary boundary) {
-    moveAlien(alien, dt);
+    moveAlien(alien, dt, boundary);
     verifyBoundaryTouch(alien, boundary);
   }
 
@@ -18,7 +18,7 @@ public abstract class TemplatePhysic implements AlienPhysic {
    * @param alien the alien to update
    * @param dt the time step
    */
-  protected abstract void moveAlien(final Alien alien, final double dt);
+  protected abstract void moveAlien(final Alien alien, final double dt, final Boundary boundary);
 
   /**
    * Verify if the alien go beyond the boundary. Apply pacman effect if it happens.
