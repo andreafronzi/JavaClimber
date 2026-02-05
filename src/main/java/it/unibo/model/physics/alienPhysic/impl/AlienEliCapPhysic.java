@@ -20,6 +20,12 @@ public class AlienEliCapPhysic extends TemplatePhysic implements AlienPhysic {
    */
   private final double verticalSpeed;
 
+  /**
+   * Constructor of AlienEliCapPhysic.
+   * 
+   * @param timeInterval the duration time of the gadget effect
+   * @param verticalSpeed the vertical speed of the gadget effect
+   */
   public AlienEliCapPhysic(final double timeInterval, final double verticalSpeed) {
       this.timeInterval = timeInterval;
       this.verticalSpeed = verticalSpeed;
