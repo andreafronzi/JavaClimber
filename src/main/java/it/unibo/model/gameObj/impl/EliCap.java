@@ -9,7 +9,7 @@ import it.unibo.model.physics.api.Vector2d;
 public class EliCap extends GameObj implements Gadget{
 
   private static final double TIME_INTERVALL = 2;
-  private static final double VERTICAL_SPEED = 10;
+  private static final double VERTICAL_SPEED = -10;
 
   public EliCap(final double height, final double width, final Vector2d position) {
         super(height, width, position);
