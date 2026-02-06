@@ -6,6 +6,7 @@ import java.util.List;
 import it.unibo.controller.api.ShopController;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopManager;
+import it.unibo.view.api.ShopView;
 
 /**
  * Implementation of {@link ShopController} interface.
@@ -13,6 +14,7 @@ import it.unibo.model.shop.api.ShopManager;
 public class ShopControllerImpl implements ShopController {
 
     private final ShopManager shopManager;
+    private ShopView view;
     
     /**
      * Construct new ShopControllerImpl with specified shop manager.
@@ -20,6 +22,10 @@ public class ShopControllerImpl implements ShopController {
      */
     public ShopControllerImpl(final ShopManager shopManager) {
         this.shopManager = shopManager;
+    }
+
+    public void setView(final ShopView view) {
+        this.view = view;
     }
 
     @Override
@@ -44,8 +50,30 @@ public class ShopControllerImpl implements ShopController {
     public void buySkin(int index) {
         List<ShopItem> skins = shopManager.getSkins();
         if (index >= 0 && index < skins.size()) {
-            shopManager.buyItem(skins.get(index));
+            if (shopManager.buyItem(skins.get(index))) {
+                
+            } shopManager.buyItem(skins.get(index));
         }
+    }
+
+    @Override
+    public int getCoins() {
+        return shopManager.getCoins();
+    }
+
+    @Override
+    public List<ShopItem> getPermanetUpgrades() {
+        return shopManager.getPermanentUpgrades();
+    }
+
+    @Override
+    public List<ShopItem> getSkins() {
+        return shopManager.getSkins();
+    }
+
+    @Override
+    public List<ShopItem> getTemporaryUpgrades() {
+        return shopManager.getTemporaryUpgrades();
     }
 
     @Override

@@ -126,4 +126,9 @@ public class ShopManagerImpl implements ShopManager {
         return this.itemFactory.getPowerUpsTemporary();
     }
 
+    @Override
+    public int getCoins() {
+        return scoreManager.getCoins();
+    }
+
 }

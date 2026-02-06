@@ -63,4 +63,6 @@ public interface ShopManager {
      * @return a list of temporary power up
      */
     List<ShopItem> getTemporaryUpgrades();
+
+    int getCoins();
 }

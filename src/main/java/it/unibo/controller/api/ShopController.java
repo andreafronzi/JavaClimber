@@ -1,5 +1,7 @@
 package it.unibo.controller.api;
 
+import java.util.List;
+
 import it.unibo.model.shop.api.ShopItem;
 
 /**
@@ -28,6 +30,14 @@ public interface ShopController {
      * @param index the position of the skin in the skins list
      */
     void buySkin(int index);
+
+    List<ShopItem> getSkins();
+
+    List<ShopItem> getPermanetUpgrades();
+
+    List<ShopItem> getTemporaryUpgrades();
+
+    int getCoins();
 
     /**
      * Checks if an item is already owned by the player.

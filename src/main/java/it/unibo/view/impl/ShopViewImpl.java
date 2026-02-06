@@ -299,15 +299,22 @@ public class ShopViewImpl implements ShopView {
     }
 
     public static void main(String[] args) {
+        ShopItemFactory factory = new ShopItemFactoryImpl();
+
         //Mock del controller
         ShopController mockController = new ShopController() {
-            public void upgradeJump() {}
-            public void upgradeSpeed() {}
-            public void buyTemporaryItem(int i) {}
-            public void buySkin(int i) {}
-            public void openInventory() { System.out.println("Opening inventory view");}
-            public void exit() { System.exit(0); }
-         
+            @Override public void upgradeJump() {}
+            @Override public void upgradeSpeed() {}
+            @Override public void buyTemporaryItem(int i) {}
+            @Override public void buySkin(int i) {}
+            @Override public void openInventory() { System.out.println("Opening inventory view");}
+            @Override public void exit() { System.exit(0); }
+            @Override public int getCoins() { return 150; }
+            @Override public List<ShopItem> getPermanetUpgrades( ) { return factory.getPowerUpsPermanent(); }
+            @Override public List<ShopItem> getSkins() { return factory.getSkins(); }
+            @Override public List<ShopItem> getTemporaryUpgrades() { return factory.getPowerUpsTemporary(); }
+
+            @Override
             public boolean isOwned(ShopItem item) {
                 String itemId = item.getId();
                 //TEST: per jump simuliamo di averli tutti
@@ -327,6 +334,7 @@ public class ShopViewImpl implements ShopView {
                 return item.getName().contains("Sportive");
             }
 
+            @Override
             public int getCurrentLevel(String prefix) {
             // TEST: Se è salto, restituiamo 5(massimo); se è speed restituiamo 2 altrimenti 0
                 if (prefix.equals("pp_jump")) {
@@ -341,11 +349,9 @@ public class ShopViewImpl implements ShopView {
         };
 
         ShopViewImpl view = new ShopViewImpl(mockController);
-
-        ShopItemFactory factory = new ShopItemFactoryImpl();
         view.display();
-        view.updateCoins(150);
-        view.updateItems(factory.getSkins(), factory.getPowerUpsPermanent(), factory.getPowerUpsTemporary());
+        view.updateCoins(mockController.getCoins());
+        view.updateItems(mockController.getSkins(), mockController.getPermanetUpgrades(), mockController.getTemporaryUpgrades());
     }
 
 }
