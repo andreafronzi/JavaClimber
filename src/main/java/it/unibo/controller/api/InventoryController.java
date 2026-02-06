@@ -1,5 +1,9 @@
 package it.unibo.controller.api;
 
+import java.util.List;
+
+import it.unibo.model.shop.api.ShopItem;
+
 /**
  * Controller interface for managing activation of power ups and skins.
  */
@@ -36,6 +40,22 @@ public interface InventoryController {
      * @param index index of temporary power ups in the inventory
      */
     void toggleTemporaryItem(int index);
+
+    int getSelectedJumpLevel();
+
+    int getSelectedSpeedLevel();
+
+    int getMaxJumpLevelOwned();
+
+    int getMaxSpeedLevelOwned();
+
+    String getEquippedSkin();
+
+    List<ShopItem> getOwnedSkins();
+
+    List<ShopItem> getOwnedTempItems();
+    
+    List<Boolean> getTempItemsStatus();
 
     void openShop();
 

@@ -1,11 +1,13 @@
 package it.unibo.controller.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import it.unibo.controller.api.InventoryController;
 import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopItemFactory;
+import it.unibo.view.api.InventoryView;
 
 /**
  * Implementation of {@link InventoryController} interface.
@@ -13,6 +15,7 @@ import it.unibo.model.shop.api.ShopItemFactory;
 public class InventoryControllerImpl implements InventoryController {
 
     private final Inventory inventory;
+    private InventoryView view;
     private final ShopItemFactory factory;
 
     /**
@@ -23,6 +26,10 @@ public class InventoryControllerImpl implements InventoryController {
     public InventoryControllerImpl(Inventory inventory, ShopItemFactory factory) {
         this.inventory = inventory;
         this.factory = factory;
+    }
+
+    public void setView(InventoryView view) {
+        this.view = view;
     }
 
     @Override
@@ -70,10 +77,59 @@ public class InventoryControllerImpl implements InventoryController {
 
     @Override
     public void toggleTemporaryItem(int index) {
-        List<String> consumablesId = inventory.getConsumablesStatus().keySet().stream().toList();
+        List<String> consumablesId = inventory.getConsumablesStatus().keySet().stream().sorted().toList();
         if (isValidIndex(index, consumablesId)) {
             inventory.toggleConsumable(consumablesId.get(index), factory);
         }
+    }
+
+    @Override
+    public String getEquippedSkin() {
+        return inventory.getSelectedSkin();
+    }
+
+    @Override
+    public int getMaxJumpLevelOwned() {
+        return getMaxLevelOwned("pp_jump");
+    }
+
+    @Override
+    public int getMaxSpeedLevelOwned() {
+        return getMaxLevelOwned("pp_speed");
+    }
+
+    @Override
+    public List<ShopItem> getOwnedSkins() {
+        return factory.getSkins().stream()
+                .filter(i -> inventory.hasItem(i.getId()))
+                .toList();
+    }
+
+    @Override
+    public List<ShopItem> getOwnedTempItems() {
+        return inventory.getConsumablesStatus().keySet().stream()
+                .sorted()
+                .map(id -> factory.getItemById(id).orElseThrow())
+                .toList();
+    }
+
+    @Override
+    public int getSelectedJumpLevel() {
+        return inventory.getSelectedJumpLevel();
+    }
+
+    @Override
+    public int getSelectedSpeedLevel() {
+        return inventory.getSelectedSpeedLevel();
+    }
+
+    @Override
+    public List<Boolean> getTempItemsStatus() {
+        Set<String> active = inventory.getActiveConsumables();
+        return inventory.getConsumablesStatus().keySet().stream()
+                .sorted()
+                .map(id -> active.contains(id))
+                .toList();
     }
 
     @Override

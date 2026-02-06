@@ -297,6 +297,13 @@ public class InventoryViewImpl implements InventoryView {
 
     public static void main(String[] args) {
 
+        final ShopItemFactory factory = new ShopItemFactoryImpl();
+        List<ShopItem> ownedSkins = factory.getSkins().subList(0, 3);
+        List<ShopItem> ownedTemp = new ArrayList<>();
+        ownedTemp.addAll(factory.getPowerUpsTemporary().subList(0, 2));
+        ownedTemp.addAll(factory.getPowerUpsTemporary().subList(4, 8));
+        List<Boolean> tempStatus = List.of(true, false, false, true, false, true);
+        
         //Mock del Controller
         InventoryController mockController = new InventoryController() {
             @Override public void selectSkin(int index) { System.out.println("Skin selezionata: " + index); }
@@ -307,32 +314,22 @@ public class InventoryViewImpl implements InventoryView {
             @Override public void toggleTemporaryItem(int index) { System.out.println("Toggle oggetto temporaneo: " + index); }
             @Override public void openShop() { System.out.println("Opening shop view");; }
             @Override public void exit() { System.exit(0); }
+            @Override public int getSelectedJumpLevel() { return 2; }
+            @Override public int getSelectedSpeedLevel() { return 1; }
+            @Override public int getMaxJumpLevelOwned() { return 4; }
+            @Override public int getMaxSpeedLevelOwned() { return 3; }
+            @Override public String getEquippedSkin() { return ownedSkins.get(1).getId(); }
+            @Override public List<ShopItem> getOwnedSkins() { return ownedSkins; }
+            @Override public List<ShopItem> getOwnedTempItems() { return ownedTemp; }
+            @Override public List<Boolean> getTempItemsStatus() { return tempStatus; }
         };
 
         InventoryViewImpl view = new InventoryViewImpl(mockController);
-        
-        final ShopItemFactory factory = new ShopItemFactoryImpl();
-
-        //simuliamo che abbiamo le prime 3 skin della lista con la seconda che è selezionata
-        List<ShopItem> ownedSkins = factory.getSkins().subList(0, 3);
-        String equippedSkinId = ownedSkins.get(1).getId();
-
-        //simulazione per permanent power up
-        int selectedJump = 2;
-        int maxJumpOwned = 4;
-        int selectedSpeed = 1;
-        int maxSpeedOwned = 3;
-
-        //simulazione per temporary power ups --> presenti due jump(1,2); due speed(2,3); due coins(1,2)
-        List<ShopItem> ownedTemp = new ArrayList<>();
-        ownedTemp.addAll(factory.getPowerUpsTemporary().subList(0, 2));
-        ownedTemp.addAll(factory.getPowerUpsTemporary().subList(4, 8));
-        List<Boolean> tempStatus = List.of(true, false, false, true, false, true);
 
         view.display();
         view.updateCoins(150);
 
-        view.updateInventory(ownedSkins, equippedSkinId, factory.getPowerUpsPermanent(), selectedJump, maxJumpOwned, selectedSpeed, maxSpeedOwned, ownedTemp, tempStatus);
+        view.updateInventory(mockController.getOwnedSkins(), mockController.getEquippedSkin(), factory.getPowerUpsPermanent(), mockController.getSelectedJumpLevel(), mockController.getMaxJumpLevelOwned(), mockController.getSelectedSpeedLevel(), mockController.getMaxSpeedLevelOwned(), mockController.getOwnedTempItems(), mockController.getTempItemsStatus());
     }
 
 }
