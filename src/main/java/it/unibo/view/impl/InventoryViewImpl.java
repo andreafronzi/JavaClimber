@@ -1,5 +1,6 @@
 package it.unibo.view.impl;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -197,6 +198,58 @@ public class InventoryViewImpl implements InventoryView {
         return container;
     }
 
+    private JPanel createTemporaryWidget(ShopItem item, int index, boolean isActive) {
+        final JPanel card = new JPanel();
+        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+        card.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(Color.LIGHT_GRAY), BorderFactory.createEmptyBorder(8, 8, 8, 8)));
+        card.setMaximumSize(new Dimension(280, 150));
+        card.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel nameLabel = new JLabel(item.getName());
+        nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel descLabel = new JLabel(item.getDescription());
+        descLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel priceLabel = new JLabel(item.getPrice() + "$");
+        priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JButton selectButton = new JButton(isActive ? "DESELECT" : "SELECT");
+        selectButton.addActionListener(e -> controller.toggleTemporaryItem(index));
+        selectButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        card.add(nameLabel);
+        card.add(Box.createVerticalStrut(5));
+        card.add(descLabel);
+        card.add(Box.createVerticalStrut(5));
+        card.add(priceLabel);
+        card.add(Box.createVerticalGlue());
+        card.add(selectButton);
+
+        return card;
+    }
+
+    private JLabel createSubHeader(String text) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("Arial", Font.BOLD, 15));
+        label.setForeground(Color.BLUE);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label.setBorder(new EmptyBorder(10, 0, 5, 0));
+        return label;
+    }
+
+    private void addTempCategory(String title, String prefix, List<ShopItem> items, List<Boolean> tempStatus) {
+        tempPanel.add(createSubHeader(title));
+        for (int i = 0; i < items.size(); i++) {
+            ShopItem item = items.get(i);
+            if (item.getId().startsWith(prefix)) {
+                tempPanel.add(createTemporaryWidget(item, i, tempStatus.get(i)));
+                tempPanel.add(Box.createVerticalStrut(10));
+            }
+        }
+    }
+
     @Override
     public void display() {
         this.frame.setVisible(true);
@@ -220,6 +273,13 @@ public class InventoryViewImpl implements InventoryView {
         permPanel.add(createPermanentWidget("JUMP HEIGHT", "pp_jump", allPermItems, selectedJump, maxJump));
         permPanel.add(Box.createVerticalStrut(30));
         permPanel.add(createPermanentWidget("SPEED BOOST", "pp_speed", allPermItems, selectedSpeed, maxSpeed));
+
+        //temporary upgrades
+        if (ownedTemp != null && tempStatus != null) {
+            addTempCategory("JUMP HEIGHT", "pt_jump", ownedTemp, tempStatus);
+            addTempCategory("SPEED BOOST", "pt_speed", ownedTemp, tempStatus);
+            addTempCategory("COIN MULTIPLIER", "pt_coin", ownedTemp, tempStatus);
+        }
 
         frame.revalidate();
         frame.repaint();
@@ -263,10 +323,16 @@ public class InventoryViewImpl implements InventoryView {
         int selectedSpeed = 1;
         int maxSpeedOwned = 3;
 
+        //simulazione per temporary power ups --> presenti due jump(1,2); due speed(2,3); due coins(1,2)
+        List<ShopItem> ownedTemp = new ArrayList<>();
+        ownedTemp.addAll(factory.getPowerUpsTemporary().subList(0, 2));
+        ownedTemp.addAll(factory.getPowerUpsTemporary().subList(4, 8));
+        List<Boolean> tempStatus = List.of(true, false, false, true, false, true);
+
         view.display();
         view.updateCoins(150);
 
-        view.updateInventory(ownedSkins, equippedSkinId, factory.getPowerUpsPermanent(), selectedJump, maxJumpOwned, selectedSpeed, maxSpeedOwned, null, null);
+        view.updateInventory(ownedSkins, equippedSkinId, factory.getPowerUpsPermanent(), selectedJump, maxJumpOwned, selectedSpeed, maxSpeedOwned, ownedTemp, tempStatus);
     }
 
 }
