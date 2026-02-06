@@ -38,13 +38,12 @@ public class Vector2dImpl implements Vector2d {
     }
 
   @Override
-  public void setX(double x) {
+  public void setX(final double x) {
     this.x = x;
   }
 
   @Override
-  public void setY(double y) {
+  public void setY(final double y) {
     this.y = y;
   }
-
 }
