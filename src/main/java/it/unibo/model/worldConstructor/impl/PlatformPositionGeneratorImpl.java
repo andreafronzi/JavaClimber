@@ -6,13 +6,13 @@ import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.worldConstructor.api.PlatformPositionGenerator;
 
-public class PlatformControlDistanceImpl implements PlatformPositionGenerator {
+public class PlatformPositionGeneratorImpl implements PlatformPositionGenerator {
 
     private Difficult difficult;
     private Vector2d previousPlatformPosition;
     private final Random randomNumber;
 
-    PlatformControlDistanceImpl() {
+    PlatformPositionGeneratorImpl() {
         this.randomNumber = new Random();
     }
 
