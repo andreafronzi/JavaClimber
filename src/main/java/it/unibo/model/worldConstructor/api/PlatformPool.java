@@ -2,22 +2,21 @@ package it.unibo.model.worldConstructor.api;
 
 import java.util.List;
 
-import it.unibo.model.world.Gadget;
-import it.unibo.model.world.Money;
-import it.unibo.model.world.Monster;
-import it.unibo.model.world.PlatformImpl;
-import it.unibo.model.world.Trap;
+import it.unibo.model.gameObj.api.Coin;
+import it.unibo.model.gameObj.api.Enemy;
+import it.unibo.model.gameObj.api.Gadget;
+import it.unibo.model.gameObj.api.Platform;
 
 public interface PlatformPool {
 
-    public List<Pair<PlatformImpl>> getPlatformPool();
+    public List<Pair<Platform>> getPlatformPool();
 
-    public List<Pair<Monster>> getMonsterPool();
+    public List<Pair<Enemy>> getMonsterPool();
 
     public List<Pair<Gadget>> getGadgetPool();
 
-    public List<Pair<Money>> getMoneyPool();
+    public List<Pair<Coin>> getMoneyPool();
 
-    public List<Pair<Trap>> getTrapPool();
+    // public List<Pair<Trap>> getTrapPool();
 
 }
