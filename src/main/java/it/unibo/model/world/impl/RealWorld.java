@@ -1,18 +1,18 @@
 package it.unibo.model.world.impl;
 
-import it.unibo.model.world.api.AbstractBaseWorld;
-import it.unibo.model.world.Player;
+import it.unibo.model.world.api.AbstractGameWorld;
+import it.unibo.model.gameObj.impl.AlienImpl;
 
-public class RealWorld extends AbstractBaseWorld {
+public class RealWorld extends AbstractGameWorld {
 
-    private final Player alien;
+    private final AlienImpl alien;
 
-    public RealWorld(final Player alien) {
+    public RealWorld(final AlienImpl alien) {
         super();
         this.alien = alien;
     }
 
-    public Player getAlien() {
+    public AlienImpl getAlien() {
         return this.alien;
     }
 
