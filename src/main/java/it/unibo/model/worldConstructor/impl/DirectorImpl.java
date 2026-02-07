@@ -1,8 +1,11 @@
 package it.unibo.model.worldConstructor.impl;
 
+import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.physics.api.Vector2d;
-import it.unibo.model.world.PlatformImpl;
+import it.unibo.model.physics.platformPhysic.impl.HorizontalMovementBehavior;
 import it.unibo.model.worldConstructor.api.Director;
+import it.unibo.model.gameObj.PlatformBuilder.impl.PlatformBuilderImpl;
+
 
 public class DirectorImpl implements Director {
 
@@ -16,28 +19,27 @@ public class DirectorImpl implements Director {
 
 
     @Override
-    public PlatformImpl normalPlatform(Vector2d position) {
-        return new BuilderPlatformImpl()
+    public Platform normalPlatform(Vector2d position) {
+        return new PlatformBuilderImpl()
                 .at(position)
                 .size(width, height)
                 .build();
     }
 
     @Override
-    public PlatformImpl movingOnTouchPlatform(Vector2d position) {
-                return new BuilderPlatformImpl()
+    public Platform movingOnTouchPlatform(Vector2d position) {
+                return new PlatformBuilderImpl()
                 .at(position)
                 .size(width, height)
-                .addJumpBehaviour()
                 .build();
     }
 
     @Override
-    public PlatformImpl movingPlatform(Vector2d position) {
-        return new BuilderPlatformImpl()
+    public Platform movingPlatform(Vector2d position) {
+        return new PlatformBuilderImpl()
                 .at(position)
                 .size(width, height)
-                .addMovementBehaviour()
+                .addMovementBehaviour(new HorizontalMovementBehavior(0))
                 .build();
     }
     
