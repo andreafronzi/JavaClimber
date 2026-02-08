@@ -1,20 +1,25 @@
 package it.unibo.model.gameObj.api;
 
-public interface Platform {
+import it.unibo.model.gameObj.impl.Boundary;
+import it.unibo.model.physics.api.Vector2d;
 
-  /** */
-  void updatePosition();
+/**
+ * Represents a Platform entity in a two-dimensional game environment.
+ */
+public interface Platform extends StaticEntity {
 
-  void addMovementBehaviour();
-  void addJumpBehaviour();
-  void addBreakBehaviour();
+  /**
+   * Platform's touch reaction.
+   *
+   * @param boundary the boundary of the world
+   */
+  void onTouch(Boundary boundary);
 
-  void removeEnemy();
-  void removeCoin();
-  void removeGadget();
-
-  boolean containsEnemy();
-  boolean containsCoin();
-  boolean containsGadget();
-
+  /**
+   * Update Platform's position. Computed position deals with elapsed time between two updates.
+   *
+   * @param dt  the time interval between two updates
+   * @param boundary the boundary of the world
+   */
+  void updatePosition(double dt, Boundary boundary);
 }

@@ -3,13 +3,16 @@ package JavaClimber.phisics;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.impl.AlienImpl;
 import it.unibo.model.gameObj.impl.Boundary;
-import it.unibo.model.physics.api.AlienPhysic;
-import it.unibo.model.physics.impl.AlienNormalPhysic;
+import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
+import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test class for AlienNormalPhysic.
+ */
 public class AlienNormalPhysicTest {
 
   private static final double EPSILON = 0.001;

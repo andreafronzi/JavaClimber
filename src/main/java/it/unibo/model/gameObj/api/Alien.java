@@ -1,37 +1,14 @@
 package it.unibo.model.gameObj.api;
 
+import it.unibo.model.gameObj.impl.Boundary;
+import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.api.Vector2d;
 
 /**
  * Represents an Alien entity in a two-dimensional game environment.
- * This interface provides methods to manage the position and speed
- * of the Alien.
+ * This interface provides methods to manage the Alien's physic movement.
  */
-public interface Alien {
-
-  /**
-   *
-   * @return x-coordinate of the position of the Alien
-   */
-  double getPosX();
-
-  /**
-   *
-   * @return y-coordinate of the position of the Alien
-   */
-  double getPosY();
-
-  /**
-   *
-   * @return width of the Alien
-   */
-  double getWidth();
-
-  /**
-   *
-   * @return height of the Alien
-   */
-  double getHeigth();
+public interface Alien extends GameObject{
 
   /**
    *
@@ -46,11 +23,20 @@ public interface Alien {
   double getSpeedY();
 
   /**
-   * Set Alien's position with the one provided.
+   * Notifies the Alien of a collision with a {@link StaticEntity}.
+   * This method is called when the Alien comes into contact with a StaticEntity
    *
-   * @param position the new position of the Alien
+   * @param gObj the {@link StaticEntity} that the Alien has collided with
+   * @param boundary the boundary of the world
    */
-  void setPosition(Vector2d position);
+  void notifyCollision(StaticEntity gObj, Boundary boundary);
+
+  /**
+   * Set Alien's physic
+   *
+   * @param physic the new physic of the Alien
+   */
+  public void setPhysic(AlienPhysic physic);
 
   /**
    * Set Alien's speed with the one provided.
@@ -58,4 +44,12 @@ public interface Alien {
    * @param speed the new speed of the Alien
    */
   void setSpeed(Vector2d speed);
+
+  /**
+   * update Alien's position.
+   *
+   * @param dt elapsed time between two updates
+   * @param boundary the boundary of the world
+   */
+  void updatePosition(double dt, Boundary boundary);
 }
