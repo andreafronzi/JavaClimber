@@ -22,6 +22,8 @@ public interface Alien extends GameObject{
    */
   double getSpeedY();
 
+  void notifyAltitude();
+
   /**
    * Notifies the Alien of a collision with a {@link StaticEntity}.
    * This method is called when the Alien comes into contact with a StaticEntity

@@ -31,8 +31,8 @@ public class AlienImpl extends GameObj implements Alien {
     super(height, width, position);
     this.speed = speed;
     this.physic = new AlienNormalPhysic();
-
   }
+
   @Override
   public double getSpeedX() {
     return this.speed.getX();
@@ -41,6 +41,11 @@ public class AlienImpl extends GameObj implements Alien {
   @Override
   public double getSpeedY() {
     return this.speed.getY();
+  }
+
+  @Override
+  public void notifyAltitude() {
+
   }
 
   @Override

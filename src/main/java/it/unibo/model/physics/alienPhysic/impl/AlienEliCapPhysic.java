@@ -1,6 +1,7 @@
 package it.unibo.model.physics.alienPhysic.impl;
 
 import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
@@ -67,5 +68,10 @@ public class AlienEliCapPhysic extends TemplatePhysic implements AlienPhysic {
   @Override
   public void hitGadget(final Alien alien, final Gadget g) {
 
+  }
+
+  @Override
+  public void hitCoin(final Coin coin) {
+    coin.collectCoin();
   }
 }

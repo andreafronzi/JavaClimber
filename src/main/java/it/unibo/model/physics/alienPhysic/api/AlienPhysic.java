@@ -1,6 +1,7 @@
 package it.unibo.model.physics.alienPhysic.api;
 
 import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
@@ -12,14 +13,11 @@ import it.unibo.model.gameObj.impl.Boundary;
 public interface AlienPhysic {
 
   /**
-   * Handles the collision between an {@link Alien} and a {@link Platform}.
-   * This method applies the appropriate physics effect when the Alien interacts with the Platform.
-   *
-   * @param alien the {@link Alien} involved in the collision
-   * @param p the {@link Platform} involved in the collision
-   * @param boundary the boundary of the world
+   * Handles the interaction between an {@link Alien} and a {@link Coin}.
+   * 
+   * @param coin the {@link Coin} involved in the interaction
    */
-  void hitPlatform(Alien alien, Platform p, Boundary boundary);
+  void hitCoin(Coin coin);
 
   /**
    * Handles the interaction between an {@link Alien} and an {@link Enemy}.
@@ -38,6 +36,16 @@ public interface AlienPhysic {
    * @param g the {@link Gadget} being interacted with
    */
   void hitGadget(Alien alien, Gadget g);
+
+  /**
+   * Handles the collision between an {@link Alien} and a {@link Platform}.
+   * This method applies the appropriate physics effect when the Alien interacts with the Platform.
+   *
+   * @param alien the {@link Alien} involved in the collision
+   * @param p the {@link Platform} involved in the collision
+   * @param boundary the boundary of the world
+   */
+  void hitPlatform(Alien alien, Platform p, Boundary boundary);
 
   /**
    * Apply chosen physical effect to alien's speed
