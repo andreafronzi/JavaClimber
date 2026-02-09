@@ -20,6 +20,7 @@ repositories { // Where to search for dependencies
 }
 
 dependencies {
+    implementation("com.google.code.gson:gson:2.10.1")
     // Suppressions for SpotBugs
     compileOnly("com.github.spotbugs:spotbugs-annotations:4.9.8")
 
