@@ -7,7 +7,6 @@ import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.AlienImpl;
 import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.gameObj.impl.EliCap;
-import it.unibo.model.gameObj.impl.PlatformImpl;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
