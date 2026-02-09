@@ -18,12 +18,10 @@ public class CollisionManagerImpl implements CollisionManager {
 
   @Override
   public void detectCollisions(List<Platform> platforms, List<Coin> coins, List<Enemy> enemies, List<Gadget> gadgets, Alien alien) {
-    final Stream<StaticEntity> staticEntityStream = Stream.concat(Stream.concat(Stream.concat(platforms.stream(), coins.stream()), enemies.stream()), gadgets.stream());
-    staticEntityStream.forEach(se -> {
-      if (checkCollision(alien, se)) {
-        alien.notifyCollision(se, boundary);
-      }
-    } );
+    Stream.of(platforms, coins, enemies, gadgets)
+        .flatMap(List::stream)
+        .filter(se -> checkCollision(alien, se))
+        .forEach(se -> alien.notifyCollision(se, boundary));
   }
 
   private boolean checkCollision(final Alien alien, final StaticEntity se) {

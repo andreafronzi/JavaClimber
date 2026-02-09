@@ -1,11 +1,16 @@
 package JavaClimber.phisics;
 
+import it.unibo.model.gameObj.PlatformBuilder.impl.PlatformBuilderImpl;
 import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.AlienImpl;
 import it.unibo.model.gameObj.impl.Boundary;
+import it.unibo.model.gameObj.impl.PlatformImpl;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
+
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,6 +30,8 @@ public class AlienNormalPhysicTest {
   private static final double SPEED_X = 0;
   private static final double SPEED_Y = 0;
 
+  private static final double SPEED_AFTER_JUMP = -10;
+  private static final double SPEED1_Y = 50;
   private static final double SPEED1_X = 50;
   private static final double SPEED2_X = -200;
 
@@ -77,5 +84,24 @@ public class AlienNormalPhysicTest {
     final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
     physic.update(alien, DT, boundary);
     assertEquals(RIGHT_BOUNDARY - WIDTH, alien.getPosX(), EPSILON);
+  }
+
+  /**
+   * Tests the {@link AlienNormalPhysic#hitPlatform(Alien, Platform, Boundary)} method.
+   */
+  @Test
+  void testHitPlatform() {
+    final AlienPhysic physic = new AlienNormalPhysic();
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGTH);
+    final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
+    final PlatformBuilderImpl platformBuilder = new PlatformBuilderImpl();
+    final Platform platform = platformBuilder
+                .at(new Vector2dImpl(X, Y + HEIGTH))
+                .size(WIDTH, HEIGTH)
+                .build();
+
+    physic.hitPlatform(alien, platform, boundary);
+    assertEquals(alien.getPosY(), platform.getPosY() - alien.getHeight(), EPSILON);
+    assertEquals(SPEED_AFTER_JUMP, alien.getSpeedY(), EPSILON);
   }
 }
