@@ -47,8 +47,9 @@ public interface AlienPhysic {
    * @param alien the {@link Alien} involved in the collision
    * @param p the {@link Platform} involved in the collision
    * @param boundary the boundary of the world
+   * @param activeUpgrades the active upgrades affecting the Alien
    */
-  void hitPlatform(Alien alien, Platform p, Boundary boundary);
+  void hitPlatform(Alien alien, Platform p, Boundary boundary, ActiveUpgrades activeUpgrades);
 
   /**
    * Apply chosen physical effect to alien's speed
