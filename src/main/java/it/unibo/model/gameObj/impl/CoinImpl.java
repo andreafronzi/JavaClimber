@@ -7,12 +7,17 @@ import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.score.api.ScoreManager;
 
+/**
+ * Represents a Coin entity in a two-dimensional game environment which can be collected by the {@link Alien}.
+ */
 public class CoinImpl extends GameObj implements Coin {
 
     private static final int COIN_POINTS = 1;
 
-
-    private final ScoreManager scoreManager;
+  /**
+   * The score manager which updates the {@link Coin} collected number.
+   */
+  private final ScoreManager scoreManager;
 
   /**
    * Constructs a new CoinImpl.
