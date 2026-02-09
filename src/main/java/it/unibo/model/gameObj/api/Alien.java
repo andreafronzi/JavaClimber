@@ -3,7 +3,6 @@ package it.unibo.model.gameObj.api;
 import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.api.Vector2d;
-import it.unibo.model.shop.api.ActiveUpgrades;
 
 /**
  * Represents an Alien entity in a two-dimensional game environment.
@@ -53,7 +52,6 @@ public interface Alien extends GameObject{
    *
    * @param dt elapsed time between two updates
    * @param boundary the boundary of the world
-   * @param activeUpgrades the active upgrades affecting the Alien
    */
-  void updatePosition(double dt, Boundary boundary, ActiveUpgrades activeUpgrades);
+  void updatePosition(double dt, Boundary boundary);
 }
