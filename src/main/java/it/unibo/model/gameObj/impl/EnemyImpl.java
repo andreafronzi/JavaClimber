@@ -5,6 +5,7 @@ import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.GameObj;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.shop.api.ActiveUpgrades;
 
 public class EnemyImpl extends GameObj implements Enemy {
 
@@ -35,7 +36,7 @@ public class EnemyImpl extends GameObj implements Enemy {
   }
 
   @Override
-  public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary) {
-    physic.hitEnemy(alien, this);
+  public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final ActiveUpgrades activeUpgrades) {
+    physic.hitEnemy(alien, this, activeUpgrades);
   }
 }
