@@ -31,8 +31,8 @@ public class AlienImpl extends GameObj implements Alien {
     super(height, width, position);
     this.speed = speed;
     this.physic = new AlienNormalPhysic();
-
   }
+
   @Override
   public double getSpeedX() {
     return this.speed.getX();
@@ -47,12 +47,11 @@ public class AlienImpl extends GameObj implements Alien {
   public void notifyAltitude() {
 
   }
+
   @Override
   public void notifyCollision(final StaticEntity gObj, final Boundary boundary) {
     gObj.onHitBy(this, this.physic, boundary);
   }
-
-
 
   @Override
   public void setPhysic(final AlienPhysic physic) {
