@@ -44,9 +44,15 @@ public class AlienImpl extends GameObj implements Alien {
   }
 
   @Override
+  public void notifyAltitude() {
+
+  }
+  @Override
   public void notifyCollision(final StaticEntity gObj, final Boundary boundary) {
     gObj.onHitBy(this, this.physic, boundary);
   }
+
+
 
   @Override
   public void setPhysic(final AlienPhysic physic) {
