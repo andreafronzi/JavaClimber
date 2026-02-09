@@ -19,7 +19,7 @@ public interface BaseWorld {
     List<Platform> getPlatforms();
 
     /**
-     * Retrieves the list of enemies (monsters).
+     * Retrieves the list of enemies.
      * @return a List of {@link Enemy} objects.
      */
     List<Enemy> getMonsters();
@@ -31,7 +31,7 @@ public interface BaseWorld {
     List<Gadget> getGadgets();
 
     /**
-     * Retrieves the list of coins (money).
+     * Retrieves the list of coins.
      * @return a List of {@link Coin} objects.
      */
     List<Coin> getMoneys();

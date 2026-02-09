@@ -9,29 +9,44 @@ import it.unibo.model.world.impl.UpperWorld;
 import it.unibo.model.worldConstructor.api.Observer;
 import it.unibo.model.worldConstructor.api.WorldConstructor;
 
+/**
+ * Implementation of the WorldConstructor interface.
+ * Generates the game world by creating platforms and add-ons (coins, monsters, gadgets)
+ * based on the current difficulty.
+ */
 public class WorldConstructorImpl implements WorldConstructor, Observer {
 
     private Difficult difficult;
     private final PlatformPositionGeneratorImpl platformControlDistance;
     private final PlatformPoolCreatorImpl platformPoolCreator;
+    private final AddOnPositionGeneratorImpl addOnPositionGenerator;
     private final Random random;
     private final UpperWorld world;
-    private Platform previousPlatform;
+    private Platform platform;
     private final BoundY boundY;
 
+    /**
+     * Constructs a new WorldConstructorImpl.
+     * 
+     * @param difficult the initial difficulty configuration
+     */
     public WorldConstructorImpl(final Difficult difficult) {
         this.difficult = difficult;
         this.random = new Random();
         this.world = new UpperWorld();
         this.platformControlDistance = new PlatformPositionGeneratorImpl();
         this.platformPoolCreator = new PlatformPoolCreatorImpl();
+        this.addOnPositionGenerator = new AddOnPositionGeneratorImpl();
         platformPoolCreator.setSpawnPool(difficult.platformPool());
         this.boundY = new BoundY();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void fillWorld() {
-        while (previousPlatform.getPosY() > boundY.maxY() - difficult.maxDistanceY()) {
+        while (platform.getPosY() > boundY.maxY() - difficult.maxDistanceY()) {
             createPlatform();
         }
     }
@@ -40,25 +55,29 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
         double chance = random.nextDouble(1.0);
         double chanceAddOn = random.nextDouble(1.0);
         Vector2d pos = platformControlDistance.generatePosition();
-        previousPlatform = platformPoolCreator.createPlatform(chance, pos);
-        world.addPlatform(previousPlatform);
+        platform = platformPoolCreator.createPlatform(chance, pos);
+        world.addPlatform(platform);
         if (chanceAddOn < difficult.chanceAddOn()) {
-            createAddOn();
+            createAddOn(pos);
         }
     }
 
-    private void createAddOn() {
-        Vector2d pos = platformControlDistance.generatePosition();
+    private void createAddOn(final Vector2d posPlatform) {
+        Vector2d pos = addOnPositionGenerator.generatePosition(posPlatform);
+        double choseTypeAddOn = random.nextDouble(1.0);
         double choseAddOn = random.nextDouble(1.0);
         if (choseAddOn < difficult.coinChance()) {
-            world.addMoney(platformPoolCreator.createMoney(choseAddOn, pos));
+            world.addMoney(platformPoolCreator.createMoney(choseTypeAddOn, pos));
         } else if (choseAddOn < difficult.coinChance() + difficult.monsterChance()) {
-            world.addMonster(platformPoolCreator.createMonster(choseAddOn, pos));
+            world.addMonster(platformPoolCreator.createMonster(choseTypeAddOn, pos));
         } else if (choseAddOn < difficult.coinChance() + difficult.monsterChance() + difficult.gadgetChance()) {
-            world.addGadget(platformPoolCreator.createGadget(choseAddOn, pos));
+            world.addGadget(platformPoolCreator.createGadget(choseTypeAddOn, pos));
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(Difficult difficult) {
         this.difficult = difficult;

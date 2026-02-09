@@ -11,6 +11,10 @@ import it.unibo.model.worldConstructor.api.PlatformPoolCreator;
 import it.unibo.model.worldConstructor.api.Pair;
 import it.unibo.model.worldConstructor.api.PlatformPool;
 
+/**
+ * Implementation of PlatformPoolCreator.
+ * Iterates through the configured pools to find a matching object for a given spawn chance.
+ */
 public class PlatformPoolCreatorImpl implements PlatformPoolCreator {
 
     private List<Pair<Platform>> platforms;
@@ -19,6 +23,9 @@ public class PlatformPoolCreatorImpl implements PlatformPoolCreator {
     private List<Pair<Coin>> money;
     // private List<Pair<Trap>> traps;
 
+    /**
+     * {@inheritDoc}
+     */
     public void setSpawnPool(final PlatformPool platformPool) {
         this.platforms = platformPool.getPlatformPool();
         this.monsters = platformPool.getMonsterPool();
@@ -27,6 +34,9 @@ public class PlatformPoolCreatorImpl implements PlatformPoolCreator {
         // this.traps = platformPool.getTrapPool();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Platform createPlatform(final double chance, final Vector2d pos) {
         for (final var p : this.platforms) {
@@ -37,6 +47,9 @@ public class PlatformPoolCreatorImpl implements PlatformPoolCreator {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Enemy createMonster(final double chance, final Vector2d pos) {
         for (final var p : this.monsters) {
@@ -47,6 +60,9 @@ public class PlatformPoolCreatorImpl implements PlatformPoolCreator {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Gadget createGadget(final double chance, final Vector2d pos) {
         for (final var p : this.gadgets) {
@@ -57,6 +73,9 @@ public class PlatformPoolCreatorImpl implements PlatformPoolCreator {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Coin createMoney(final double chance, final Vector2d pos) {
         for (final var p : this.money) {
