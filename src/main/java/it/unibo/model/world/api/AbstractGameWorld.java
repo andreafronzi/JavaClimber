@@ -9,7 +9,7 @@ import it.unibo.model.gameObj.api.Platform;
  * Abstract implementation of {@link GameWorld}.
  * Provides basic removal logic for game entities.
  */
-public abstract class AbstractGameWorld extends AbstractWorldContainer implements GameWorld {
+public abstract class AbstractGameWorld extends AbstractQueueWorld implements GameWorld {
 
     /**
      * {@inheritDoc}
