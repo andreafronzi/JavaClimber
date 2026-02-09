@@ -1,20 +1,23 @@
 package it.unibo.model.world.impl;
 
+import it.unibo.model.world.api.AbstractGameWorld;
+import it.unibo.model.world.api.AbstractQueueWorld;
+
 public class World {
     
-    private final UpperWorld upperWorld;
-    private final RealWorld realWorld;
+    private final AbstractQueueWorld upperWorld;
+    private final AbstractGameWorld realWorld;
 
-    public World(final UpperWorld upperWorld, final RealWorld realWorld) {
+    public World(final AbstractQueueWorld upperWorld, final AbstractGameWorld realWorld) {
         this.upperWorld = upperWorld;
         this.realWorld = realWorld;
     }
     
-    public UpperWorld getUpperWorld() {
+    public AbstractQueueWorld getUpperWorld() {
         return this.upperWorld;
     }
 
-    public RealWorld getRealWorld() {
+    public AbstractGameWorld getRealWorld() {
         return this.realWorld;
     }
 }
