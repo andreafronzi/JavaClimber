@@ -1,49 +1,35 @@
 package it.unibo.model.camera.impl;
 
+import it.unibo.model.camera.api.AltitudeObserver;
 import it.unibo.model.camera.api.Camera;
+import it.unibo.model.world.impl.World;
 
 /**
  * Implementation of {@link Camera} interface.
  */
-public class CameraImpl implements Camera {
+public class CameraImpl implements Camera, AltitudeObserver {
 
     private final double width;
     private final double height;
-    private double x;
     private double y;
-    private double highestYReached;
+    private double totAbbass;
+    private final World world;
     private boolean needGeneration;
-    private double lastGeneratedY;
-
-    private static final double DISTANCE_FOR_GENERATION = 300.0;
+    private final double distanceForGeneration;
 
     /**
      * 
      * @param width width of the viewport
      * @param height height of the viewport
      */
-    public CameraImpl(double width, double height) {
+    public CameraImpl(double width, double height, World world) {
         this.width = width;
         this.height = height;
-        this.x = 0;
         this.y = 0;
-        this.highestYReached = 0;
+        this.world = world;
+        this.totAbbass = 0;
         this.needGeneration = true;
-        this.lastGeneratedY = 0;
-    }
-
-    @Override
-    public void update(double targetY) {
-        final double targetCameraY = targetY - (height * 0.5);
-        if (targetCameraY < highestYReached) {
-            highestYReached = targetCameraY;
-            this.y = highestYReached;
-
-            if (Math.abs(this.y - lastGeneratedY) > DISTANCE_FOR_GENERATION) {
-                this.needGeneration = true;
-                this.lastGeneratedY = this.y;
-            }
-        }
+        this.distanceForGeneration = height / 2.0;
     }
 
     @Override
@@ -57,13 +43,19 @@ public class CameraImpl implements Camera {
     }
 
     @Override
-    public double getX() {
-        return this.x;
+    public void update(double delta) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
     @Override
     public double getY() {
         return this.y;
+    }
+
+    @Override
+    public double getLowerLimit() {
+        return this.y + this.height;
     }
 
     @Override
@@ -74,11 +66,6 @@ public class CameraImpl implements Camera {
     @Override
     public double getViewportHeight() {
         return this.height;
-    }
-
-    @Override
-    public double getLowerLimit() {
-        return this.y + this.height;
     }
 
 }

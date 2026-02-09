@@ -6,12 +6,6 @@ package it.unibo.model.camera.api;
 public interface Camera {
 
     /**
-     * Update camera position.
-     * @param targetY current Y of the player
-     */
-    void update(double targetY);
-
-    /**
      * Check if camera has reached a specific point for generate world in the upper world.
      * @return true if generation is needed
      */
@@ -21,12 +15,6 @@ public interface Camera {
      * reset generation after world spawn.
      */
     void resetGeneration();
-
-    /**
-     * 
-     * @return the horizontal coordinate of corner top-left
-     */
-    double getX();
 
     /**
      * 
