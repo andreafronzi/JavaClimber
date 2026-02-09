@@ -1,6 +1,7 @@
 package it.unibo.model.physics.alienPhysic.api;
 
 import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
@@ -11,7 +12,12 @@ import it.unibo.model.gameObj.impl.Boundary;
  */
 public interface AlienPhysic {
 
-  void hitCoin(Coin c);
+  /**
+   * Handles the interaction between an {@link Alien} and a {@link Coin}.
+   * 
+   * @param coin the {@link Coin} involved in the interaction
+   */
+  void hitCoin(Coin coin);
 
   /**
    * Handles the interaction between an {@link Alien} and an {@link Enemy}.
