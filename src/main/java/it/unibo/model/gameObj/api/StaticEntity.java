@@ -2,6 +2,7 @@ package it.unibo.model.gameObj.api;
 
 import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
+import it.unibo.model.shop.api.ActiveUpgrades;
 
 /**
  * Represents a static entity in a two-dimensional game environment.
@@ -16,6 +17,7 @@ public interface StaticEntity extends GameObject {
    * @param alien the {@link Alien} that collides with this entity
    * @param physic the {@link AlienPhysic} that influences the Alien's behavior upon collision
    * @param boundary the boundary of the world
+   * @param activeUpgrades the active upgrades affecting the Alien
    */
-  void onHitBy(Alien alien, AlienPhysic physic, Boundary boundary);
+  void onHitBy(Alien alien, AlienPhysic physic, Boundary boundary, ActiveUpgrades activeUpgrades);
 }
