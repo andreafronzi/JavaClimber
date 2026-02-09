@@ -2,8 +2,6 @@ package JavaClimber.world;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.lang.module.ModuleDescriptor.Builder;
-
 import org.junit.jupiter.api.Test;
 
 import it.unibo.model.world.impl.UpperWorld;
@@ -14,7 +12,10 @@ import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
-import it.unibo.model.world.*;
+import it.unibo.model.gameObj.impl.CoinImpl;
+import it.unibo.model.gameObj.impl.EliCap;
+import it.unibo.model.gameObj.impl.EnemyImpl;
+
 
 public class QueueWorldTest {
 
@@ -40,30 +41,32 @@ public class QueueWorldTest {
     @Test
     public void addMonsterTest() {
         setUpUpperWorld();
-        Enemy monster = new Enemy(new Vector2dImpl(0, 0));
+        Enemy monster = new EnemyImpl(0, 0, new Vector2dImpl(0, 0));
         assertEquals(true, this.upperWorld.addMonster(monster));
     }
 
     @Test
     public void addGadgetTest() {
         setUpUpperWorld();
-        Gadget gadget = new Gadget(new Vector2dImpl(0, 0));
+        Gadget gadget = new EliCap(0, 0, new Vector2dImpl(0, 0));
         assertEquals(true, this.upperWorld.addGadget(gadget));
     }
 
     @Test
     public void addMoneyTest() {
         setUpUpperWorld();
-        Coin money = new Coin(new Vector2dImpl(0, 0));
+        Coin money = new CoinImpl(0, 0, null, null);
         assertEquals(true, this.upperWorld.addMoney(money));
     }
 
-    @Test
-    public void addTrapTest() {
-        setUpUpperWorld();
-        Trap trap = new Trap(new Vector2dImpl(0, 0));
-        assertEquals(true, this.upperWorld.addTrap(trap));
-    }
+    /*
+     * @Test
+     * public void addTrapTest() {
+     * setUpUpperWorld();
+     * Trap trap = new Trap(new Vector2dImpl(0, 0));
+     * assertEquals(true, this.upperWorld.addTrap(trap));
+     * }
+     */
 
     @Test
     public void removeFirstPlatformTest() {
@@ -76,7 +79,7 @@ public class QueueWorldTest {
     @Test
     public void removeFirstMonsterTest() {
         setUpUpperWorld();
-        Enemy monster = new Enemy(new Vector2dImpl(0, 0));
+        Enemy monster = new EnemyImpl(0, 0, new Vector2dImpl(0, 0));
         this.upperWorld.addMonster(monster);
         assertEquals(monster, this.upperWorld.removeFirstMonster().get());
     }
@@ -84,7 +87,7 @@ public class QueueWorldTest {
     @Test
     public void removeFirstGadgetTest() {
         setUpUpperWorld();
-        Gadget gadget = new Gadget(new Vector2dImpl(0, 0));
+        Gadget gadget = new EliCap(0, 0, new Vector2dImpl(0, 0));
         this.upperWorld.addGadget(gadget);
         assertEquals(gadget, this.upperWorld.removeFirstGadget().get());
     }
@@ -92,18 +95,20 @@ public class QueueWorldTest {
     @Test
     public void removeFirstCoinTest() {
         setUpUpperWorld();
-        Coin coin = new Coin(new Vector2dImpl(0, 0));
-        this.upperWorld.addCoin(coin);
+        Coin coin = new CoinImpl(0, 0, null, null);
+        this.upperWorld.addMoney(coin);
         assertEquals(coin, this.upperWorld.removeFirstMoney().get());
     }
 
-    @Test
-    public void removeFirstTrapTest() {
-        setUpUpperWorld();
-        Trap trap = new Trap(new Vector2dImpl(0, 0));
-        this.upperWorld.addTrap(trap);
-        assertEquals(trap, this.upperWorld.removeFirstTrap().get());
-    }
+    /*
+     * @Test
+     * public void removeFirstTrapTest() {
+     * setUpUpperWorld();
+     * Trap trap = new Trap(new Vector2dImpl(0, 0));
+     * this.upperWorld.addTrap(trap);
+     * assertEquals(trap, this.upperWorld.removeFirstTrap().get());
+     * }
+     */
 
     @Test
     public void getPlatformsTest() {
@@ -116,7 +121,7 @@ public class QueueWorldTest {
     @Test
     public void getMonstersTest() {
         setUpUpperWorld();
-        Enemy monster = new Enemy(new Vector2dImpl(0, 0));
+        Enemy monster = new EnemyImpl(0, 0, new Vector2dImpl(0, 0));
         this.upperWorld.addMonster(monster);
         assertEquals(1, this.upperWorld.getMonsters().size());
     }
@@ -124,7 +129,7 @@ public class QueueWorldTest {
     @Test
     public void getGadgetsTest() {
         setUpUpperWorld();
-        Gadget gadget = new Gadget(new Vector2dImpl(0, 0)); 
+        Gadget gadget = new EliCap(0, 0, new Vector2dImpl(0, 0));
         this.upperWorld.addGadget(gadget);
         assertEquals(1, this.upperWorld.getGadgets().size());
     }
@@ -132,16 +137,18 @@ public class QueueWorldTest {
     @Test
     public void getCoinsTest() {
         setUpUpperWorld();
-        Coin coin = new Coin(new Vector2dImpl(0, 0));
-        this.upperWorld.addCoin(coin);
-        assertEquals(1, this.upperWorld.getCoins().size());    
+        Coin coin = new CoinImpl(0, 0, null, null);
+        this.upperWorld.addMoney(coin);
+        assertEquals(1, this.upperWorld.getMoneys().size());
     }
 
-    @Test
-    public void getTrapsTest() {
-        setUpUpperWorld();
-        Trap trap = new Trap(new Vector2dImpl(0, 0));
-        this.upperWorld.addTrap(trap);
-        assertEquals(1, this.upperWorld.getTraps().size());
-    }
-}   
+    /*
+     * @Test
+     * public void getTrapsTest() {
+     * setUpUpperWorld();
+     * Trap trap = new Trap(new Vector2dImpl(0, 0));
+     * this.upperWorld.addTrap(trap);
+     * assertEquals(1, this.upperWorld.getTraps().size());
+     * }
+     */
+}

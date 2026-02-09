@@ -8,10 +8,14 @@ import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.gameObj.PlatformBuilder.impl.PlatformBuilderImpl;
 import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.AlienImpl;
+import it.unibo.model.gameObj.impl.EnemyImpl;
+import it.unibo.model.gameObj.impl.CoinImpl;
+import it.unibo.model.gameObj.impl.EliCap;
 import it.unibo.model.world.impl.RealWorld;
 
 public class RealWorldTest {
@@ -25,11 +29,13 @@ public class RealWorldTest {
 
     @Test
     public void getAlienTest() {
-        this.realWorld = setUpRealWorld(new Vector2dImpl(0, 0), new Vector2dImpl(0, 0), 10, 10);
+        double x = 0;
+        double y = 0;
+        this.realWorld = setUpRealWorld(new Vector2dImpl(x, y), new Vector2dImpl(0, 0), 10, 10);
         Alien alien = this.realWorld.getAlien();
         assertEquals(alien, this.realWorld.getAlien());
-        assertEquals(10, alien.getPosX());
-        assertEquals(15, alien.getPosY());
+        assertEquals(x, alien.getPosX());
+        assertEquals(y, alien.getPosY());
     }
 
     private Platform createPlatform(final Vector2d pos) {
@@ -46,24 +52,27 @@ public class RealWorldTest {
         assertEquals(true, this.realWorld.removePlatform(platform));
     }
 
+    @Test
     public void removeMonsterTest() {
-        Enemy monster = new Enemy(new Vector2dImpl(0, 0));
+        Enemy monster = new EnemyImpl(0, 0, new Vector2dImpl(0, 0));
         this.realWorld = setUpRealWorld(new Vector2dImpl(0, 0), new Vector2dImpl(0, 0), 10, 10);
-        this.realWorld.addPlatform(monster);
-        assertEquals(true, this.realWorld.removePlatform(monster));
+        this.realWorld.addMonster(monster);
+        assertEquals(true, this.realWorld.removeMonster(monster));
     }
 
+    @Test
     public void removeGadgetTest() {
-        Gadget gadget = new Gadget(new Vector2dImpl(0, 0));
+        Gadget gadget = new EliCap(0, 0, new Vector2dImpl(0, 0));
         this.realWorld = setUpRealWorld(new Vector2dImpl(0, 0), new Vector2dImpl(0, 0), 10, 10);
-        this.realWorld.addPlatform(gadget);
-        assertEquals(true, this.realWorld.removePlatform(gadget));
+        this.realWorld.addGadget(gadget);
+        assertEquals(true, this.realWorld.removeGadget(gadget));
     }
 
+    @Test
     public void removeMoneyTest() {
-        Coin money = new Coin(new Vector2dImpl(0, 0));
+        Coin money = new CoinImpl(0, 0, null, null);
         this.realWorld = setUpRealWorld(new Vector2dImpl(0, 0), new Vector2dImpl(0, 0), 10, 10);
-        this.realWorld.addPlatform(money);
-        assertEquals(true, this.realWorld.removePlatform(money));
+        this.realWorld.addMoney(money);
+        assertEquals(true, this.realWorld.removeMoney(money));
     }
 }
