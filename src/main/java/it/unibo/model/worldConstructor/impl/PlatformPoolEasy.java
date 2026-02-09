@@ -11,6 +11,10 @@ import it.unibo.model.worldConstructor.api.Pair;
 import it.unibo.model.worldConstructor.api.PlatformPool;
 import it.unibo.model.worldConstructor.api.Director;
 
+/**
+ * Implementation of PlatformPool for the "Easy" difficulty level.
+ * Defines the probabilities and types of objects that spawn in easy mode.
+ */
 public class PlatformPoolEasy implements PlatformPool {
 
     private final List<Pair<Platform>> platformPool;
@@ -20,6 +24,9 @@ public class PlatformPoolEasy implements PlatformPool {
     // private final List<Pair<Trap>> trapPool;
     private final Director director;
 
+    /**
+     * Constructs the easy platform pool and initializes the object lists.
+     */
     public PlatformPoolEasy() {
 
         this.platformPool = new LinkedList<>();
@@ -36,21 +43,33 @@ public class PlatformPoolEasy implements PlatformPool {
         // initializeTrapPool();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Pair<Platform>> getPlatformPool() {
         return List.copyOf(this.platformPool);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Pair<Enemy>> getMonsterPool() {
         return List.copyOf(this.monsterPool);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Pair<Gadget>> getGadgetPool() {
         return List.copyOf(this.gadgetPool);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Pair<Coin>> getMoneyPool() {
         return List.copyOf(this.moneyPool);

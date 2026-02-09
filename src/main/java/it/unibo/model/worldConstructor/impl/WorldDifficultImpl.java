@@ -8,6 +8,11 @@ import it.unibo.model.worldConstructor.api.Observer;
 import it.unibo.model.worldConstructor.api.Subject;
 import it.unibo.model.worldConstructor.api.WorldDifficult;
 
+/**
+ * Implementation of WorldDifficult.
+ * Manages difficulty levels by observing the player's height (Alien) and
+ * notifying observers when a new difficulty threshold is reached.
+ */
 public class WorldDifficultImpl implements WorldDifficult, Subject {
 
     private final Alien alien;
@@ -15,6 +20,12 @@ public class WorldDifficultImpl implements WorldDifficult, Subject {
     private Difficult difficult;
     private List<Difficult> difficultList;
 
+    /**
+     * Constructs a new WorldDifficultImpl.
+     * 
+     * @param alien the player character to monitor
+     * @param difficultList the list of available difficulty levels
+     */
     public WorldDifficultImpl(final Alien alien, final List<Difficult> difficultList) {
         this.alien = alien;
         this.observers = new LinkedList<>();
@@ -27,6 +38,9 @@ public class WorldDifficultImpl implements WorldDifficult, Subject {
         this.difficultList.sort( (d1, d2) -> Double.compare(d1.height(), d2.height()) );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void createDifficult() {
         if(alien.getHeight() > difficult.height()){
@@ -38,16 +52,25 @@ public class WorldDifficultImpl implements WorldDifficult, Subject {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void registerObserver(Observer o) {
         this.observers.add(o);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeObserver(Observer o) {
         this.observers.remove(o);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void notifyObservers(final Difficult difficult) {
         for (var o : observers) {
