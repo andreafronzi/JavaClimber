@@ -38,8 +38,8 @@ public class EliCap extends GameObj implements Gadget{
         alien.setPhysic(new AlienEliCapPhysic(TIME_INTERVALL, VERTICAL_SPEED));
     }
 
-  @Override
-  public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary) {
+    @Override
+    public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary) {
     physic.hitGadget(alien, this);
   }
 }
