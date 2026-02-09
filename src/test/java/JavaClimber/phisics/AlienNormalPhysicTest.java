@@ -2,9 +2,11 @@ package JavaClimber.phisics;
 
 import it.unibo.model.gameObj.PlatformBuilder.impl.PlatformBuilderImpl;
 import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.AlienImpl;
 import it.unibo.model.gameObj.impl.Boundary;
+import it.unibo.model.gameObj.impl.EliCap;
 import it.unibo.model.gameObj.impl.PlatformImpl;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
@@ -84,6 +86,17 @@ public class AlienNormalPhysicTest {
     final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
     physic.update(alien, DT, boundary);
     assertEquals(RIGHT_BOUNDARY - WIDTH, alien.getPosX(), EPSILON);
+  }
+
+  @Test
+  void testHitGadget() {
+    final AlienPhysic physic = new AlienNormalPhysic();
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGTH);
+    final Gadget eliCap = new EliCap(HEIGTH, WIDTH, new Vector2dImpl(X, Y + HEIGTH));
+    
+    physic.hitGadget(alien, eliCap);
+    assertEquals(alien.getPosY(), eliCap.getPosY() - alien.getHeight(), EPSILON);
+    assertEquals(SPEED_Y, alien.getSpeedY(), EPSILON);
   }
 
   /**
