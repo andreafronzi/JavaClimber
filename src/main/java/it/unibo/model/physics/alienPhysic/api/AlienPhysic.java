@@ -17,8 +17,9 @@ public interface AlienPhysic {
    * Handles the interaction between an {@link Alien} and a {@link Coin}.
    * 
    * @param coin the {@link Coin} involved in the interaction
+   * @param activeUpgrades the active upgrades affecting the Alien
    */
-  void hitCoin(Coin coin);
+  void hitCoin(Coin coin, ActiveUpgrades activeUpgrades);
 
   /**
    * Handles the interaction between an {@link Alien} and an {@link Enemy}.
@@ -26,8 +27,9 @@ public interface AlienPhysic {
    *
    * @param alien the {@link Alien} involved in the collision
    * @param e the {@link Enemy} involved in the collision
+   * @param activeUpgrades the active upgrades affecting the Alien
    */
-  void hitEnemy(Alien alien, Enemy e);
+  void hitEnemy(Alien alien, Enemy e, ActiveUpgrades activeUpgrades);
 
   /**
    * Handles the interaction between an {@link Alien} and a {@link Gadget}.
