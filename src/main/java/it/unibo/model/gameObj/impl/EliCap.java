@@ -12,9 +12,9 @@ import it.unibo.model.physics.api.Vector2d;
  */
 public class EliCap extends GameObj implements Gadget{
 
-    /**
-     * Represents the duration time of the gadget effect.
-     */
+  /**
+   * Represents the duration time of the gadget effect.
+   */
   private static final double TIME_INTERVALL = 2;
 
   /**
@@ -40,6 +40,6 @@ public class EliCap extends GameObj implements Gadget{
 
     @Override
     public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary) {
-    physic.hitGadget(alien, this);
+      physic.hitGadget(alien, this);
   }
 }
