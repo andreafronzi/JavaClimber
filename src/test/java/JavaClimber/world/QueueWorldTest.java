@@ -2,14 +2,21 @@ package JavaClimber.world;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.lang.module.ModuleDescriptor.Builder;
+
 import org.junit.jupiter.api.Test;
 
 import it.unibo.model.world.impl.UpperWorld;
+import it.unibo.model.gameObj.PlatformBuilder.impl.PlatformBuilderImpl;
+import it.unibo.model.gameObj.api.Coin;
+import it.unibo.model.gameObj.api.Enemy;
+import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.world.*;
 
-public class UpperWorldTest {
+public class QueueWorldTest {
 
     private UpperWorld upperWorld;
 
@@ -17,17 +24,23 @@ public class UpperWorldTest {
         this.upperWorld = new UpperWorld();
     }
 
+    private Platform createPlatform(final Vector2d pos) {
+        PlatformBuilderImpl platformBuilder = new PlatformBuilderImpl();
+        Platform platform = platformBuilder.at(pos).build();
+        return platform;
+    }
+
     @Test
     public void addPlatformTest() {
         setUpUpperWorld();
-        Platform platform = new PlatformImpl(new Vector2dImpl(0, 0));
+        Platform platform = createPlatform(new Vector2dImpl(0, 0));
         assertEquals(true, this.upperWorld.addPlatform(platform));
     }
 
     @Test
     public void addMonsterTest() {
         setUpUpperWorld();
-        Monster monster = new Monster(new Vector2dImpl(0, 0));
+        Enemy monster = new Enemy(new Vector2dImpl(0, 0));
         assertEquals(true, this.upperWorld.addMonster(monster));
     }
 
@@ -41,7 +54,7 @@ public class UpperWorldTest {
     @Test
     public void addMoneyTest() {
         setUpUpperWorld();
-        Money money = new Money(new Vector2dImpl(0, 0));
+        Coin money = new Coin(new Vector2dImpl(0, 0));
         assertEquals(true, this.upperWorld.addMoney(money));
     }
 
@@ -53,79 +66,49 @@ public class UpperWorldTest {
     }
 
     @Test
-    public void removePlatformTest() {
+    public void removeFirstPlatformTest() {
         setUpUpperWorld();
-        Platform platform = new PlatformImpl(new Vector2dImpl(0, 0));
+        Platform platform = createPlatform(new Vector2dImpl(0, 0));
         this.upperWorld.addPlatform(platform);
-        assertEquals(platform, this.upperWorld.removePlatform().get());
+        assertEquals(platform, this.upperWorld.removeFirstPlatform().get());
     }
 
     @Test
-    public void removeMonsterTest() {
+    public void removeFirstMonsterTest() {
         setUpUpperWorld();
-        Monster monster = new Monster(new Vector2dImpl(0, 0));
+        Enemy monster = new Enemy(new Vector2dImpl(0, 0));
         this.upperWorld.addMonster(monster);
-        assertEquals(monster, this.upperWorld.removeMonster().get());
+        assertEquals(monster, this.upperWorld.removeFirstMonster().get());
     }
 
     @Test
-    public void removeGadgetTest() {
+    public void removeFirstGadgetTest() {
         setUpUpperWorld();
         Gadget gadget = new Gadget(new Vector2dImpl(0, 0));
         this.upperWorld.addGadget(gadget);
-        assertEquals(gadget, this.upperWorld.removeGadget().get());
+        assertEquals(gadget, this.upperWorld.removeFirstGadget().get());
     }
 
     @Test
-    public void removeMoneyTest() {
+    public void removeFirstCoinTest() {
         setUpUpperWorld();
-        Money money = new Money(new Vector2dImpl(0, 0));
-        this.upperWorld.addMoney(money);
-        assertEquals(money, this.upperWorld.removeMoney().get());
+        Coin coin = new Coin(new Vector2dImpl(0, 0));
+        this.upperWorld.addCoin(coin);
+        assertEquals(coin, this.upperWorld.removeFirstMoney().get());
     }
 
     @Test
-    public void removeTrapTest() {
+    public void removeFirstTrapTest() {
         setUpUpperWorld();
         Trap trap = new Trap(new Vector2dImpl(0, 0));
         this.upperWorld.addTrap(trap);
-        assertEquals(trap, this.upperWorld.removeTrap().get());
-    }
-
-    @Test
-    public void removePlatformEmptyTest() {
-        setUpUpperWorld();
-        assertEquals(true, this.upperWorld.removePlatform().isEmpty());
-    }
-
-    @Test
-    public void removeMonsterEmptyTest() {
-        setUpUpperWorld();
-        assertEquals(true, this.upperWorld.removeMonster().isEmpty());
-    }
-
-    @Test
-    public void removeGadgetEmptyTest() {
-        setUpUpperWorld();
-        assertEquals(true, this.upperWorld.removeGadget().isEmpty());
-    }
-
-    @Test
-    public void removeMoneyEmptyTest() {
-        setUpUpperWorld();
-        assertEquals(true, this.upperWorld.removeMoney().isEmpty());
-    }
-
-    @Test
-    public void removeTrapEmptyTest() {
-        setUpUpperWorld();
-        assertEquals(true, this.upperWorld.removeTrap().isEmpty());
+        assertEquals(trap, this.upperWorld.removeFirstTrap().get());
     }
 
     @Test
     public void getPlatformsTest() {
         setUpUpperWorld();
-        Platform platform = new PlatformImpl(new Vector2dImpl(0, 0));
+        Platform platform = createPlatform(new Vector2dImpl(0, 0));
         this.upperWorld.addPlatform(platform);
         assertEquals(1, this.upperWorld.getPlatforms().size());
     }
@@ -133,7 +116,7 @@ public class UpperWorldTest {
     @Test
     public void getMonstersTest() {
         setUpUpperWorld();
-        Monster monster = new Monster(new Vector2dImpl(0, 0));
+        Enemy monster = new Enemy(new Vector2dImpl(0, 0));
         this.upperWorld.addMonster(monster);
         assertEquals(1, this.upperWorld.getMonsters().size());
     }
@@ -147,11 +130,11 @@ public class UpperWorldTest {
     }
 
     @Test
-    public void getMoneysTest() {
+    public void getCoinsTest() {
         setUpUpperWorld();
-        Money money = new Money(new Vector2dImpl(0, 0));
-        this.upperWorld.addMoney(money);
-        assertEquals(1, this.upperWorld.getMoneys().size());    
+        Coin coin = new Coin(new Vector2dImpl(0, 0));
+        this.upperWorld.addCoin(coin);
+        assertEquals(1, this.upperWorld.getCoins().size());    
     }
 
     @Test
