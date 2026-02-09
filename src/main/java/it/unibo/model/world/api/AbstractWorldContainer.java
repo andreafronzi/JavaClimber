@@ -66,7 +66,7 @@ public abstract class AbstractWorldContainer implements BaseWorld {
      */
     @Override
     public List<Gadget> getGadgets() {
-        return List.copyOf(this.gadgets);
+        return this.gadgets;
     }
 
     /**
@@ -74,7 +74,7 @@ public abstract class AbstractWorldContainer implements BaseWorld {
      */
     @Override
     public List<Coin> getMoneys() {
-        return List.copyOf(this.moneys);
+        return this.moneys;
     }
 
     /**
@@ -82,12 +82,12 @@ public abstract class AbstractWorldContainer implements BaseWorld {
      */
     @Override
     public List<Enemy> getMonsters() {
-        return List.copyOf(this.monsters);
+        return this.monsters;
     }
 
         @Override
     public List<Platform> getPlatforms() {
-        return List.copyOf(this.platforms);
+        return this.platforms;
     }
 
 }
