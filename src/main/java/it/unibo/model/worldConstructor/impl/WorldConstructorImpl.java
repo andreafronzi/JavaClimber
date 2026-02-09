@@ -75,22 +75,25 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
             Coin coin = platformPoolCreator.createMoney(chance, pos);
             coin.setPosition(addOnPositionGenerator.generatePosition(this.platform.getPosX(),
                     this.platform.getPosY(),
-                    this.platform.getHeight(),
-                    coin.getHeight()));
+                    this.platform.getWidth(),
+                    coin.getHeight(),
+                    coin.getWidth()));
             world.addMoney(coin);
         } else if (choseAddOn < difficult.monsterChance()) {
             Enemy enemy = platformPoolCreator.createMonster(chance, pos);
             enemy.setPosition(addOnPositionGenerator.generatePosition(this.platform.getPosX(),
                     this.platform.getPosY(),
-                    this.platform.getHeight(),
-                    enemy.getHeight()));
+                    this.platform.getWidth(),
+                    enemy.getHeight(),
+                    enemy.getWidth()));
             world.addMonster(enemy);
         } else if (choseAddOn < difficult.gadgetChance()) {
             Gadget gadget = platformPoolCreator.createGadget(chance, pos);
             gadget.setPosition(addOnPositionGenerator.generatePosition(this.platform.getPosX(),
                     this.platform.getPosY(),
-                    this.platform.getHeight(),
-                    gadget.getHeight()));
+                    this.platform.getWidth(),
+                    gadget.getHeight(),
+                    gadget.getWidth()));
             world.addGadget(gadget);
         }
     }
