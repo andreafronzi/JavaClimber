@@ -1,6 +1,7 @@
 package it.unibo.model.physics.alienPhysic.impl;
 
 import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
@@ -74,5 +75,10 @@ public class AlienNormalPhysic extends TemplatePhysic implements AlienPhysic {
     final double vy = -10;
     g.onCollect(alien);
     alien.setSpeed(new Vector2dImpl(vx, vy));
+  }
+
+  @Override
+  public void hitCoin(final Coin coin) {
+    coin.collectCoin();
   }
 }
