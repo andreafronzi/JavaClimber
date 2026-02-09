@@ -59,14 +59,14 @@ public class AlienNormalPhysic extends TemplatePhysic implements AlienPhysic {
   }
 
   @Override
-  public void hitEnemy(final Alien alien, final Enemy e) {
+  public void hitEnemy(final Alien alien, final Enemy e, final ActiveUpgrades activeUpgrades) {
     final double eTollerance = 10;
     final boolean falling = alien.getSpeedY() > 0;
     final boolean above = (alien.getPosY() + alien.getHeight()) <= (e.getHeight() + eTollerance);
 
     if (falling && !above) {
       final double vx = 0;
-      final double vy = -10;
+      final double vy = -10 * activeUpgrades.getJumpMultiplier();
       e.die();
       alien.setSpeed(new Vector2dImpl(vx, vy));
     }
@@ -81,7 +81,7 @@ public class AlienNormalPhysic extends TemplatePhysic implements AlienPhysic {
   }
 
   @Override
-  public void hitCoin(final Coin coin) {
-    coin.collectCoin();
+  public void hitCoin(final Coin coin, final ActiveUpgrades activeUpgrades) {
+    coin.collectCoin(activeUpgrades.getCoinMultiplier());
   }
 }
