@@ -2,8 +2,12 @@ package it.unibo.model.worldConstructor.impl;
 
 import java.util.Random;
 
+import it.unibo.model.gameObj.api.Coin;
+import it.unibo.model.gameObj.api.Enemy;
+import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.UpperWorld;
 import it.unibo.model.worldConstructor.api.Observer;
@@ -11,7 +15,8 @@ import it.unibo.model.worldConstructor.api.WorldConstructor;
 
 /**
  * Implementation of the WorldConstructor interface.
- * Generates the game world by creating platforms and add-ons (coins, monsters, gadgets)
+ * Generates the game world by creating platforms and add-ons (coins, monsters,
+ * gadgets)
  * based on the current difficulty.
  */
 public class WorldConstructorImpl implements WorldConstructor, Observer {
@@ -58,20 +63,38 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
         platform = platformPoolCreator.createPlatform(chance, pos);
         world.addPlatform(platform);
         if (chanceAddOn < difficult.chanceAddOn()) {
-            createAddOn(pos);
+            createAddOn();
         }
     }
 
-    private void createAddOn(final Vector2d posPlatform) {
-        Vector2d pos = addOnPositionGenerator.generatePosition(posPlatform);
-        double choseTypeAddOn = random.nextDouble(1.0);
+    private void createAddOn() {
+        Vector2d pos = new Vector2dImpl(0, 0);
+        double chance = random.nextDouble(1.0);
         double choseAddOn = random.nextDouble(1.0);
         if (choseAddOn < difficult.coinChance()) {
-            world.addMoney(platformPoolCreator.createMoney(choseTypeAddOn, pos));
-        } else if (choseAddOn < difficult.coinChance() + difficult.monsterChance()) {
-            world.addMonster(platformPoolCreator.createMonster(choseTypeAddOn, pos));
-        } else if (choseAddOn < difficult.coinChance() + difficult.monsterChance() + difficult.gadgetChance()) {
-            world.addGadget(platformPoolCreator.createGadget(choseTypeAddOn, pos));
+            Coin coin = platformPoolCreator.createMoney(chance, pos);
+            coin.setPosition(addOnPositionGenerator.generatePosition(this.platform.getPosX(),
+                    this.platform.getPosY(),
+                    this.platform.getWidth(),
+                    coin.getHeight(),
+                    coin.getWidth()));
+            world.addMoney(coin);
+        } else if (choseAddOn < difficult.monsterChance()) {
+            Enemy enemy = platformPoolCreator.createMonster(chance, pos);
+            enemy.setPosition(addOnPositionGenerator.generatePosition(this.platform.getPosX(),
+                    this.platform.getPosY(),
+                    this.platform.getWidth(),
+                    enemy.getHeight(),
+                    enemy.getWidth()));
+            world.addMonster(enemy);
+        } else if (choseAddOn < difficult.gadgetChance()) {
+            Gadget gadget = platformPoolCreator.createGadget(chance, pos);
+            gadget.setPosition(addOnPositionGenerator.generatePosition(this.platform.getPosX(),
+                    this.platform.getPosY(),
+                    this.platform.getWidth(),
+                    gadget.getHeight(),
+                    gadget.getWidth()));
+            world.addGadget(gadget);
         }
     }
 
