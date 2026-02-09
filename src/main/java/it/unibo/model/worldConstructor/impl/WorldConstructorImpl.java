@@ -30,7 +30,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
      * 
      * @param difficult the initial difficulty configuration
      */
-    public WorldConstructorImpl(final Difficult difficult) {
+    public WorldConstructorImpl(final Difficult difficult, final BoundY boundY) {
         this.difficult = difficult;
         this.random = new Random();
         this.world = new UpperWorld();
@@ -38,7 +38,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
         this.platformPoolCreator = new PlatformPoolCreatorImpl();
         this.addOnPositionGenerator = new AddOnPositionGeneratorImpl();
         platformPoolCreator.setSpawnPool(difficult.platformPool());
-        this.boundY = new BoundY();
+        this.boundY = boundY;
     }
 
     /**
