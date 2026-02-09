@@ -11,4 +11,10 @@ public interface Enemy extends StaticEntity {
    * This method handles the removal of the enemy from the game world
    */
   void die();
+
+  /**
+   *
+   * @return whether the enemy is dead or not
+   */
+  boolean idDead();
 }
