@@ -8,37 +8,50 @@ import it.unibo.model.gameObj.api.Platform;
 
 /**
  * Abstract implementation of {@link QueueWorld}.
+ * Provides basic logic for retrieving and removing the first element of each entity type.
  */
 public abstract class AbstractQueueWorld extends AbstractWorldContainer implements QueueWorld {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Platform> removeFirstPlatform() {
-        if (!getPlatformsList().isEmpty()) {
-            return Optional.of(getPlatformsList().remove(0));
+        if (!platforms.isEmpty()) {
+            return Optional.of(platforms.removeFirst());
         }
         return Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Enemy> removeFirstMonster() {
-        if (!getMonstersList().isEmpty()) {
-            return Optional.of(getMonstersList().remove(0));
+        if (!monsters.isEmpty()) {
+            return Optional.of(monsters.removeFirst());
         }
         return Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Gadget> removeFirstGadget() {
-        if (!getGadgetsList().isEmpty()) {
-            return Optional.of(getGadgetsList().remove(0));
+        if (!gadgets.isEmpty()) {
+            return Optional.of(gadgets.removeFirst());
         }
         return Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Coin> removeFirstMoney() {
-        if (!getMoneysList().isEmpty()) {
-            return Optional.of(getMoneysList().remove(0));
+        if (!moneys.isEmpty()) {
+            return Optional.of(moneys.removeFirst());
         }
         return Optional.empty();
     }

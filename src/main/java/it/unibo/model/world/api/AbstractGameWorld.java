@@ -7,26 +7,39 @@ import it.unibo.model.gameObj.api.Platform;
 
 /**
  * Abstract implementation of {@link GameWorld}.
+ * Provides basic removal logic for game entities.
  */
 public abstract class AbstractGameWorld extends AbstractWorldContainer implements GameWorld {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean removePlatform(final Platform platform) {
-        return getPlatformsList().remove(platform);
+        return platforms.remove(platform);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean removeMonster(final Enemy monster) {
-        return getMonstersList().remove(monster);
+        return monsters.remove(monster);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean removeGadget(final Gadget gadget) {
-        return getGadgetsList().remove(gadget);
+        return gadgets.remove(gadget);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean removeMoney(final Coin money) {
-        return getMoneysList().remove(money);
+        return moneys.remove(money);
     }
 }

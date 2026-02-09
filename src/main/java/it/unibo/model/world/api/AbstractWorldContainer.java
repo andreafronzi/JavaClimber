@@ -14,11 +14,14 @@ import it.unibo.model.gameObj.api.Platform;
  */
 public abstract class AbstractWorldContainer implements BaseWorld {
 
-    private final List<Platform> platforms;
-    private final List<Coin> moneys;
-    private final List<Enemy> monsters;
-    private final List<Gadget> gadgets;
+    protected final List<Platform> platforms;
+    protected final List<Coin> moneys;
+    protected final List<Enemy> monsters;
+    protected final List<Gadget> gadgets;
 
+    /**
+     * Constructs a new AbstractWorldContainer with empty entity lists.
+     */
     public AbstractWorldContainer() {
         this.platforms = new LinkedList<>();
         this.moneys = new LinkedList<>();
@@ -26,60 +29,65 @@ public abstract class AbstractWorldContainer implements BaseWorld {
         this.monsters = new LinkedList<>();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean addGadget(final Gadget gadget) {
         return this.gadgets.add(gadget);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean addMoney(final Coin money) {
         return this.moneys.add(money);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean addMonster(final Enemy monster) {
         return this.monsters.add(monster);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean addPlatform(final Platform platform) {
         return this.platforms.add(platform);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Gadget> getGadgets() {
         return List.copyOf(this.gadgets);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Coin> getMoneys() {
         return List.copyOf(this.moneys);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Enemy> getMonsters() {
         return List.copyOf(this.monsters);
     }
 
-    @Override
+        @Override
     public List<Platform> getPlatforms() {
         return List.copyOf(this.platforms);
     }
-    
-    // Protected accessors for subclasses to implement removal logic
-    protected List<Platform> getPlatformsList() {
-        return this.platforms;
-    }
 
-    protected List<Coin> getMoneysList() {
-        return this.moneys;
-    }
-
-    protected List<Enemy> getMonstersList() {
-        return this.monsters;
-    }
-
-    protected List<Gadget> getGadgetsList() {
-        return this.gadgets;
-    }
 }
