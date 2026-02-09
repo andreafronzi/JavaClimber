@@ -6,6 +6,7 @@ import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.Boundary;
+import it.unibo.model.shop.api.ActiveUpgrades;
 
 /**
  * Represents the application of the chosen physic over the Alien.
@@ -53,6 +54,7 @@ public interface AlienPhysic {
    * @param alien the alien to update
    * @param dt the time step
    * @param boundary the boundary
+   * @param activeUpgrades the active upgrades affecting the Alien
    */
-  void update(Alien alien, double dt, Boundary boundary);
+  void update(Alien alien, double dt, Boundary boundary, ActiveUpgrades activeUpgrades);
 }

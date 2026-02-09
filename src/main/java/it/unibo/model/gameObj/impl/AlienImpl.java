@@ -6,6 +6,7 @@ import it.unibo.model.gameObj.api.StaticEntity;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.shop.api.ActiveUpgrades;
 
 /**
  * A concrete implementation of the {@link Alien} interface.
@@ -65,7 +66,7 @@ public class AlienImpl extends GameObj implements Alien {
   }
 
   @Override
-  public void updatePosition(final double dt, final Boundary boundary) {
-    this.physic.update(this, dt, boundary);
+  public void updatePosition(final double dt, final Boundary boundary, final ActiveUpgrades activeUpgrades) {
+    this.physic.update(this, dt, boundary, activeUpgrades);
   }
 }
