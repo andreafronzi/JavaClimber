@@ -41,8 +41,8 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
         this.world = new UpperWorld();
         this.platformControlDistance = new PlatformPositionGeneratorImpl();
         this.platformPoolCreator = new PlatformPoolCreatorImpl();
-        this.addOnPositionGenerator = new AddOnPositionGeneratorImpl();
         platformPoolCreator.setSpawnPool(difficult.platformPool());
+        this.addOnPositionGenerator = new AddOnPositionGeneratorImpl();
         this.boundY = new BoundY();
     }
 
@@ -59,18 +59,21 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
     private void createPlatform() {
         double chance = random.nextDouble(1.0);
         double chanceAddOn = random.nextDouble(1.0);
-        Vector2d pos = platformControlDistance.generatePosition();
+        Vector2d pos = platformControlDistance.generatePosition(difficult.platformPool().getWidth(), difficult.platformPool().getHeight());
         platform = platformPoolCreator.createPlatform(chance, pos);
         world.addPlatform(platform);
+
         if (chanceAddOn < difficult.chanceAddOn()) {
             createAddOn();
         }
     }
 
     private void createAddOn() {
+
         Vector2d pos = new Vector2dImpl(0, 0);
         double chance = random.nextDouble(1.0);
         double choseAddOn = random.nextDouble(1.0);
+
         if (choseAddOn < difficult.coinChance()) {
             Coin coin = platformPoolCreator.createMoney(chance, pos);
             coin.setPosition(addOnPositionGenerator.generatePosition(this.platform.getPosX(),
@@ -96,6 +99,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
                     gadget.getWidth()));
             world.addGadget(gadget);
         }
+        
     }
 
     /**
