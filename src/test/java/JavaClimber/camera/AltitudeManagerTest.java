@@ -1,54 +1,53 @@
 package JavaClimber.camera;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.model.camera.api.AltitudeObserver;
 import it.unibo.model.camera.impl.AltitudeManager;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.impl.AlienImpl;
 import it.unibo.model.physics.impl.Vector2dImpl;
 
+/**
+ * Tests for {@link AltitudeManager}
+ */
 public class AltitudeManagerTest {
 
     private Alien alien;
     private AltitudeManager altitudeManager;
-    private TestObserver observer;
 
-    private class TestObserver implements AltitudeObserver {
-        double receivedDelta = 0;
-        boolean wasCalled = false;
-
-        @Override
-        public void update(double delta) {
-            this.receivedDelta = delta;
-            this.wasCalled = true;
-        }
-    }
-
+    /**
+     * Setup before each test.
+     */
     @BeforeEach
     void setup() {
         alien = new AlienImpl(new Vector2dImpl(100, 0), new Vector2dImpl(0, 0), 50, 50);
         altitudeManager = new AltitudeManager(alien);
-        observer = new TestObserver();
-        altitudeManager.addObserver(observer);
     }
 
+    /**
+     * Verifies that when the alien moves up, the observer is notified with the exact distance climbed.
+     */
     @Test
     void testNotifyClimb() {
+        final double[] result = { 0.0 };
+        altitudeManager.addObserver(delta -> result[0] = delta);
         alien.setPosition(new Vector2dImpl(100, -100));
         altitudeManager.verifiedAltitude();
-        assertTrue(observer.wasCalled);
-        assertEquals(100.0, observer.receivedDelta);
+        assertEquals(100.0, result[0]);
     }
 
+    /**
+     * Verifies that when the alien moves down, the observer receives no notification.
+     */
     @Test
     void testNotifyFall() {
+        final double[] result = { 0.0 };
+        altitudeManager.addObserver(delta -> result[0] = delta);
         alien.setPosition(new Vector2dImpl(100, 50));
-        altitudeManager.verifiedAltitude();;
-        assertEquals(0.0, observer.receivedDelta);
+        altitudeManager.verifiedAltitude();
+        assertEquals(0.0, result[0]);
     }
 }
