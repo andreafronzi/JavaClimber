@@ -31,13 +31,13 @@ public class AddOnPositiongeneratorTest {
 
     @Test
     public void generatePosition() {
-        Platform platform = createPlatform(new Vector2dImpl(0, 0));
+        Platform platform = createPlatform(new Vector2dImpl(800, 800));
         Gadget gadget = createGadget(new Vector2dImpl(0, 0));
         Vector2d pos = addOnPositionGenerator.generatePosition(platform.getPosX(), platform.getPosY(),
                 platform.getWidth(), gadget.getHeight(), gadget.getWidth());
         gadget.setPosition(pos);
-        assertEquals(platform.getPosX(), gadget.getPosX());
-        assertEquals(platform.getPosY() + ((platform.getHeight() + ADDON_HEIGHT) / 2), gadget.getPosY());
+        assertEquals(platform.getPosX() + ((platform.getWidth() - ADDON_WIDTH) / 2), gadget.getPosX());
+        assertEquals(platform.getPosY() + ADDON_HEIGHT, gadget.getPosY());
     }
 
 }
