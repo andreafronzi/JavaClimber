@@ -10,7 +10,7 @@ import it.unibo.model.world.impl.World;
 import it.unibo.model.worldConstructor.api.WorldConstructor;
 
 /**
- * Implementation of {@link Camera} interface.
+ * Implementation of {@link Camera} and {@link AltitudeObserver} interface.
  */
 public class CameraImpl implements Camera, AltitudeObserver {
 
@@ -26,9 +26,11 @@ public class CameraImpl implements Camera, AltitudeObserver {
      * 
      * @param width width of the viewport
      * @param height height of the viewport
+     * @param world the world containing Real and Upper worlds
+     * @param wc the world constructor used to generate new upper world
      */
     public CameraImpl(double width, double height, World world, WorldConstructor wc) {
-        this.worldConstructor = worldConstructor;
+        this.worldConstructor = wc;
         this.width = width;
         this.height = height;
         this.world = world;
@@ -37,6 +39,14 @@ public class CameraImpl implements Camera, AltitudeObserver {
         this.y = 0;
     }
 
+    /**
+     * {@inheritDoc}
+     * This method also makes:
+     * shift world objects vertically;
+     * transferring objects from upper to real world;
+     * removes objects that have fallen under the screen;
+     * trigger new world generation if the camera moved enough distance.
+     */
     @Override
     public void update(double delta) {
         this.totAbbass += delta;
@@ -58,6 +68,11 @@ public class CameraImpl implements Camera, AltitudeObserver {
         checkAndGenerateUpperWorld();
     }
 
+    /**
+     * Shift a list of game objects vertically.
+     * @param objects the list of objects to move
+     * @param delta the delta to move them on the y
+     */
     private void moveWorldList(List<? extends GameObject> objects, double delta) {
         for (GameObject obj : objects) {
             double newY = obj.getPosY() + delta;
@@ -65,6 +80,9 @@ public class CameraImpl implements Camera, AltitudeObserver {
         }
     }
 
+    /**
+     * Transfers objects from the UpperWorld to the RealWorld when objects y positions crosses a specified limit.
+     */
     private void transferGameObj() {
         double dynamicMargin = this.height / 6.0; 
         double viewLimit = this.y - dynamicMargin;
@@ -94,6 +112,9 @@ public class CameraImpl implements Camera, AltitudeObserver {
         }
     }
 
+    /**
+     * Removes objects from the RealWorld that are no longer visible, so when objects y position is greater than the viewport height and that therefore have fallen under the screen.
+     */
     private void cleanRealWorld() {
         double limit = this.height;
         world.getRealWorld().getPlatforms().removeIf(obj -> obj.getPosY() > limit);
@@ -102,18 +123,27 @@ public class CameraImpl implements Camera, AltitudeObserver {
         world.getRealWorld().getMoneys().removeIf(obj -> obj.getPosY() > limit);
     }
 
+    /**
+     * Checks if the camera has traveled enough distance to trigger new content generation.
+     */
     private void checkAndGenerateUpperWorld() {
         if (this.totAbbass >= this.distanceForGeneration) {
             worldConstructor.fillWorld();
-            this.totAbbass = 0;
+            this.totAbbass -= this.distanceForGeneration;
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getViewportWidth() {
         return this.width;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getViewportHeight() {
         return this.height;
