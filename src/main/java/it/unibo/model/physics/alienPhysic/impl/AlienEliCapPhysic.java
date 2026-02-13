@@ -59,12 +59,12 @@ public class AlienEliCapPhysic extends TemplatePhysic implements AlienPhysic {
   }
 
   @Override
-  public void hitPlatform(final Alien alien, final Platform p, final Boundary boundary) {
+  public void hitPlatform(final Alien alien, final Platform p, final Boundary boundary, final ActiveUpgrades activeUpgrades) {
 
   }
 
   @Override
-  public void hitEnemy(final Alien alien, final Enemy e) {
+  public void hitEnemy(final Alien alien, final Enemy e, final ActiveUpgrades activeUpgrades) {
 
   }
 
@@ -74,7 +74,7 @@ public class AlienEliCapPhysic extends TemplatePhysic implements AlienPhysic {
   }
 
   @Override
-  public void hitCoin(final Coin coin) {
-    coin.collectCoin();
+  public void hitCoin(final Coin coin, final ActiveUpgrades activeUpgrades) {
+    coin.collectCoin(activeUpgrades.getCoinMultiplier());
   }
 }
