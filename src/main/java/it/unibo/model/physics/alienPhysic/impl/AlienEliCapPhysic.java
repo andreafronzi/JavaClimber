@@ -54,7 +54,7 @@ public class AlienEliCapPhysic extends TemplatePhysic implements AlienPhysic {
       final double remainingDt = dt - this.timeInterval;
       alien.setPosition(new Vector2dImpl(alien.getPosX() + alien.getSpeedX() * this.timeInterval * activeUpgrades.getSpeedMultiplier(), alien.getPosY() + alien.getSpeedY() * this.timeInterval * activeUpgrades.getSpeedMultiplier()));
       alien.setPhysic(new AlienNormalPhysic());
-      alien.updatePosition(remainingDt, boundary, activeUpgrades);
+      alien.updatePosition(remainingDt, boundary);
     }
   }
 
