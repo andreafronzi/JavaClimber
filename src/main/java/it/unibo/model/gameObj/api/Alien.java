@@ -22,6 +22,28 @@ public interface Alien extends GameObject{
    */
   double getSpeedY();
 
+  /**
+   *
+   * @return whether Alien is moving in the left direction
+   */
+  boolean isMovingLeft();
+
+  /**
+   *
+   * @return whether Alien is moving in the right direction
+   */
+  boolean isMovingRight();
+
+  /**
+   * Move Alien to the left.
+   */
+  void moveLeft();
+
+  /**
+   * Move Alien to the right.
+   */
+  void moveRight();
+
   void notifyAltitude();
 
   /**
