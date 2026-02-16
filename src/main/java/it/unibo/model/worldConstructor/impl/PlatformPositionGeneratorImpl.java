@@ -4,6 +4,7 @@ import java.util.Random;
 
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
+import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.worldConstructor.api.PlatformPositionGenerator;
 
 /**
@@ -16,6 +17,7 @@ public class PlatformPositionGeneratorImpl implements PlatformPositionGenerator 
 
     private Difficult difficult;
     private Vector2d previousPlatformPosition;
+    private Vector2d newPlatformPosition;
     private final Random randomNumber;
 
     /**
@@ -23,18 +25,18 @@ public class PlatformPositionGeneratorImpl implements PlatformPositionGenerator 
      */
     PlatformPositionGeneratorImpl() {
         this.randomNumber = new Random();
+        previousPlatformPosition = new Vector2dImpl(400, 400);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Vector2d generatePosition() {
-        Vector2d pos = new Vector2dImpl(800, 800);
-        genPosX(pos);
-        genPosY(pos);
-        setPreviousPosition(pos);
-        return pos;
+    public Vector2d generatePosition(final double width, final double height) {
+        genPosX(previousPlatformPosition, width);
+        genPosY(previousPlatformPosition, height);
+        setPreviousPosition(newPlatformPosition);
+        return newPlatformPosition;
     }
 
     /**
@@ -45,18 +47,19 @@ public class PlatformPositionGeneratorImpl implements PlatformPositionGenerator 
         this.difficult = difficult;
     }
 
-    private void genPosX(final Vector2d pos) {
+    private void genPosX(final Vector2d pos, final double width) {
         while (pos.getX() > previousPlatformPosition.getX() + difficult.maxDistanceX()
-                && pos.getX() < previousPlatformPosition.getX() - difficult.maxDistanceX()) {
-            pos.setX(randomNumber.nextDouble(previousPlatformPosition.getX() - difficult.maxDistanceX(),
+                && pos.getX() < previousPlatformPosition.getX() - difficult.maxDistanceX() 
+            && pos.getX() + width < //boundx ) {
+            newPlatformPosition.setX(randomNumber.nextDouble(previousPlatformPosition.getX() - difficult.maxDistanceX(),
                     previousPlatformPosition.getX() + difficult.maxDistanceX()));
         }
     }
 
-    private void genPosY(final Vector2d pos) {
+    private void genPosY(final Vector2d pos, final double height) {
         while (pos.getY() > previousPlatformPosition.getY() + difficult.maxDistanceY()
                 && pos.getY() < previousPlatformPosition.getY() + difficult.minDistanceY()) {
-            pos.setY(randomNumber.nextDouble(previousPlatformPosition.getY() + difficult.minDistanceY(),
+            newPlatformPosition.setY(randomNumber.nextDouble(previousPlatformPosition.getY() + difficult.minDistanceY(),
                     previousPlatformPosition.getY() + difficult.maxDistanceY()));
         }
     }

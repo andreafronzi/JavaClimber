@@ -22,19 +22,23 @@ public class PlatformPoolEasy implements PlatformPool {
     private final List<Pair<Gadget>> gadgetPool;
     private final List<Pair<Coin>> moneyPool;
     // private final List<Pair<Trap>> trapPool;
+    private final double width;
+    private final double height;
     private final Director director;
 
     /**
      * Constructs the easy platform pool and initializes the object lists.
      */
-    public PlatformPoolEasy() {
+    public PlatformPoolEasy(final double width, final double height) {
 
+        this.width = width;
+        this.height = height;
         this.platformPool = new LinkedList<>();
         this.monsterPool = new LinkedList<>();
         this.gadgetPool = new LinkedList<>();
         this.moneyPool = new LinkedList<>();
         // this.trapPool = new LinkedList<>();
-        this.director = new DirectorImpl(0, 0);
+        this.director = new DirectorImpl(width, height);
 
         initializePlatformPool();
         initializeMonsterPool();
@@ -96,6 +100,16 @@ public class PlatformPoolEasy implements PlatformPool {
 
     private void initializeMoneyPool() {
         // qui devo mettere i vari soldi con le loro chance
+    }
+
+    @Override
+    public double getWidth() {
+        return this.width;
+    }
+
+    @Override
+    public double getHeight() {
+        return this.height;
     }
 
     /*

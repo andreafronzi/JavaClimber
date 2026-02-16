@@ -44,4 +44,18 @@ public interface PlatformPool {
 
     // public List<Pair<Trap>> getTrapPool();
 
+    /**
+     * Retrieves the width of the platform for this pool.
+     * 
+     * @return the width of the platform pool
+     */
+    public double getWidth();
+
+    /**
+     * Retrieves the height of the platform for this pool.
+     * 
+     * @return the height of the platform pool
+     */
+    public double getHeight();
+
 }
