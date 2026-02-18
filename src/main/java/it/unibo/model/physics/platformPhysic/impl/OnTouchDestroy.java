@@ -6,7 +6,7 @@ import it.unibo.model.physics.platformPhysic.api.OnTouchBehaviour;
 import it.unibo.model.world.impl.RealWorld;
 
 /**
- * Represents the behavior to destroy a platform when it is touched.
+ * Represents the behavior of a touched platform.
  * When a platform is touched, this behavior removes it from the {@link RealWorld}.
  */
 public class OnTouchDestroy implements OnTouchBehaviour {
