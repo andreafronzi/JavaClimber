@@ -3,6 +3,7 @@ package it.unibo.model.gameObj.api;
 import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.world.impl.RealWorld;
 
 /**
  * Represents an Alien entity in a two-dimensional game environment.
@@ -52,8 +53,9 @@ public interface Alien extends GameObject{
    *
    * @param gObj the {@link StaticEntity} that the Alien has collided with
    * @param boundary the boundary of the world
+   * @param realWorld the {@link RealWorld} which contains all gameObj
    */
-  void notifyCollision(StaticEntity gObj, Boundary boundary);
+  void notifyCollision(StaticEntity gObj, Boundary boundary, RealWorld realWorld);
 
   /**
    * Set Alien's physic
