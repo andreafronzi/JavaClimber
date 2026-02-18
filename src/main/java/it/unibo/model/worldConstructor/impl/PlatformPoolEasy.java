@@ -10,6 +10,7 @@ import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.worldConstructor.api.Pair;
 import it.unibo.model.worldConstructor.api.PlatformPool;
 import it.unibo.model.worldConstructor.api.Director;
+import it.unibo.model.worldConstructor.api.FactoryAddOn;
 
 /**
  * Implementation of PlatformPool for the "Easy" difficulty level.
@@ -25,11 +26,17 @@ public class PlatformPoolEasy implements PlatformPool {
     private final double width;
     private final double height;
     private final Director director;
+    private final FactoryAddOn factoryAddOn;
 
     /**
      * Constructs the easy platform pool and initializes the object lists.
      */
-    public PlatformPoolEasy(final double width, final double height) {
+    public PlatformPoolEasy(final double width, final double height, final double coinWidth,
+            final double coinHeight,
+            final double enemyWidth,
+            final double enemyHeight,
+            final double elycapWidth,
+            final double elycapHeight) {
 
         this.width = width;
         this.height = height;
@@ -39,6 +46,12 @@ public class PlatformPoolEasy implements PlatformPool {
         this.moneyPool = new LinkedList<>();
         // this.trapPool = new LinkedList<>();
         this.director = new DirectorImpl(width, height);
+        this.factoryAddOn = new FactoryAddOnImpl(coinWidth,
+                coinHeight,
+                enemyWidth,
+                enemyHeight,
+                elycapWidth,
+                elycapHeight);
 
         initializePlatformPool();
         initializeMonsterPool();
@@ -87,19 +100,21 @@ public class PlatformPoolEasy implements PlatformPool {
      */
 
     private void initializePlatformPool() {
-        // qui devo mettere le varie piattaforme con le loro chance
+        this.platformPool.add(new PairImpl<>(0.5, this.director::normalPlatform));
+        this.platformPool.add(new PairImpl<>(0.75, this.director::movingOnTouchPlatform));
+        this.platformPool.add(new PairImpl<>(1, this.director::movingPlatform));
     }
 
     private void initializeMonsterPool() {
-        // qui devo mettere i vari mostri con le loro chance
+        this.monsterPool.add(new PairImpl<>(1, this.factoryAddOn::createEnemy));
     }
 
     private void initializeGadgetPool() {
-        // qui devo mettere i vari gadget con le loro chance
+        this.gadgetPool.add(new PairImpl<>(1, this.factoryAddOn::createElycap));
     }
 
     private void initializeMoneyPool() {
-        // qui devo mettere i vari soldi con le loro chance
+        this.moneyPool.add(new PairImpl<>(1, this.factoryAddOn::createCoin));
     }
 
     @Override
