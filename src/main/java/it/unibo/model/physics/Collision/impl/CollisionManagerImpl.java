@@ -22,7 +22,7 @@ public class CollisionManagerImpl implements CollisionManager {
 
   /**
    * Constructs a new CollisionManagerImpl with the specified boundary.
-   * 
+   *
    * @param boundary the boundary of the game world
    */
   public CollisionManagerImpl(final Boundary boundary) {
@@ -31,35 +31,31 @@ public class CollisionManagerImpl implements CollisionManager {
 
   @Override
   public void detectCollisions(final RealWorld realWorld) {
-    
+
     final Alien alien = realWorld.getAlien();
 
     Stream.of(realWorld.getPlatforms(), realWorld.getGadgets(), realWorld.getMoneys(), realWorld.getMonsters())
         .flatMap(List::stream)
         .filter(se -> checkCollision(alien, se))
-        .forEach(se -> alien.notifyCollision(se, boundary));
+        .forEach(se -> alien.notifyCollision(se, boundary, realWorld));
 
-    realWorld.getPlatforms().stream()
-            .filter(se -> checkCollision(alien, se))
-            .forEach(realWorld::removePlatform);
-    
     realWorld.getGadgets().stream()
             .filter(se -> checkCollision(alien, se))
             .forEach(realWorld::removeGadget);
-    
+
     realWorld.getMonsters().stream()
             .filter(se -> checkCollision(alien, se))
             .forEach(realWorld::removeMonster);
-    
+
     realWorld.getMoneys().stream()
             .filter(se -> checkCollision(alien, se))
             .forEach(realWorld::removeMoney);
-    
+
   }
 
   /**
    * Checks if there is a collision between the Alien and a StaticEntity (Platform, Gadget, Money, or Monster).
-   * 
+   *
    * @param alien the Alien entity in the world
    * @param se the StaticEntity to check for collision with the Alien
    * @return true if there is a collision, false otherwise
