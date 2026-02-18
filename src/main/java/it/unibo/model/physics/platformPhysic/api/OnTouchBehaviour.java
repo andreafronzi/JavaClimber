@@ -12,6 +12,7 @@ public interface OnTouchBehaviour {
 
   /**
    * Platform's touch reaction.
+   *
    * @param platform the {@link Platform} touched platform
    * @param boundary the {@link Boundary} boundary of the world
    * @param realWorld the {@link RealWorld} which contains all gameObj
