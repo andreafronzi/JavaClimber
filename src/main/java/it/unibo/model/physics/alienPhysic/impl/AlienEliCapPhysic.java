@@ -10,6 +10,7 @@ import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.api.TemplatePhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.api.ActiveUpgrades;
+import it.unibo.model.world.impl.RealWorld;
 
 /**
  * Represents the alien physic when the alien collects the EliCap gadget. The alien will have a vertical speed for a certain time interval, then it will return to normal physic.
@@ -59,7 +60,7 @@ public class AlienEliCapPhysic extends TemplatePhysic implements AlienPhysic {
   }
 
   @Override
-  public void hitPlatform(final Alien alien, final Platform p, final Boundary boundary, final ActiveUpgrades activeUpgrades) {
+  public void hitPlatform(final Alien alien, final Platform p, final Boundary boundary, final RealWorld realWorld, final ActiveUpgrades activeUpgrades) {
 
   }
 
