@@ -1,7 +1,9 @@
 package it.unibo.model.physics.platformPhysic.api;
 
+import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.world.impl.RealWorld;
 
 /**
  * Interface representing Platform's touch reaction.
@@ -10,10 +12,9 @@ public interface OnTouchBehaviour {
 
   /**
    * Platform's touch reaction.
-   * @param position position to update
-   * @param width Platform's width
-   * @param heigth Platform's height
-   * @param boundary the boundary of the world
+   * @param platform the {@link Platform} touched platform
+   * @param boundary the {@link Boundary} boundary of the world
+   * @param realWorld the {@link RealWorld} which contains all gameObj
    */
-  void onTouch(Vector2d position, double width, double heigth, Boundary boundary);
+  void onTouch(Platform platform, Boundary boundary, RealWorld realWorld);
 }
