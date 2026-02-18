@@ -8,11 +8,21 @@ import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.world.impl.RealWorld;
 
+/**
+ * Represents an implementation of the {@link Enemy} interface.
+ * This class models an enemy entity within a two-dimensional game environment.
+ */
 public class EnemyImpl extends GameObj implements Enemy {
 
   private static final boolean ALIVE = true;
 
+  /**
+   * Indicates whether the enemy is currently alive.
+   * This variable is set to {@code true} when the enemy is active within the game,
+   * and {@code false} otherwhise
+   */
   private boolean isAlive;
+
   /**
    * Constructs a new EnemyImpl.
    *
@@ -23,7 +33,6 @@ public class EnemyImpl extends GameObj implements Enemy {
   public EnemyImpl(final double height, final double width, final Vector2d position) {
     super(height, width, position);
     this.isAlive = ALIVE;
-
   }
 
   @Override
