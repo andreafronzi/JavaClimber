@@ -6,6 +6,7 @@ import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.world.impl.BoundY;
@@ -35,15 +36,15 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
      * 
      * @param difficult the initial difficulty configuration
      */
-    public WorldConstructorImpl(final Difficult difficult) {
+    public WorldConstructorImpl(final Difficult difficult, final Boundary boundX, final BoundY boundY) {
         this.difficult = difficult;
         this.random = new Random();
         this.world = new UpperWorld();
-        this.platformControlDistance = new PlatformPositionGeneratorImpl();
+        this.platformControlDistance = new PlatformPositionGeneratorImpl(boundX, boundY);
         this.platformPoolCreator = new PlatformPoolCreatorImpl();
         platformPoolCreator.setSpawnPool(difficult.platformPool());
         this.addOnPositionGenerator = new AddOnPositionGeneratorImpl();
-        this.boundY = new BoundY();
+        this.boundY = boundY;
     }
 
     /**
@@ -109,6 +110,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
     public void update(Difficult difficult) {
         this.difficult = difficult;
         platformControlDistance.setDifficult(difficult);
+        platformPoolCreator.setSpawnPool(difficult.platformPool());
     }
 
 }
