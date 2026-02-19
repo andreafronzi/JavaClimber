@@ -63,7 +63,7 @@ public class ShopItemTest {
         assertEquals("pt_coin_1", item.getId());
         assertEquals("Coin Multiplier 1", item.getName());
         assertEquals(ShopItemType.TEMPORARY_UPGRADE, item.getType());
-        assertEquals("Coin multiplier x1.2 for 10 matches", item.getDescription());
+        assertEquals("Coin multiplier x2.0 for 3 matches", item.getDescription());
         assertEquals(300, item.getPrice());
         assertEquals(3, item.getInitialDuration());
         assertTrue(item.getStats().containsKey(ShopItemStat.COIN_MULTIPLIER));
