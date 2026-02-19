@@ -1,6 +1,6 @@
 package it.unibo.model.worldConstructor.impl;
 
-public class gameObj {
+public class gameObjDimension {
     public static final double ALIEN_WIDTH = 30;
     public static final double ALIEN_HEIGHT = 30;
 
