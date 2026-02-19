@@ -1,5 +1,7 @@
 package it.unibo.model.gameObj.api;
 
+import it.unibo.model.camera.api.AltitudeObserver;
+import it.unibo.model.camera.api.AltitudeSubject;
 import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.api.Vector2d;
@@ -9,7 +11,7 @@ import it.unibo.model.world.impl.RealWorld;
  * Represents an Alien entity in a two-dimensional game environment.
  * This interface provides methods to manage the Alien's physic movement.
  */
-public interface Alien extends GameObject{
+public interface Alien extends GameObject, AltitudeSubject {
 
   /**
    *
@@ -44,8 +46,6 @@ public interface Alien extends GameObject{
    * Move Alien to the right.
    */
   void moveRight();
-
-  void notifyAltitude();
 
   /**
    * Notifies the Alien of a collision with a {@link StaticEntity}.
