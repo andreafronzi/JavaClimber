@@ -6,7 +6,6 @@ import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.Boundary;
-import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.api.TemplatePhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.api.ActiveUpgrades;
@@ -15,7 +14,7 @@ import it.unibo.model.world.impl.RealWorld;
 /**
  * Represents the alien physic when the alien collects the EliCap gadget. The alien will have a vertical speed for a certain time interval, then it will return to normal physic.
  */
-public class AlienEliCapPhysic extends TemplatePhysic implements AlienPhysic {
+public class AlienEliCapPhysic extends TemplatePhysic {
   /**
    * Represents the duration time of the gadget effect.
    */
