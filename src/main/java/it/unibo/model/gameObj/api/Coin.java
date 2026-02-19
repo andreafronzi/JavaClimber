@@ -8,6 +8,8 @@ public interface Coin extends StaticEntity {
   /**
    * Collects the coin within the game environment.
    * This action involves removing the coin from the game world and updating the number of collected coins
+   *
+   * @param multiplier the multiplier to apply to the coin's value
    */
-  void collectCoin();
+  void collectCoin(int multiplier);
 }

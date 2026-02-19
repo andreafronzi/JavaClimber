@@ -6,6 +6,8 @@ import it.unibo.model.gameObj.api.GameObj;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.score.api.ScoreManager;
+import it.unibo.model.shop.api.ActiveUpgrades;
+import it.unibo.model.world.impl.RealWorld;
 
 /**
  * Represents a Coin entity in a two-dimensional game environment which can be collected by the {@link Alien}.
@@ -33,13 +35,13 @@ public class CoinImpl extends GameObj implements Coin {
     }
 
     @Override
-    public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary) {
-        physic.hitCoin(this);
+    public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final RealWorld realWorld, final ActiveUpgrades activeUpgrades) {
+        physic.hitCoin(this, activeUpgrades);
     }
 
     @Override
-    public void collectCoin() {
-        this.scoreManager.addCoins(COIN_POINTS);
+    public void collectCoin(final int multiplier) {
+        this.scoreManager.addCoins(COIN_POINTS * multiplier);
     }
 
 }

@@ -1,14 +1,17 @@
 package it.unibo.model.gameObj.api;
 
+import it.unibo.model.camera.api.AltitudeObserver;
+import it.unibo.model.camera.api.AltitudeSubject;
 import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.world.impl.RealWorld;
 
 /**
  * Represents an Alien entity in a two-dimensional game environment.
  * This interface provides methods to manage the Alien's physic movement.
  */
-public interface Alien extends GameObject{
+public interface Alien extends GameObject, AltitudeSubject {
 
   /**
    *
@@ -22,7 +25,27 @@ public interface Alien extends GameObject{
    */
   double getSpeedY();
 
-  void notifyAltitude();
+  /**
+   *
+   * @return whether Alien is moving in the left direction
+   */
+  boolean isMovingLeft();
+
+  /**
+   *
+   * @return whether Alien is moving in the right direction
+   */
+  boolean isMovingRight();
+
+  /**
+   * Move Alien to the left.
+   */
+  void moveLeft();
+
+  /**
+   * Move Alien to the right.
+   */
+  void moveRight();
 
   /**
    * Notifies the Alien of a collision with a {@link StaticEntity}.
@@ -30,8 +53,9 @@ public interface Alien extends GameObject{
    *
    * @param gObj the {@link StaticEntity} that the Alien has collided with
    * @param boundary the boundary of the world
+   * @param realWorld the {@link RealWorld} which contains all gameObj
    */
-  void notifyCollision(StaticEntity gObj, Boundary boundary);
+  void notifyCollision(StaticEntity gObj, Boundary boundary, RealWorld realWorld);
 
   /**
    * Set Alien's physic

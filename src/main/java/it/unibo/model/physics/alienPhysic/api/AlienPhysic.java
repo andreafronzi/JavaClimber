@@ -6,6 +6,8 @@ import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.Boundary;
+import it.unibo.model.shop.api.ActiveUpgrades;
+import it.unibo.model.world.impl.RealWorld;
 
 /**
  * Represents the application of the chosen physic over the Alien.
@@ -14,10 +16,11 @@ public interface AlienPhysic {
 
   /**
    * Handles the interaction between an {@link Alien} and a {@link Coin}.
-   * 
+   *
    * @param coin the {@link Coin} involved in the interaction
+   * @param activeUpgrades the active upgrades affecting the Alien
    */
-  void hitCoin(Coin coin);
+  void hitCoin(Coin coin, ActiveUpgrades activeUpgrades);
 
   /**
    * Handles the interaction between an {@link Alien} and an {@link Enemy}.
@@ -25,8 +28,9 @@ public interface AlienPhysic {
    *
    * @param alien the {@link Alien} involved in the collision
    * @param e the {@link Enemy} involved in the collision
+   * @param activeUpgrades the active upgrades affecting the Alien
    */
-  void hitEnemy(Alien alien, Enemy e);
+  void hitEnemy(Alien alien, Enemy e, ActiveUpgrades activeUpgrades);
 
   /**
    * Handles the interaction between an {@link Alien} and a {@link Gadget}.
@@ -44,8 +48,10 @@ public interface AlienPhysic {
    * @param alien the {@link Alien} involved in the collision
    * @param p the {@link Platform} involved in the collision
    * @param boundary the boundary of the world
+   * @param realWorld the {@link RealWorld} which contains alla gameObj
+   * @param activeUpgrades the active upgrades affecting the Alien
    */
-  void hitPlatform(Alien alien, Platform p, Boundary boundary);
+  void hitPlatform(Alien alien, Platform p, Boundary boundary, RealWorld realWorld, ActiveUpgrades activeUpgrades);
 
   /**
    * Apply chosen physical effect to alien's speed
@@ -53,6 +59,7 @@ public interface AlienPhysic {
    * @param alien the alien to update
    * @param dt the time step
    * @param boundary the boundary
+   * @param activeUpgrades the active upgrades affecting the Alien
    */
-  void update(Alien alien, double dt, Boundary boundary);
+  void update(Alien alien, double dt, Boundary boundary, ActiveUpgrades activeUpgrades);
 }

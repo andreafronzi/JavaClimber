@@ -3,6 +3,7 @@ package it.unibo.model.physics.alienPhysic.api;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.impl.Vector2dImpl;
+import it.unibo.model.shop.api.ActiveUpgrades;
 
 /**
  * Represents a template for the alien physic. It implements the update method, which is common for all the alien physic, and it defines an abstract method moveAlien, which is implemented by the different alien physic.
@@ -10,8 +11,8 @@ import it.unibo.model.physics.impl.Vector2dImpl;
 public abstract class TemplatePhysic implements AlienPhysic {
 
   @Override
-  public void update(final Alien alien, final double dt, final Boundary boundary) {
-    moveAlien(alien, dt, boundary);
+  public void update(final Alien alien, final double dt, final Boundary boundary, final ActiveUpgrades activeUpgrades) {
+    moveAlien(alien, dt, boundary, activeUpgrades);
     verifyBoundaryTouch(alien, boundary);
   }
 
@@ -20,8 +21,9 @@ public abstract class TemplatePhysic implements AlienPhysic {
    *
    * @param alien the alien to update
    * @param dt the time elapsed since the last update
+   * @param activeUpgrades the active upgrades affecting the Alien
    */
-  protected abstract void moveAlien(final Alien alien, final double dt, final Boundary boundary);
+  protected abstract void moveAlien(final Alien alien, final double dt, final Boundary boundary, final ActiveUpgrades activeUpgrades);
 
   /**
    * Verify if the alien go beyond the boundary. Apply pacman effect if it happens.

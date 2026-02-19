@@ -1,11 +1,10 @@
 package it.unibo.model.world.api;
 
+import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
-import it.unibo.model.gameObj.impl.AlienImpl;
-
 /**
  * Interface for a world where specific entities can be removed.
  * This interface extends {@link BaseWorld} and adds capabilities to remove
@@ -50,6 +49,6 @@ public interface GameWorld extends BaseWorld {
      * 
      * @return the alien instance
      */
-    AlienImpl getAlien();
+    Alien getAlien();
 
 }

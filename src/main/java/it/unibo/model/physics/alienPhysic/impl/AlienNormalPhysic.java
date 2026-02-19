@@ -9,6 +9,8 @@ import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.api.TemplatePhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
+import it.unibo.model.shop.api.ActiveUpgrades;
+import it.unibo.model.world.impl.RealWorld;
 
 
 /**
@@ -30,40 +32,42 @@ public class AlienNormalPhysic extends TemplatePhysic implements AlienPhysic {
    *
    * @param alien the alien to update
    * @param dt the time step
+   * @param boundary the boundary of the world
+   * @param activeUpgrades the active upgrades affecting the Alien
    */
   @Override
-  protected void moveAlien(final Alien alien, final double dt, final Boundary boundary) {
+  protected void moveAlien(final Alien alien, final double dt, final Boundary boundary, final ActiveUpgrades activeUpgrades) {
     double speedY = alien.getSpeedY();
 
     final double newVelY = speedY + (GRAVITY * dt);
     alien.setSpeed(new Vector2dImpl(alien.getSpeedX(), newVelY));
-    alien.setPosition(new Vector2dImpl(alien.getPosX() + alien.getSpeedX() * dt, alien.getPosY() + alien.getSpeedY() * dt));
+    alien.setPosition(new Vector2dImpl(alien.getPosX()  + alien.getSpeedX() * dt * activeUpgrades.getSpeedMultiplier(), alien.getPosY() + alien.getSpeedY() * dt * activeUpgrades.getSpeedMultiplier()));
   }
 
   @Override
-  public void hitPlatform(final Alien alien, final Platform p, final Boundary boundary) {
+  public void hitPlatform(final Alien alien, final Platform p, final Boundary boundary, final RealWorld realWorld, final ActiveUpgrades activeUpgrades) {
     final double pTollerance = 10;
     final boolean falling = alien.getSpeedY() > 0;
     final boolean above = (alien.getPosY() + alien.getHeight()) <= (p.getHeight() + pTollerance);
 
     if (falling && !above) {
       final double vx = 0;
-      final double vy = -10;
-      p.onTouch(boundary);
+      final double vy = -10 * activeUpgrades.getJumpMultiplier();
+      p.onTouch(boundary,realWorld);
       alien.setPosition(new Vector2dImpl(alien.getPosX(), p.getPosY() - alien.getHeight()));
       alien.setSpeed(new Vector2dImpl(vx, vy));
     }
   }
 
   @Override
-  public void hitEnemy(final Alien alien, final Enemy e) {
+  public void hitEnemy(final Alien alien, final Enemy e, final ActiveUpgrades activeUpgrades) {
     final double eTollerance = 10;
     final boolean falling = alien.getSpeedY() > 0;
     final boolean above = (alien.getPosY() + alien.getHeight()) <= (e.getHeight() + eTollerance);
 
     if (falling && !above) {
       final double vx = 0;
-      final double vy = -10;
+      final double vy = -10 * activeUpgrades.getJumpMultiplier();
       e.die();
       alien.setSpeed(new Vector2dImpl(vx, vy));
     }
@@ -71,14 +75,11 @@ public class AlienNormalPhysic extends TemplatePhysic implements AlienPhysic {
 
   @Override
   public void hitGadget(final Alien alien, final Gadget g) {
-    final double vx = 0;
-    final double vy = -10;
     g.onCollect(alien);
-    alien.setSpeed(new Vector2dImpl(vx, vy));
   }
 
   @Override
-  public void hitCoin(final Coin coin) {
-    coin.collectCoin();
+  public void hitCoin(final Coin coin, final ActiveUpgrades activeUpgrades) {
+    coin.collectCoin(activeUpgrades.getCoinMultiplier());
   }
 }

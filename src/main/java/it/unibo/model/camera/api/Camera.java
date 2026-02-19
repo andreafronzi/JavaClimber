@@ -6,23 +6,6 @@ package it.unibo.model.camera.api;
 public interface Camera {
 
     /**
-     * Check if camera has reached a specific point for generate world in the upper world.
-     * @return true if generation is needed
-     */
-    boolean shouldGenerateWorld();
-
-    /**
-     * reset generation after world spawn.
-     */
-    void resetGeneration();
-
-    /**
-     * 
-     * @return the vertical coordinate of corner top-left
-     */
-    double getY();
-
-    /**
      * 
      * @return the width of visible game area.
      */
@@ -33,10 +16,4 @@ public interface Camera {
      * @return the height of visible game area.
      */
     double getViewportHeight();
-
-    /**
-     * 
-     * @return the Y coordinate of "death line".
-     */
-    double getLowerLimit();
 }

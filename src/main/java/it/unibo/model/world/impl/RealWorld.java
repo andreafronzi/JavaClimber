@@ -1,7 +1,7 @@
 package it.unibo.model.world.impl;
 
 import it.unibo.model.world.api.AbstractGameWorld;
-
+import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.impl.AlienImpl;
 
 /**
@@ -10,14 +10,14 @@ import it.unibo.model.gameObj.impl.AlienImpl;
  */
 public class RealWorld extends AbstractGameWorld {
 
-    private final AlienImpl alien;
+    private final Alien alien;
 
     /**
      * Constructs a new RealWorld.
      * 
      * @param alien the player character
      */
-    public RealWorld(final AlienImpl alien) {
+    public RealWorld(final Alien alien) {
         super();
         this.alien = alien;
     }
@@ -25,7 +25,7 @@ public class RealWorld extends AbstractGameWorld {
     /**
      * {@inheritDoc}
      */
-    public AlienImpl getAlien() {
+    public Alien getAlien() {
         return this.alien;
     }
 

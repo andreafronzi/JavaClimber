@@ -9,6 +9,8 @@ import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.api.TemplatePhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
+import it.unibo.model.shop.api.ActiveUpgrades;
+import it.unibo.model.world.impl.RealWorld;
 
 /**
  * Represents the alien physic when the alien collects the EliCap gadget. The alien will have a vertical speed for a certain time interval, then it will return to normal physic.
@@ -40,28 +42,30 @@ public class AlienEliCapPhysic extends TemplatePhysic implements AlienPhysic {
    *
    * @param alien the alien to update
    * @param dt the time step
+   * @param boundary the boundary of the world
+   * @param activeUpgrades the active upgrades affecting the Alien
    */
   @Override
-  protected void moveAlien(final Alien alien, final double dt,  final Boundary boundary) {
+  protected void moveAlien(final Alien alien, final double dt,  final Boundary boundary, final ActiveUpgrades activeUpgrades) {
     alien.setSpeed(new Vector2dImpl(alien.getSpeedX(), this.verticalSpeed));
     if (this.timeInterval - dt >= 0) {
-      alien.setPosition(new Vector2dImpl(alien.getPosX() + alien.getSpeedX() * dt, alien.getPosY() + alien.getSpeedY() * dt));
+      alien.setPosition(new Vector2dImpl(alien.getPosX() + alien.getSpeedX() * dt * activeUpgrades.getSpeedMultiplier(), alien.getPosY() + alien.getSpeedY() * dt * activeUpgrades.getSpeedMultiplier()));
       this.timeInterval -= dt;
     } else {
       final double remainingDt = dt - this.timeInterval;
-      alien.setPosition(new Vector2dImpl(alien.getPosX() + alien.getSpeedX() * this.timeInterval, alien.getPosY() + alien.getSpeedY() * this.timeInterval));
+      alien.setPosition(new Vector2dImpl(alien.getPosX() + alien.getSpeedX() * this.timeInterval * activeUpgrades.getSpeedMultiplier(), alien.getPosY() + alien.getSpeedY() * this.timeInterval * activeUpgrades.getSpeedMultiplier()));
       alien.setPhysic(new AlienNormalPhysic());
       alien.updatePosition(remainingDt, boundary);
     }
   }
 
   @Override
-  public void hitPlatform(final Alien alien, final Platform p, final Boundary boundary) {
+  public void hitPlatform(final Alien alien, final Platform p, final Boundary boundary, final RealWorld realWorld, final ActiveUpgrades activeUpgrades) {
 
   }
 
   @Override
-  public void hitEnemy(final Alien alien, final Enemy e) {
+  public void hitEnemy(final Alien alien, final Enemy e, final ActiveUpgrades activeUpgrades) {
 
   }
 
@@ -71,7 +75,7 @@ public class AlienEliCapPhysic extends TemplatePhysic implements AlienPhysic {
   }
 
   @Override
-  public void hitCoin(final Coin coin) {
-    coin.collectCoin();
+  public void hitCoin(final Coin coin, final ActiveUpgrades activeUpgrades) {
+    coin.collectCoin(activeUpgrades.getCoinMultiplier());
   }
 }

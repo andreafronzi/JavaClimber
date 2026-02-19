@@ -1,11 +1,17 @@
 package it.unibo.model.gameObj.impl;
 
+import it.unibo.model.camera.api.AltitudeObserver;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.GameObj;
 import it.unibo.model.gameObj.api.StaticEntity;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.shop.api.ActiveUpgrades;
+import it.unibo.model.world.impl.RealWorld;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A concrete implementation of the {@link Alien} interface.
@@ -15,57 +21,149 @@ import it.unibo.model.physics.api.Vector2d;
 public class AlienImpl extends GameObj implements Alien {
 
   /**
-   * The two-dimensional speed of the Alien.
+   * The active upgrades affecting the Alien.
    */
-  private final Vector2d speed;
+  private final ActiveUpgrades activeUpgrades;
 
+  private final List<AltitudeObserver> altitudeObservers;
   /**
    * The Alien's physic.
    */
   private AlienPhysic physic;
 
   /**
-   * Constructs a new Alien with the specified two-dimensional position, null speed, and specified width and height.
+   * This flag is set to {@code true} when the Alien is currently moving to the left,
+   * and {@code false} otherwise.
    */
-  public AlienImpl(final Vector2d position, final Vector2d speed, final double width, final double height) {
+  private boolean movingLeft;
+
+  /**
+   * This flag is set to {@code true} when the Alien is currently moving to the right,
+   * and {@code false} otherwise.
+   */
+  private boolean movingRight;
+
+  /**
+   * The two-dimensional speed of the Alien.
+   */
+  private final Vector2d speed;
+
+  /**
+   * Constructs a new Alien with the specified two-dimensional position, null speed, and specified width and height.
+   *
+   * @param position the initial position of the Alien
+   * @param speed the initial speed of the Alien
+   * @param width the width of the Alien
+   * @param height the height of the Alien
+   * @param activeUpgrades the active upgrades affecting the Alien
+   */
+  public AlienImpl(final Vector2d position, final Vector2d speed, final double width, final double height, final ActiveUpgrades activeUpgrades) {
     super(height, width, position);
+    this.altitudeObservers = new ArrayList<>();
+    this.movingLeft = false;
+    this.movingRight = false;
     this.speed = speed;
     this.physic = new AlienNormalPhysic();
+    this.activeUpgrades = activeUpgrades;
   }
 
+  public void addObserver(final AltitudeObserver observer) {
+    this.altitudeObservers.add(observer);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public double getSpeedX() {
     return this.speed.getX();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public double getSpeedY() {
     return this.speed.getY();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
-  public void notifyAltitude() {
-
+  public boolean isMovingLeft() {
+    return this.movingLeft;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
-  public void notifyCollision(final StaticEntity gObj, final Boundary boundary) {
-    gObj.onHitBy(this, this.physic, boundary);
+  public boolean isMovingRight() {
+    return this.movingRight;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void moveLeft() {
+    this.movingLeft = true;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void moveRight() {
+    this.movingLeft = true;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void notifyCollision(final StaticEntity gObj, final Boundary boundary, final RealWorld realWorld) {
+    gObj.onHitBy(this, this.physic, boundary, realWorld, this.activeUpgrades);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public void notifyObserver(final double delta) {
+    this.altitudeObservers.forEach(ao -> ao.update(delta));
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void removeObserver(final AltitudeObserver observer) {
+    this.altitudeObservers.remove(observer);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void setPhysic(final AlienPhysic physic) {
     this.physic = physic;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void setSpeed(final Vector2d speed) {
     this.speed.setX(speed.getX());
     this.speed.setY(speed.getY());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void updatePosition(final double dt, final Boundary boundary) {
-    this.physic.update(this, dt, boundary);
+    this.physic.update(this, dt, boundary, activeUpgrades);
   }
 }

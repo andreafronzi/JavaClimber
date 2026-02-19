@@ -11,6 +11,7 @@ import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.gameObj.impl.EliCap;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
+import it.unibo.model.shop.impl.ActiveUpgradesImpl;
 
 /**
  * Test class for {@link AlienEliCapPhysic}.
@@ -60,7 +61,7 @@ public class AlienEliCapPhysicTest {
     public void testAlienEliCapPhysicBehavior() {
         final Boundary boundary = new Boundary(LEFT_SIDE, RIGHT_SIDE);
         final Gadget eliCap = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y));
-        final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT);
+        final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(null, null));
         //velocita del mostra quando prende elicap = 10
         eliCap.onCollect(alien);
 
@@ -81,7 +82,7 @@ public class AlienEliCapPhysicTest {
     public void testAlienEliCapPhysicBehaviorUpdatingWithTimeInterval() {
         final Boundary boundary = new Boundary(LEFT_SIDE, RIGHT_SIDE);
         final Gadget eliCap = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y));
-        final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT);
+        final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(null,null));
         eliCap.onCollect(alien);
 
         assertEquals(SPEED_Y, alien.getSpeedY(), EPSILON);  
@@ -101,7 +102,7 @@ public class AlienEliCapPhysicTest {
     public void testAlienEliCapPhysicBehaviorUpdatingWithMoreThanTimeInterval() {
         final Boundary boundary = new Boundary(LEFT_SIDE, RIGHT_SIDE);
         final Gadget eliCap = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y));
-        final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT);
+        final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(null, null));
         eliCap.onCollect(alien);
         alien.updatePosition(DT3, boundary);
 
