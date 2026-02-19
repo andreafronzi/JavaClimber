@@ -18,7 +18,7 @@ import it.unibo.model.world.impl.RealWorld;
  * This class applies gravitational force on the vertical axis and
  * manages boundary behavior with a Pacman effect.
  */
-public class AlienNormalPhysic extends TemplatePhysic implements AlienPhysic {
+public class AlienNormalPhysic extends TemplatePhysic {
 
   private static final double GRAVITY = 50.0;
 
@@ -37,7 +37,7 @@ public class AlienNormalPhysic extends TemplatePhysic implements AlienPhysic {
    */
   @Override
   protected void moveAlien(final Alien alien, final double dt, final Boundary boundary, final ActiveUpgrades activeUpgrades) {
-    double speedY = alien.getSpeedY();
+    final double speedY = alien.getSpeedY();
 
     final double newVelY = speedY + (GRAVITY * dt);
     alien.setSpeed(new Vector2dImpl(alien.getSpeedX(), newVelY));
