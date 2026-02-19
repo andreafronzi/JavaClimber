@@ -33,6 +33,7 @@ public class AlienNormalPhysicTest {
   private static final double SPEED_X = 0;
   private static final double SPEED_Y = 0;
 
+  private static final double SPEEDY_WITH_ELICAP = -10;
   private static final double SPEED_AFTER_JUMP = -10;
   private static final double SPEED1_Y = 50;
   private static final double SPEED1_X = 50;
@@ -54,7 +55,7 @@ public class AlienNormalPhysicTest {
    */
   @Test
   void testUpdateAlienPosition() {
-    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(null, null);
+    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new it.unibo.model.shop.impl.InventoryImpl(new it.unibo.model.shop.impl.ShopItemFactoryImpl()), new it.unibo.model.shop.impl.ShopItemFactoryImpl());
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGTH, activeUpgrades);
     assertEquals(0,alien.getSpeedY(), EPSILON);
@@ -70,7 +71,7 @@ public class AlienNormalPhysicTest {
    */
   @Test
   void testRightToLeftPacmanEffect() {
-    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(null, null);
+    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new it.unibo.model.shop.impl.InventoryImpl(new it.unibo.model.shop.impl.ShopItemFactoryImpl()), new it.unibo.model.shop.impl.ShopItemFactoryImpl());
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X1, Y), new Vector2dImpl(SPEED1_X, SPEED_Y), WIDTH, HEIGTH, activeUpgrades);
     final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
@@ -84,7 +85,7 @@ public class AlienNormalPhysicTest {
    */
   @Test
   void testLeftToRightPacmanEffect() {
-    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(null, null);
+    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new it.unibo.model.shop.impl.InventoryImpl(new it.unibo.model.shop.impl.ShopItemFactoryImpl()), new it.unibo.model.shop.impl.ShopItemFactoryImpl());
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED2_X, SPEED_Y), WIDTH, HEIGTH, activeUpgrades);
     final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
@@ -97,14 +98,19 @@ public class AlienNormalPhysicTest {
    */
   @Test
   void testHitGadget() {
-    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(null, null);
+    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new it.unibo.model.shop.impl.InventoryImpl(new it.unibo.model.shop.impl.ShopItemFactoryImpl()), new it.unibo.model.shop.impl.ShopItemFactoryImpl());
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGTH, activeUpgrades);
+    final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
     final Gadget eliCap = new EliCap(HEIGTH, WIDTH, new Vector2dImpl(X, Y + HEIGTH));
     
     physic.hitGadget(alien, eliCap);
     assertEquals(alien.getPosY(), eliCap.getPosY() - alien.getHeight(), EPSILON);
-    assertEquals(SPEED_Y, alien.getSpeedY(), EPSILON);
+    assertEquals(SPEED1_Y, alien.getSpeedY(), EPSILON);
+
+    alien.updatePosition(DT, boundary);
+    assertEquals(SPEEDY_WITH_ELICAP, alien.getSpeedY(), EPSILON);
+    assertEquals(Y + SPEEDY_WITH_ELICAP * DT, alien.getPosY(), EPSILON);
   }
 
   /**
@@ -112,7 +118,7 @@ public class AlienNormalPhysicTest {
    */
   @Test
   void testHitPlatform() {
-    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(null, null);
+    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new it.unibo.model.shop.impl.InventoryImpl(new it.unibo.model.shop.impl.ShopItemFactoryImpl()), new it.unibo.model.shop.impl.ShopItemFactoryImpl());
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGTH, activeUpgrades);
     final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
