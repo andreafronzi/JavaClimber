@@ -12,7 +12,7 @@ import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.shop.impl.ActiveUpgradesImpl;
-
+import it.unibo.model.world.impl.RealWorld;
 
 import org.junit.jupiter.api.Test;
 
@@ -122,7 +122,7 @@ public class AlienNormalPhysicTest {
                 .size(WIDTH, HEIGTH)
                 .build();
 
-    physic.hitPlatform(alien, platform, boundary, activeUpgrades);
+    physic.hitPlatform(alien, platform, boundary, new RealWorld(alien), activeUpgrades);
     assertEquals(alien.getPosY(), platform.getPosY() - alien.getHeight(), EPSILON);
     assertEquals(SPEED_AFTER_JUMP, alien.getSpeedY(), EPSILON);
   }
