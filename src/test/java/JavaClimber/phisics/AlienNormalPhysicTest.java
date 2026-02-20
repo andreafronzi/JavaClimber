@@ -2,16 +2,20 @@ package JavaClimber.phisics;
 
 import it.unibo.model.gameObj.PlatformBuilder.impl.PlatformBuilderImpl;
 import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.AlienImpl;
 import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.gameObj.impl.EliCap;
+import it.unibo.model.gameObj.impl.EnemyImpl;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.shop.impl.ActiveUpgradesImpl;
+import it.unibo.model.shop.impl.InventoryImpl;
+import it.unibo.model.shop.impl.ShopItemFactoryImpl;
 import it.unibo.model.world.impl.RealWorld;
 
 import org.junit.jupiter.api.Test;
@@ -49,6 +53,7 @@ public class AlienNormalPhysicTest {
 
   private static final double NEW_SPEED_Y = 20;
   private static final double NEW_Y = 108;
+  private static final double Y_AFTER_HIT_ENEMY = 104;
 
   /**
    * Test the {@link AlienNormalPhysic#update(Alien, double, Boundary, ActiveUpgrades)} method to verify expected vertical movement behavior.
@@ -85,7 +90,7 @@ public class AlienNormalPhysicTest {
    */
   @Test
   void testLeftToRightPacmanEffect() {
-    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new it.unibo.model.shop.impl.InventoryImpl(new it.unibo.model.shop.impl.ShopItemFactoryImpl()), new it.unibo.model.shop.impl.ShopItemFactoryImpl());
+    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl());
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED2_X, SPEED_Y), WIDTH, HEIGTH, activeUpgrades);
     final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
@@ -94,11 +99,32 @@ public class AlienNormalPhysicTest {
   }
 
   /**
+   * Tests the {@link AlienNormalPhysic#hitEnemy(Alien, Enemy, ActiveUpgrades)} method. Verify wheter, after the touch, is setted the new vertical speed and if the position update deal with the logic.
+   */
+  @Test
+  public void testHitEnemy() {
+    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl());
+    final AlienPhysic physic = new AlienNormalPhysic();
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGTH, activeUpgrades);
+    final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
+    final Enemy enemy = new EnemyImpl(HEIGTH, WIDTH, new Vector2dImpl(X, Y + HEIGTH));
+
+    //before updating position
+    physic.hitEnemy(alien, enemy, activeUpgrades);
+    assertEquals(alien.getPosY(), enemy.getPosY() - alien.getHeight(), EPSILON);
+    assertEquals(SPEED_AFTER_JUMP, alien.getSpeedY(), EPSILON);
+
+    //after updating position
+    alien.updatePosition(DT, boundary);
+    assertEquals(Y_AFTER_HIT_ENEMY, alien.getPosY(), EPSILON);
+  }
+
+  /**
    * Tests the {@link AlienNormalPhysic#hitGadget(Alien, Gadget, ActiveUpgrades)} method.
    */
   @Test
   void testHitGadget() {
-    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new it.unibo.model.shop.impl.InventoryImpl(new it.unibo.model.shop.impl.ShopItemFactoryImpl()), new it.unibo.model.shop.impl.ShopItemFactoryImpl());
+    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl());
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGTH, activeUpgrades);
     final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
@@ -118,7 +144,7 @@ public class AlienNormalPhysicTest {
    */
   @Test
   void testHitPlatform() {
-    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new it.unibo.model.shop.impl.InventoryImpl(new it.unibo.model.shop.impl.ShopItemFactoryImpl()), new it.unibo.model.shop.impl.ShopItemFactoryImpl());
+    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl());
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGTH, activeUpgrades);
     final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
