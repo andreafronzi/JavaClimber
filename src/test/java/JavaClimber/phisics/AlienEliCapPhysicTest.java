@@ -38,9 +38,6 @@ public class AlienEliCapPhysicTest {
     private static final double WIDTH = 0;
     private static final double HEIGHT = 0;
 
-    private static final double LEFT_BOUNDARY = 0;
-    private static final double RIGHT_BOUNDARY = 100;
-
     private static final double SPEED_X = 0;
     private static final double SPEED_Y = 0;
 
