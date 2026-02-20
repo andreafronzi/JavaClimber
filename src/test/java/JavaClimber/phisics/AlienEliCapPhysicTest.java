@@ -10,8 +10,11 @@ import it.unibo.model.gameObj.impl.AlienImpl;
 import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.gameObj.impl.EliCap;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
+import it.unibo.model.physics.alienPhysic.impl.AlienEliCapPhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.impl.ActiveUpgradesImpl;
+import it.unibo.model.shop.impl.InventoryImpl;
+import it.unibo.model.shop.impl.ShopItemFactoryImpl;
 
 /**
  * Test class for {@link AlienEliCapPhysic}.
@@ -34,6 +37,9 @@ public class AlienEliCapPhysicTest {
     
     private static final double WIDTH = 0;
     private static final double HEIGHT = 0;
+
+    private static final double LEFT_BOUNDARY = 0;
+    private static final double RIGHT_BOUNDARY = 100;
 
     private static final double SPEED_X = 0;
     private static final double SPEED_Y = 0;
@@ -61,7 +67,7 @@ public class AlienEliCapPhysicTest {
     public void testAlienEliCapPhysicBehavior() {
         final Boundary boundary = new Boundary(LEFT_SIDE, RIGHT_SIDE);
         final Gadget eliCap = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y));
-        final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(null, null));
+        final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl()));
         //velocita del mostra quando prende elicap = 10
         eliCap.onCollect(alien);
 
@@ -82,7 +88,7 @@ public class AlienEliCapPhysicTest {
     public void testAlienEliCapPhysicBehaviorUpdatingWithTimeInterval() {
         final Boundary boundary = new Boundary(LEFT_SIDE, RIGHT_SIDE);
         final Gadget eliCap = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y));
-        final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(null,null));
+        final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl()));
         eliCap.onCollect(alien);
 
         assertEquals(SPEED_Y, alien.getSpeedY(), EPSILON);  
@@ -102,7 +108,7 @@ public class AlienEliCapPhysicTest {
     public void testAlienEliCapPhysicBehaviorUpdatingWithMoreThanTimeInterval() {
         final Boundary boundary = new Boundary(LEFT_SIDE, RIGHT_SIDE);
         final Gadget eliCap = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y));
-        final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(null, null));
+        final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl()));
         eliCap.onCollect(alien);
         alien.updatePosition(DT3, boundary);
 
@@ -110,6 +116,5 @@ public class AlienEliCapPhysicTest {
         assertEquals(Y3, alien.getPosY(), EPSILON);
         assertEquals(SPEED_AFTER_ELICAP_AND_GRAVITY_X, alien.getSpeedX(), EPSILON);
         assertEquals(SPEED_AFTER_ELICAP_AND_GRAVITY_Y, alien.getSpeedY(), EPSILON);
-    
     }
 }
