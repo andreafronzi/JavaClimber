@@ -10,8 +10,7 @@ import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.api.TemplatePhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.api.ActiveUpgrades;
-import it.unibo.model.world.impl.RealWorld;
-
+import it.unibo.model.world.api.GameWorld;
 
 /**
  * A concrete implementation of the {@link AlienPhysic} interface.
@@ -45,7 +44,7 @@ public class AlienNormalPhysic extends TemplatePhysic {
   }
 
   @Override
-  public void hitPlatform(final Alien alien, final Platform p, final Boundary boundary, final RealWorld realWorld, final ActiveUpgrades activeUpgrades) {
+  public void hitPlatform(final Alien alien, final Platform p, final Boundary boundary, final GameWorld gameWorld, final ActiveUpgrades activeUpgrades) {
     final double pTollerance = 10;
     final boolean falling = alien.getSpeedY() > 0;
     final boolean above = (alien.getPosY() + alien.getHeight()) <= (p.getHeight() + pTollerance);
@@ -53,14 +52,14 @@ public class AlienNormalPhysic extends TemplatePhysic {
     if (falling && !above) {
       final double vx = 0;
       final double vy = -10 * activeUpgrades.getJumpMultiplier();
-      p.onTouch(boundary,realWorld);
+      p.onTouch(boundary,gameWorld);
       alien.setPosition(new Vector2dImpl(alien.getPosX(), p.getPosY() - alien.getHeight()));
       alien.setSpeed(new Vector2dImpl(vx, vy));
     }
   }
 
   @Override
-  public void hitEnemy(final Alien alien, final Enemy e, final ActiveUpgrades activeUpgrades) {
+  public void hitEnemy(final Alien alien, final Enemy e, final GameWorld gameWorld, final ActiveUpgrades activeUpgrades) {
     final double eTollerance = 10;
     final boolean falling = alien.getSpeedY() > 0;
     final boolean above = (alien.getPosY() + alien.getHeight()) <= (e.getHeight() + eTollerance);
@@ -68,18 +67,18 @@ public class AlienNormalPhysic extends TemplatePhysic {
     if (falling && !above) {
       final double vx = 0;
       final double vy = -10 * activeUpgrades.getJumpMultiplier();
-      e.die();
+      e.die(gameWorld);
       alien.setSpeed(new Vector2dImpl(vx, vy));
     }
   }
 
   @Override
-  public void hitGadget(final Alien alien, final Gadget g) {
-    g.onCollect(alien);
+  public void hitGadget(final Alien alien, final Gadget g, final GameWorld gameWorld) {
+    g.onCollect(alien, gameWorld);
   }
 
   @Override
-  public void hitCoin(final Coin coin, final ActiveUpgrades activeUpgrades) {
-    coin.collectCoin(activeUpgrades.getCoinMultiplier());
+  public void hitCoin(final Coin coin, final ActiveUpgrades activeUpgrades, final GameWorld gameWorld) {
+    coin.collectCoin(gameWorld, activeUpgrades.getCoinMultiplier());
   }
 }

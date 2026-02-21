@@ -7,7 +7,7 @@ import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.shop.api.ActiveUpgrades;
-import it.unibo.model.world.impl.RealWorld;
+import it.unibo.model.world.api.GameWorld;
 
 /**
  * A concrete implementation of the {@link Alien} interface.
@@ -106,15 +106,15 @@ public class AlienImpl extends GameObj implements Alien {
    */
   @Override
   public void moveRight() {
-    this.movingLeft = true;
+    this.movingRight = true;
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public void notifyCollision(final StaticEntity gObj, final Boundary boundary, final RealWorld realWorld) {
-    gObj.onHitBy(this, this.physic, boundary, realWorld, this.activeUpgrades);
+  public void notifyCollision(final StaticEntity gObj, final Boundary boundary, final GameWorld gameWorld) {
+    gObj.onHitBy(this, this.physic, boundary, gameWorld, this.activeUpgrades);
   }
 
   /**

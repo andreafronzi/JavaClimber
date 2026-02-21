@@ -38,19 +38,6 @@ public class CollisionManagerImpl implements CollisionManager {
         .flatMap(List::stream)
         .filter(se -> checkCollision(alien, se))
         .forEach(se -> alien.notifyCollision(se, boundary, realWorld));
-
-    realWorld.getGadgets().stream()
-            .filter(se -> checkCollision(alien, se))
-            .forEach(realWorld::removeGadget);
-
-    realWorld.getMonsters().stream()
-            .filter(se -> checkCollision(alien, se))
-            .forEach(realWorld::removeMonster);
-
-    realWorld.getMoneys().stream()
-            .filter(se -> checkCollision(alien, se))
-            .forEach(realWorld::removeMoney);
-
   }
 
   /**

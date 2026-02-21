@@ -7,7 +7,6 @@ import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.world.api.GameWorld;
-import it.unibo.model.world.impl.RealWorld;
 
 /**
  * Represents an implementation of the {@link Enemy} interface.
@@ -38,7 +37,7 @@ public class EnemyImpl extends GameObj implements Enemy {
    * {@inheritDoc}
    */
   @Override
-  public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final RealWorld realWorld, final ActiveUpgrades activeUpgrades) {
-    physic.hitEnemy(alien, this, activeUpgrades);
+  public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final GameWorld gameWorld, final ActiveUpgrades activeUpgrades) {
+    physic.hitEnemy(alien, this, gameWorld, activeUpgrades);
   }
 }
