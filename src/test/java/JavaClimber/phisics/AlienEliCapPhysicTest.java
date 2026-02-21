@@ -15,6 +15,7 @@ import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.impl.ActiveUpgradesImpl;
 import it.unibo.model.shop.impl.InventoryImpl;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
+import it.unibo.model.world.impl.RealWorld;
 
 /**
  * Test class for {@link AlienEliCapPhysic}.
@@ -66,7 +67,7 @@ public class AlienEliCapPhysicTest {
         final Gadget eliCap = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y));
         final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl()));
         //velocita del mostra quando prende elicap = 10
-        eliCap.onCollect(alien);
+        eliCap.onCollect(alien, new RealWorld(alien));
 
         assertEquals(SPEED_Y, alien.getSpeedY(), EPSILON);
         assertEquals(SPEED_X, alien.getSpeedX(), EPSILON);
@@ -86,7 +87,7 @@ public class AlienEliCapPhysicTest {
         final Boundary boundary = new Boundary(LEFT_SIDE, RIGHT_SIDE);
         final Gadget eliCap = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y));
         final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl()));
-        eliCap.onCollect(alien);
+        eliCap.onCollect(alien, new RealWorld(alien));
 
         assertEquals(SPEED_Y, alien.getSpeedY(), EPSILON);  
         assertEquals(SPEED_X, alien.getSpeedX(), EPSILON);
@@ -106,7 +107,7 @@ public class AlienEliCapPhysicTest {
         final Boundary boundary = new Boundary(LEFT_SIDE, RIGHT_SIDE);
         final Gadget eliCap = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y));
         final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl()));
-        eliCap.onCollect(alien);
+        eliCap.onCollect(alien, new RealWorld(alien));
         alien.updatePosition(DT3, boundary);
 
         assertEquals(X3, alien.getPosX(), EPSILON);

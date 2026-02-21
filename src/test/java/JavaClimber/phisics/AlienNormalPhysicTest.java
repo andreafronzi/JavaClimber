@@ -110,7 +110,7 @@ public class AlienNormalPhysicTest {
     final Enemy enemy = new EnemyImpl(HEIGTH, WIDTH, new Vector2dImpl(X, Y + HEIGTH));
 
     //before updating position
-    physic.hitEnemy(alien, enemy, activeUpgrades);
+    physic.hitEnemy(alien, enemy, new RealWorld(alien), activeUpgrades);
     assertEquals(alien.getPosY(), enemy.getPosY() - alien.getHeight(), EPSILON);
     assertEquals(SPEED_AFTER_JUMP, alien.getSpeedY(), EPSILON);
 
@@ -130,7 +130,7 @@ public class AlienNormalPhysicTest {
     final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
     final Gadget eliCap = new EliCap(HEIGTH, WIDTH, new Vector2dImpl(X, Y + HEIGTH));
     
-    physic.hitGadget(alien, eliCap);
+    physic.hitGadget(alien, eliCap, new RealWorld(alien));
     assertEquals(alien.getPosY(), eliCap.getPosY() - alien.getHeight(), EPSILON);
     assertEquals(SPEED1_Y, alien.getSpeedY(), EPSILON);
 
