@@ -18,19 +18,13 @@ public class FactoryAddOnImpl implements FactoryAddOn {
     private final double elycapWidth;
     private final double elycapHeight;
 
-    public FactoryAddOnImpl(
-            final double coinWidth,
-            final double coinHeight,
-            final double enemyWidth,
-            final double enemyHeight,
-            final double elycapWidth,
-            final double elycapHeight) {
-        this.coinWidth = coinWidth;
-        this.coinHeight = coinHeight;
-        this.enemyWidth = enemyWidth;
-        this.enemyHeight = enemyHeight;
-        this.elycapWidth = elycapWidth;
-        this.elycapHeight = elycapHeight;
+    public FactoryAddOnImpl() {
+        this.coinWidth = GameObjDimension.COIN_WIDTH;
+        this.coinHeight = GameObjDimension.COIN_HEIGHT;
+        this.enemyWidth = GameObjDimension.ENEMY_WIDTH;
+        this.enemyHeight = GameObjDimension.ENEMY_HEIGHT;
+        this.elycapWidth = GameObjDimension.ELYCAP_WIDTH;
+        this.elycapHeight = GameObjDimension.ELYCAP_HEIGHT;
 
     }
 
