@@ -15,24 +15,12 @@ import it.unibo.model.worldConstructor.impl.FactoryAddOnImpl;
 public class FactoryAddOnTest {
 
     private FactoryAddOn factoryAddOn;
-    private final static double COIN_HEIGHT = 0.5;
-    private final static double COIN_WIDTH = 0.5;
-    private final static double ELYCAP_HEIGHT = 0.5;
-    private final static double ELYCAP_WIDTH = 0.5;
-    private final static double ENEMY_HEIGHT = 0.5;
-    private final static double ENEMY_WIDTH = 0.5;
     private final static double POSITION_X = 0;
     private final static double POSITION_Y = 0;
 
     @BeforeEach
     void setUp() {
-        factoryAddOn = new FactoryAddOnImpl(
-                COIN_WIDTH,
-                COIN_HEIGHT,
-                ENEMY_WIDTH,
-                ENEMY_HEIGHT,
-                ELYCAP_WIDTH,
-                ELYCAP_HEIGHT);
+        factoryAddOn = new FactoryAddOnImpl();
     }
 
     @Test
