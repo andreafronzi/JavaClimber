@@ -3,11 +3,11 @@ package it.unibo.model.physics.platformPhysic.impl;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.platformPhysic.api.OnTouchBehaviour;
-import it.unibo.model.world.impl.RealWorld;
+import it.unibo.model.world.api.GameWorld;
 
 /**
  * Represents the behavior of a touched platform.
- * When a platform is touched, this behavior removes it from the {@link RealWorld}.
+ * When a platform is touched, this behavior removes it from the {@link GameWorld}.
  */
 public class OnTouchDestroyBehavior implements OnTouchBehaviour {
 
@@ -15,7 +15,7 @@ public class OnTouchDestroyBehavior implements OnTouchBehaviour {
    * {@inheritDoc}
    */
   @Override
-  public void onTouch(final Platform platform, final Boundary boundary, final RealWorld realWorld) {
-    realWorld.removePlatform(platform);
+  public void onTouch(final Platform platform, final Boundary boundary, final GameWorld gameWorld) {
+    gameWorld.removePlatform(platform);
   }
 }
