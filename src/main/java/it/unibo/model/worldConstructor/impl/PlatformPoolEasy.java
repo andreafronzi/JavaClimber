@@ -37,7 +37,6 @@ public class PlatformPoolEasy implements PlatformPool {
             final double enemyHeight,
             final double elycapWidth,
             final double elycapHeight) {
-
         this.width = width;
         this.height = height;
         this.platformPool = new LinkedList<>();
@@ -46,12 +45,7 @@ public class PlatformPoolEasy implements PlatformPool {
         this.moneyPool = new LinkedList<>();
         // this.trapPool = new LinkedList<>();
         this.director = new DirectorImpl(width, height);
-        this.factoryAddOn = new FactoryAddOnImpl(coinWidth,
-                coinHeight,
-                enemyWidth,
-                enemyHeight,
-                elycapWidth,
-                elycapHeight);
+        this.factoryAddOn = new FactoryAddOnImpl();
 
         initializePlatformPool();
         initializeMonsterPool();
