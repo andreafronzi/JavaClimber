@@ -36,7 +36,7 @@ public class ShopManagerImpl implements ShopManager {
     @Override
     public boolean buyItem(ShopItem item) {
         if (canBuyItem(item)) {
-            scoreManager.spend(item.getPrice());
+            inventory.spendCoins(item.getPrice());
 
             switch (item.getType()) {
                 case SKIN:
@@ -53,7 +53,7 @@ public class ShopManagerImpl implements ShopManager {
                     throw new IllegalStateException("Unknown item type: " + item.getType());
             }
 
-            SaveState currentState = new SaveState(scoreManager.getCoins(), scoreManager.getHighScore(), inventory.getOwnedItems(), inventory.getConsumablesStatus(), inventory.getSelectedSkin(), inventory.getSelectedJumpLevel(), inventory.getSelectedSpeedLevel());
+            SaveState currentState = new SaveState(inventory.getTotalCoins(), scoreManager.getHighScore(), inventory.getOwnedItems(), inventory.getConsumablesStatus(), inventory.getSelectedSkin(), inventory.getSelectedJumpLevel(), inventory.getSelectedSpeedLevel());
             storage.save(currentState);
             return true;
         }
@@ -67,7 +67,7 @@ public class ShopManagerImpl implements ShopManager {
 
     @Override
     public boolean canBuyItem(ShopItem item) {
-        boolean hasEnough = scoreManager.getCoins() >= item.getPrice();
+        boolean hasEnough = inventory.getTotalCoins() >= item.getPrice();
 
         if (item.getType() == ShopItemType.SKIN || item.getType() == ShopItemType.PERMANENT_UPGRADE) {
             if (hasEnough && !isAlreadyOwned(item)) {
@@ -128,7 +128,7 @@ public class ShopManagerImpl implements ShopManager {
 
     @Override
     public int getCoins() {
-        return scoreManager.getCoins();
+        return inventory.getTotalCoins();
     }
 
 }

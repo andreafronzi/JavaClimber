@@ -38,13 +38,6 @@ public interface ScoreManager {
     int getHighScore();
 
     /**
-     * 
-     * @param price to decrease to the total
-     * @return true if the transaction is correctly happened.
-     */
-    boolean spend(int price);
-
-    /**
      * Set the data from the file.
      * @param state data from the file.
      */

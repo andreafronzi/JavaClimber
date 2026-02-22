@@ -108,4 +108,27 @@ public interface Inventory {
      */
     Set<String> getActiveConsumables();
 
+    /**
+     * @return the total amount of coins available in the inventory.
+     */
+    int getTotalCoins();
+
+    /**
+     * Adds coins to the inventory.
+     * @param amount the amount to add.
+     */
+    void addCoins(int amount);
+
+    /**
+     * Spend coins and decrease the amount of coins.
+     * @param amount the amount to spend.
+     */
+    void spendCoins(int amount);
+
+    /**
+     * Sets the exact amount of coins.
+     * @param coins the total coins.
+     */
+    void setTotalCoins(int coins);
+
 }
