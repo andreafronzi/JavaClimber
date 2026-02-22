@@ -19,7 +19,7 @@ public class RunningState extends BaseLaunchedState {
      * 
      * @param launchedGame the game context
      */
-    public RunningState(final LaunchedGameImpl launchedGame, final World world, final CollisionManager collisionManager) {
+    public RunningState(final LaunchedGame launchedGame, final World world, final CollisionManager collisionManager) {
         super(launchedGame);
         this.world = world;
         this.collisionManager = collisionManager;
@@ -33,6 +33,8 @@ public class RunningState extends BaseLaunchedState {
     public void execute(final double dt) {
         world.getRealWorld().getAlien().updatePosition(0, null);
         collisionManager.detectCollisions(world.getRealWorld());
+        //controlliamo se il personaggio è morto se è morto, passiamo allo stato di endstate 
+        launchedGame.setState(new EndState(launchedGame));
     }
     
 }

@@ -13,7 +13,7 @@ public class PauseState extends BaseLaunchedState {
      * 
      * @param launchedGame the game context
      */
-    public PauseState(final LaunchedGameImpl launchedGame) {
+    public PauseState(final LaunchedGame launchedGame) {
         super(launchedGame);
     }
     
