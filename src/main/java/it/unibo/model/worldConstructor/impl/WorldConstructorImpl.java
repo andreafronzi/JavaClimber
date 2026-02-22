@@ -23,7 +23,7 @@ import it.unibo.model.worldConstructor.api.WorldConstructor;
 public class WorldConstructorImpl implements WorldConstructor, Observer {
 
   private Difficult difficult;
-  private final PlatformPositionGeneratorImpl platformControlDistance;
+  private final PlatformPositionGeneratorImpl platformPositionGenerator;
   private final PlatformPoolCreatorImpl platformPoolCreator;
   private final AddOnPositionGeneratorImpl addOnPositionGenerator;
   private final Random random;
@@ -36,23 +36,25 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
    *
    * @param difficult the initial difficulty configuration
    */
-  public WorldConstructorImpl(final Difficult difficult, final Boundary boundX, final BoundY boundY) {
+  public WorldConstructorImpl(final Difficult difficult, final Boundary boundX, final BoundY boundY, final UpperWorld world) {
     this.difficult = difficult;
     this.random = new Random();
-    this.world = new UpperWorld();
-    this.platformControlDistance = new PlatformPositionGeneratorImpl(boundX, boundY);
+    this.world = world;
     this.platformPoolCreator = new PlatformPoolCreatorImpl();
-    platformPoolCreator.setSpawnPool(difficult.platformPool());
+    this.platformPoolCreator.setSpawnPool(difficult.platformPool());
+    this.platform = platformPoolCreator.createPlatform(0, new Vector2dImpl(780, 200));
+    this.platformPositionGenerator = new PlatformPositionGeneratorImpl(boundX, boundY, platform);
+    this.platformPositionGenerator.setDifficult(this.difficult);
     this.addOnPositionGenerator = new AddOnPositionGeneratorImpl();
     this.boundY = boundY;
-  }
+    }
 
   /**
    * {@inheritDoc}
    */
   @Override
   public void fillWorld() {
-    while (platform.getPosY() > boundY.maxY() - difficult.maxDistanceY()) {
+    while (platform.getPosY() > boundY.minY() + difficult.maxDistanceY()) {
       createPlatform();
     }
   }
@@ -60,7 +62,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
   private void createPlatform() {
     double chance = random.nextDouble(1.0);
     double chanceAddOn = random.nextDouble(1.0);
-    Vector2d pos = platformControlDistance.generatePosition(difficult.platformPool().getWidth(), difficult.platformPool().getHeight());
+    Vector2d pos = platformPositionGenerator.generatePosition(difficult.platformPool().getWidth(), difficult.platformPool().getHeight());
     platform = platformPoolCreator.createPlatform(chance, pos);
     world.addPlatform(platform);
 
@@ -109,7 +111,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
   @Override
   public void update(Difficult difficult) {
     this.difficult = difficult;
-    platformControlDistance.setDifficult(difficult);
+    platformPositionGenerator.setDifficult(difficult);
     platformPoolCreator.setSpawnPool(difficult.platformPool());
   }
 

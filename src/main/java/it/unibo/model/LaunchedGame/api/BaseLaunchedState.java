@@ -27,7 +27,7 @@ public abstract class BaseLaunchedState implements StateOfLaunchedGame {
      * {@inheritDoc}
      */
     @Override
-    public void execute() {
+    public void execute(final double dt) {
     }
                         
 }

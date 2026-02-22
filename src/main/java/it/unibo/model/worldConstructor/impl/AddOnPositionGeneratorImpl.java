@@ -2,23 +2,18 @@ package it.unibo.model.worldConstructor.impl;
 
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
+import it.unibo.model.worldConstructor.api.AddOnPositionGenerator;
 
 /**
  * Implementation of AddOnPositionGenerator.
  * Calculates position for add-ons relative to their host platform.
  */
-public class AddOnPositionGeneratorImpl {
+public class AddOnPositionGeneratorImpl implements AddOnPositionGenerator{
 
     /**
-     * Generates a position for an add-on.
-     * 
-     * @param platformPosX   the X position of the platform
-     * @param platformPosY   the Y position of the platform
-     * @param platformWidth  the width of the platform
-     * @param addOnHeight    the height of the add-on
-     * @param addOnWidth     the width of the add-on
-     * @return the calculated position for the add-on
+     * {@inheritDoc}
      */
+    @Override
     public Vector2d generatePosition(final double platformPosX, final double platformPosY, final double platformWidth,
             final double addOnHeight, final double addOnWidth) {
         Vector2d pos = new Vector2dImpl(generatePosX(platformPosX, platformWidth, addOnWidth),

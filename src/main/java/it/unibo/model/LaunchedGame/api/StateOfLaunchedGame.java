@@ -9,7 +9,7 @@ public interface StateOfLaunchedGame {
     /**
      * Executes the logic specific to this state during the game loop.
      */
-    public void execute();
+    public void execute(double dt);
     
     /**
      * Logic to be executed when the game enters this state.
