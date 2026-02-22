@@ -1,9 +1,9 @@
 package it.unibo.model.physics.collision.impl;
 
 import it.unibo.model.gameObj.api.*;
-import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.collision.api.CollisionManager;
 import it.unibo.model.world.api.GameWorld;
+import it.unibo.model.world.impl.Boundary;
 
 import java.awt.geom.Rectangle2D;
 import java.util.List;

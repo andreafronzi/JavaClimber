@@ -1,9 +1,9 @@
 package it.unibo.model.physics.alienPhysic.api;
 
 import it.unibo.model.gameObj.api.Alien;
-import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.api.ActiveUpgrades;
+import it.unibo.model.world.impl.Boundary;
 
 /**
  * Represents a template for the alien physic. It implements the update method, which is common for all the alien physic, and it defines an abstract method moveAlien, which is implemented by the different alien physic.

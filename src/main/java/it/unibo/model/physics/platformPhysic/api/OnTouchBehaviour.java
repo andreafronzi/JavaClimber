@@ -1,8 +1,8 @@
 package it.unibo.model.physics.platformPhysic.api;
 
 import it.unibo.model.gameObj.api.Platform;
-import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.world.api.GameWorld;
+import it.unibo.model.world.impl.Boundary;
 
 /**
  * Interface representing Platform's touch reaction.
