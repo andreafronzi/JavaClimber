@@ -1,6 +1,5 @@
 package it.unibo.model.world.impl;
 
-import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.world.api.BoundWorld;
 
 public class BoundWorldImpl implements BoundWorld {
