@@ -8,6 +8,7 @@ import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.shop.api.ActiveUpgrades;
+import it.unibo.model.world.api.BoundWorld;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.Boundary;
 
@@ -140,7 +141,7 @@ public class AlienImpl extends GameObj implements Alien {
    * {@inheritDoc}
    */
   @Override
-  public void updatePosition(final double dt, final Boundary boundary, final LaunchedGame launchedGame) {
-    this.physic.update(this, dt, boundary, activeUpgrades, launchedGame);
+  public void updatePosition(final double dt, final BoundWorld boundWorld, final LaunchedGame launchedGame) {
+    this.physic.update(this, dt, boundWorld, activeUpgrades, launchedGame);
   }
 }
