@@ -120,10 +120,11 @@ public interface Inventory {
     void addCoins(int amount);
 
     /**
-     * Spend coins and decrease the amount of coins.
+     * Spend coins from the inventory if enough coins are available.
      * @param amount the amount to spend.
+     * @return true if the transaction is successful, false otherwise.
      */
-    void spendCoins(int amount);
+    boolean spendCoins(int amount);
 
     /**
      * Sets the exact amount of coins.

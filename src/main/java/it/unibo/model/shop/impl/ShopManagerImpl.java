@@ -36,7 +36,10 @@ public class ShopManagerImpl implements ShopManager {
     @Override
     public boolean buyItem(ShopItem item) {
         if (canBuyItem(item)) {
-            inventory.spendCoins(item.getPrice());
+            boolean transactionSuccess = inventory.spendCoins(item.getPrice());  
+            if (!transactionSuccess) {
+                return false;
+            }
 
             switch (item.getType()) {
                 case SKIN:

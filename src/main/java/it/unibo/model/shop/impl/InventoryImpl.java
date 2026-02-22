@@ -205,10 +205,12 @@ public class InventoryImpl implements Inventory {
     }
 
     @Override
-    public void spendCoins(int amount) {
+    public boolean spendCoins(int amount) {
         if (amount > 0 && this.totalCoins >= amount) {
             this.totalCoins -= amount;
+            return true;
         }
+        return false;
     }
 
     @Override
