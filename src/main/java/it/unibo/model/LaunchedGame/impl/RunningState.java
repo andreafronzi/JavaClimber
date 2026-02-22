@@ -1,8 +1,9 @@
 package it.unibo.model.LaunchedGame.impl;
 
 import it.unibo.model.LaunchedGame.api.*;
-import it.unibo.model.physics.Collision.api.CollisionManager;
+import it.unibo.model.physics.collision.api.CollisionManager;
 import it.unibo.model.world.impl.World;
+
 
 /**
  * Represents the state where the game is actively being played.
