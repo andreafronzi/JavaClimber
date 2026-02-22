@@ -1,5 +1,6 @@
 package it.unibo.model.command.api;
 
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameObj.api.Alien;
 
 /**
@@ -7,5 +8,5 @@ import it.unibo.model.gameObj.api.Alien;
  */
 public interface RunningCommand {
 
-  void execute(Alien alien);
+  void execute(Alien alien, LaunchedGame launchedGame);
 }
