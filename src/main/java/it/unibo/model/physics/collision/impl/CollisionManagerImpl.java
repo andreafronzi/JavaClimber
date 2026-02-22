@@ -3,7 +3,7 @@ package it.unibo.model.physics.collision.impl;
 import it.unibo.model.gameObj.api.*;
 import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.collision.api.CollisionManager;
-import it.unibo.model.world.impl.RealWorld;
+import it.unibo.model.world.api.GameWorld;
 
 import java.awt.geom.Rectangle2D;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 /**
  * Implementation of the CollisionManager interface.
- * This class is responsible for detecting collisions between the Alien and other game objects in the RealWorld.
+ * This class is responsible for detecting collisions between the Alien and other game objects in the GameWorld.
  */
 public class CollisionManagerImpl implements CollisionManager {
 
@@ -29,16 +29,19 @@ public class CollisionManagerImpl implements CollisionManager {
     this.boundary = boundary;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
-  public void detectCollisions(final RealWorld realWorld) {
+  public void detectCollisions(final GameWorld gameWorld) {
 
-    final Alien alien = realWorld.getAlien();
+    final Alien alien = gameWorld.getAlien();
 
-    Stream.of(realWorld.getPlatforms(), realWorld.getGadgets(), realWorld.getMoneys(), realWorld.getMonsters())
+    Stream.of(gameWorld.getPlatforms(), gameWorld.getGadgets(), gameWorld.getMoneys(), gameWorld.getMonsters())
         .flatMap(List::stream)
         .filter(se -> checkCollision(alien, se))
         .toList()
-        .forEach(se -> alien.notifyCollision(se, boundary, realWorld));
+        .forEach(se -> alien.notifyCollision(se, boundary, gameWorld));
   }
 
   /**
