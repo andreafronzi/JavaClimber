@@ -1,5 +1,6 @@
 package it.unibo.model.physics.alienPhysic.api;
 
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.api.ActiveUpgrades;
@@ -11,7 +12,7 @@ import it.unibo.model.world.impl.Boundary;
 public abstract class TemplatePhysic implements AlienPhysic {
 
   @Override
-  public void update(final Alien alien, final double dt, final Boundary boundary, final ActiveUpgrades activeUpgrades) {
+  public void update(final Alien alien, final double dt, final Boundary boundary, final ActiveUpgrades activeUpgrades, final LaunchedGame launchedGame) {
     moveAlien(alien, dt, boundary, activeUpgrades);
     verifyBoundaryTouch(alien, boundary);
   }
