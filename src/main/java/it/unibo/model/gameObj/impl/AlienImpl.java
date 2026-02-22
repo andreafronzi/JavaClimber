@@ -1,5 +1,6 @@
 package it.unibo.model.gameObj.impl;
 
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.GameObj;
 import it.unibo.model.gameObj.api.StaticEntity;
