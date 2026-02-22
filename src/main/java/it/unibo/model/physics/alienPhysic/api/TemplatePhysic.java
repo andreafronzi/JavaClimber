@@ -16,7 +16,7 @@ public abstract class TemplatePhysic implements AlienPhysic {
 
   @Override
   public void update(final Alien alien, final double dt, final BoundWorld boundWorld, final ActiveUpgrades activeUpgrades, final LaunchedGame launchedGame) {
-    moveAlien(alien, dt, boundWorld.getBoundX(), activeUpgrades);
+    moveAlien(alien, dt, boundWorld, activeUpgrades, launchedGame);
     verifyBoundaryTouch(alien, boundWorld, launchedGame);
   }
 
@@ -25,9 +25,11 @@ public abstract class TemplatePhysic implements AlienPhysic {
    *
    * @param alien the alien to update
    * @param dt the time elapsed since the last update
+   * @param boundWorld the boundary of the world
    * @param activeUpgrades the active upgrades affecting the Alien
+   * @param launchedGame the launched game
    */
-  protected abstract void moveAlien(final Alien alien, final double dt, final Boundary boundary, final ActiveUpgrades activeUpgrades);
+  protected abstract void moveAlien(final Alien alien, final double dt, final BoundWorld boundWorld, final ActiveUpgrades activeUpgrades, final LaunchedGame launchedGame);
 
   /**
    * Verify if the alien go beyond the boundary.
