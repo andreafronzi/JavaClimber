@@ -13,7 +13,7 @@ public class EndState extends BaseLaunchedState {
      * 
      * @param launchedGame the game context
      */
-    public EndState(final LaunchedGameImpl launchedGame) {
+    public EndState(final LaunchedGame launchedGame) {
         super(launchedGame);
     }
 
