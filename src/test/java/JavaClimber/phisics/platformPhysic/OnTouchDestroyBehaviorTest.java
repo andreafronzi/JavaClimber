@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.AlienImpl;
-import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.gameObj.impl.PlatformImpl;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
@@ -21,6 +20,7 @@ import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.shop.impl.ActiveUpgradesImpl;
 import it.unibo.model.shop.impl.InventoryImpl;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
+import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
 
 /**

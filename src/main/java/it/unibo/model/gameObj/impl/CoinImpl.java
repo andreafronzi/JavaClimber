@@ -8,6 +8,7 @@ import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.score.api.ScoreManager;
 import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.world.api.GameWorld;
+import it.unibo.model.world.impl.Boundary;
 
 /**
  * Represents a Coin entity in a two-dimensional game environment which can be collected by the {@link Alien}.

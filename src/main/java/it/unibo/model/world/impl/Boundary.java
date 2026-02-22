@@ -1,4 +1,4 @@
-package it.unibo.model.gameObj.impl;
+package it.unibo.model.world.impl;
 
 /**
  * Represents the game boundaries.

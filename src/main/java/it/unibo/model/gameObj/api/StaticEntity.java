@@ -1,9 +1,9 @@
 package it.unibo.model.gameObj.api;
 
-import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.world.api.GameWorld;
+import it.unibo.model.world.impl.Boundary;
 
 /**
  * Represents a static entity in a two-dimensional game environment.

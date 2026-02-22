@@ -2,7 +2,6 @@ package it.unibo.model.physics.collision.api;
 
 import it.unibo.model.gameObj.api.*;
 import it.unibo.model.world.api.GameWorld;
-import it.unibo.model.world.impl.RealWorld;
 
 /**
  * Handles collision detection between game objects in a two-dimensional game environment.

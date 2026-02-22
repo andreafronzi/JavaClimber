@@ -3,10 +3,10 @@ package it.unibo.model.worldConstructor.impl;
 import java.util.Random;
 
 import it.unibo.model.gameObj.api.Platform;
-import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.world.impl.BoundY;
+import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.worldConstructor.api.PlatformPositionGenerator;
 
 /**

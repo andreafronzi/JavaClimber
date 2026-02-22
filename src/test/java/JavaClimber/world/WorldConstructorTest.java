@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.world.impl.BoundY;
+import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.UpperWorld;
 import it.unibo.model.world.impl.World;
 import it.unibo.model.worldConstructor.impl.Difficult;

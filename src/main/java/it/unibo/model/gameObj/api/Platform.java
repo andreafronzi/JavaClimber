@@ -1,7 +1,7 @@
 package it.unibo.model.gameObj.api;
 
-import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.world.api.GameWorld;
+import it.unibo.model.world.impl.Boundary;
 
 /**
  * Represents a Platform entity in a two-dimensional game environment.
