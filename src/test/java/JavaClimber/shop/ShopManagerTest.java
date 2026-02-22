@@ -16,6 +16,7 @@ import it.unibo.model.persistence.api.SaveState;
 import it.unibo.model.persistence.impl.SaveManagerImpl;
 import it.unibo.model.score.api.ScoreManager;
 import it.unibo.model.score.impl.ScoreManagerImpl;
+import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopItemFactory;
 import it.unibo.model.shop.api.ShopManager;
@@ -29,10 +30,11 @@ import it.unibo.model.shop.impl.ShopManagerImpl;
 public class ShopManagerTest {
 
     private static final String TEST_FILE = "test_save.json";
-    private ScoreManager scoreManager = new ScoreManagerImpl(100);
+    private ScoreManager scoreManager = new ScoreManagerImpl();
     private ShopItemFactory itemFactory = new ShopItemFactoryImpl();
     private SaveManager storage = new SaveManagerImpl(TEST_FILE);
-    private ShopManager shopManager = new ShopManagerImpl(itemFactory, new InventoryImpl(itemFactory), scoreManager, storage);
+    private Inventory inventory = new InventoryImpl(itemFactory);
+    private ShopManager shopManager = new ShopManagerImpl(itemFactory, inventory, scoreManager, storage);
 
     /**
      * After tests delete the file if exist.
@@ -54,10 +56,10 @@ public class ShopManagerTest {
      */
     @Test
     void testSuccessfulSkinPurchase() {
-        scoreManager.addCoins(1000);
+        inventory.addCoins(1000);
         ShopItem skin = itemFactory.getItemById("s_astro").get();
         assertTrue(shopManager.buyItem(skin));
-        assertEquals(600, scoreManager.getCoins());
+        assertEquals(500, shopManager.getCoins());
         assertTrue(shopManager.isAlreadyOwned(skin));
         assertEquals("s_astro", shopManager.getInventory().getSelectedSkin());
     }
@@ -68,10 +70,10 @@ public class ShopManagerTest {
      */
     @Test
     void testSuccessfulTemporaryPWRPurchase() {
-        scoreManager.addCoins(500);
+        inventory.addCoins(500);
         ShopItem temp_pwr = itemFactory.getItemById("pt_jump1").get();
         assertTrue(shopManager.buyItem(temp_pwr));
-        assertEquals(550, scoreManager.getCoins());
+        assertEquals(450, shopManager.getCoins());
         Integer duration = shopManager.getInventory().getConsumablesStatus().get("pt_jump1");
         assertNotNull(duration);
         assertEquals(3, duration);
@@ -87,10 +89,10 @@ public class ShopManagerTest {
      */
     @Test
     void testSuccessfulPermanentPWRPurchase() {
-        scoreManager.addCoins(1000);
+        inventory.addCoins(1000);
         ShopItem perm_pwr = itemFactory.getItemById("pp_speed_1").get();
         assertTrue(shopManager.buyItem(perm_pwr));
-        assertEquals(800, scoreManager.getCoins());
+        assertEquals(700, shopManager.getCoins());
         assertTrue(shopManager.isAlreadyOwned(perm_pwr));
         assertTrue(shopManager.getInventory().getOwnedItems().contains("pp_speed_1"));
         assertFalse(shopManager.getInventory().getConsumablesStatus().containsKey("pp_speed_1"));
@@ -102,7 +104,7 @@ public class ShopManagerTest {
      */
     @Test
     void testSequentialPermanentUpgrade() {
-        scoreManager.addCoins(1000);
+        inventory.addCoins(1000);
         ShopItem speedLevel1 = itemFactory.getItemById("pp_speed_1").get();
         ShopItem speedLevel2 = itemFactory.getItemById("pp_speed_2").get();
 
@@ -113,7 +115,7 @@ public class ShopManagerTest {
         
         assertTrue(shopManager.canBuyItem(speedLevel2));
         assertTrue(shopManager.buyItem(speedLevel2));
-        assertEquals(300, scoreManager.getCoins());
+        assertEquals(200, shopManager.getCoins());
     }
 
     /**
@@ -122,10 +124,10 @@ public class ShopManagerTest {
      */
     @Test
     void testFailedPurchaseInsufficientCoins() {
-        scoreManager.addCoins(10);
+        inventory.addCoins(10);
         ShopItem item = itemFactory.getItemById("s_astro").get();
         assertFalse(shopManager.buyItem(item));
-        assertEquals(110, scoreManager.getCoins());
+        assertEquals(10, shopManager.getCoins());
         assertFalse(shopManager.isAlreadyOwned(item));
     }
 
@@ -135,7 +137,7 @@ public class ShopManagerTest {
      */
     @Test
     void testCannotBuySkinTwice() {
-        scoreManager.addCoins(100);
+        inventory.addCoins(100);
         ShopItem item = itemFactory.getItemById("s_primitive").get();
         assertTrue(shopManager.buyItem(item));
         
@@ -149,7 +151,7 @@ public class ShopManagerTest {
      */
     @Test
     void testSaveAfterPurchase() {
-        scoreManager.addCoins(500);
+        inventory.addCoins(600);
         ShopItem skin = itemFactory.getItemById("s_primitive").get();
         assertTrue(shopManager.buyItem(skin));
 
