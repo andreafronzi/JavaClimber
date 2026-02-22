@@ -1,6 +1,7 @@
 package it.unibo.model.LaunchedGame.impl;
 
 
+import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -38,19 +39,17 @@ public class RunningState extends BaseLaunchedState implements CommandState<Runn
      */
     @Override
     public void execute(final double dt) {
-        world.getRealWorld().getAlien().updatePosition(dt, null);
+        var command = commands.poll();
+        if (Objects.nonNull(command)) {
+            command.execute(world.getRealWorld().getAlien(), launchedGame);
+        }
+        world.getRealWorld().getAlien().updatePosition(dt, world.getRealWorld().getBoundWorld(), this.launchedGame);
         collisionManager.detectCollisions(world.getRealWorld());
-        //controlliamo se il personaggio è morto se è morto, passiamo allo stato di endstate 
-        launchedGame.setState(new EndState(launchedGame));
     }
 
     @Override
     public void addCommand(final RunningCommand command) {
         commands.add(command);
-    }
- 
-    private RunningCommand pollCommand() {
-        return commands.poll();
     }
 
 }
