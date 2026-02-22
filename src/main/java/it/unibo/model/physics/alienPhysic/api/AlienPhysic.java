@@ -1,5 +1,6 @@
 package it.unibo.model.physics.alienPhysic.api;
 
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
@@ -63,6 +64,7 @@ public interface AlienPhysic {
    * @param dt the time step
    * @param boundary the boundary
    * @param activeUpgrades the active upgrades affecting the Alien
+   * @param launchedGame the launched game
    */
-  void update(Alien alien, double dt, Boundary boundary, ActiveUpgrades activeUpgrades);
+  void update(Alien alien, double dt, Boundary boundary, ActiveUpgrades activeUpgrades, LaunchedGame launchedGame);
 }
