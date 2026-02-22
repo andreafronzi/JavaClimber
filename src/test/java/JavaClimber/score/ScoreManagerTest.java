@@ -19,7 +19,6 @@ import java.util.Set;
  */
 public class ScoreManagerTest {
 
-    private static final int INITIAL_COINS = 100;
     private ScoreManager scoreManager;
 
     /**
@@ -27,7 +26,7 @@ public class ScoreManagerTest {
      */
     @BeforeEach
     void setUp() {
-        scoreManager = new ScoreManagerImpl(INITIAL_COINS);
+        scoreManager = new ScoreManagerImpl();
     }
 
     /**
@@ -39,7 +38,7 @@ public class ScoreManagerTest {
         scoreManager.loadState(state);
 
         assertEquals(0, scoreManager.getCurrentScore());
-        assertEquals(1500, scoreManager.getCoins());
+        assertEquals(0, scoreManager.getCoins());
         assertEquals(5000, scoreManager.getHighScore());
     }
 
@@ -62,23 +61,16 @@ public class ScoreManagerTest {
     }
 
     /**
-     * Tests the {@link ScoreManager#addCoins(int)},
-     * {@link ScoreManager#getCoins()} and {@link ScoreManager#spend()} methods.
+     * Tests the {@link ScoreManager#addCoins(int)} and {@link ScoreManager#getCoins()} methods.
      */
     @Test
-    void testCoinsAndSpend() {
+    void testCoinsLogic() {
         scoreManager.addCoins(100);
-        assertEquals(200, scoreManager.getCoins());
+        assertEquals(100, scoreManager.getCoins());
         scoreManager.addCoins(200);
-        assertEquals(400, scoreManager.getCoins());
+        assertEquals(300, scoreManager.getCoins());
         scoreManager.addCoins(-10);
-        assertEquals(400, scoreManager.getCoins());
-
-        assertTrue(scoreManager.spend(200));
-        assertEquals(200, scoreManager.getCoins());
-
-        assertFalse(scoreManager.spend(500));
-        assertEquals(200, scoreManager.getCoins());
+        assertEquals(300, scoreManager.getCoins());
     }
 
     /**
