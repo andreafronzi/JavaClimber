@@ -5,7 +5,6 @@ import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
-import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.world.impl.BoundY;
 
 /**
