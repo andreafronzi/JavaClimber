@@ -139,7 +139,7 @@ public class AlienImpl extends GameObj implements Alien {
    * {@inheritDoc}
    */
   @Override
-  public void updatePosition(final double dt, final Boundary boundary) {
-    this.physic.update(this, dt, boundary, activeUpgrades);
+  public void updatePosition(final double dt, final Boundary boundary, final LaunchedGame launchedGame) {
+    this.physic.update(this, dt, boundary, activeUpgrades, launchedGame);
   }
 }
