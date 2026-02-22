@@ -1,6 +1,5 @@
 package it.unibo.model.gameObj.impl;
 
-import it.unibo.model.camera.api.AltitudeObserver;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.GameObj;
 import it.unibo.model.gameObj.api.StaticEntity;
@@ -8,10 +7,7 @@ import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.shop.api.ActiveUpgrades;
-import it.unibo.model.world.impl.RealWorld;
-
-import java.util.ArrayList;
-import java.util.List;
+import it.unibo.model.world.api.GameWorld;
 
 /**
  * A concrete implementation of the {@link Alien} interface.
@@ -25,7 +21,6 @@ public class AlienImpl extends GameObj implements Alien {
    */
   private final ActiveUpgrades activeUpgrades;
 
-  private final List<AltitudeObserver> altitudeObservers;
   /**
    * The Alien's physic.
    */
@@ -59,16 +54,11 @@ public class AlienImpl extends GameObj implements Alien {
    */
   public AlienImpl(final Vector2d position, final Vector2d speed, final double width, final double height, final ActiveUpgrades activeUpgrades) {
     super(height, width, position);
-    this.altitudeObservers = new ArrayList<>();
     this.movingLeft = false;
     this.movingRight = false;
     this.speed = speed;
     this.physic = new AlienNormalPhysic();
     this.activeUpgrades = activeUpgrades;
-  }
-
-  public void addObserver(final AltitudeObserver observer) {
-    this.altitudeObservers.add(observer);
   }
 
   /**
@@ -116,30 +106,15 @@ public class AlienImpl extends GameObj implements Alien {
    */
   @Override
   public void moveRight() {
-    this.movingLeft = true;
+    this.movingRight = true;
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public void notifyCollision(final StaticEntity gObj, final Boundary boundary, final RealWorld realWorld) {
-    gObj.onHitBy(this, this.physic, boundary, realWorld, this.activeUpgrades);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public void notifyObserver(final double delta) {
-    this.altitudeObservers.forEach(ao -> ao.update(delta));
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void removeObserver(final AltitudeObserver observer) {
-    this.altitudeObservers.remove(observer);
+  public void notifyCollision(final StaticEntity gObj, final Boundary boundary, final GameWorld gameWorld) {
+    gObj.onHitBy(this, this.physic, boundary, gameWorld, this.activeUpgrades);
   }
 
   /**

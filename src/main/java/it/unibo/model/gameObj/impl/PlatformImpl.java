@@ -8,7 +8,7 @@ import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.platformPhysic.api.MovementBehaviour;
 import it.unibo.model.physics.platformPhysic.api.OnTouchBehaviour;
 import it.unibo.model.shop.api.ActiveUpgrades;
-import it.unibo.model.world.impl.RealWorld;
+import it.unibo.model.world.api.GameWorld;
 
 import java.util.Optional;
 
@@ -42,13 +42,13 @@ public class PlatformImpl extends GameObj implements Platform {
   }
 
   @Override
-  public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final RealWorld realWorld, final ActiveUpgrades activeUpgrades) {
-    physic.hitPlatform(alien, this, boundary, realWorld, activeUpgrades);
+  public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final GameWorld gameWorld, final ActiveUpgrades activeUpgrades) {
+    physic.hitPlatform(alien, this, boundary, gameWorld, activeUpgrades);
   }
 
   @Override
-  public void onTouch(final Boundary boundary, final RealWorld realWorld) {
-    this.onTouchBehaviour.ifPresent(otb -> otb.onTouch(this, boundary, realWorld));
+  public void onTouch(final Boundary boundary, final GameWorld gameWorld) {
+    this.onTouchBehaviour.ifPresent(otb -> otb.onTouch(this, boundary, gameWorld));
   }
 
   @Override

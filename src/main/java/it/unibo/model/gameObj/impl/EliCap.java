@@ -7,7 +7,7 @@ import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienEliCapPhysic;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.shop.api.ActiveUpgrades;
-import it.unibo.model.world.impl.RealWorld;
+import it.unibo.model.world.api.GameWorld;
 
 /**
  * Represents the EliCap gadget. When the alien collects it, it will have a vertical speed for a certain time interval, then it will return to normal physic.
@@ -36,12 +36,13 @@ public class EliCap extends GameObj implements Gadget{
     }
 
     @Override
-    public void onCollect(final Alien alien) {
+    public void onCollect(final Alien alien, final GameWorld gameWorld) {
         alien.setPhysic(new AlienEliCapPhysic(TIME_INTERVALL, VERTICAL_SPEED));
+        gameWorld.removeGadget(this);
     }
 
     @Override
-    public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final RealWorld realWorld, final ActiveUpgrades activeUpgrades) {
-      physic.hitGadget(alien, this);
+    public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final GameWorld gameWorld, final ActiveUpgrades activeUpgrades) {
+      physic.hitGadget(alien, this, gameWorld);
   }
 }
