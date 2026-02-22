@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.impl.ActiveUpgradesImpl;
+import it.unibo.model.shop.impl.InventoryImpl;
+import it.unibo.model.shop.impl.ShopItemFactoryImpl;
 import it.unibo.model.gameObj.PlatformBuilder.impl.PlatformBuilderImpl;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Coin;
@@ -24,7 +26,7 @@ public class RealWorldTest {
     private RealWorld realWorld;
 
     private RealWorld setUpRealWorld(Vector2d pos, Vector2d velocity, int width, int height) {
-        this.realWorld = new RealWorld(new AlienImpl(pos, velocity, width, height, new ActiveUpgradesImpl(null, null)));
+        this.realWorld = new RealWorld(new AlienImpl(pos, velocity, width, height, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl())));
         return this.realWorld;  
     }
 
