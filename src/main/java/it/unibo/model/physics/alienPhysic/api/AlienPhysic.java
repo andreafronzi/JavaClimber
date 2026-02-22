@@ -1,11 +1,13 @@
 package it.unibo.model.physics.alienPhysic.api;
 
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.shop.api.ActiveUpgrades;
+import it.unibo.model.world.api.BoundWorld;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.Boundary;
 
@@ -61,8 +63,9 @@ public interface AlienPhysic {
    *
    * @param alien the alien to update
    * @param dt the time step
-   * @param boundary the boundary
+   * @param boundWorld the boundary of the world
    * @param activeUpgrades the active upgrades affecting the Alien
+   * @param launchedGame the launched game
    */
-  void update(Alien alien, double dt, Boundary boundary, ActiveUpgrades activeUpgrades);
+  void update(Alien alien, double dt, BoundWorld boundWorld, ActiveUpgrades activeUpgrades, LaunchedGame launchedGame);
 }

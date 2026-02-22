@@ -1,7 +1,9 @@
 package it.unibo.model.gameObj.api;
 
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.world.api.BoundWorld;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.Boundary;
 
@@ -73,7 +75,8 @@ public interface Alien extends GameObject {
    * update Alien's position.
    *
    * @param dt elapsed time between two updates
-   * @param boundary the boundary of the world
+   * @param boundWorld the boundary of the world
+   * @param launchedGame the launched game
    */
-  void updatePosition(double dt, Boundary boundary);
+  void updatePosition(double dt, BoundWorld boundWorld, LaunchedGame launchedGame);
 }

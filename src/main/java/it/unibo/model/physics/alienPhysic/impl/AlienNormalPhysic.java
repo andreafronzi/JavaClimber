@@ -1,5 +1,6 @@
 package it.unibo.model.physics.alienPhysic.impl;
 
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
@@ -9,6 +10,7 @@ import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.api.TemplatePhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.api.ActiveUpgrades;
+import it.unibo.model.world.api.BoundWorld;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.Boundary;
 
@@ -31,11 +33,12 @@ public class AlienNormalPhysic extends TemplatePhysic {
    *
    * @param alien the alien to update
    * @param dt the time step
-   * @param boundary the boundary of the world
+   * @param boundWorld the boundary of the world
    * @param activeUpgrades the active upgrades affecting the Alien
+   * @param launchedGame the launched game
    */
   @Override
-  protected void moveAlien(final Alien alien, final double dt, final Boundary boundary, final ActiveUpgrades activeUpgrades) {
+  protected void moveAlien(final Alien alien, final double dt, final BoundWorld boundWorld, final ActiveUpgrades activeUpgrades, final LaunchedGame launchedGame) {
     final double speedY = alien.getSpeedY();
 
     final double newVelY = speedY + (GRAVITY * dt);
