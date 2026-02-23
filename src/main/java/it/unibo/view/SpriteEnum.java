@@ -6,5 +6,6 @@ public enum SpriteEnum {
     PLATFORM_GREEN,
     JETPACK_ON,
     ENEMY,
-    GADGET
+    GADGET,
+    COIN
 }
