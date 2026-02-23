@@ -1,22 +1,27 @@
-package it.unibo.view.impl;
+package it.unibo.controller.impl;
 
-import it.unibo.view.api.MenuView;
+import it.unibo.controller.api.MenuController;
+import it.unibo.model.menu.api.Menu;
+import it.unibo.model.menu.impl.LaunchedGameState;
+import it.unibo.model.menu.impl.MenuImpl;
 
-public class MenuViewImpl implements MenuView{
+public class MenuControllerImpl implements MenuController{
 
-    public MenuViewImpl() {
-        
+    private final Menu menu;
+    private 
+
+    public MenuControllerImpl() {
+        this.menu = new MenuImpl();
     }
 
     @Override
     public void start() {
-        
+        menu.setState(new LaunchedGameState(menu));
     }
 
     @Override
     public void shop() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'shop'");
+
     }
 
     @Override
@@ -30,5 +35,5 @@ public class MenuViewImpl implements MenuView{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'exit'");
     }
-
+    
 }
