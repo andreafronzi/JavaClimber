@@ -218,4 +218,9 @@ public class InventoryImpl implements Inventory {
         this.totalCoins = coins;
     }
 
+    @Override
+    public ShopItemFactory getFactory(){
+        return this.factory;
+    }
+
 }

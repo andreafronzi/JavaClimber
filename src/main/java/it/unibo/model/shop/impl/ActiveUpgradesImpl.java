@@ -20,11 +20,10 @@ public class ActiveUpgradesImpl implements ActiveUpgrades {
     /**
      * 
      * @param inventory the player's inventory
-     * @param factory the factory for item details
      */
-    public ActiveUpgradesImpl(Inventory inventory, ShopItemFactory factory) {
+    public ActiveUpgradesImpl(Inventory inventory) {
         this.inventory = inventory;
-        this.factory = factory;
+        this.factory = inventory.getFactory();
         this.updateValues();
     }
 

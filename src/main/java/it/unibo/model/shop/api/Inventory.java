@@ -132,4 +132,5 @@ public interface Inventory {
      */
     void setTotalCoins(int coins);
 
+    ShopItemFactory getFactory();
 }

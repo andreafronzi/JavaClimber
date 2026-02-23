@@ -18,7 +18,7 @@ public class ActiveUpgradesTest {
 
     private ShopItemFactory factory = new ShopItemFactoryImpl();
     private Inventory inventory = new InventoryImpl(factory);
-    private ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(inventory, factory);
+    private ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(inventory);
 
     /**
      * Verifies when the inventory is empty the multipliers start at 1.0 as default.
