@@ -25,6 +25,7 @@ public class InventoryImpl implements Inventory {
     private int selectedJumpLevel = 0;
     private int selectedSpeedLevel = 0;
     private Set<String> activeConsumables;
+    private int totalCoins;
 
     /**
      * Initializes internal collections for tracking owned items, active consumables, and sets the default skin selection to none.
@@ -36,6 +37,7 @@ public class InventoryImpl implements Inventory {
         this.selectedSkin = DEFAULT_SKIN;
         this.ownedItems.add(DEFAULT_SKIN);
         this.activeConsumables = new HashSet<>();
+        this.totalCoins = 0;
     }
 
     @Override
@@ -134,6 +136,7 @@ public class InventoryImpl implements Inventory {
         } else {
             this.selectedSkin = DEFAULT_SKIN;
         }
+        this.totalCoins = state.getCoins();
     }
 
     @Override
@@ -187,6 +190,37 @@ public class InventoryImpl implements Inventory {
         } catch (Exception e) {
             return 0;
         }
+    }
+
+    @Override
+    public int getTotalCoins() {
+        return this.totalCoins;
+    }
+
+    @Override
+    public void addCoins(int amount) {
+        if (amount > 0) {
+            this.totalCoins += amount;
+        }
+    }
+
+    @Override
+    public boolean spendCoins(int amount) {
+        if (amount > 0 && this.totalCoins >= amount) {
+            this.totalCoins -= amount;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void setTotalCoins(int coins) {
+        this.totalCoins = coins;
+    }
+
+    @Override
+    public ShopItemFactory getFactory(){
+        return this.factory;
     }
 
 }

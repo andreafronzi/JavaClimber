@@ -5,5 +5,7 @@ public enum SpriteEnum {
     DOODLER_RIGHT,
     PLATFORM_GREEN,
     JETPACK_ON,
-    COIN
+    COIN,
+    ENEMY,
+    GADGET
 }

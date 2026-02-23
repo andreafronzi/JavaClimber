@@ -22,7 +22,8 @@ public class SpriteManager {
         sprites.put(SpriteEnum.DOODLER_RIGHT, this.load("doodler_right.png"));
         sprites.put(SpriteEnum.PLATFORM_GREEN, this.load("platform_green.png"));
         sprites.put(SpriteEnum.JETPACK_ON, this.load("jetpack_on.png"));
-
+        sprites.put(SpriteEnum.ENEMY, this.load("enemy.png"));
+        sprites.put(SpriteEnum.GADGET, this.load("gadget.png"));
     }
 
     private BufferedImage load(final String path) {

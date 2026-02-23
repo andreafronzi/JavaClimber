@@ -4,82 +4,111 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Optional;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.model.camera.api.Camera;
 import it.unibo.model.camera.impl.CameraImpl;
+import it.unibo.model.gameObj.impl.AlienImpl;
+import it.unibo.model.gameObj.impl.PlatformImpl;
+import it.unibo.model.physics.impl.Vector2dImpl;
+import it.unibo.model.world.impl.RealWorld;
+import it.unibo.model.world.impl.UpperWorld;
+import it.unibo.model.world.impl.World;
+import it.unibo.model.worldConstructor.api.WorldConstructor;
+import it.unibo.model.worldConstructor.impl.Difficult;
+import it.unibo.model.worldConstructor.impl.PlatformPoolEasy;
+import it.unibo.model.worldConstructor.impl.WorldConstructorImpl;
 
 /**
- * Tests for {@link Camera}
+ * Tests for {@link CameraImpl}
  */
 public class CameraTest {
 
     private static final double VIEW_WIDTH = 800.0;
     private static final double VIEW_HEIGHT = 600.0;
-    private Camera camera = new CameraImpl(VIEW_WIDTH, VIEW_HEIGHT);
+    private static final double PLAT_W = 100.0;
+    private static final double PLAT_H = 20.0;
+
+    private World world;
+    private WorldConstructor wc;
+    private CameraImpl camera;
 
     /**
-     * Tests that the camera is initialized with the correct dimensions and flag.
+     * Set up all to simulate the camera behaviour. 
+     */
+    @BeforeEach
+    void setUp() {
+        AlienImpl alien = new AlienImpl(new Vector2dImpl(0, 0), new Vector2dImpl(10, 10), 50, 50);
+        RealWorld realWorld = new RealWorld(alien);
+        UpperWorld upperWorld = new UpperWorld();
+        world = new World(upperWorld, realWorld);
+
+        PlatformPoolEasy pool = new PlatformPoolEasy();
+        
+        Difficult difficult = new Difficult(
+            100.0, 150.0, 50.0, 100.0, 0.5, 0.1, 5, 0.1, 2, 0.1, 2, 0.1, 2, pool
+        );
+        this.wc = new WorldConstructorImpl(difficult);
+
+        this.camera = new CameraImpl(VIEW_WIDTH, VIEW_HEIGHT, world, wc);
+    }
+    /**
+     * Tests that the camera is initialized with the correct dimensions.
      */
     @Test
     void testCorrectInitialization() {
-        assertEquals(0, camera.getX());
-        assertEquals(0, camera.getY());
         assertEquals(VIEW_WIDTH, camera.getViewportWidth());
         assertEquals(VIEW_HEIGHT, camera.getViewportHeight());
-        assertTrue(camera.shouldGenerateWorld());
     }
 
     /**
-     * Verifies that the camera follows the player and calculate correctly the new camera Y.
+     * Verifies that the game objects(in this case platform) move downwards when the camera moves up.
      */
     @Test
-    void testFollowPlayer() {
-        double targetY = -1000.0;
-        camera.update(targetY);
-        /*  getY = target - (HEIGHT * 0.5)
-        *   -1000 - (600 * 0.5) = -1300
-        */
-        assertEquals(-1300.0, camera.getY());  
+    void testMovement() {
+        PlatformImpl platform = new PlatformImpl(new Vector2dImpl(100, 100), PLAT_W, PLAT_H, Optional.empty(), Optional.empty());
+        world.getRealWorld().addPlatform(platform);
+        camera.update(50.0);
+        assertEquals(150.0, platform.getPosY());
     }
 
     /**
-     * Verifies that, if after reached an highestY and the alien falls, the camera not follow a lower camera Y.
+     * Verifies the promotion logic from the UpperWorld to RealWorld when a object enter in a specific limit.
      */
     @Test
-    void testNotFollowIfFalls() {
-        camera.update(-1000.0);
-        double highestY = camera.getY();
-        camera.update(0.0);
-        assertEquals(highestY, camera.getY());
+    void testTransferFromUpperToReal() {
+        PlatformImpl platform = new PlatformImpl(new Vector2dImpl(200, -101), PLAT_W, PLAT_H, Optional.empty(), Optional.empty());
+        world.getUpperWorld().addPlatform(platform);
+        camera.update(0.5);
+        assertFalse(world.getUpperWorld().getPlatforms().isEmpty());
+        assertTrue(world.getRealWorld().getPlatforms().isEmpty());
+
+        camera.update(10.0);
+        assertTrue(world.getUpperWorld().getPlatforms().isEmpty());
+        assertFalse(world.getRealWorld().getPlatforms().isEmpty());
+        assertEquals(platform, world.getRealWorld().getPlatforms().get(0));
     }
 
     /**
-     * Verifies the correct change of the flag for generation upper world. 
+     * Verifies that objects that fall below the screen are removed from RealWorld.
      */
     @Test
-    void testGeneration() {
-        camera.resetGeneration();
-        assertFalse(camera.shouldGenerateWorld());
-
-        camera.update(200.0);
-        assertFalse(camera.shouldGenerateWorld());
-
-        camera.update(-100.0);
-        assertTrue(camera.shouldGenerateWorld());
-        camera.resetGeneration();
-        assertFalse(camera.shouldGenerateWorld());
+    void testCleanRealWorld() {
+        PlatformImpl platform = new PlatformImpl(new Vector2dImpl(100, 590), PLAT_W, PLAT_H, Optional.empty(), Optional.empty());
+        world.getRealWorld().addPlatform(platform);
+        camera.update(20.0);
+        assertTrue(world.getRealWorld().getPlatforms().isEmpty());
     }
 
-    /**
-     * 
-     */
     @Test
-    void testLowerLimit() {
-        camera.update(-1000.0);
-        /*  lower_limit = getY + HEIGHT
-        *   -1300 + 600 = -700
-        */
-       assertEquals(-700.0, camera.getLowerLimit());
+    void testCheckAndGenerateUpperWorld() {
+        camera.update(290.0);
+        assertTrue(world.getUpperWorld().getPlatforms().isEmpty());
+        camera.update(20.0);
+        assertFalse(world.getUpperWorld().getPlatforms().isEmpty(), 
+            "UpperWorld should contain generated platforms after generation trigger");
     }
+
 }
