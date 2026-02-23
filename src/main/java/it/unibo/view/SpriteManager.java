@@ -32,7 +32,6 @@ public class SpriteManager {
     public void loadResources() {
         sprites.put(SpriteEnum.DOODLER_LEFT, this.load("doodler_left.png"));
         sprites.put(SpriteEnum.DOODLER_RIGHT, this.load("doodler_right.png"));
-        sprites.put(SpriteEnum.PLATFORM_GREEN, this.load("platform_green.png"));
         sprites.put(SpriteEnum.ENEMY, this.load("enemy.png"));
         sprites.put(SpriteEnum.GADGET, this.load("gadget.png"));
         sprites.put(SpriteEnum.PLATFORM, this.load("platform.png"));
