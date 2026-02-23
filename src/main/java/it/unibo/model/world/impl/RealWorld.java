@@ -3,7 +3,6 @@ package it.unibo.model.world.impl;
 import it.unibo.model.world.api.AbstractGameWorld;
 import it.unibo.model.world.api.BoundWorld;
 import it.unibo.model.gameObj.api.Alien;
-import it.unibo.model.gameObj.impl.AlienImpl;
 
 /**
  * Concrete implementation of the active game world.
