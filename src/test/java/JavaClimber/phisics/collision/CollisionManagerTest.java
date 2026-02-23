@@ -20,6 +20,8 @@ import it.unibo.model.score.impl.ScoreManagerImpl;
 import it.unibo.model.shop.impl.ActiveUpgradesImpl;
 import it.unibo.model.shop.impl.InventoryImpl;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
+import it.unibo.model.world.impl.BoundWorldImpl;
+import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
 
@@ -41,6 +43,8 @@ public class CollisionManagerTest {
 
     private static final double LEFT_SIDE = 0;
     private static final double RIGHT_SIDE = 100;
+    private static final double UPPER_WORLD = 0;
+    private static final double LOWER_WORLD = 100;
 
     /**
      * The {@link Alien} instance used in the tests.
@@ -73,7 +77,7 @@ public class CollisionManagerTest {
                 new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl()));
         final Boundary boundary = new Boundary(LEFT_SIDE, RIGHT_SIDE);
         this.collisionManager = new CollisionManagerImpl(boundary);
-        this.realWorld = new RealWorld(alien);
+        this.realWorld = new RealWorld(alien, new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_SIDE, RIGHT_SIDE)));
         this.e = new EnemyImpl(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT - 1));
         this.c = new CoinImpl(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT - 1), new ScoreManagerImpl(0));
         this.g = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT - 1));

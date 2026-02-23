@@ -20,6 +20,8 @@ import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.shop.impl.ActiveUpgradesImpl;
 import it.unibo.model.shop.impl.InventoryImpl;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
+import it.unibo.model.world.impl.BoundWorldImpl;
+import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
 
@@ -42,6 +44,9 @@ public class OnTouchDestroyBehaviorTest {
 
     private static final double LEFT_BOUNDARY = 0;
     private static final double RIGHT_BOUNDARY = 100;
+
+    private static final double UPPER_BOUND = 0;
+    private static final double LOWER_BOUND = 100;
 
     private static final double PLATFORM1_X = 50;
     private static final double PLATFORM1_Y = 100;
@@ -70,7 +75,7 @@ public class OnTouchDestroyBehaviorTest {
     public void setUp() {
         final ActiveUpgrades upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl());
         this.alien = new AlienImpl(new Vector2dImpl(INITIAL_X, INITIAL_Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, upgrades);
-        this.world = new RealWorld(this.alien); 
+        this.world = new RealWorld(this.alien, new BoundWorldImpl(new BoundY(UPPER_BOUND, LOWER_BOUND), new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY))); 
         this.platformToRemove = new PlatformImpl(new Vector2dImpl(PLATFORM2_X, PLATFORM2_Y), PLATFORM_WIDTH, PLATFORM_HEIGHT, Optional.empty(), Optional.of(new OnTouchDestroyBehavior()));
 
         this.world.addPlatform(new PlatformImpl(new Vector2dImpl(PLATFORM1_X, PLATFORM1_Y), PLATFORM_WIDTH, PLATFORM_HEIGHT, Optional.empty(), Optional.empty()));
