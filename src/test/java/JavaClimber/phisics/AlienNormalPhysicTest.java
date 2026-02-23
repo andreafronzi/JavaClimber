@@ -1,5 +1,6 @@
 package JavaClimber.phisics;
 
+import it.unibo.model.LaunchedGame.impl.LaunchedGameImpl;
 import it.unibo.model.gameObj.PlatformBuilder.impl.PlatformBuilderImpl;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Enemy;
@@ -15,6 +16,9 @@ import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.shop.impl.ActiveUpgradesImpl;
 import it.unibo.model.shop.impl.InventoryImpl;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
+import it.unibo.model.world.api.BoundWorld;
+import it.unibo.model.world.impl.BoundWorldImpl;
+import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
 
@@ -49,6 +53,9 @@ public class AlienNormalPhysicTest {
   private static final double LEFT_BOUNDARY = 0;
   private static final double RIGHT_BOUNDARY = 100;
 
+  private static final double UPPER_WORLD = 0;
+  private static final double LOWER_WORLD = 100;
+
   private static final double DT = 0.40;
 
   private static final double NEW_SPEED_Y = 20;
@@ -64,8 +71,8 @@ public class AlienNormalPhysicTest {
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGTH, activeUpgrades);
     assertEquals(0,alien.getSpeedY(), EPSILON);
-    final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
-    physic.update(alien, DT, boundary, activeUpgrades);
+    final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
+    physic.update(alien, DT, boundary, activeUpgrades, new LaunchedGameImpl());
     assertEquals(NEW_SPEED_Y, alien.getSpeedY(), EPSILON);
     assertEquals(NEW_Y, alien.getPosY(), EPSILON);
   }
@@ -79,8 +86,8 @@ public class AlienNormalPhysicTest {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new it.unibo.model.shop.impl.InventoryImpl(new it.unibo.model.shop.impl.ShopItemFactoryImpl()), new it.unibo.model.shop.impl.ShopItemFactoryImpl());
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X1, Y), new Vector2dImpl(SPEED1_X, SPEED_Y), WIDTH, HEIGTH, activeUpgrades);
-    final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
-    physic.update(alien, DT, boundary, activeUpgrades);
+    final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
+    physic.update(alien, DT, boundary, activeUpgrades, new LaunchedGameImpl());
     assertEquals(LEFT_BOUNDARY, alien.getPosX(), EPSILON);
   }
 
@@ -93,8 +100,8 @@ public class AlienNormalPhysicTest {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl());
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED2_X, SPEED_Y), WIDTH, HEIGTH, activeUpgrades);
-    final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
-    physic.update(alien, DT, boundary, activeUpgrades);
+    final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
+    physic.update(alien, DT, boundary, activeUpgrades, new LaunchedGameImpl());
     assertEquals(RIGHT_BOUNDARY - WIDTH, alien.getPosX(), EPSILON);
   }
 
@@ -106,16 +113,16 @@ public class AlienNormalPhysicTest {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl());
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGTH, activeUpgrades);
-    final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
+    final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
     final Enemy enemy = new EnemyImpl(HEIGTH, WIDTH, new Vector2dImpl(X, Y + HEIGTH));
 
     //before updating position
-    physic.hitEnemy(alien, enemy, new RealWorld(alien), activeUpgrades);
+    physic.hitEnemy(alien, enemy, new RealWorld(alien, boundary), activeUpgrades);
     assertEquals(alien.getPosY(), enemy.getPosY() - alien.getHeight(), EPSILON);
     assertEquals(SPEED_AFTER_JUMP, alien.getSpeedY(), EPSILON);
 
     //after updating position
-    alien.updatePosition(DT, boundary);
+    alien.updatePosition(DT, boundary, new LaunchedGameImpl());
     assertEquals(Y_AFTER_HIT_ENEMY, alien.getPosY(), EPSILON);
   }
 
@@ -127,14 +134,14 @@ public class AlienNormalPhysicTest {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl());
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGTH, activeUpgrades);
-    final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
+    final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
     final Gadget eliCap = new EliCap(HEIGTH, WIDTH, new Vector2dImpl(X, Y + HEIGTH));
     
-    physic.hitGadget(alien, eliCap, new RealWorld(alien));
+    physic.hitGadget(alien, eliCap, new RealWorld(alien, boundary));
     assertEquals(alien.getPosY(), eliCap.getPosY() - alien.getHeight(), EPSILON);
     assertEquals(SPEED1_Y, alien.getSpeedY(), EPSILON);
 
-    alien.updatePosition(DT, boundary);
+    alien.updatePosition(DT, boundary, new LaunchedGameImpl());
     assertEquals(SPEEDY_WITH_ELICAP, alien.getSpeedY(), EPSILON);
     assertEquals(Y + SPEEDY_WITH_ELICAP * DT, alien.getPosY(), EPSILON);
   }
@@ -147,14 +154,14 @@ public class AlienNormalPhysicTest {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl());
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGTH, activeUpgrades);
-    final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
+    final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
     final PlatformBuilderImpl platformBuilder = new PlatformBuilderImpl();
     final Platform platform = platformBuilder
                 .at(new Vector2dImpl(X, Y + HEIGTH))
                 .size(WIDTH, HEIGTH)
                 .build();
 
-    physic.hitPlatform(alien, platform, boundary, new RealWorld(alien), activeUpgrades);
+    physic.hitPlatform(alien, platform, boundary.getBoundX(), new RealWorld(alien, boundary), activeUpgrades);
     assertEquals(alien.getPosY(), platform.getPosY() - alien.getHeight(), EPSILON);
     assertEquals(SPEED_AFTER_JUMP, alien.getSpeedY(), EPSILON);
   }
