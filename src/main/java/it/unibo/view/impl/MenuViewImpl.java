@@ -2,7 +2,7 @@ package it.unibo.view.impl;
 
 import it.unibo.view.api.MenuView;
 
-public class MenuViewImpl implements MenuView{
+public class MenuViewImpl implements MenuView {
 
     public MenuViewImpl() {
         

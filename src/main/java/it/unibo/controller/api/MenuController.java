@@ -9,4 +9,7 @@ public interface MenuController {
     public void inventory();
 
     public void exit();
+
+    public void openViewMenu();
+    
 }
