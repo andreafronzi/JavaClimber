@@ -151,11 +151,30 @@ public class InventoryTest {
         assertTrue(active.contains("pt_coin_1"));
     }
 
+    /**
+     * Tests the wallet operations of inventory: add, spend and set total coins.
+     */
+    @Test
+    void testWalletOperations(){
+        assertEquals(0, inventory.getTotalCoins());
+        inventory.addCoins(500);
+        assertEquals(500, inventory.getTotalCoins());
+        assertTrue(inventory.spendCoins(200));
+        assertEquals(300, inventory.getTotalCoins());
+        assertFalse(inventory.spendCoins(400));
+        assertEquals(300, inventory.getTotalCoins());
+        assertFalse(inventory.spendCoins(-50));
+        assertEquals(300, inventory.getTotalCoins());
+        inventory.setTotalCoins(1000);
+        assertEquals(1000, inventory.getTotalCoins());
+    }
+
     @Test
     void testLoadSave() {
-        SaveState state = new SaveState(0, 0, Set.of("s_astro"), Map.of("pp_speed1", 0), "s_astro", 4, 2);
+        SaveState state = new SaveState(500, 0, Set.of("s_astro"), Map.of("pp_speed1", 0), "s_astro", 4, 2);
         inventory.loadState(state);
 
+        assertEquals(500, inventory.getTotalCoins());
         assertTrue(inventory.hasItem("s_astro"));
         assertTrue(inventory.hasItem(DEFAULT_SKIN));
         assertEquals("s_astro", inventory.getSelectedSkin());

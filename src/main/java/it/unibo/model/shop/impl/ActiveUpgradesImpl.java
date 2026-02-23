@@ -4,6 +4,9 @@ import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.shop.api.ShopItemFactory;
 
+/**
+ * Implementation of {@link ActiveUpgrades}.
+ */
 public class ActiveUpgradesImpl implements ActiveUpgrades {
 
     private static String PREFIX_SPEED = "pp_speed_";
@@ -14,12 +17,19 @@ public class ActiveUpgradesImpl implements ActiveUpgrades {
     private double currentJumpMultiplier;
     private int currentCoinMultiplier;
 
-    public ActiveUpgradesImpl(Inventory inventory, ShopItemFactory factory) {
+    /**
+     * 
+     * @param inventory the player's inventory
+     */
+    public ActiveUpgradesImpl(Inventory inventory) {
         this.inventory = inventory;
-        this.factory = factory;
+        this.factory = inventory.getFactory();
         this.updateValues();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateValues() {
         this.currentJumpMultiplier = 1.0;
@@ -45,7 +55,15 @@ public class ActiveUpgradesImpl implements ActiveUpgrades {
         }
     }
 
+    /**
+     * Extract stats from an itemId and apply max value for type logic.
+     * @param itemId the itemId to extract
+     */
     private void applyItemStats(String itemId) {
+        if (itemId == null || itemId.isEmpty()) {
+            return;
+        }
+
         factory.getItemById(itemId).ifPresent(item -> {
             item.getStats().forEach((stat, value) -> {
                 switch (stat) {
@@ -65,16 +83,25 @@ public class ActiveUpgradesImpl implements ActiveUpgrades {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getSpeedMultiplier() {
         return this.currentSpeedMultiplier;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getJumpMultiplier() {
         return this.currentJumpMultiplier;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getCoinMultiplier() {
         return this.currentCoinMultiplier;

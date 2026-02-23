@@ -67,7 +67,7 @@ public class ShopItemTest {
         assertEquals(300, item.getPrice());
         assertEquals(3, item.getInitialDuration());
         assertTrue(item.getStats().containsKey(ShopItemStat.COIN_MULTIPLIER));
-        assertEquals(1.2, item.getStats().get(ShopItemStat.COIN_MULTIPLIER));
+        assertEquals(2.0, item.getStats().get(ShopItemStat.COIN_MULTIPLIER));
     }
 
     /**
@@ -82,7 +82,7 @@ public class ShopItemTest {
         assertEquals("pp_speed_2", item.getId());
         assertEquals("Speed Boost 2", item.getName());
         assertEquals(ShopItemType.PERMANENT_UPGRADE, item.getType());
-        assertEquals("Permanent Speed boost", item.getDescription());
+        assertEquals("Permanent Speed boost 1.3", item.getDescription());
         assertEquals(500, item.getPrice());
         assertEquals(0, item.getInitialDuration());
         assertTrue(item.getStats().containsKey(ShopItemStat.SPEED));

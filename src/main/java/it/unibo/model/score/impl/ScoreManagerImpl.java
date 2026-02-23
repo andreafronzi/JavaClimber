@@ -13,8 +13,8 @@ public class ScoreManagerImpl implements ScoreManager {
     private int highScore;
     private double startY;
 
-    public ScoreManagerImpl(int initialCoins) {
-        this.coins = initialCoins;
+    public ScoreManagerImpl() {
+        this.coins = 0;
         this.currentScore = 0;
         this.highScore = 0;
         this.startY = 0;
@@ -55,17 +55,7 @@ public class ScoreManagerImpl implements ScoreManager {
     }
 
     @Override
-    public boolean spend(int price) {
-        if (price <= this.coins && price >= 0) {
-            this.coins -= price;
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public void loadState(SaveState state) {
-        this.coins = state.getCoins();
         this.highScore = state.getHighestScore();
     }
 
