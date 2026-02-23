@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import it.unibo.model.world.impl.BoundWorldImpl;
+import it.unibo.model.world.impl.BoundY;
+import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.UpperWorld;
 import it.unibo.model.gameObj.PlatformBuilder.impl.PlatformBuilderImpl;
 import it.unibo.model.gameObj.api.Coin;
@@ -22,7 +25,7 @@ public class QueueWorldTest {
     private UpperWorld upperWorld;
 
     private void setUpUpperWorld() {
-        this.upperWorld = new UpperWorld();
+        this.upperWorld = new UpperWorld(new BoundWorldImpl(new BoundY(0, 800), new Boundary(0, 600)));
     }
 
     private Platform createPlatform(final Vector2d pos) {

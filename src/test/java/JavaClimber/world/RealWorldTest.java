@@ -19,6 +19,9 @@ import it.unibo.model.gameObj.impl.AlienImpl;
 import it.unibo.model.gameObj.impl.EnemyImpl;
 import it.unibo.model.gameObj.impl.CoinImpl;
 import it.unibo.model.gameObj.impl.EliCap;
+import it.unibo.model.world.impl.BoundWorldImpl;
+import it.unibo.model.world.impl.BoundY;
+import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
 
 public class RealWorldTest {
@@ -26,8 +29,8 @@ public class RealWorldTest {
     private RealWorld realWorld;
 
     private RealWorld setUpRealWorld(Vector2d pos, Vector2d velocity, int width, int height) {
-        this.realWorld = new RealWorld(new AlienImpl(pos, velocity, width, height, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl())));
-        return this.realWorld;  
+        this.realWorld = new RealWorld(new AlienImpl(pos, velocity, width, height, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl())), new BoundWorldImpl(new BoundY(0, 800), new Boundary(0, 600)));
+        return this.realWorld; 
     }
 
     @Test

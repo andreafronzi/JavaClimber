@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.model.world.api.BoundWorld;
+import it.unibo.model.world.impl.BoundWorldImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.UpperWorld;
@@ -24,7 +26,8 @@ public class WorldConstructorTest {
 
     @BeforeEach
     public void setUp() {
-        this.upperWorld = new UpperWorld();
+        BoundWorld boundWorld = new BoundWorldImpl(new BoundY(0, 800), new Boundary(0, 400));
+        this.upperWorld = new UpperWorld(boundWorld);
         this.world = new World(upperWorld, null);
         this.difficult = new Difficult(0, 70, 30, 20, 0.2, 0.4, 4, 0.8, 4, 1.0, 4, 0, 0,
                 new PlatformPoolEasy(10, 10, 5, 5, 10, 10, 5, 5));
