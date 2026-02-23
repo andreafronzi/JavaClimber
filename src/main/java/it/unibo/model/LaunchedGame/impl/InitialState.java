@@ -13,7 +13,7 @@ public class InitialState extends BaseLaunchedState {
      * 
      * @param launchedGame the game context
      */
-    public InitialState(final LaunchedGameImpl launchedGame) {
+    public InitialState(final LaunchedGame launchedGame) {
         super(launchedGame);
     }
     

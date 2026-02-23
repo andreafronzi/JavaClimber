@@ -1,8 +1,13 @@
 package it.unibo.model.physics.alienPhysic.api;
 
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
+import it.unibo.model.LaunchedGame.impl.EndState;
 import it.unibo.model.gameObj.api.Alien;
-import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.impl.Vector2dImpl;
+import it.unibo.model.shop.api.ActiveUpgrades;
+import it.unibo.model.world.api.BoundWorld;
+import it.unibo.model.world.impl.BoundY;
+import it.unibo.model.world.impl.Boundary;
 
 /**
  * Represents a template for the alien physic. It implements the update method, which is common for all the alien physic, and it defines an abstract method moveAlien, which is implemented by the different alien physic.
@@ -10,9 +15,9 @@ import it.unibo.model.physics.impl.Vector2dImpl;
 public abstract class TemplatePhysic implements AlienPhysic {
 
   @Override
-  public void update(final Alien alien, final double dt, final Boundary boundary) {
-    moveAlien(alien, dt, boundary);
-    verifyBoundaryTouch(alien, boundary);
+  public void update(final Alien alien, final double dt, final BoundWorld boundWorld, final ActiveUpgrades activeUpgrades, final LaunchedGame launchedGame) {
+    moveAlien(alien, dt, boundWorld, activeUpgrades, launchedGame);
+    verifyBoundaryTouch(alien, boundWorld, launchedGame);
   }
 
   /**
@@ -20,21 +25,49 @@ public abstract class TemplatePhysic implements AlienPhysic {
    *
    * @param alien the alien to update
    * @param dt the time elapsed since the last update
+   * @param boundWorld the boundary of the world
+   * @param activeUpgrades the active upgrades affecting the Alien
+   * @param launchedGame the launched game
    */
-  protected abstract void moveAlien(final Alien alien, final double dt, final Boundary boundary);
+  protected abstract void moveAlien(final Alien alien, final double dt, final BoundWorld boundWorld, final ActiveUpgrades activeUpgrades, final LaunchedGame launchedGame);
+
+  /**
+   * Verify if the alien go beyond the boundary.
+   *
+   * @param alien the alien which can go beyond the boundary
+   * @param boundWorld the boundaries, which can be crossed by the alien
+   * @param launchedGame the launched game, which can be ended if the alien go beyond the vertical boundary
+   */
+  private void verifyBoundaryTouch(final Alien alien, final BoundWorld boundWorld, final LaunchedGame launchedGame) {
+    this.verifyHorizontalBoundaryTouch(alien, boundWorld.getBoundX());
+    this.verifyVerticalBoundaryTouch(alien, boundWorld.getBoundY(), launchedGame);
+  }
 
   /**
    * Verify if the alien go beyond the boundary. Apply pacman effect if it happens.
-   *
-   * @param alien the alien which can go beyond the boundary
-   * @param boundary the boundaries, which can be crossed by the alien
+   * 
+   * @param alien the {@link Alien} which can go beyond the horizontal boundary
+   * @param boundary the {@link Boundary} horizontal boundary, which can be crossed by the alien
    */
-  private void verifyBoundaryTouch(final Alien alien, final Boundary boundary) {
+  private void verifyHorizontalBoundaryTouch(final Alien alien, final Boundary boundary) {
     if(alien.getPosX() + alien.getWidth() < boundary.x0()) {
       alien.setPosition(new Vector2dImpl(boundary.x1() - alien.getWidth(), alien.getPosY()));
     }
     if(alien.getPosX() > boundary.x1()) {
       alien.setPosition(new Vector2dImpl(boundary.x0(), alien.getPosY()));
+    }
+  }
+
+  /**
+   * Verify if the alien go beyond the vertical boundary. If it happens, the game is ended.
+   *
+   * @param alien the {@link Alien} which can go beyond the vertical boundary
+   * @param verticalBounds the {@link BoundY} vertical boundaries, which can be crossed by the alien
+   * @param launchedGame the {@link LaunchedGame}, which can be ended if the alien go beyond the vertical boundary
+   */
+  private void verifyVerticalBoundaryTouch(final Alien alien, final BoundY verticalBounds, final LaunchedGame launchedGame) {
+    if(alien.getPosY() + alien.getHeight() > verticalBounds.maxY()) {
+      launchedGame.setState(new EndState(launchedGame));
     }
   }
 }

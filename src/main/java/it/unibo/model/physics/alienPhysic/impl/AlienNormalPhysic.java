@@ -1,21 +1,25 @@
 package it.unibo.model.physics.alienPhysic.impl;
 
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
-import it.unibo.model.gameObj.impl.Boundary;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.api.TemplatePhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
-
+import it.unibo.model.shop.api.ActiveUpgrades;
+import it.unibo.model.world.api.BoundWorld;
+import it.unibo.model.world.api.GameWorld;
+import it.unibo.model.world.impl.Boundary;
 
 /**
  * A concrete implementation of the {@link AlienPhysic} interface.
  * This class applies gravitational force on the vertical axis and
  * manages boundary behavior with a Pacman effect.
  */
-public class AlienNormalPhysic extends TemplatePhysic implements AlienPhysic {
+public class AlienNormalPhysic extends TemplatePhysic {
 
   private static final double GRAVITY = 50.0;
 
@@ -29,50 +33,55 @@ public class AlienNormalPhysic extends TemplatePhysic implements AlienPhysic {
    *
    * @param alien the alien to update
    * @param dt the time step
+   * @param boundWorld the boundary of the world
+   * @param activeUpgrades the active upgrades affecting the Alien
+   * @param launchedGame the launched game
    */
   @Override
-  protected void moveAlien(final Alien alien, final double dt, final Boundary boundary) {
-    double speedY = alien.getSpeedY();
+  protected void moveAlien(final Alien alien, final double dt, final BoundWorld boundWorld, final ActiveUpgrades activeUpgrades, final LaunchedGame launchedGame) {
+    final double speedY = alien.getSpeedY();
 
     final double newVelY = speedY + (GRAVITY * dt);
     alien.setSpeed(new Vector2dImpl(alien.getSpeedX(), newVelY));
-    alien.setPosition(new Vector2dImpl(alien.getPosX() + alien.getSpeedX() * dt, alien.getPosY() + alien.getSpeedY() * dt));
+    alien.setPosition(new Vector2dImpl(alien.getPosX()  + alien.getSpeedX() * dt * activeUpgrades.getSpeedMultiplier(), alien.getPosY() + alien.getSpeedY() * dt * activeUpgrades.getSpeedMultiplier()));
   }
 
   @Override
-  public void hitPlatform(final Alien alien, final Platform p, final Boundary boundary) {
+  public void hitPlatform(final Alien alien, final Platform p, final Boundary boundary, final GameWorld gameWorld, final ActiveUpgrades activeUpgrades) {
     final double pTollerance = 10;
     final boolean falling = alien.getSpeedY() > 0;
     final boolean above = (alien.getPosY() + alien.getHeight()) <= (p.getHeight() + pTollerance);
 
     if (falling && !above) {
       final double vx = 0;
-      final double vy = -10;
-      p.onTouch(boundary);
+      final double vy = -10 * activeUpgrades.getJumpMultiplier();
+      p.onTouch(boundary,gameWorld);
       alien.setPosition(new Vector2dImpl(alien.getPosX(), p.getPosY() - alien.getHeight()));
       alien.setSpeed(new Vector2dImpl(vx, vy));
     }
   }
 
   @Override
-  public void hitEnemy(final Alien alien, final Enemy e) {
+  public void hitEnemy(final Alien alien, final Enemy e, final GameWorld gameWorld, final ActiveUpgrades activeUpgrades) {
     final double eTollerance = 10;
     final boolean falling = alien.getSpeedY() > 0;
     final boolean above = (alien.getPosY() + alien.getHeight()) <= (e.getHeight() + eTollerance);
 
     if (falling && !above) {
       final double vx = 0;
-      final double vy = -10;
-      e.die();
+      final double vy = -10 * activeUpgrades.getJumpMultiplier();
+      e.die(gameWorld);
       alien.setSpeed(new Vector2dImpl(vx, vy));
     }
   }
 
   @Override
-  public void hitGadget(final Alien alien, final Gadget g) {
-    final double vx = 0;
-    final double vy = -10;
-    g.onCollect(alien);
-    alien.setSpeed(new Vector2dImpl(vx, vy));
+  public void hitGadget(final Alien alien, final Gadget g, final GameWorld gameWorld) {
+    g.onCollect(alien, gameWorld);
+  }
+
+  @Override
+  public void hitCoin(final Coin coin, final ActiveUpgrades activeUpgrades, final GameWorld gameWorld) {
+    coin.collectCoin(gameWorld, activeUpgrades.getCoinMultiplier());
   }
 }

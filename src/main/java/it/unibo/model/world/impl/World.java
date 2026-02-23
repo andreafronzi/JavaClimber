@@ -1,7 +1,7 @@
 package it.unibo.model.world.impl;
 
-import it.unibo.model.world.api.AbstractGameWorld;
-import it.unibo.model.world.api.AbstractQueueWorld;
+import it.unibo.model.world.api.GameWorld;
+import it.unibo.model.world.api.QueueWorld;
 
 /**
  * Class representing the complete game world.
@@ -9,8 +9,8 @@ import it.unibo.model.world.api.AbstractQueueWorld;
  */
 public class World {
     
-    private final AbstractQueueWorld upperWorld;
-    private final AbstractGameWorld realWorld;
+    private final QueueWorld upperWorld;
+    private final GameWorld realWorld;
 
     /**
      * Constructs a new World.
@@ -18,7 +18,7 @@ public class World {
      * @param upperWorld the queue-based world for upcoming entities
      * @param realWorld the active game world
      */
-    public World(final AbstractQueueWorld upperWorld, final AbstractGameWorld realWorld) {
+    public World(final QueueWorld upperWorld, final GameWorld realWorld) {
         this.upperWorld = upperWorld;
         this.realWorld = realWorld;
     }
@@ -28,7 +28,7 @@ public class World {
      * 
      * @return the upper world
      */
-    public AbstractQueueWorld getUpperWorld() {
+    public QueueWorld getUpperWorld() {
         return this.upperWorld;
     }
 
@@ -37,7 +37,7 @@ public class World {
      * 
      * @return the real world
      */
-    public AbstractGameWorld getRealWorld() {
+    public GameWorld getRealWorld() {
         return this.realWorld;
     }
 }

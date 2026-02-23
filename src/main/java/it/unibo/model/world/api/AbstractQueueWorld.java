@@ -12,6 +12,10 @@ import it.unibo.model.gameObj.api.Platform;
  */
 public abstract class AbstractQueueWorld extends AbstractWorldContainer implements QueueWorld {
 
+    public AbstractQueueWorld(BoundWorld boundWorld) {
+        super(boundWorld);
+    }
+
     /**
      * {@inheritDoc}
      */

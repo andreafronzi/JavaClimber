@@ -18,15 +18,17 @@ public abstract class AbstractWorldContainer implements BaseWorld {
     protected final List<Coin> moneys;
     protected final List<Enemy> monsters;
     protected final List<Gadget> gadgets;
+    protected final BoundWorld boundWorld;
 
     /**
      * Constructs a new AbstractWorldContainer with empty entity lists.
      */
-    public AbstractWorldContainer() {
+    public AbstractWorldContainer(final BoundWorld boundWorld) {
         this.platforms = new LinkedList<>();
         this.moneys = new LinkedList<>();
         this.gadgets = new LinkedList<>();
         this.monsters = new LinkedList<>();
+        this.boundWorld = boundWorld;
     }
 
     /**
@@ -88,6 +90,10 @@ public abstract class AbstractWorldContainer implements BaseWorld {
         @Override
     public List<Platform> getPlatforms() {
         return this.platforms;
+    }
+
+    public BoundWorld getBoundWorld() {
+        return this.boundWorld;
     }
 
 }

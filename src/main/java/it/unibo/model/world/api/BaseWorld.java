@@ -5,6 +5,7 @@ import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.world.impl.BoundY;
 
 /**
  * Interface representing a container for game entities.
@@ -63,4 +64,7 @@ public interface BaseWorld {
      * @return true if added successfully.
      */
     boolean addMoney(Coin money);
+
+    BoundWorld getBoundWorld();
+
 }

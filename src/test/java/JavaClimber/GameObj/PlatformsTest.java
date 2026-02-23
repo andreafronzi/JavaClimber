@@ -8,8 +8,8 @@ import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.physics.platformPhysic.api.MovementBehaviour;
 import it.unibo.model.physics.platformPhysic.impl.HorizontalMovementBehavior;
+import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.gameObj.api.Platform;
-import it.unibo.model.gameObj.impl.Boundary;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -75,6 +75,7 @@ public class PlatformsTest {
         assertEquals(NEW_X, platform.getPosX(), EPSILON);
         assertEquals(Y, platform.getPosY(), EPSILON);
     }
+    
     /**
      * Tests the {@link Platform#updatePosition(Vector2d)} method without movement behaviour.
      */

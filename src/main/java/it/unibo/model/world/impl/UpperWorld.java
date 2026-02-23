@@ -1,6 +1,7 @@
 package it.unibo.model.world.impl;
 
 import it.unibo.model.world.api.AbstractQueueWorld;
+import it.unibo.model.world.api.BoundWorld;
 
 /**
  * Concrete implementation of the queue-based world.
@@ -11,8 +12,8 @@ public class UpperWorld extends AbstractQueueWorld {
     /**
      * Constructs a new UpperWorld.
      */
-    public UpperWorld() {
-        super();
+    public UpperWorld(final BoundWorld boundWorld) {
+        super(boundWorld);
     }
 
 }
