@@ -4,5 +4,6 @@ public enum SpriteEnum {
     DOODLER_LEFT, 
     DOODLER_RIGHT,
     PLATFORM_GREEN,
-    PLATFORM
+    PLATFORM,
+    COIN
 }
