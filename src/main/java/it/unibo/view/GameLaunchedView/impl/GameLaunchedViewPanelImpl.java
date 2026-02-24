@@ -1,4 +1,4 @@
-package it.unibo.view.GameLaunchedView;
+package it.unibo.view.GameLaunchedView.impl;
 
 import it.unibo.controller.api.GameLaunchedController;
 import it.unibo.controller.impl.GameLaunchedControllerImpl;
@@ -17,7 +17,7 @@ import javax.swing.*;
 /**
  * <p>Rapresent the application's panel seen when the game is launched.</p>
  */
-public class GameLaunchedViewPanel extends JPanel {
+public class GameLaunchedViewPanelImpl extends JPanel {
 
   /**
    * The {@link GameLaunchedControllerImpl} which provide the game elements to render.
@@ -50,11 +50,11 @@ public class GameLaunchedViewPanel extends JPanel {
   private final GadgetRenderer gadgetRenderer;
 
   /**
-   * <p>Construct a new {@link GameLaunchedViewPanel}.</p>
+   * <p>Construct a new {@link GameLaunchedViewPanelImpl}.</p>
    *
    * @param controller the {@link GameLaunchedControllerImpl} which provide the game elements to render.
    */
-  public GameLaunchedViewPanel(final GameLaunchedController controller) {
+  public GameLaunchedViewPanelImpl(final GameLaunchedController controller) {
     super();
     this.controller = controller;
 
