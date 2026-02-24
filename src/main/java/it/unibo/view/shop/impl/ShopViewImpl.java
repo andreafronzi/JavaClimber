@@ -1,4 +1,4 @@
-package it.unibo.view.impl;
+package it.unibo.view.shop.impl;
 
 import java.util.Comparator;
 import java.util.List;
@@ -12,7 +12,7 @@ import it.unibo.controller.api.ShopController;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopItemFactory;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
-import it.unibo.view.api.ShopView;
+import it.unibo.view.shop.api.ShopView;
 
 public class ShopViewImpl extends JPanel implements ShopView {
 
@@ -304,6 +304,7 @@ public class ShopViewImpl extends JPanel implements ShopView {
             @Override public void upgradeSpeed() {}
             @Override public void buyTemporaryItem(int i) {}
             @Override public void buySkin(int i) {}
+            @Override public void openShop() { System.out.println("Opening shop view");}
             @Override public void openInventory() { System.out.println("Opening inventory view");}
             @Override public void exit() { System.exit(0); }
             @Override public int getCoins() { return 150; }

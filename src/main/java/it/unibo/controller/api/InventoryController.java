@@ -57,6 +57,8 @@ public interface InventoryController {
     
     List<Boolean> getTempItemsStatus();
 
+    void openInventory();
+
     void openShop();
 
     /**

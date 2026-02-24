@@ -48,6 +48,8 @@ public interface ShopController {
 
     int getCurrentLevel(String prefix);
     
+    void openShop();
+
     void openInventory();
     
     /**

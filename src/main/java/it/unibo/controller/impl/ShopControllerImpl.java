@@ -6,7 +6,7 @@ import java.util.List;
 import it.unibo.controller.api.ShopController;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopManager;
-import it.unibo.view.api.ShopView;
+import it.unibo.view.shop.api.ShopView;
 
 /**
  * Implementation of {@link ShopController} interface.
@@ -87,6 +87,12 @@ public class ShopControllerImpl implements ShopController {
                 .filter(item -> item.getId().startsWith(prefix))
                 .filter(shopManager::isAlreadyOwned)
                 .count();
+    }
+
+    @Override
+    public void openShop() {
+        // TODO Auto-generated method stub
+        
     }
 
     @Override

@@ -1,11 +1,11 @@
-package it.unibo.view.impl;
+package it.unibo.view.menu.impl;
 
 import javax.swing.*;
 import java.awt.*;
 
 import it.unibo.controller.api.MenuController;
 import it.unibo.controller.impl.MenuControllerImpl;
-import it.unibo.view.api.MenuView;
+import it.unibo.view.menu.api.MenuView;
 
 public class MenuViewImpl extends JPanel implements MenuView{
     

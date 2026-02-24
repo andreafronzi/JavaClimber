@@ -1,4 +1,4 @@
-package it.unibo.view.impl;
+package it.unibo.view.inventory.impl;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -13,7 +13,7 @@ import it.unibo.controller.api.InventoryController;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopItemFactory;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
-import it.unibo.view.api.InventoryView;
+import it.unibo.view.inventory.api.InventoryView;
 
 public class InventoryViewImpl extends JPanel implements InventoryView {
 
@@ -309,7 +309,8 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
             @Override public void plusVelocity() { System.out.println("Aumentato livello Velocità"); }
             @Override public void minusVelocity() { System.out.println("Diminuito livello Velocità"); }
             @Override public void toggleTemporaryItem(int index) { System.out.println("Toggle oggetto temporaneo: " + index); }
-            @Override public void openShop() { System.out.println("Opening shop view");; }
+            @Override public void openShop() { System.out.println("Opening shop view"); }
+            @Override public void openInventory() { System.out.println("Opening inventory view"); }
             @Override public void exit() { System.exit(0); }
             @Override public int getSelectedJumpLevel() { return 2; }
             @Override public int getSelectedSpeedLevel() { return 1; }

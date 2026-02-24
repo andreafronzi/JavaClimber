@@ -1,4 +1,4 @@
-package it.unibo.view.api;
+package it.unibo.view.menu.api;
 
 public interface MenuView {
     
