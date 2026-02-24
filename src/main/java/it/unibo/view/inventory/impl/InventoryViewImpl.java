@@ -322,12 +322,19 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
             @Override public List<Boolean> getTempItemsStatus() { return tempStatus; }
         };
 
-        InventoryViewImpl view = new InventoryViewImpl(mockController);
+        SwingUtilities.invokeLater(() -> {
+            JFrame testFrame = new JFrame("Test Inventory Panel");
+            testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            testFrame.setSize(1000, 700);
 
-        view.display();
-        view.updateCoins(150);
-
-        view.updateInventory(mockController.getOwnedSkins(), mockController.getEquippedSkin(), factory.getPowerUpsPermanent(), mockController.getSelectedJumpLevel(), mockController.getMaxJumpLevelOwned(), mockController.getSelectedSpeedLevel(), mockController.getMaxSpeedLevelOwned(), mockController.getOwnedTempItems(), mockController.getTempItemsStatus());
+            InventoryViewImpl inventoryPanel = new InventoryViewImpl(mockController);
+            inventoryPanel.updateCoins(150);
+            inventoryPanel.updateInventory(mockController.getOwnedSkins(), mockController.getEquippedSkin(), factory.getPowerUpsPermanent(), mockController.getSelectedJumpLevel(), mockController.getMaxJumpLevelOwned(), mockController.getSelectedSpeedLevel(), mockController.getMaxSpeedLevelOwned(), mockController.getOwnedTempItems(), mockController.getTempItemsStatus());
+            
+            testFrame.add(inventoryPanel);
+            testFrame.setLocationRelativeTo(null);
+            testFrame.setVisible(true);
+        });
     }
 
 }
