@@ -7,28 +7,21 @@ import it.unibo.controller.api.MenuController;
 import it.unibo.controller.impl.MenuControllerImpl;
 import it.unibo.view.api.MenuView;
 
-public class MenuViewImpl implements MenuView{
+public class MenuViewImpl extends JPanel implements MenuView{
     
-    private final JFrame frame;
     private final MenuController controller;
     private static final int BUTTON_WIDTH = 300;
     private static final int BUTTON_HEIGHT = 60;
     private static final int SPACING = 20;
 
     public MenuViewImpl(MenuController controller) {
+        super(new BorderLayout());
         this.controller = controller;
-        this.frame = new JFrame("Java Climber - Main Menu");
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(1000, 700);
-        this.frame.setResizable(false);
-        this.frame.setLocationRelativeTo(null); 
 
         initialize();
     }
 
-    private void initialize() {
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        
+    private void initialize() {        
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
@@ -71,8 +64,7 @@ public class MenuViewImpl implements MenuView{
         buttonPanel.add(btnExit);
         buttonPanel.add(Box.createVerticalGlue());
 
-        mainPanel.add(buttonPanel, BorderLayout.CENTER);
-        this.frame.add(mainPanel);
+        this.add(buttonPanel, BorderLayout.CENTER);
     }
 
     private JButton createMenuButton(String text) {
@@ -86,30 +78,28 @@ public class MenuViewImpl implements MenuView{
     }
 
     public void display() {
-        this.frame.setVisible(true);
+        this.setVisible(true);
+        this.revalidate();
+        this.repaint();
     }
 
     @Override
     public void start() {
-        this.frame.dispose();
         this.controller.start();
     }
 
     @Override
     public void shop() {
-        this.frame.dispose();
         this.controller.shop();
     }
 
     @Override
     public void inventory() {
-        this.frame.dispose();
         this.controller.inventory();
     }
 
     @Override
     public void exit() {
-        this.frame.dispose();
         this.controller.exit();
     }
 
@@ -125,8 +115,14 @@ public class MenuViewImpl implements MenuView{
         };
 
         SwingUtilities.invokeLater(() -> {
-            MenuViewImpl menuView = new MenuViewImpl(mockController);
-            menuView.display();
+            JFrame testFrame = new JFrame("Test Menu Panel");
+            MenuViewImpl menuPanel = new MenuViewImpl(mockController);
+            
+            testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            testFrame.setSize(1000, 700);
+            testFrame.add(menuPanel);
+            testFrame.setLocationRelativeTo(null);
+            testFrame.setVisible(true);
         });
     }
 }
