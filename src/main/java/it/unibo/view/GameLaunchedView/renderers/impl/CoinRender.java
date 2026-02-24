@@ -1,4 +1,4 @@
-package it.unibo.view.GameLaunchedView.renderers;
+package it.unibo.view.GameLaunchedView.renderers.impl;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import it.unibo.model.gameObj.api.Coin;
+import it.unibo.view.GameLaunchedView.renderers.api.EntityRenderer;
 import it.unibo.view.SpriteEnum;
 import it.unibo.view.SpriteManager;
 

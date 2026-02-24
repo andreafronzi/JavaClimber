@@ -1,4 +1,4 @@
-package it.unibo.view.GameLaunchedView.renderers;
+package it.unibo.view.GameLaunchedView.renderers.api;
 
 import it.unibo.model.gameObj.api.GameObject;
 
@@ -15,7 +15,7 @@ public interface EntityRenderer<T extends GameObject> {
 
     /**
      * Renders a list of entities of type T using the provided Graphics2D object.
-     * 
+     *
      * @param entitys the list of entities to render
      * @param g       the Graphics2D object used for rendering
      */

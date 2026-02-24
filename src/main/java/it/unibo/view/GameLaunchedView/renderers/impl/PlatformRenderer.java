@@ -1,6 +1,7 @@
-package it.unibo.view.GameLaunchedView.renderers;
+package it.unibo.view.GameLaunchedView.renderers.impl;
 
 import it.unibo.model.gameObj.api.Platform;
+import it.unibo.view.GameLaunchedView.renderers.api.EntityRenderer;
 import it.unibo.view.SpriteEnum;
 import it.unibo.view.SpriteManager;
 
@@ -20,7 +21,7 @@ public class PlatformRenderer implements EntityRenderer<Platform> {
 
     /**
      * Constructor for the PlatformRenderer.
-     * 
+     *
      * @param spriteManager the SpriteManager used to retrieve the platform sprite
      */
     public PlatformRenderer(final SpriteManager spriteManager) {
