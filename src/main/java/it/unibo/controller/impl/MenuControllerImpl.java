@@ -43,5 +43,11 @@ public class MenuControllerImpl implements MenuController{
     public void openViewMenu() {
         mainController.openMenuView();
     }
+
+    @Override
+    public int getHighScore() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getHighScore'");
+    }
     
 }
