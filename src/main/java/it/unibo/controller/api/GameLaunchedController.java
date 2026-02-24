@@ -1,12 +1,6 @@
 package it.unibo.controller.api;
 
-import it.unibo.model.LaunchedGame.api.CommandState;
-import it.unibo.model.command.api.RunningCommand;
-import it.unibo.model.command.impl.EnterPausa;
-import it.unibo.model.command.impl.MoveAlienLeft;
-import it.unibo.model.command.impl.MoveAlienRight;
 import it.unibo.model.gameObj.api.*;
-import it.unibo.model.world.api.GameWorld;
 
 import java.util.List;
 
