@@ -1,7 +1,6 @@
 package it.unibo.controller.impl;
 
-import java.util.List;
-
+import it.unibo.controller.api.GameLaunchedController;
 import it.unibo.model.LaunchedGame.api.CommandState;
 import it.unibo.model.command.api.RunningCommand;
 import it.unibo.model.command.impl.EnterPausa;
@@ -14,7 +13,9 @@ import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.world.api.GameWorld;
 
-public class GameLaunchedControllerImpl {
+import java.util.List;
+
+public class GameLaunchedControllerImpl implements GameLaunchedController {
 
   private final CommandState<RunningCommand> runningCommand;
   private final GameWorld gameWorld;
@@ -24,35 +25,67 @@ public class GameLaunchedControllerImpl {
     this.gameWorld = gameWorld;
   }
 
-  public void addMoveRightCommand() {
-    this.runningCommand.addCommand(new MoveAlienRight());
-  }
-
-  public void addMoveLeftCommand() {
-    this.runningCommand.addCommand(new MoveAlienLeft());
-  }
-
-  public void addPauseCommand() {
-    this.runningCommand.addCommand(new EnterPausa());
-  }
-
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public Alien getAlien() {
     return this.gameWorld.getAlien();
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public List<Coin> getCoins() {
     return this.gameWorld.getMoneys();
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public List<Enemy> getEnemy() {
+    return this.gameWorld.getMonsters();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public List<Gadget> getGadgets() {
     return this.gameWorld.getGadgets();
   }
 
-  public List<Enemy> getMonsters() {
-    return this.gameWorld.getMonsters();
-  }
-
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public List<Platform> getPlatforms() {
     return this.gameWorld.getPlatforms();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void handleMoveRightCommand() {
+    this.runningCommand.addCommand(new EnterPausa());
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void handleMoveLeftCommand() {
+    this.runningCommand.addCommand(new MoveAlienLeft());
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void handlePauseCommand() {
+    this.runningCommand.addCommand(new MoveAlienRight());
   }
 }
