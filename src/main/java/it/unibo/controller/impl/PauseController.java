@@ -1,4 +1,4 @@
-package it.unibo.controller;
+package it.unibo.controller.impl;
 
 public class PauseController {
     
