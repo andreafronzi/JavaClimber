@@ -346,10 +346,19 @@ public class ShopViewImpl extends JPanel implements ShopView {
         
         };
 
-        ShopViewImpl view = new ShopViewImpl(mockController);
-        view.display();
-        view.updateCoins(mockController.getCoins());
-        view.updateItems(mockController.getSkins(), mockController.getPermanetUpgrades(), mockController.getTemporaryUpgrades());
+       SwingUtilities.invokeLater(() -> {
+            JFrame testFrame = new JFrame("Shop Panel");
+            testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            testFrame.setSize(1000, 700);
+            
+            ShopViewImpl shopPanel = new ShopViewImpl(mockController); 
+            shopPanel.updateCoins(mockController.getCoins());
+            shopPanel.updateItems(mockController.getSkins(), mockController.getPermanetUpgrades(), mockController.getTemporaryUpgrades());
+
+            testFrame.add(shopPanel);
+            testFrame.setLocationRelativeTo(null);
+            testFrame.setVisible(true);
+        });
     }
 
 }
