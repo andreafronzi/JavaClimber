@@ -68,4 +68,13 @@ public interface GameLaunchedController {
    * </p>
    */
   public void handlePauseCommand();
+
+  /**
+   * <p>
+   *   Handle the release of left or right movement command for the {@link Alien} entity.
+   *   This method signals the model to update the {@link Alien}'s movement state,
+   *   allowing the Alien to stop moving when the user releases the movement key.
+   * </p>
+   */
+  public void handleReleaseMovementCommand();
 }
