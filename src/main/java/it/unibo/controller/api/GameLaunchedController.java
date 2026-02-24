@@ -10,14 +10,14 @@ import java.util.List;
 public interface GameLaunchedController {
 
   /**
-   * Provide to the view the {@link Alien} entity to render.
+   * <p>Provide to the view the {@link Alien} entity to render.</p>
    *
    * @return the {@link Alien} entity
    */
   public Alien getAlien();
 
   /**
-   * Provide to the view the {@link Coin} entities to render.
+   * <p>Provide to the view the {@link Coin} entities to render.</p>
    *
    * @return the {@link Coin} entities
    */
@@ -45,21 +45,27 @@ public interface GameLaunchedController {
   public List<Platform> getPlatforms();
 
   /**
+   * <p>
    * Handle the input to move the Alien entity to the right.
    * This method signals the model to update the {@link Alien}'s movement state,
    * allowing the Alien to begin or continue moving in the rightward direction.
+   * </p>
    */
   public void handleMoveRightCommand();
 
   /**
+   * <p>
    * Handle the input to move the Alien entity to the left.
    * This method signals the model to update the {@link Alien}'s movement state,
    * allowing the Alien to begin or continue moving in the leftward direction.
+   * </p>
    */
   public void handleMoveLeftCommand();
 
   /**
+   * <p>
    * Handle the input to pause the {@link it.unibo.model.LaunchedGame.api.LaunchedGame}.
+   * </p>
    */
   public void handlePauseCommand();
 }
