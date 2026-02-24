@@ -1,5 +1,6 @@
 package it.unibo.view.GameLaunchedView;
 
+import it.unibo.controller.api.GameLaunchedController;
 import it.unibo.controller.impl.GameLaunchedControllerImpl;
 import it.unibo.view.SpriteManager;
 import it.unibo.view.GameLaunchedView.renderers.impl.AlienRenderer;
@@ -14,22 +15,46 @@ import java.util.List;
 import javax.swing.*;
 
 /**
- * Rapresent the application's panel seen when the game in launched
+ * <p>Rapresent the application's panel seen when the game is launched.</p>
  */
 public class GameLaunchedViewPanel extends JPanel {
 
   /**
-   *
+   * The {@link GameLaunchedControllerImpl} which provide the game elements to render.
    */
-  private final GameLaunchedControllerImpl controller;
+  private final GameLaunchedController controller;
 
+  /**
+   * Renders the {@link it.unibo.model.gameObj.api.Alien} entity within the game view panel.
+   */
   private final AlienRenderer alienRenderer;
+
+  /**
+   * Renders the {@link it.unibo.model.gameObj.api.Platform} entities within the game view panel.
+   */
   private final PlatformRenderer platformRenderer;
+
+  /**
+   * Renders the {@link it.unibo.model.gameObj.api.Enemy} entities within the game view panel.
+   */
   private final EnemyRenderer enemyRenderer;
+
+  /**
+   * Renders the {@link it.unibo.model.gameObj.api.Coin} entities within the game view panel.
+   */
   private final CoinRender coinRenderer;
+
+  /**
+   * Renders the {@link it.unibo.model.gameObj.api.Gadget} entities within the game view panel.
+   */
   private final GadgetRenderer gadgetRenderer;
 
-  public GameLaunchedViewPanel(final GameLaunchedControllerImpl controller) {
+  /**
+   * <p>Construct a new {@link GameLaunchedViewPanel}.</p>
+   *
+   * @param controller the {@link GameLaunchedControllerImpl} which provide the game elements to render.
+   */
+  public GameLaunchedViewPanel(final GameLaunchedController controller) {
     super();
     this.controller = controller;
 
