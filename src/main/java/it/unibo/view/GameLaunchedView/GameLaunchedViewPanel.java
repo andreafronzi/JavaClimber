@@ -1,53 +1,69 @@
 package it.unibo.view.GameLaunchedView;
 
-import it.unibo.controller.GameLaunchedController;
+import it.unibo.controller.impl.GameLaunchedControllerImpl;
 import it.unibo.view.SpriteManager;
-import it.unibo.view.GameLaunchedView.renderers.AlienRenderer;
-import it.unibo.view.GameLaunchedView.renderers.CoinRender;
-import it.unibo.view.GameLaunchedView.renderers.EnemyRenderer;
-import it.unibo.view.GameLaunchedView.renderers.GadgetRenderer;
-import it.unibo.view.GameLaunchedView.renderers.PlatformRenderer;
+import it.unibo.view.GameLaunchedView.renderers.impl.AlienRenderer;
+import it.unibo.view.GameLaunchedView.renderers.impl.CoinRender;
+import it.unibo.view.GameLaunchedView.renderers.impl.EnemyRenderer;
+import it.unibo.view.GameLaunchedView.renderers.impl.GadgetRenderer;
+import it.unibo.view.GameLaunchedView.renderers.impl.PlatformRenderer;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.util.List;
 
 import javax.swing.*;
 
+/**
+ * Rapresent the application's panel seen when the game in launched
+ */
 public class GameLaunchedViewPanel extends JPanel {
-    
-    private final GameLaunchedController controller;
-    private final Graphics2D g;
 
-    private final SpriteManager spriteManager;
+  /**
+   *
+   */
+  private final GameLaunchedControllerImpl controller;
 
-    private final AlienRenderer alienRenderer;
-    private final PlatformRenderer platformRenderer;
-    private final EnemyRenderer enemyRenderer;
-    private final CoinRender coinRenderer;
-    private final GadgetRenderer gadgetRenderer;
+  private final AlienRenderer alienRenderer;
+  private final PlatformRenderer platformRenderer;
+  private final EnemyRenderer enemyRenderer;
+  private final CoinRender coinRenderer;
+  private final GadgetRenderer gadgetRenderer;
 
-    public GameLaunchedViewPanel(final GameLaunchedController controller) {
-        super();
-        this.controller = controller;
-        this.g = (Graphics2D) this.getGraphics();
-        
-        this.spriteManager = new SpriteManager();
-        this.spriteManager.loadResources();
+  public GameLaunchedViewPanel(final GameLaunchedControllerImpl controller) {
+    super();
+    this.controller = controller;
 
-        this.alienRenderer = new AlienRenderer(this.spriteManager);
-        this.platformRenderer = new PlatformRenderer(this.spriteManager);
-        this.enemyRenderer = new EnemyRenderer(this.spriteManager);
-        this.coinRenderer = new CoinRender(this.spriteManager);
-        this.gadgetRenderer = new GadgetRenderer(this.spriteManager);
-    }
+    final SpriteManager spriteManager = new SpriteManager();
+    spriteManager.loadResources();
 
-    public void renderAll() {
-        this.alienRenderer.render(List.of(this.controller.getAlien()), this.g);
-        this.platformRenderer.render(this.controller.getPlatforms(), this.g);
-        this.enemyRenderer.render(this.controller.getMonsters(), this.g);
-        this.coinRenderer.render(this.controller.getCoins(), this.g);
-        this.gadgetRenderer.render(this.controller.getGadgets(), this.g);
-    }
+    this.alienRenderer = new AlienRenderer(spriteManager);
+    this.platformRenderer = new PlatformRenderer(spriteManager);
+    this.enemyRenderer = new EnemyRenderer(spriteManager);
+    this.coinRenderer = new CoinRender(spriteManager);
+    this.gadgetRenderer = new GadgetRenderer(spriteManager);
+  }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @param g the {@code Graphics} the copy of the graphics used to paint component
+   */
+  @Override
+  public void paintComponent(final Graphics g) {
+    super.paintComponent(g);
+    this.renderAll((Graphics2D) g);
+  }
 
+  /**
+   * <p>Renders all game elements on the provided graphics context.</p>
+   *
+   * @param g the {@code Graphics2D} object used for rendering the game elements.
+   */
+  private void renderAll(final Graphics2D g) {
+    this.alienRenderer.render(List.of(this.controller.getAlien()), g);
+    this.platformRenderer.render(this.controller.getPlatforms(), g);
+    this.enemyRenderer.render(this.controller.getEnemy(), g);
+    this.coinRenderer.render(this.controller.getCoins(), g);
+    this.gadgetRenderer.render(this.controller.getGadgets(), g);
+  }
 }
