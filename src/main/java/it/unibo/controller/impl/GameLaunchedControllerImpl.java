@@ -1,6 +1,7 @@
 package it.unibo.controller.impl;
 
 import it.unibo.controller.api.GameLaunchedController;
+import it.unibo.controller.api.GameLaunchedInputController;
 import it.unibo.model.LaunchedGame.api.CommandState;
 import it.unibo.model.command.api.RunningCommand;
 import it.unibo.model.command.impl.EnterPausa;
@@ -16,7 +17,7 @@ import it.unibo.model.world.api.GameWorld;
 
 import java.util.List;
 
-public class GameLaunchedControllerImpl implements GameLaunchedController {
+public class GameLaunchedControllerImpl implements GameLaunchedController, GameLaunchedInputController {
 
   /**
    * Rapresent an instance of generic CommandState which deal with the input privided by the keyboard in response to user use.
