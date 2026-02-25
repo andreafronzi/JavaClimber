@@ -1,4 +1,4 @@
-package it.unibo.view.impl;
+package it.unibo.view.shop.impl;
 
 import java.util.Comparator;
 import java.util.List;
@@ -12,11 +12,10 @@ import it.unibo.controller.api.ShopController;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopItemFactory;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
-import it.unibo.view.api.ShopView;
+import it.unibo.view.shop.api.ShopView;
 
-public class ShopViewImpl implements ShopView {
+public class ShopViewImpl extends JPanel implements ShopView {
 
-    private final JFrame frame;
     private final ShopController controller;
     private JLabel coinsLabel;
     private JPanel itemsPanel;
@@ -25,17 +24,13 @@ public class ShopViewImpl implements ShopView {
     private JPanel tempPanel;
 
     public ShopViewImpl(ShopController controller) {
+        super(new BorderLayout());
         this.controller = controller;
-        this.frame = new JFrame("Shop");
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(1000, 700);
 
         initialize();
     }
 
     private void initialize() {
-        this.frame.setLayout(new BorderLayout());
-
         //parte superiore COINS+INVENTORY+EXIT
         final JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -55,7 +50,7 @@ public class ShopViewImpl implements ShopView {
         rightHeader.add(exitButton);
         
         topPanel.add(rightHeader, BorderLayout.EAST);
-        this.frame.add(topPanel, BorderLayout.NORTH);
+        this.add(topPanel, BorderLayout.NORTH);
         
         //parte centrale ITEMS
         this.itemsPanel = new JPanel(new GridLayout(1, 3, 10, 0));
@@ -66,7 +61,7 @@ public class ShopViewImpl implements ShopView {
         
         JScrollPane scrollPane = new JScrollPane(itemsPanel);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        this.frame.add(scrollPane, BorderLayout.CENTER);
+        this.add(scrollPane, BorderLayout.CENTER);
     }
 
     private JPanel createCategoryPanel(String title) {
@@ -255,7 +250,9 @@ public class ShopViewImpl implements ShopView {
 
     @Override
     public void display() {
-        this.frame.setVisible(true);
+        this.setVisible(true);
+        this.revalidate();
+        this.repaint();
     }
 
     @Override
@@ -290,12 +287,12 @@ public class ShopViewImpl implements ShopView {
 
     @Override
     public void showMessage(String message) {
-        JOptionPane.showMessageDialog(frame, message);
+        JOptionPane.showMessageDialog(this, message);
     }
 
     @Override
     public void close() {
-        this.frame.dispose();
+        this.setVisible(false);
     }
 
     public static void main(String[] args) {
@@ -307,6 +304,7 @@ public class ShopViewImpl implements ShopView {
             @Override public void upgradeSpeed() {}
             @Override public void buyTemporaryItem(int i) {}
             @Override public void buySkin(int i) {}
+            @Override public void openShop() { System.out.println("Opening shop view");}
             @Override public void openInventory() { System.out.println("Opening inventory view");}
             @Override public void exit() { System.exit(0); }
             @Override public int getCoins() { return 150; }
@@ -348,10 +346,19 @@ public class ShopViewImpl implements ShopView {
         
         };
 
-        ShopViewImpl view = new ShopViewImpl(mockController);
-        view.display();
-        view.updateCoins(mockController.getCoins());
-        view.updateItems(mockController.getSkins(), mockController.getPermanetUpgrades(), mockController.getTemporaryUpgrades());
+       SwingUtilities.invokeLater(() -> {
+            JFrame testFrame = new JFrame("Shop Panel");
+            testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            testFrame.setSize(1000, 700);
+            
+            ShopViewImpl shopPanel = new ShopViewImpl(mockController); 
+            shopPanel.updateCoins(mockController.getCoins());
+            shopPanel.updateItems(mockController.getSkins(), mockController.getPermanetUpgrades(), mockController.getTemporaryUpgrades());
+
+            testFrame.add(shopPanel);
+            testFrame.setLocationRelativeTo(null);
+            testFrame.setVisible(true);
+        });
     }
 
 }

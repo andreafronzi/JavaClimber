@@ -7,7 +7,7 @@ import it.unibo.controller.api.InventoryController;
 import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopItemFactory;
-import it.unibo.view.api.InventoryView;
+import it.unibo.view.inventory.api.InventoryView;
 
 /**
  * Implementation of {@link InventoryController} interface.
@@ -130,6 +130,12 @@ public class InventoryControllerImpl implements InventoryController {
                 .sorted()
                 .map(id -> active.contains(id))
                 .toList();
+    }
+
+    @Override
+    public void openInventory() {
+        // TODO Auto-generated method stub
+        
     }
 
     @Override

@@ -23,7 +23,7 @@ public class AltitudeManagerTest {
      */
     @BeforeEach
     void setup() {
-        alien = new AlienImpl(new Vector2dImpl(100, 0), new Vector2dImpl(0, 0), 50, 50);
+        alien = new AlienImpl(new Vector2dImpl(100, 0), new Vector2dImpl(0, 0), 50, 50, null);
         altitudeManager = new AltitudeManager(alien);
     }
 

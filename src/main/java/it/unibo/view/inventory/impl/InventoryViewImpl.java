@@ -1,4 +1,4 @@
-package it.unibo.view.impl;
+package it.unibo.view.inventory.impl;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -13,11 +13,10 @@ import it.unibo.controller.api.InventoryController;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopItemFactory;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
-import it.unibo.view.api.InventoryView;
+import it.unibo.view.inventory.api.InventoryView;
 
-public class InventoryViewImpl implements InventoryView {
+public class InventoryViewImpl extends JPanel implements InventoryView {
 
-    private final JFrame frame;
     private final InventoryController controller;
     private JLabel coinsLabel;
     private JPanel itemsPanel;
@@ -26,17 +25,13 @@ public class InventoryViewImpl implements InventoryView {
     private JPanel tempPanel;
 
     public InventoryViewImpl(InventoryController controller) {
+        super(new BorderLayout());
         this.controller = controller;
-        this.frame = new JFrame("Inventory");
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(1000, 700);
 
         initialize();
     }
 
     private void initialize() {
-        this.frame.setLayout(new BorderLayout());
-
         // parte superiore COINS+SHOP+EXIT
         final JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -56,7 +51,7 @@ public class InventoryViewImpl implements InventoryView {
         rightHeader.add(exitButton);
 
         topPanel.add(rightHeader, BorderLayout.EAST);
-        this.frame.add(topPanel, BorderLayout.NORTH);
+        this.add(topPanel, BorderLayout.NORTH);
 
         // parte centrale ITEMS
         this.itemsPanel = new JPanel(new GridLayout(1, 3, 10, 0));
@@ -67,7 +62,7 @@ public class InventoryViewImpl implements InventoryView {
 
         JScrollPane scrollPane = new JScrollPane(itemsPanel);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        this.frame.add(scrollPane, BorderLayout.CENTER);
+        this.add(scrollPane, BorderLayout.CENTER);
     }
 
     private JPanel createCategoryPanel(String title) {
@@ -252,7 +247,9 @@ public class InventoryViewImpl implements InventoryView {
 
     @Override
     public void display() {
-        this.frame.setVisible(true);
+        this.setVisible(true);
+        this.revalidate();
+        this.repaint();
     }
 
     @Override
@@ -281,8 +278,8 @@ public class InventoryViewImpl implements InventoryView {
             addTempCategory("COIN MULTIPLIER", "pt_coin", ownedTemp, tempStatus);
         }
 
-        frame.revalidate();
-        frame.repaint();
+        this.revalidate();
+        this.repaint();
     }
 
     @Override
@@ -292,7 +289,7 @@ public class InventoryViewImpl implements InventoryView {
 
     @Override
     public void close() {
-        this.frame.dispose();
+        this.setVisible(false);
     }
 
     public static void main(String[] args) {
@@ -312,7 +309,8 @@ public class InventoryViewImpl implements InventoryView {
             @Override public void plusVelocity() { System.out.println("Aumentato livello Velocità"); }
             @Override public void minusVelocity() { System.out.println("Diminuito livello Velocità"); }
             @Override public void toggleTemporaryItem(int index) { System.out.println("Toggle oggetto temporaneo: " + index); }
-            @Override public void openShop() { System.out.println("Opening shop view");; }
+            @Override public void openShop() { System.out.println("Opening shop view"); }
+            @Override public void openInventory() { System.out.println("Opening inventory view"); }
             @Override public void exit() { System.exit(0); }
             @Override public int getSelectedJumpLevel() { return 2; }
             @Override public int getSelectedSpeedLevel() { return 1; }
@@ -324,12 +322,19 @@ public class InventoryViewImpl implements InventoryView {
             @Override public List<Boolean> getTempItemsStatus() { return tempStatus; }
         };
 
-        InventoryViewImpl view = new InventoryViewImpl(mockController);
+        SwingUtilities.invokeLater(() -> {
+            JFrame testFrame = new JFrame("Test Inventory Panel");
+            testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            testFrame.setSize(1000, 700);
 
-        view.display();
-        view.updateCoins(150);
-
-        view.updateInventory(mockController.getOwnedSkins(), mockController.getEquippedSkin(), factory.getPowerUpsPermanent(), mockController.getSelectedJumpLevel(), mockController.getMaxJumpLevelOwned(), mockController.getSelectedSpeedLevel(), mockController.getMaxSpeedLevelOwned(), mockController.getOwnedTempItems(), mockController.getTempItemsStatus());
+            InventoryViewImpl inventoryPanel = new InventoryViewImpl(mockController);
+            inventoryPanel.updateCoins(150);
+            inventoryPanel.updateInventory(mockController.getOwnedSkins(), mockController.getEquippedSkin(), factory.getPowerUpsPermanent(), mockController.getSelectedJumpLevel(), mockController.getMaxJumpLevelOwned(), mockController.getSelectedSpeedLevel(), mockController.getMaxSpeedLevelOwned(), mockController.getOwnedTempItems(), mockController.getTempItemsStatus());
+            
+            testFrame.add(inventoryPanel);
+            testFrame.setLocationRelativeTo(null);
+            testFrame.setVisible(true);
+        });
     }
 
 }

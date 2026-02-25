@@ -12,4 +12,5 @@ public interface MenuController {
 
     public void openViewMenu();
     
+    public int getHighScore();
 }
