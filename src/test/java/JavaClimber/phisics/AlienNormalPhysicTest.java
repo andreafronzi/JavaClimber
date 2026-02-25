@@ -48,7 +48,7 @@ public class AlienNormalPhysicTest {
   private static final double SPEED2_X = -200;
 
   private static final double WIDTH = 50;
-  private static final double HEIGTH = 50;
+  private static final double HEIGHT = 50;
 
   private static final double LEFT_BOUNDARY = 0;
   private static final double RIGHT_BOUNDARY = 100;
@@ -67,9 +67,9 @@ public class AlienNormalPhysicTest {
    */
   @Test
   void testUpdateAlienPosition() {
-    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new it.unibo.model.shop.impl.InventoryImpl(new it.unibo.model.shop.impl.ShopItemFactoryImpl()), new it.unibo.model.shop.impl.ShopItemFactoryImpl());
+    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
-    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGTH, activeUpgrades);
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, activeUpgrades);
     assertEquals(0,alien.getSpeedY(), EPSILON);
     final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
     physic.update(alien, DT, boundary, activeUpgrades, new LaunchedGameImpl());
@@ -83,9 +83,9 @@ public class AlienNormalPhysicTest {
    */
   @Test
   void testRightToLeftPacmanEffect() {
-    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new it.unibo.model.shop.impl.InventoryImpl(new it.unibo.model.shop.impl.ShopItemFactoryImpl()), new it.unibo.model.shop.impl.ShopItemFactoryImpl());
+    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
-    final Alien alien = new AlienImpl(new Vector2dImpl(X1, Y), new Vector2dImpl(SPEED1_X, SPEED_Y), WIDTH, HEIGTH, activeUpgrades);
+    final Alien alien = new AlienImpl(new Vector2dImpl(X1, Y), new Vector2dImpl(SPEED1_X, SPEED_Y), WIDTH, HEIGHT, activeUpgrades);
     final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
     physic.update(alien, DT, boundary, activeUpgrades, new LaunchedGameImpl());
     assertEquals(LEFT_BOUNDARY, alien.getPosX(), EPSILON);
@@ -97,9 +97,9 @@ public class AlienNormalPhysicTest {
    */
   @Test
   void testLeftToRightPacmanEffect() {
-    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl());
+    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
-    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED2_X, SPEED_Y), WIDTH, HEIGTH, activeUpgrades);
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED2_X, SPEED_Y), WIDTH, HEIGHT, activeUpgrades);
     final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
     physic.update(alien, DT, boundary, activeUpgrades, new LaunchedGameImpl());
     assertEquals(RIGHT_BOUNDARY - WIDTH, alien.getPosX(), EPSILON);
@@ -110,11 +110,11 @@ public class AlienNormalPhysicTest {
    */
   @Test
   public void testHitEnemy() {
-    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl());
+    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
-    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGTH, activeUpgrades);
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGHT, activeUpgrades);
     final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
-    final Enemy enemy = new EnemyImpl(HEIGTH, WIDTH, new Vector2dImpl(X, Y + HEIGTH));
+    final Enemy enemy = new EnemyImpl(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT));
 
     //before updating position
     physic.hitEnemy(alien, enemy, new RealWorld(alien, boundary), activeUpgrades);
@@ -131,11 +131,11 @@ public class AlienNormalPhysicTest {
    */
   @Test
   void testHitGadget() {
-    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl());
+    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
-    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGTH, activeUpgrades);
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGHT, activeUpgrades);
     final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
-    final Gadget eliCap = new EliCap(HEIGTH, WIDTH, new Vector2dImpl(X, Y + HEIGTH));
+    final Gadget eliCap = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT));
     
     physic.hitGadget(alien, eliCap, new RealWorld(alien, boundary));
     assertEquals(alien.getPosY(), eliCap.getPosY() - alien.getHeight(), EPSILON);
@@ -151,14 +151,14 @@ public class AlienNormalPhysicTest {
    */
   @Test
   void testHitPlatform() {
-    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl());
+    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
-    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGTH, activeUpgrades);
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGHT, activeUpgrades);
     final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
     final PlatformBuilderImpl platformBuilder = new PlatformBuilderImpl();
     final Platform platform = platformBuilder
-                .at(new Vector2dImpl(X, Y + HEIGTH))
-                .size(WIDTH, HEIGTH)
+                .at(new Vector2dImpl(X, Y + HEIGHT))
+                .size(WIDTH, HEIGHT)
                 .build();
 
     physic.hitPlatform(alien, platform, boundary.getBoundX(), new RealWorld(alien, boundary), activeUpgrades);

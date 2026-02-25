@@ -1,6 +1,7 @@
-package it.unibo.view.GameLaunchedView.renderers;
+package it.unibo.view.GameLaunchedView.renderers.impl;
 
 import it.unibo.model.gameObj.api.Alien;
+import it.unibo.view.GameLaunchedView.renderers.api.EntityRenderer;
 import it.unibo.view.SpriteEnum;
 import it.unibo.view.SpriteManager;
 
@@ -20,7 +21,7 @@ public class AlienRenderer implements EntityRenderer<Alien> {
 
     /**
      * Constructor for the AlienRenderer.
-     * 
+     *
      * @param spriteManager the SpriteManager used to retrieve the alien sprite
      */
     public AlienRenderer(final SpriteManager spriteManager) {
@@ -41,11 +42,11 @@ public class AlienRenderer implements EntityRenderer<Alien> {
             sprite = spriteManager.get(SpriteEnum.DOODLER_LEFT);
         }
         if (!Objects.isNull(sprite)) {
-            g.drawImage(sprite, 
-                (int) alien.getPosX(), 
-                (int) alien.getPosY(), 
-                (int) alien.getWidth(), 
-                (int) alien.getHeight(), 
+            g.drawImage(sprite,
+                (int) alien.getPosX(),
+                (int) alien.getPosY(),
+                (int) alien.getWidth(),
+                (int) alien.getHeight(),
                 null);
         }
     }
