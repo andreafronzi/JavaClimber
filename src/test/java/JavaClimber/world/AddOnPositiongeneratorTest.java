@@ -10,7 +10,7 @@ import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.EliCap;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
-import it.unibo.model.worldConstructor.impl.AddOnPositionGeneratorImpl;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPositionGeneratorImpl;
 
 public class AddOnPositiongeneratorTest {
 

@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.world.impl.Boundary;
-import it.unibo.model.worldConstructor.api.Director;
-import it.unibo.model.worldConstructor.impl.DirectorImpl;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Director;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.DirectorImpl;
 
 public class DirectorTest {
 

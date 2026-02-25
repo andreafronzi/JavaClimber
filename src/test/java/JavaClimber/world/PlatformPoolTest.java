@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.model.worldConstructor.api.PlatformPool;
-import it.unibo.model.worldConstructor.impl.PlatformPoolEasy;
+import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPool;
+import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
 
 public class PlatformPoolTest {
     
@@ -19,12 +19,12 @@ public class PlatformPoolTest {
     private static final int MIN_PLATFORM_SPACING = 40;
     private static final int MAX_PLATFORM_SPACING = 40;
 
-    private PlatformPool platformPool;
+    private SpawnPool platformPool;
 
     @BeforeEach
     public void setUp() {
         // Initialize the platform pool with appropriate parameters for testing
-        this.platformPool = new PlatformPoolEasy(   
+        this.platformPool = new SpawnPoolEasy(   
             WINDOW_WIDTH,
             WINDOW_HEIGHT,
             MIN_PLATFORM_WIDTH,

@@ -6,12 +6,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.model.physics.impl.Vector2dImpl;
-import it.unibo.model.worldConstructor.impl.PlatformPoolCreatorImpl;
-import it.unibo.model.worldConstructor.impl.PlatformPoolEasy;
+import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolCreatorImpl;
+import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
 
 public class PlatformPoolCreatorTest {
 
-    private PlatformPoolCreatorImpl platformPoolCreator;
+    private SpawnPoolCreatorImpl platformPoolCreator;
 
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 600;
@@ -25,7 +25,7 @@ public class PlatformPoolCreatorTest {
 
     @BeforeEach
     public void setUp() {
-        this.platformPoolCreator = new PlatformPoolCreatorImpl();
+        this.platformPoolCreator = new SpawnPoolCreatorImpl();
     }
 
     public Vector2dImpl pos() {
@@ -34,7 +34,7 @@ public class PlatformPoolCreatorTest {
 
     @Test
     public void setSpawnPoolTest() {
-        this.platformPoolCreator.setSpawnPool(new PlatformPoolEasy(
+        this.platformPoolCreator.setSpawnPool(new SpawnPoolEasy(
                 WINDOW_WIDTH,
                 WINDOW_HEIGHT,
                 MIN_PLATFORM_WIDTH,
