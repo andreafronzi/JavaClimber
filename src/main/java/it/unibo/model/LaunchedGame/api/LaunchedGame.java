@@ -11,7 +11,7 @@ public interface LaunchedGame {
      * 
      * @param state the new state to set
      */
-    public void setState(final BaseLaunchedState state);
+    public void setState(final StateOfLaunchedGame state);
     
     /**
      * Gets the current state of the launched game.

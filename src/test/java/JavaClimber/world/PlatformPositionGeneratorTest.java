@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
-import it.unibo.model.worldConstructor.impl.Difficult;
-import it.unibo.model.worldConstructor.impl.PlatformPositionGeneratorImpl;
+import it.unibo.model.worldConstructor.data.Difficult;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPositionGeneratorImpl;
 
 public class PlatformPositionGeneratorTest {
 

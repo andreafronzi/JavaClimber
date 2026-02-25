@@ -11,9 +11,9 @@ import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.UpperWorld;
 import it.unibo.model.world.impl.World;
-import it.unibo.model.worldConstructor.impl.Difficult;
-import it.unibo.model.worldConstructor.impl.PlatformPoolEasy;
-import it.unibo.model.worldConstructor.impl.WorldConstructorImpl;
+import it.unibo.model.worldConstructor.data.Difficult;
+import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
+import it.unibo.model.worldConstructor.worldGenerator.impl.WorldConstructorImpl;
 
 public class WorldConstructorTest {
 
@@ -30,7 +30,7 @@ public class WorldConstructorTest {
         this.upperWorld = new UpperWorld(boundWorld);
         this.world = new World(upperWorld, null);
         this.difficult = new Difficult(0, 70, 30, 20, 0.2, 0.4, 4, 0.8, 4, 1.0, 4, 0, 0,
-                new PlatformPoolEasy(10, 10, 5, 5, 10, 10, 5, 5));
+                new SpawnPoolEasy(10, 10, 5, 5, 10, 10, 5, 5));
         this.boundX = new Boundary(0, 400);
         this.boundY = new BoundY(0, 800);
         worldConstructor = new WorldConstructorImpl(this.difficult, this.boundX, this.boundY, this.upperWorld);

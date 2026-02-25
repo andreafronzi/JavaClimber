@@ -10,8 +10,8 @@ import it.unibo.model.gameObj.PlatformBuilder.impl.PlatformBuilderImpl;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
-import it.unibo.model.worldConstructor.api.Pair;
-import it.unibo.model.worldConstructor.impl.PairImpl;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Pair;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PairImpl;
 
 public class PairTest {
 
