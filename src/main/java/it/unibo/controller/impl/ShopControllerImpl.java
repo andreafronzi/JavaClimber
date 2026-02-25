@@ -3,6 +3,7 @@ package it.unibo.controller.impl;
 import java.util.Comparator;
 import java.util.List;
 
+import it.unibo.controller.api.MainController;
 import it.unibo.controller.api.ShopController;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopManager;
@@ -14,13 +15,15 @@ import it.unibo.view.shop.api.ShopView;
 public class ShopControllerImpl implements ShopController {
 
     private final ShopManager shopManager;
+    private final MainController mainController;
     private ShopView view;
     
     /**
      * Construct new ShopControllerImpl with specified shop manager.
      * @param shopManager the model manager
      */
-    public ShopControllerImpl(final ShopManager shopManager) {
+    public ShopControllerImpl(final MainController mainController, final ShopManager shopManager) {
+        this.mainController = mainController;
         this.shopManager = shopManager;
     }
 
@@ -50,9 +53,7 @@ public class ShopControllerImpl implements ShopController {
     public void buySkin(int index) {
         List<ShopItem> skins = shopManager.getSkins();
         if (index >= 0 && index < skins.size()) {
-            if (shopManager.buyItem(skins.get(index))) {
-                
-            } shopManager.buyItem(skins.get(index));
+            shopManager.buyItem(skins.get(index));
         }
     }
 
@@ -91,20 +92,17 @@ public class ShopControllerImpl implements ShopController {
 
     @Override
     public void openShop() {
-        // TODO Auto-generated method stub
-        
+        mainController.openShopView();
     }
 
     @Override
     public void openInventory() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'openInventory'");
+        mainController.openInventoryView();
     }
 
     @Override
     public void exit() {
-        // TODO Auto-generated method stub(back to menu)
-        throw new UnsupportedOperationException("Unimplemented method 'exit'");
+        mainController.openMenuView();
     }
 
     /**
