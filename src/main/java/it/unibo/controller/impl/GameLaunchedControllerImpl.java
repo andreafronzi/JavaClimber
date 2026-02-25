@@ -17,6 +17,9 @@ import it.unibo.model.world.api.GameWorld;
 
 import java.util.List;
 
+/**
+ * <p>Rapresent the implementation of {@link GameLaunchedController} and {@link GameLaunchedInputController}.</p>
+ */
 public class GameLaunchedControllerImpl implements GameLaunchedController, GameLaunchedInputController {
 
   /**
