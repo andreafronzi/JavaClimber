@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import it.unibo.controller.api.InventoryController;
+import it.unibo.controller.api.MainController;
 import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopItemFactory;
@@ -14,6 +15,7 @@ import it.unibo.view.inventory.api.InventoryView;
  */
 public class InventoryControllerImpl implements InventoryController {
 
+    private final MainController mainController;
     private final Inventory inventory;
     private InventoryView view;
     private final ShopItemFactory factory;
@@ -23,7 +25,8 @@ public class InventoryControllerImpl implements InventoryController {
      * @param inventory the model inventory
      * @param factory the factory for items
      */
-    public InventoryControllerImpl(Inventory inventory, ShopItemFactory factory) {
+    public InventoryControllerImpl(final MainController mainController, final Inventory inventory, final ShopItemFactory factory) {
+        this.mainController = mainController;
         this.inventory = inventory;
         this.factory = factory;
     }
@@ -134,20 +137,17 @@ public class InventoryControllerImpl implements InventoryController {
 
     @Override
     public void openInventory() {
-        // TODO Auto-generated method stub
-        
+        mainController.openInventoryView();
     }
 
     @Override
     public void openShop() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'openShop'");
+        mainController.openShopView();
     }
 
     @Override
     public void exit() {
-        // TODO Auto-generated method stub (to menù)
-        throw new UnsupportedOperationException("Unimplemented method 'exit'");
+        mainController.openMenuView();
     }
     
     /**
