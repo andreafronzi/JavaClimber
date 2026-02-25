@@ -1,52 +1,13 @@
 package it.unibo.view;
 
+import java.util.List;
+
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import it.unibo.view.impl.MenuViewImpl;
+import it.unibo.controller.api.MainController;
+import it.unibo.model.shop.api.ShopItem;
 
-public class MainViewImpl implements MainView {
-    
-    private JPanel currentPanel;
-
-    public MainViewImpl() {
-        
-    }
-
-    @Override
-    public void setMenuView() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setMenuView'");
-    }
-
-    @Override
-    public void setGameLaunchedView() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setGameLaunchedView'");
-    }
-
-    @Override
-    public void setEndView() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setEndView'");
-    }
-
-    @Override
-    public void setPauseView() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPauseView'");
-    }
-
-    @Override
-    public void setInventoryView() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setInventoryView'");
-    }
-
-    @Override
-    public void setShopView() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setShopView'");
-    }
-
+public class MainViewImpl extends JFrame implements MainView {
     
 }
