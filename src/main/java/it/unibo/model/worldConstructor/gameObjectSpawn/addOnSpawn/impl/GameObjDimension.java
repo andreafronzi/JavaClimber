@@ -1,4 +1,4 @@
-package it.unibo.model.worldConstructor.impl;
+package it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl;
 
 public class GameObjDimension {
     public static final double ALIEN_WIDTH = 30;

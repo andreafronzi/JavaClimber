@@ -1,6 +1,6 @@
-package it.unibo.model.worldConstructor.api;
+package it.unibo.model.worldConstructor.worldGenerator.api;
 
-import it.unibo.model.worldConstructor.impl.Difficult;
+import it.unibo.model.worldConstructor.data.Difficult;
 
 /**
  * Interface for the Observer pattern.

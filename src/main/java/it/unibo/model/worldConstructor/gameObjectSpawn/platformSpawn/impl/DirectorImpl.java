@@ -1,9 +1,9 @@
-package it.unibo.model.worldConstructor.impl;
+package it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl;
 
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.platformPhysic.impl.HorizontalMovementBehavior;
-import it.unibo.model.worldConstructor.api.Director;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Director;
 import it.unibo.model.gameObj.PlatformBuilder.impl.PlatformBuilderImpl;
 
 

@@ -1,4 +1,4 @@
-package it.unibo.model.worldConstructor.impl;
+package it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl;
 
 import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
@@ -7,7 +7,7 @@ import it.unibo.model.gameObj.impl.CoinImpl;
 import it.unibo.model.gameObj.impl.EliCap;
 import it.unibo.model.gameObj.impl.EnemyImpl;
 import it.unibo.model.physics.api.Vector2d;
-import it.unibo.model.worldConstructor.api.FactoryAddOn;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.FactoryAddOn;
 
 public class FactoryAddOnImpl implements FactoryAddOn {
 

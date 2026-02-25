@@ -1,6 +1,8 @@
-package it.unibo.model.worldConstructor.impl;
+package it.unibo.model.worldConstructor.data;
 
-import it.unibo.model.worldConstructor.api.PlatformPool;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnSpawnRate;
+import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPool;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.Distance;
 
 /**
  * Record representing the configuration for a specific difficulty level.
@@ -21,17 +23,7 @@ import it.unibo.model.worldConstructor.api.PlatformPool;
  * @param platformPool the pool of objects available for this difficulty
  */
 public record Difficult(double height,
-        double maxDistanceY,
-        double minDistanceY,
-        double maxDistanceX,
-        double chanceAddOn,
-        double coinChance,
-        int maxMoney,
-        double monsterChance,
-        int maxMonster,
-        double gadgetChance,
-        int maxGadget,
-        double trapChance,   
-        int maxTrap,
-        PlatformPool platformPool) {
+        AddOnSpawnRate addOnSpawnRate,
+        Distance distance,
+        SpawnPool platformPool) {
 }

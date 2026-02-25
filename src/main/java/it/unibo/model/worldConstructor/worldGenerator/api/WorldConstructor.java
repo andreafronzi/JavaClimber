@@ -1,4 +1,4 @@
-package it.unibo.model.worldConstructor.api;
+package it.unibo.model.worldConstructor.worldGenerator.api;
 
 /**
  * Interface for the world constructor.

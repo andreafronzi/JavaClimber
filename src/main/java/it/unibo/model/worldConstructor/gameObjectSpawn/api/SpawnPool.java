@@ -1,4 +1,4 @@
-package it.unibo.model.worldConstructor.api;
+package it.unibo.model.worldConstructor.gameObjectSpawn.api;
 
 import java.util.List;
 
@@ -6,13 +6,14 @@ import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Pair;
 
 /**
  * Interface representing a pool of game entities available for spawning.
  * Defines different pools for platforms, enemies, gadgets, and money,
  * associating them with their spawn probabilities.
  */
-public interface PlatformPool {
+public interface SpawnPool {
 
     /**
      * Retrieves the pool of available platforms.

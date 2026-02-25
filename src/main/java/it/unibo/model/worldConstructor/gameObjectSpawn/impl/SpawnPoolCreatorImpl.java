@@ -1,21 +1,21 @@
-package it.unibo.model.worldConstructor.impl;
+package it.unibo.model.worldConstructor.gameObjectSpawn.impl;
 
 import java.util.List;
 
 import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPool;
+import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPoolCreator;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Pair;
 import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
-import it.unibo.model.worldConstructor.api.PlatformPoolCreator;
-import it.unibo.model.worldConstructor.api.Pair;
-import it.unibo.model.worldConstructor.api.PlatformPool;
 
 /**
  * Implementation of PlatformPoolCreator.
  * Iterates through the configured pools to find a matching object for a given spawn chance.
  */
-public class PlatformPoolCreatorImpl implements PlatformPoolCreator {
+public class SpawnPoolCreatorImpl implements SpawnPoolCreator {
 
     private List<Pair<Platform>> platforms;
     private List<Pair<Enemy>> monsters;
@@ -26,7 +26,7 @@ public class PlatformPoolCreatorImpl implements PlatformPoolCreator {
     /**
      * {@inheritDoc}
      */
-    public void setSpawnPool(final PlatformPool platformPool) {
+    public void setSpawnPool(final SpawnPool platformPool) {
         this.platforms = platformPool.getPlatformPool();
         this.monsters = platformPool.getMonsterPool();
         this.gadgets = platformPool.getGadgetPool();

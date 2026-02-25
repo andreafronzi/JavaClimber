@@ -1,4 +1,4 @@
-package it.unibo.model.worldConstructor.impl;
+package it.unibo.model.worldConstructor.worldGenerator.impl;
 
 import java.util.Random;
 
@@ -11,8 +11,12 @@ import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.UpperWorld;
-import it.unibo.model.worldConstructor.api.Observer;
-import it.unibo.model.worldConstructor.api.WorldConstructor;
+import it.unibo.model.worldConstructor.data.Difficult;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPositionGeneratorImpl;
+import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolCreatorImpl;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPositionGeneratorImpl;
+import it.unibo.model.worldConstructor.worldGenerator.api.Observer;
+import it.unibo.model.worldConstructor.worldGenerator.api.WorldConstructor;
 
 /**
  * Implementation of the WorldConstructor interface.
@@ -24,7 +28,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
 
   private Difficult difficult;
   private final PlatformPositionGeneratorImpl platformPositionGenerator;
-  private final PlatformPoolCreatorImpl platformPoolCreator;
+  private final SpawnPoolCreatorImpl platformPoolCreator;
   private final AddOnPositionGeneratorImpl addOnPositionGenerator;
   private final Random random;
   private final UpperWorld world;
@@ -40,11 +44,11 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
     this.difficult = difficult;
     this.random = new Random();
     this.world = world;
-    this.platformPoolCreator = new PlatformPoolCreatorImpl();
+    this.platformPoolCreator = new SpawnPoolCreatorImpl();
     this.platformPoolCreator.setSpawnPool(difficult.platformPool());
     this.platform = platformPoolCreator.createPlatform(0, new Vector2dImpl(780, 200));
     this.platformPositionGenerator = new PlatformPositionGeneratorImpl(boundX, boundY, platform);
-    this.platformPositionGenerator.setDifficult(this.difficult);
+    this.platformPositionGenerator.setDistance(difficult.distance());
     this.addOnPositionGenerator = new AddOnPositionGeneratorImpl();
     this.boundY = boundY;
     }
@@ -54,7 +58,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
    */
   @Override
   public void fillWorld() {
-    while (platform.getPosY() > boundY.minY() + difficult.maxDistanceY()) {
+    while (platform.getPosY() > boundY.minY() + difficult.distance().maxDistanceY()) {
       createPlatform();
     }
   }
@@ -66,7 +70,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
     platform = platformPoolCreator.createPlatform(chance, pos);
     world.addPlatform(platform);
 
-    if (chanceAddOn < difficult.chanceAddOn()) {
+    if (chanceAddOn < difficult.addOnSpawnRate().chanceAddOn()) {
       createAddOn();
     }
   }
@@ -77,7 +81,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
     double chance = random.nextDouble(1.0);
     double choseAddOn = random.nextDouble(1.0);
 
-    if (choseAddOn < difficult.coinChance()) {
+    if (choseAddOn < difficult.addOnSpawnRate().coinChance()) {
       Coin coin = platformPoolCreator.createMoney(chance, pos);
       coin.setPosition(addOnPositionGenerator.generatePosition(this.platform.getPosX(),
         this.platform.getPosY(),
@@ -85,7 +89,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
         coin.getHeight(),
         coin.getWidth()));
       world.addMoney(coin);
-    } else if (choseAddOn < difficult.monsterChance()) {
+    } else if (choseAddOn < difficult.addOnSpawnRate().monsterChance()) {
       Enemy enemy = platformPoolCreator.createMonster(chance, pos);
       enemy.setPosition(addOnPositionGenerator.generatePosition(this.platform.getPosX(),
         this.platform.getPosY(),
@@ -93,7 +97,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
         enemy.getHeight(),
         enemy.getWidth()));
       world.addMonster(enemy);
-    } else if (choseAddOn < difficult.gadgetChance()) {
+    } else if (choseAddOn < difficult.addOnSpawnRate().gadgetChance()) {
       Gadget gadget = platformPoolCreator.createGadget(chance, pos);
       gadget.setPosition(addOnPositionGenerator.generatePosition(this.platform.getPosX(),
         this.platform.getPosY(),
@@ -110,8 +114,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
    */
   @Override
   public void update(Difficult difficult) {
-    this.difficult = difficult;
-    platformPositionGenerator.setDifficult(difficult);
+    platformPositionGenerator.setDistance(difficult.distance());
     platformPoolCreator.setSpawnPool(difficult.platformPool());
   }
 

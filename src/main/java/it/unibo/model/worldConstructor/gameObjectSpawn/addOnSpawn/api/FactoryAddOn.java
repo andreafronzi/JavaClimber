@@ -1,4 +1,4 @@
-package it.unibo.model.worldConstructor.api;
+package it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api;
 
 import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;

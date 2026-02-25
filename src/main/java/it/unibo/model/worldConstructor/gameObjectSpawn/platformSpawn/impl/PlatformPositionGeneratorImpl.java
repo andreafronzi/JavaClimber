@@ -1,4 +1,4 @@
-package it.unibo.model.worldConstructor.impl;
+package it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl;
 
 import java.util.Random;
 
@@ -7,7 +7,7 @@ import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
-import it.unibo.model.worldConstructor.api.PlatformPositionGenerator;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.PlatformPositionGenerator;
 
 /**
  * Implementation of PlatformPositionGenerator.
@@ -17,7 +17,7 @@ import it.unibo.model.worldConstructor.api.PlatformPositionGenerator;
  */
 public class PlatformPositionGeneratorImpl implements PlatformPositionGenerator {
 
-    private Difficult difficult;
+    private Distance distance;
     private Vector2d previousPlatformPosition;
     private Vector2d newPlatformPosition;
     private final Random randomNumber;
@@ -50,23 +50,23 @@ public class PlatformPositionGeneratorImpl implements PlatformPositionGenerator 
      * {@inheritDoc}
      */
     @Override
-    public void setDifficult(final Difficult difficult) {
-        this.difficult = difficult;
+    public void setDistance(final Distance distance) {
+        this.distance = distance;
     }
 
     private void genPosX(final double width) {
         double xMin;
         double xMax;
 
-        if (previousPlatformPosition.getX() - difficult.maxDistanceX() < boundX.x0()) {
+        if (previousPlatformPosition.getX() - distance.maxDistanceX() < boundX.x0()) {
             xMin = boundX.x0();
         } else {
-            xMin = previousPlatformPosition.getX() - difficult.maxDistanceX();
+            xMin = previousPlatformPosition.getX() - distance.maxDistanceX();
         }
-        if (previousPlatformPosition.getX() + difficult.maxDistanceX() + width > boundX.x1()) {
+        if (previousPlatformPosition.getX() + distance.maxDistanceX() + width > boundX.x1()) {
             xMax = boundX.x1() - width;
         } else {
-            xMax = previousPlatformPosition.getX() + difficult.maxDistanceX() - width;
+            xMax = previousPlatformPosition.getX() + distance.maxDistanceX() - width;
         }
 
         newPlatformPosition.setX(randomNumber.nextDouble(xMin, xMax));
@@ -74,8 +74,8 @@ public class PlatformPositionGeneratorImpl implements PlatformPositionGenerator 
     }
 
     private void genPosY(final double height) {
-        newPlatformPosition.setY(randomNumber.nextDouble(previousPlatformPosition.getY() - difficult.maxDistanceY(),
-                previousPlatformPosition.getY() - difficult.minDistanceY() - height));
+        newPlatformPosition.setY(randomNumber.nextDouble(previousPlatformPosition.getY() - distance.maxDistanceY(),
+                previousPlatformPosition.getY() - distance.minDistanceY() - height));
     }
 
     private void setPreviousPosition(final Vector2d pos) {

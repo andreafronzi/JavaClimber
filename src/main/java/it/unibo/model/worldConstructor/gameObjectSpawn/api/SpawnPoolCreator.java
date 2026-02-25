@@ -1,4 +1,4 @@
-package it.unibo.model.worldConstructor.api;
+package it.unibo.model.worldConstructor.gameObjectSpawn.api;
 
 import it.unibo.model.physics.api.Vector2d;
 
@@ -11,14 +11,14 @@ import it.unibo.model.gameObj.api.Platform;
  * Interface for creating game objects from a spawn pool.
  * Selects specific objects to create based on random chance and the configured pool.
  */
-public interface PlatformPoolCreator {
+public interface SpawnPoolCreator {
 
     /**
      * Sets the pool of entities to be used for creation.
      * 
      * @param platformPool the pool containing entity factories and probabilities
      */
-    public void setSpawnPool(PlatformPool platformPool);
+    public void setSpawnPool(SpawnPool platformPool);
     
     /**
      * Creates a platform based on the given chance.

@@ -1,7 +1,7 @@
-package it.unibo.model.worldConstructor.api;
+package it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api;
 
 import it.unibo.model.physics.api.Vector2d;
-import it.unibo.model.worldConstructor.impl.Difficult;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.Distance;
 
 /**
  * Interface for generating positions for new platforms.
@@ -21,6 +21,6 @@ public interface PlatformPositionGenerator {
      * 
      * @param difficult the current difficulty settings
      */
-    public void setDifficult(Difficult difficult);
+    public void setDistance(Distance difficult);
 
 }

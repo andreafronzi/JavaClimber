@@ -1,4 +1,4 @@
-package it.unibo.model.worldConstructor.impl;
+package it.unibo.model.worldConstructor.gameObjectSpawn.impl;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -7,16 +7,19 @@ import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
-import it.unibo.model.worldConstructor.api.Pair;
-import it.unibo.model.worldConstructor.api.PlatformPool;
-import it.unibo.model.worldConstructor.api.Director;
-import it.unibo.model.worldConstructor.api.FactoryAddOn;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.FactoryAddOn;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.FactoryAddOnImpl;
+import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPool;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Director;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Pair;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.DirectorImpl;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PairImpl;
 
 /**
  * Implementation of PlatformPool for the "Easy" difficulty level.
  * Defines the probabilities and types of objects that spawn in easy mode.
  */
-public class PlatformPoolEasy implements PlatformPool {
+public class SpawnPoolEasy implements SpawnPool {
 
     private final List<Pair<Platform>> platformPool;
     private final List<Pair<Enemy>> monsterPool;
@@ -31,7 +34,7 @@ public class PlatformPoolEasy implements PlatformPool {
     /**
      * Constructs the easy platform pool and initializes the object lists.
      */
-    public PlatformPoolEasy(final double width, final double height, final double coinWidth,
+    public SpawnPoolEasy(final double width, final double height, final double coinWidth,
             final double coinHeight,
             final double enemyWidth,
             final double enemyHeight,

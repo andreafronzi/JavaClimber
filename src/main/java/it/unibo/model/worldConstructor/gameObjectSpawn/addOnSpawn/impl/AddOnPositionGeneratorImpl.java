@@ -1,8 +1,8 @@
-package it.unibo.model.worldConstructor.impl;
+package it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl;
 
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
-import it.unibo.model.worldConstructor.api.AddOnPositionGenerator;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.AddOnPositionGenerator;
 
 /**
  * Implementation of AddOnPositionGenerator.
