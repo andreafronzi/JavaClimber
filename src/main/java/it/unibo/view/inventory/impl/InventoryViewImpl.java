@@ -144,10 +144,17 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         container.add(progressBar);
         container.add(Box.createVerticalStrut(20));
 
-        ShopItem actualItem = items.get(selectedLevel - 1);
-        JLabel name = new JLabel("Actual: " + actualItem.getName());
+        JLabel name;
+        JLabel desc;
+        if (selectedLevel > 0) {
+            ShopItem actualItem = items.get(selectedLevel - 1);
+            name = new JLabel("Actual: " + actualItem.getName());
+            desc = new JLabel(actualItem.getDescription());
+        } else {
+            name = new JLabel("Actual: NESSUNO");
+            desc = new JLabel("Nessun potenziamento attivo");
+        }
         name.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JLabel desc = new JLabel(actualItem.getDescription());
         desc.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));

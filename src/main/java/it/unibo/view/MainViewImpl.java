@@ -27,7 +27,7 @@ public class MainViewImpl implements MainView {
     public MainViewImpl() {
         this.frame = new JFrame("Java Climber");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(800, 600);
+        this.frame.setSize(1000, 600);
         this.frame.setLocationRelativeTo(null);
         this.frame.setVisible(true);
     }
