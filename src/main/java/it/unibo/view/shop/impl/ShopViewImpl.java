@@ -263,6 +263,8 @@ public class ShopViewImpl extends JPanel implements ShopView {
     @Override
     public void updateItems(List<ShopItem> skins, List<ShopItem> permUpgrades, List<ShopItem> tempUpgrades) {
         skinsPanel.removeAll();
+        permPanel.removeAll();
+        tempPanel.removeAll();
 
         /* skins */
         for (int i = 0; i < skins.size(); i++) {

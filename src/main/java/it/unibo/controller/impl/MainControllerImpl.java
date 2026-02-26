@@ -59,6 +59,7 @@ public class MainControllerImpl implements MainController {
     public void openShopView() {
         ShopControllerImpl shopController = new ShopControllerImpl(this, shopManager);
         mainView.setShopView(shopController);
+        shopController.refreshView();
     }
 
     @Override
