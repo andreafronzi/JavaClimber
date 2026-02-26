@@ -1,5 +1,9 @@
 package it.unibo.model.LaunchedGame.api;
 
+import java.util.Optional;
+
+import it.unibo.model.world.impl.World;
+
 /**
  * Interface representing a running game session.
  * It manages the lifecycle and states (running, paused, ended) of an active game.
@@ -24,4 +28,8 @@ public interface LaunchedGame {
      * Starts the main game loop.
      */
     public void gameLoop();
+
+    public Optional<World> getWorld();
+
+    public void setWorld(final World world);
 }

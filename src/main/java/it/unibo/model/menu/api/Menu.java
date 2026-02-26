@@ -1,5 +1,9 @@
 package it.unibo.model.menu.api;
 
+import java.util.Optional;
+
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
+
 /**
  * Interface representing the menu context in the State Pattern.
  * It manages the current state of the menu and allows transitions between different states.
@@ -19,4 +23,9 @@ public interface Menu {
      * @return the currently active StateOfMenu
      */
     public StateOfMenu getState();
+
+    public Optional<LaunchedGame> getLaunchedGame();
+    
+    public void setLaunchedGame(LaunchedGame launchedGame);
+
 }
