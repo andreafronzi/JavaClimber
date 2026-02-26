@@ -31,8 +31,10 @@ public class InventoryControllerImpl implements InventoryController {
         this.factory = factory;
     }
 
+    @Override
     public void setView(InventoryView view) {
         this.view = view;
+        refreshView();
     }
 
     @Override
@@ -42,6 +44,7 @@ public class InventoryControllerImpl implements InventoryController {
             String skinId = allSkins.get(index).getId();
             if (inventory.hasItem(skinId)) {
                 inventory.equipSkin(skinId);
+                refreshView();
             }
         }
     }
@@ -51,6 +54,7 @@ public class InventoryControllerImpl implements InventoryController {
         int current = inventory.getSelectedJumpLevel();
         if (current < getMaxLevelOwned("pp_jump")) {
             inventory.setSelectedJumpLevel(current + 1);
+            refreshView();
         }
     }
 
@@ -59,6 +63,7 @@ public class InventoryControllerImpl implements InventoryController {
         int current = inventory.getSelectedJumpLevel();
         if (current > 0) {
             inventory.setSelectedJumpLevel(current - 1);
+            refreshView();
         }
     }
 
@@ -67,6 +72,7 @@ public class InventoryControllerImpl implements InventoryController {
         int current = inventory.getSelectedSpeedLevel();
         if (current < getMaxLevelOwned("pp_speed")) {
             inventory.setSelectedSpeedLevel(current + 1);
+            refreshView();
         }
     }
 
@@ -75,6 +81,7 @@ public class InventoryControllerImpl implements InventoryController {
         int current = inventory.getSelectedSpeedLevel();
         if (current > 0) {
             inventory.setSelectedSpeedLevel(current - 1);
+            refreshView();
         }
     }
 
@@ -83,6 +90,7 @@ public class InventoryControllerImpl implements InventoryController {
         List<String> consumablesId = inventory.getConsumablesStatus().keySet().stream().sorted().toList();
         if (isValidIndex(index, consumablesId)) {
             inventory.toggleConsumable(consumablesId.get(index), factory);
+            refreshView();
         }
     }
 
@@ -150,6 +158,22 @@ public class InventoryControllerImpl implements InventoryController {
         mainController.openMenuView();
     }
     
+    private void refreshView() {
+        if (view != null) {
+            List<ShopItem> ownedSkin = getOwnedSkins();
+            String equippedSkin = getEquippedSkin();
+            List<ShopItem> allPermItems = factory.getPowerUpsPermanent();
+            int selectedJump = getSelectedJumpLevel();
+            int maxJump = getMaxJumpLevelOwned();
+            int selectedSpeed = getSelectedSpeedLevel();
+            int maxSpeed = getMaxSpeedLevelOwned();
+            List<ShopItem> ownedTempItems = getOwnedTempItems();
+            List<Boolean> tempItemsStatus = getTempItemsStatus();
+            this.view.updateInventory(ownedSkin, equippedSkin, allPermItems, selectedJump, maxJump, selectedSpeed, maxSpeed, ownedTempItems, tempItemsStatus);
+            this.view.updateCoins(inventory.getTotalCoins());
+        }
+    }
+
     /**
      * Validate if the index is within the bounds of a list.
      * @param index the index to check

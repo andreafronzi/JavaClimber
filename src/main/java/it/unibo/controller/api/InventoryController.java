@@ -3,12 +3,15 @@ package it.unibo.controller.api;
 import java.util.List;
 
 import it.unibo.model.shop.api.ShopItem;
+import it.unibo.view.inventory.api.InventoryView;
 
 /**
  * Controller interface for managing activation of power ups and skins.
  */
 public interface InventoryController {
 
+    void setView(InventoryView view);
+    
     /**
      * Select a skin from the list of skins.
      * @param index index in the list of skins

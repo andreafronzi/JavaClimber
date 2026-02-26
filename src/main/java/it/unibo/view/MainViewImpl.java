@@ -19,7 +19,7 @@ import it.unibo.view.menu.impl.MenuViewImpl;
 import it.unibo.view.shop.api.ShopView;
 import it.unibo.view.shop.impl.ShopViewImpl;
 
-public class MainViewImpl extends JFrame implements MainView {
+public class MainViewImpl implements MainView {
 
     private final JFrame frame;
     private JPanel currentPanel;
@@ -27,7 +27,7 @@ public class MainViewImpl extends JFrame implements MainView {
     public MainViewImpl() {
         this.frame = new JFrame("Java Climber");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(800, 600);
+        this.frame.setSize(1000, 600);
         this.frame.setLocationRelativeTo(null);
         this.frame.setVisible(true);
     }
@@ -45,36 +45,42 @@ public class MainViewImpl extends JFrame implements MainView {
     @Override
     public void setMenuView(MenuController menuController) {
         MenuViewImpl menuView = new MenuViewImpl(menuController);
+        menuController.setView(menuView);
         switchPanel(menuView);    
     }
 
     @Override
     public void setGameLaunchedView(GameLaunchedController gameLaunchedController) {
         GameLaunchedViewPanelImpl gameLaunchedView = new GameLaunchedViewPanelImpl(gameLaunchedController);
+        gameLaunchedController.setView(gameLaunchedView);
         switchPanel(gameLaunchedView);
     }
 
     @Override
     public void setInventoryView(InventoryController inventoryController) {
         InventoryViewImpl inventoryView = new InventoryViewImpl(inventoryController);
+        inventoryController.setView(inventoryView);
         switchPanel(inventoryView);
     }
 
     @Override
     public void setShopView(ShopController shopController) {
         ShopViewImpl shopView = new ShopViewImpl(shopController);
+        shopController.setView(shopView);
         switchPanel(shopView);
     }
 
     @Override
     public void setEndView(EndController endController) {
         EndViewImpl endView = new EndViewImpl(endController);
+        endController.setView(endView);
         switchPanel(endView);
     }
 
     @Override
     public void setPauseView(PauseController pauseController) {
         PauseViewImpl pauseView = new PauseViewImpl(pauseController);
+        pauseController.setView(pauseView);
         switchPanel(pauseView);
     }
     

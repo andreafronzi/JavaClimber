@@ -27,8 +27,10 @@ public class ShopControllerImpl implements ShopController {
         this.shopManager = shopManager;
     }
 
+    @Override
     public void setView(final ShopView view) {
         this.view = view;
+        refreshView();
     }
 
     @Override
@@ -45,7 +47,12 @@ public class ShopControllerImpl implements ShopController {
     public void buyTemporaryItem(int index) {
         List<ShopItem> tempItems = shopManager.getTemporaryUpgrades();
         if (index >= 0 && index < tempItems.size()) {
-            shopManager.buyItem(tempItems.get(index));
+            boolean success = shopManager.buyItem(tempItems.get(index));
+            if (success) {
+                refreshView();
+            } else if (this.view != null) {
+                this.view.showMessage("Non hai abbastanza monete per acquistare questo potenziamento temporaneo");
+            }
         }
     }
 
@@ -53,7 +60,12 @@ public class ShopControllerImpl implements ShopController {
     public void buySkin(int index) {
         List<ShopItem> skins = shopManager.getSkins();
         if (index >= 0 && index < skins.size()) {
-            shopManager.buyItem(skins.get(index));
+            boolean success = shopManager.buyItem(skins.get(index));
+            if (success) {
+                refreshView();
+            } else if (this.view != null) {
+                this.view.showMessage("Non hai abbastanza monete per acquistare questa skin");
+            }
         }
     }
 
@@ -105,6 +117,13 @@ public class ShopControllerImpl implements ShopController {
         mainController.openMenuView();
     }
 
+    private void refreshView() {
+        if (view != null) {
+            view.updateItems(getSkins(), getPermanetUpgrades(), getTemporaryUpgrades());
+            view.updateCoins(getCoins());
+        }
+    }
+
     /**
      * Identifies and attemps to purchase the next avaiable level for a specific type of permanent power ups.
      * @param prefix the Id prefix for the power up type
@@ -115,7 +134,14 @@ public class ShopControllerImpl implements ShopController {
                 .filter(item -> !shopManager.isAlreadyOwned(item))
                 .sorted(Comparator.comparing(ShopItem::getId))
                 .findFirst()
-                .ifPresent(shopManager::buyItem);
+                .ifPresent(item -> {
+                    boolean success = shopManager.buyItem(item);
+                    if (success) {
+                        refreshView();
+                    }  else if (this.view != null) {
+                        this.view.showMessage("Non hai abbastanza monete per acquistare questo potenziamento permanente");
+                    }
+                });
     }
     
 }
