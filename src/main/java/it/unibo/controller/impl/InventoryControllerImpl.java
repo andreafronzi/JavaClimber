@@ -31,8 +31,10 @@ public class InventoryControllerImpl implements InventoryController {
         this.factory = factory;
     }
 
+    @Override
     public void setView(InventoryView view) {
         this.view = view;
+        refreshView();
     }
 
     @Override
@@ -156,7 +158,7 @@ public class InventoryControllerImpl implements InventoryController {
         mainController.openMenuView();
     }
     
-    public void refreshView() {
+    private void refreshView() {
         if (view != null) {
             List<ShopItem> ownedSkin = getOwnedSkins();
             String equippedSkin = getEquippedSkin();

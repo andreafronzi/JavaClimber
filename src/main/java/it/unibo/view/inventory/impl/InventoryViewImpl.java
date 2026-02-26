@@ -320,6 +320,10 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
             @Override public List<ShopItem> getOwnedSkins() { return ownedSkins; }
             @Override public List<ShopItem> getOwnedTempItems() { return ownedTemp; }
             @Override public List<Boolean> getTempItemsStatus() { return tempStatus; }
+            @Override public void setView(InventoryView view) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'setView'");
+            }
         };
 
         SwingUtilities.invokeLater(() -> {
