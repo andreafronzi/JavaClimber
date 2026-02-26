@@ -52,6 +52,7 @@ public class MainControllerImpl implements MainController {
     public void openInventoryView() {
         InventoryControllerImpl inventoryController = new InventoryControllerImpl(this, inventory, shopItemFactory);
         mainView.setInventoryView(inventoryController);
+        inventoryController.refreshView();
     }
 
     @Override
