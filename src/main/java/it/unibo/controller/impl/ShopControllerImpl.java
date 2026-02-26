@@ -50,6 +50,8 @@ public class ShopControllerImpl implements ShopController {
             boolean success = shopManager.buyItem(tempItems.get(index));
             if (success) {
                 refreshView();
+            } else if (this.view != null) {
+                this.view.showMessage("Non hai abbastanza monete per acquistare questo potenziamento temporaneo");
             }
         }
     }
@@ -61,6 +63,8 @@ public class ShopControllerImpl implements ShopController {
             boolean success = shopManager.buyItem(skins.get(index));
             if (success) {
                 refreshView();
+            } else if (this.view != null) {
+                this.view.showMessage("Non hai abbastanza monete per acquistare questa skin");
             }
         }
     }
@@ -134,6 +138,8 @@ public class ShopControllerImpl implements ShopController {
                     boolean success = shopManager.buyItem(item);
                     if (success) {
                         refreshView();
+                    }  else if (this.view != null) {
+                        this.view.showMessage("Non hai abbastanza monete per acquistare questo potenziamento permanente");
                     }
                 });
     }
