@@ -27,8 +27,10 @@ public class ShopControllerImpl implements ShopController {
         this.shopManager = shopManager;
     }
 
+    @Override
     public void setView(final ShopView view) {
         this.view = view;
+        refreshView();
     }
 
     @Override
@@ -111,7 +113,7 @@ public class ShopControllerImpl implements ShopController {
         mainController.openMenuView();
     }
 
-    public void refreshView() {
+    private void refreshView() {
         if (view != null) {
             view.updateItems(getSkins(), getPermanetUpgrades(), getTemporaryUpgrades());
             view.updateCoins(getCoins());

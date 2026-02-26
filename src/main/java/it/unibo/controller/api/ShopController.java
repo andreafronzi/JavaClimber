@@ -3,12 +3,15 @@ package it.unibo.controller.api;
 import java.util.List;
 
 import it.unibo.model.shop.api.ShopItem;
+import it.unibo.view.shop.api.ShopView;
 
 /**
  * Controller for managing shop transaction and upgrades.
  */
 public interface ShopController {
 
+    void setView(ShopView view);
+    
     /**
      * Attemps to purchase the next level of permanent jump power up.
      */

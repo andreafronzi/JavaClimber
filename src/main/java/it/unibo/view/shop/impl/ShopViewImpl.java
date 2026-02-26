@@ -345,6 +345,11 @@ public class ShopViewImpl extends JPanel implements ShopView {
                 }
                 return 0;
             }
+            @Override
+            public void setView(ShopView view) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'setView'");
+            }
         
         };
 
