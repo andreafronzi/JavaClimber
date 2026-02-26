@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 import it.unibo.controller.api.MenuController;
-import it.unibo.controller.impl.MenuControllerImpl;
 import it.unibo.view.menu.api.MenuView;
 
 public class MenuViewImpl extends JPanel implements MenuView{
@@ -13,6 +12,7 @@ public class MenuViewImpl extends JPanel implements MenuView{
     private static final int BUTTON_WIDTH = 300;
     private static final int BUTTON_HEIGHT = 60;
     private static final int SPACING = 20;
+    private JButton highScoreLabel;
 
     public MenuViewImpl(MenuController controller) {
         super(new BorderLayout());
@@ -34,15 +34,15 @@ public class MenuViewImpl extends JPanel implements MenuView{
         JButton btnInventory = createMenuButton("INVENTORY");
         JButton btnExit = createMenuButton("EXIT");
 
-        JButton highHighScoreLabel = new JButton("HIGH SCORE: " + controller.getHighScore());
-        highHighScoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        highHighScoreLabel.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
-        highHighScoreLabel.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
-        highHighScoreLabel.setFont(new Font("Arial", Font.PLAIN, 22));
-        highHighScoreLabel.setFocusable(false);
-        highHighScoreLabel.setRolloverEnabled(false);
-        highHighScoreLabel.setRequestFocusEnabled(false);
-        highHighScoreLabel.setFocusPainted(false);
+        this.highScoreLabel = new JButton("HIGH SCORE: " + controller.getHighScore());
+        this.highScoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.highScoreLabel.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        this.highScoreLabel.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        this.highScoreLabel.setFont(new Font("Arial", Font.PLAIN, 22));
+        this.highScoreLabel.setFocusable(false);
+        this.highScoreLabel.setRolloverEnabled(false);
+        this.highScoreLabel.setRequestFocusEnabled(false);
+        this.highScoreLabel.setFocusPainted(false);
 
         btnStart.addActionListener(e -> start());
         btnShop.addActionListener(e -> shop());
@@ -55,7 +55,7 @@ public class MenuViewImpl extends JPanel implements MenuView{
         
         buttonPanel.add(btnStart);
         buttonPanel.add(Box.createVerticalStrut(SPACING));
-        buttonPanel.add(highHighScoreLabel);
+        buttonPanel.add(this.highScoreLabel);
         buttonPanel.add(Box.createVerticalStrut(SPACING));
         buttonPanel.add(btnShop);
         buttonPanel.add(Box.createVerticalStrut(SPACING));
@@ -84,6 +84,13 @@ public class MenuViewImpl extends JPanel implements MenuView{
     }
 
     @Override
+    public void updateHighScore(int score) {
+        if (this.highScoreLabel != null) {
+            this.highScoreLabel.setText("HIGH SCORE: " + score);
+        }
+    }
+
+    @Override
     public void start() {
         this.controller.start();
     }
@@ -105,13 +112,18 @@ public class MenuViewImpl extends JPanel implements MenuView{
 
     public static void main(String[] args) {
         // Mock del controller
-        MenuController mockController = new MenuControllerImpl( null) {
+        MenuController mockController = new MenuController() {
             @Override public void openViewMenu() {}
             @Override public void start() { System.out.println("Controller: Start Game triggered"); }
             @Override public void shop() { System.out.println("Controller: Shop triggered"); }
             @Override public void inventory() { System.out.println("Controller: Inventory triggered"); }
             @Override public void exit() { System.out.println("Controller: Exit triggered"); System.exit(0); }
-            @Override public int getHighScore() { return 12500; };
+            @Override public int getHighScore() { return 12500; }
+            @Override
+            public void setView(MenuView view) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'setView'");
+            };
         };
 
         SwingUtilities.invokeLater(() -> {
