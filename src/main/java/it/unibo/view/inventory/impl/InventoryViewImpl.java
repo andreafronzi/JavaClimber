@@ -243,12 +243,21 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
 
     private void addTempCategory(String title, String prefix, List<ShopItem> items, List<Boolean> tempStatus) {
         tempPanel.add(createSubHeader(title));
+        boolean hasCategoryItems = false;
         for (int i = 0; i < items.size(); i++) {
             ShopItem item = items.get(i);
             if (item.getId().startsWith(prefix)) {
                 tempPanel.add(createTemporaryWidget(item, i, tempStatus.get(i)));
                 tempPanel.add(Box.createVerticalStrut(10));
+                hasCategoryItems = true;
             }
+        }
+
+        if (!hasCategoryItems) {
+            JLabel emtyLabel = new JLabel("Nessun potenziamento temporaneo acquistato");
+            emtyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            tempPanel.add(emtyLabel);
+            tempPanel.add(Box.createVerticalStrut(50));
         }
     }
 
