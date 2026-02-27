@@ -1,6 +1,11 @@
 package it.unibo.controller.impl;
 
+import it.unibo.controller.api.GameLaunchedController;
 import it.unibo.controller.api.MainController;
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
+import it.unibo.model.menu.api.Menu;
+import it.unibo.model.menu.impl.LaunchedGameState;
+import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.persistence.api.SaveManager;
 import it.unibo.model.persistence.impl.SaveManagerImpl;
 import it.unibo.model.score.api.ScoreManager;
@@ -13,10 +18,14 @@ import it.unibo.model.shop.impl.ShopItemFactoryImpl;
 import it.unibo.model.shop.impl.ShopManagerImpl;
 import it.unibo.view.MainView;
 
+import java.util.Optional;
+
 public class MainControllerImpl implements MainController {
 
     private final static String FILE_PATH = "saves.json";
     private MainView mainView;
+
+    private final Menu menu;
     private final SaveManager saveManager;
     private final ScoreManager scoreManager;
     private final ShopItemFactory shopItemFactory;
@@ -24,12 +33,14 @@ public class MainControllerImpl implements MainController {
     private final Inventory inventory;
 
     public MainControllerImpl(){
+        this.menu = new MenuImpl();
         this.saveManager = new SaveManagerImpl(FILE_PATH);
         this.scoreManager = new ScoreManagerImpl();
         this.shopItemFactory = new ShopItemFactoryImpl();
         this.inventory = new InventoryImpl(shopItemFactory);
         this.shopManager = new ShopManagerImpl(shopItemFactory, inventory, scoreManager, saveManager);
     }
+
 
     @Override
     public void setView(MainView view) {
@@ -43,9 +54,9 @@ public class MainControllerImpl implements MainController {
     }
 
     @Override
-    public void openGameLaunchedView() {
-        GameLaunchedControllerImpl gameLaunchedController = new GameLaunchedControllerImpl(this);
-        mainView.setGameLaunchedView(gameLaunchedController);
+    public void launchGame() {
+        final GameLaunchedControllerImpl gameLaunchedController = new GameLaunchedControllerImpl(this.menu, this.menu.getLaunchedGame().commandState());
+        mainView.setGameLaunchedView(gameLaunchedController, gameLaunchedController);
     }
 
     @Override
