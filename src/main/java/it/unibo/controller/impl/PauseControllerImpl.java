@@ -4,6 +4,7 @@ import it.unibo.controller.api.PauseController;
 import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.LaunchedGame.api.StateOfLaunchedGame;
 import it.unibo.model.LaunchedGame.impl.EndState;
+import it.unibo.model.LaunchedGame.impl.PauseState;
 import it.unibo.model.menu.api.Menu;
 import it.unibo.model.menu.impl.MenuState;
 
@@ -25,16 +26,19 @@ public class PauseControllerImpl implements PauseController {
     @Override
     public void resume() {
         this.launchedGame.setState(this.runningState);
+        this.mainController.launchGame();
     }
 
     @Override
     public void menu() {
         this.launchedGame.setState(new EndState(this.launchedGame));
         this.menu.setState(new MenuState(this.menu));
+        this.mainController.openMenuView();
     }
 
     @Override
-    public void openViewPause() {
+    public void pause() {
+        this.launchedGame.setState(new PauseState(this.launchedGame));
         this.mainController.openPauseView();
     }
 

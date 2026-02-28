@@ -6,6 +6,6 @@ public interface PauseController {
 
     public void menu();
 
-    public void openViewPause();
+    public void pause();
 
 }
