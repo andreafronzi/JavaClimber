@@ -7,15 +7,16 @@ import it.unibo.model.physics.api.Vector2d;
  * Used in the PlatformPool to define which objects can spawn and how likely they are.
  * 
  * @param <X> the type of game object this pair creates
+ * @param <Y> the type of probability value
  */
-public interface Pair<X> {
+public interface Pair<X,Y> {
     
     /**
      * Gets the spawn probability associated with this object.
      * 
      * @return the probability value
      */
-    public double getChance();
+    public Y getY();
 
     /**
      * Creates a new instance of the game object at the specified position.
@@ -23,6 +24,6 @@ public interface Pair<X> {
      * @param pos the position where the object should be created
      * @return the created game object
      */
-    public X createGameObj(final Vector2d pos);
+    public X getX();
     
 }
