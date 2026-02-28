@@ -49,6 +49,7 @@ public class ShopControllerImpl implements ShopController {
         if (index >= 0 && index < tempItems.size()) {
             boolean success = shopManager.buyItem(tempItems.get(index));
             if (success) {
+                this.mainController.saveProgress();
                 refreshView();
             } else if (this.view != null) {
                 this.view.showMessage("Non hai abbastanza monete per acquistare questo potenziamento temporaneo");
@@ -62,6 +63,7 @@ public class ShopControllerImpl implements ShopController {
         if (index >= 0 && index < skins.size()) {
             boolean success = shopManager.buyItem(skins.get(index));
             if (success) {
+                this.mainController.saveProgress();
                 refreshView();
             } else if (this.view != null) {
                 this.view.showMessage("Non hai abbastanza monete per acquistare questa skin");
@@ -137,6 +139,7 @@ public class ShopControllerImpl implements ShopController {
                 .ifPresent(item -> {
                     boolean success = shopManager.buyItem(item);
                     if (success) {
+                        this.mainController.saveProgress();
                         refreshView();
                     }  else if (this.view != null) {
                         this.view.showMessage("Non hai abbastanza monete per acquistare questo potenziamento permanente");

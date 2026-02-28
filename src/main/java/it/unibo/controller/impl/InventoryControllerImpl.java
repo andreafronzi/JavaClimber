@@ -44,6 +44,7 @@ public class InventoryControllerImpl implements InventoryController {
             String skinId = allSkins.get(index).getId();
             if (inventory.hasItem(skinId)) {
                 inventory.equipSkin(skinId);
+                this.mainController.saveProgress();
                 refreshView();
             }
         }
@@ -54,6 +55,7 @@ public class InventoryControllerImpl implements InventoryController {
         int current = inventory.getSelectedJumpLevel();
         if (current < getMaxLevelOwned("pp_jump")) {
             inventory.setSelectedJumpLevel(current + 1);
+            this.mainController.saveProgress();
             refreshView();
         }
     }
@@ -63,6 +65,7 @@ public class InventoryControllerImpl implements InventoryController {
         int current = inventory.getSelectedJumpLevel();
         if (current > 0) {
             inventory.setSelectedJumpLevel(current - 1);
+            this.mainController.saveProgress();
             refreshView();
         }
     }
@@ -72,6 +75,7 @@ public class InventoryControllerImpl implements InventoryController {
         int current = inventory.getSelectedSpeedLevel();
         if (current < getMaxLevelOwned("pp_speed")) {
             inventory.setSelectedSpeedLevel(current + 1);
+            this.mainController.saveProgress();
             refreshView();
         }
     }
@@ -81,6 +85,7 @@ public class InventoryControllerImpl implements InventoryController {
         int current = inventory.getSelectedSpeedLevel();
         if (current > 0) {
             inventory.setSelectedSpeedLevel(current - 1);
+            this.mainController.saveProgress();
             refreshView();
         }
     }
