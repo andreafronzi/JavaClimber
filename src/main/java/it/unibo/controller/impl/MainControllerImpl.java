@@ -30,7 +30,7 @@ public class MainControllerImpl implements MainController {
         this.scoreManager = new ScoreManagerImpl();
         this.shopItemFactory = new ShopItemFactoryImpl();
         this.inventory = new InventoryImpl(shopItemFactory);
-        this.shopManager = new ShopManagerImpl(shopItemFactory, inventory, scoreManager, saveManager);
+        this.shopManager = new ShopManagerImpl(shopItemFactory, inventory);
         this.loadGame();
     }
 
