@@ -6,6 +6,6 @@ public interface EndController {
 
     public void restart();
 
-    public void openViewEnd();
+    public void end();
 
 }

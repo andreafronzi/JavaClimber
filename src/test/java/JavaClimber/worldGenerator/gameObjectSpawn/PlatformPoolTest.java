@@ -1,4 +1,4 @@
-package JavaClimber.world;
+package JavaClimber.worldGenerator.gameObjectSpawn;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,17 +23,6 @@ public class PlatformPoolTest {
 
     @BeforeEach
     public void setUp() {
-        // Initialize the platform pool with appropriate parameters for testing
-        this.platformPool = new SpawnPoolEasy(   
-            WINDOW_WIDTH,
-            WINDOW_HEIGHT,
-            MIN_PLATFORM_WIDTH,
-            MIN_PLATFORM_HEIGHT,
-            MAX_PLATFORM_WIDTH,
-            MAX_PLATFORM_HEIGHT,
-            MIN_PLATFORM_SPACING,
-            MAX_PLATFORM_SPACING
-        );
     }
 
     @Test

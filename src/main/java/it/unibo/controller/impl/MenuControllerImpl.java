@@ -32,7 +32,7 @@ public class MenuControllerImpl implements MenuController{
     @Override
     public void start() {
         menu.setState(new LaunchedGameState(menu));
-        mainController.openGameLaunchedView();
+        mainController.launchGame();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class MenuControllerImpl implements MenuController{
     public int getHighScore() {
         return this.scoreManager.getHighScore();
     }
-    
+
     private void refreshView() {
         if (this.view != null) {
             this.view.updateHighScore(this.getHighScore());

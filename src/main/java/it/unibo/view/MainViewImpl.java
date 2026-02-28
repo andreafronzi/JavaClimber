@@ -5,15 +5,10 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import it.unibo.controller.api.EndController;
-import it.unibo.controller.api.GameLaunchedController;
-import it.unibo.controller.api.InventoryController;
-import it.unibo.controller.api.MainController;
-import it.unibo.controller.api.MenuController;
-import it.unibo.controller.api.PauseController;
-import it.unibo.controller.api.ShopController;
+import it.unibo.controller.api.*;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.view.GameLaunchedView.impl.GameLaunchedViewPanelImpl;
+import it.unibo.view.GameLaunchedView.input.impl.LaunchedGameInputHandlerImpl;
 import it.unibo.view.inventory.impl.InventoryViewImpl;
 import it.unibo.view.menu.impl.MenuViewImpl;
 import it.unibo.view.shop.api.ShopView;
@@ -46,13 +41,12 @@ public class MainViewImpl implements MainView {
     public void setMenuView(MenuController menuController) {
         MenuViewImpl menuView = new MenuViewImpl(menuController);
         menuController.setView(menuView);
-        switchPanel(menuView);    
+        switchPanel(menuView);
     }
 
     @Override
-    public void setGameLaunchedView(GameLaunchedController gameLaunchedController) {
-        GameLaunchedViewPanelImpl gameLaunchedView = new GameLaunchedViewPanelImpl(gameLaunchedController);
-        gameLaunchedController.setView(gameLaunchedView);
+    public void setGameLaunchedView(final GameLaunchedController gameLaunchedController, final GameLaunchedInputController gameLaunchedInputController) {
+        GameLaunchedViewPanelImpl gameLaunchedView = new GameLaunchedViewPanelImpl(gameLaunchedController, gameLaunchedInputController);
         switchPanel(gameLaunchedView);
     }
 
@@ -83,5 +77,5 @@ public class MainViewImpl implements MainView {
         pauseController.setView(pauseView);
         switchPanel(pauseView);
     }
-    
+
 }

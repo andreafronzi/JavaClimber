@@ -8,7 +8,7 @@ public interface MainController {
 
     void openMenuView();
 
-    void openGameLaunchedView();
+    void launchGame();
 
     void openInventoryView();
 

@@ -4,4 +4,6 @@ public interface CommandState<X> {
 
     void addCommand(X command);
 
+    X pollCommand();
+
 }

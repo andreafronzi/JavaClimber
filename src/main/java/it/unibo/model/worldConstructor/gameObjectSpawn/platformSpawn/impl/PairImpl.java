@@ -1,8 +1,5 @@
 package it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl;
 
-import java.util.function.Function;
-
-import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Pair;
 
 /**
@@ -10,11 +7,12 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Pair;
  * Associates a probability with a factory function for creating game objects.
  * 
  * @param <X> the type of game object
+ * @param <Y> the type of probability value
  */
-public class PairImpl<X> implements Pair<X> {
+public class PairImpl<X,Y> implements Pair<X,Y> {
 
-    private final double chance;
-    private final Function<Vector2d,X> function;
+    private final X x;
+    private final Y y;
 
     /**
      * Constructs a new PairImpl.
@@ -22,25 +20,25 @@ public class PairImpl<X> implements Pair<X> {
      * @param chance the spawn probability
      * @param function the function to create the object
      */
-    public PairImpl(final double chance, Function<Vector2d,X> function){
-        this.chance = chance;
-        this.function = function;
+    public PairImpl(final X x, final Y y){
+        this.x = x;
+        this.y = y;
     }
 
+    
     /**
      * {@inheritDoc}
-     */
-    @Override
-    public double getChance() {
-        return this.chance;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public X createGameObj(final Vector2d pos) {
-        return this.function.apply(pos);    
+    */
+   @Override
+   public X getX() {
+       return this.x;   
     }
     
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Y getY() {
+        return this.y;
+    }
 }

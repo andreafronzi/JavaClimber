@@ -1,12 +1,12 @@
 package it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api;
 
-import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.gameObj.api.GameObject;
 
 /**
  * Interface for generating positions for add-ons (coins, enemies, gadgets).
  * Determines where an add-on should be placed relative to a platform.
  */
-public interface AddOnPositionGenerator {
+public interface AddOnPositionSetter {
 
     /**
      * Generates a position for an add-on.
@@ -18,6 +18,5 @@ public interface AddOnPositionGenerator {
      * @param addOnWidth    the width of the add-on
      * @return the calculated position for the add-on
      */
-    public Vector2d generatePosition(double platformPosX, double platformPosY, double platformWidth,
-            double addOnHeight, double addOnWidth);
+    public <X extends GameObject> X generatePosition(X addOn, double platformWidth);
 }

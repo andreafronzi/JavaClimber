@@ -3,6 +3,7 @@ package it.unibo.controller.impl;
 import it.unibo.controller.api.GameLaunchedController;
 import it.unibo.controller.api.GameLaunchedInputController;
 import it.unibo.model.LaunchedGame.api.CommandState;
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.command.api.RunningCommand;
 import it.unibo.model.command.impl.EnterPausa;
 import it.unibo.model.command.impl.MoveAlienLeft;
@@ -13,9 +14,12 @@ import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.world.api.BaseWorld;
 import it.unibo.model.world.api.GameWorld;
+import it.unibo.model.world.impl.World;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>Rapresent the implementation of {@link GameLaunchedController} and {@link GameLaunchedInputController}.</p>
@@ -23,64 +27,75 @@ import java.util.List;
 public class GameLaunchedControllerImpl implements GameLaunchedController, GameLaunchedInputController {
 
   /**
-   * Rapresent an instance of generic CommandState which deal with the input privided by the keyboard in response to user use.
+   * Rapresent an instance of generic CommandState which deal with the input provided by the keyboard in response to user use.
    */
   private final CommandState<RunningCommand> runningCommand;
 
   /**
-   * The game world which contains all gameObj
+   * The {@link LaunchedGame} entity which provide the data to render and receive the command to update the model.
    */
-  private final GameWorld gameWorld;
+  private final LaunchedGame launchedGame;
 
   /**
    * Constructor new GameLaunchedControllerImpl.
    *
-   * @param gameWorld the game world which contains all gameObj
-   * @param runningCommand an instance of generic CommandState which deal with the input privided by the keyboard in response to user use.
+   * @param launchedGame the launched game entity
+   * @param runningCommand an instance of generic CommandState which deal with the input provided by the keyboard in response to user use.
    */
-  public GameLaunchedControllerImpl(final GameWorld gameWorld, final CommandState<RunningCommand> runningCommand) {
+  public GameLaunchedControllerImpl(final LaunchedGame launchedGame, final CommandState<RunningCommand> runningCommand) {
+    this.launchedGame = launchedGame;
     this.runningCommand = runningCommand;
-    this.gameWorld = gameWorld;
+
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public Alien getAlien() {
-    return this.gameWorld.getAlien();
+  public Optional<Alien> getAlien() {
+    return this.launchedGame.getWorld()
+      .map(World::getRealWorld)
+      .map(GameWorld::getAlien);
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public List<Coin> getCoins() {
-    return this.gameWorld.getMoneys();
+  public Optional<List<Coin>> getCoins() {
+    return this.launchedGame.getWorld()
+        .map(World::getRealWorld)
+        .map(BaseWorld::getMoneys);
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public List<Enemy> getEnemy() {
-    return this.gameWorld.getMonsters();
+  public Optional<List<Enemy>> getEnemy() {
+    return this.launchedGame.getWorld()
+        .map(World::getRealWorld)
+        .map(BaseWorld::getMonsters);
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public List<Gadget> getGadgets() {
-    return this.gameWorld.getGadgets();
+  public Optional<List<Gadget>> getGadgets() {
+    return this.launchedGame.getWorld()
+      .map(World::getRealWorld)
+      .map(BaseWorld::getGadgets);
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public List<Platform> getPlatforms() {
-    return this.gameWorld.getPlatforms();
+  public Optional<List<Platform>> getPlatforms() {
+    return this.launchedGame.getWorld()
+      .map(World::getRealWorld)
+      .map(BaseWorld::getPlatforms);
   }
 
   /**

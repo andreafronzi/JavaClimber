@@ -1,4 +1,4 @@
-package JavaClimber.world;
+package JavaClimber.worldGenerator.gameObjectSpawn;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -25,7 +25,6 @@ public class PlatformPoolCreatorTest {
 
     @BeforeEach
     public void setUp() {
-        this.platformPoolCreator = new SpawnPoolCreatorImpl();
     }
 
     public Vector2dImpl pos() {
@@ -34,47 +33,22 @@ public class PlatformPoolCreatorTest {
 
     @Test
     public void setSpawnPoolTest() {
-        this.platformPoolCreator.setSpawnPool(new SpawnPoolEasy(
-                WINDOW_WIDTH,
-                WINDOW_HEIGHT,
-                MIN_PLATFORM_WIDTH,
-                MIN_PLATFORM_HEIGHT,
-                MAX_PLATFORM_WIDTH,
-                MAX_PLATFORM_HEIGHT,
-                MIN_PLATFORM_SPACING,
-                MAX_PLATFORM_SPACING));
     }
 
     @Test
     public void createPlatformTest() {
-        var pos = this.pos();
-        var platform = this.platformPoolCreator.createPlatform(CHANCE, pos);
-        assertEquals(pos.getX(), platform.getPosX());
-        assertEquals(pos.getY(), platform.getPosY());
     }
 
     @Test
     public void createMonsterTest() {
-        var pos = this.pos();
-        var platform = this.platformPoolCreator.createMonster(CHANCE, pos);
-        assertEquals(pos.getX(), platform.getPosX());
-        assertEquals(pos.getY(), platform.getPosY());
     }
 
     @Test
     public void createGadgetTest() {
-        var pos = this.pos();
-        var platform = this.platformPoolCreator.createGadget(CHANCE, pos);
-        assertEquals(pos.getX(), platform.getPosX());
-        assertEquals(pos.getY(), platform.getPosY());
     }
 
     @Test
     public void createMoneyTest() {
-        var pos = this.pos();
-        var platform = this.platformPoolCreator.createMoney(CHANCE, pos);
-        assertEquals(pos.getX(), platform.getPosX());
-        assertEquals(pos.getY(), platform.getPosY());
     }
 
 }

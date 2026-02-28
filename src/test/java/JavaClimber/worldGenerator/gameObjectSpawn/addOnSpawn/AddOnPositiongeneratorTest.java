@@ -1,4 +1,4 @@
-package JavaClimber.world;
+package JavaClimber.worldGenerator.gameObjectSpawn.addOnSpawn;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,11 +10,11 @@ import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.EliCap;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
-import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPositionGeneratorImpl;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPositionSetterImpl;
 
 public class AddOnPositiongeneratorTest {
 
-    private AddOnPositionGeneratorImpl addOnPositionGenerator = new AddOnPositionGeneratorImpl();
+    private AddOnPositionSetterImpl addOnPositionGenerator = new AddOnPositionSetterImpl();
     private final static double ADDON_HEIGHT = 5;
     private final static double ADDON_WIDTH = 5;
 
@@ -33,9 +33,8 @@ public class AddOnPositiongeneratorTest {
     public void generatePosition() {
         Platform platform = createPlatform(new Vector2dImpl(800, 800));
         Gadget gadget = createGadget(new Vector2dImpl(0, 0));
-        Vector2d pos = addOnPositionGenerator.generatePosition(platform.getPosX(), platform.getPosY(),
-                platform.getWidth(), gadget.getHeight(), gadget.getWidth());
-        gadget.setPosition(pos);
+        var gadgetModPos = addOnPositionGenerator.generatePosition(gadget, platform.getWidth());
+        assertEquals(gadgetModPos, gadget);
         assertEquals(platform.getPosX() + ((platform.getWidth() - ADDON_WIDTH) / 2), gadget.getPosX());
         assertEquals(platform.getPosY() + ADDON_HEIGHT, gadget.getPosY());
     }

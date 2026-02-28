@@ -12,16 +12,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import it.unibo.controller.api.EndController;
+
 
 public class EndViewImpl extends JPanel implements EndView {
 
-    final private MainView view;
+    final private EndController controller;
     final private JButton restart;
     final private JButton menu;
     final private JLabel titoloMorte;
 
-    public EndViewImpl(MainView view) {
-        this.view = view;
+    public EndViewImpl(EndController controller) {
+        this.controller = controller;
         this.setBackground(Color.BLACK);
 
         this.titoloMorte = new JLabel("SEI MORTO");
@@ -59,12 +61,12 @@ public class EndViewImpl extends JPanel implements EndView {
 
     @Override
     public void restart() {
-        view.restart();
+        this.controller.restart();
     }
 
     @Override
     public void menu() {
-        view.menu();
+        this.controller.menu();
     }
 
 }

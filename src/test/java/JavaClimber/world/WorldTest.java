@@ -25,7 +25,7 @@ public class WorldTest {
     @Test
     public void getUpperWorldTest() {
         BoundWorld boundWorld = new BoundWorldImpl(new BoundY(0, 800), new Boundary(0, 600));
-        AlienImpl alien = new AlienImpl(new Vector2dImpl(0, 0), new Vector2dImpl(0,0), 10, 10, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl()));
+        AlienImpl alien = new AlienImpl(null, null, 0, 0, null);
         QueueWorld upperWorld = new UpperWorld(boundWorld);
         GameWorld realWorld = new RealWorld(alien, boundWorld);
         setUpWorld(upperWorld, realWorld);
@@ -35,7 +35,7 @@ public class WorldTest {
     @Test
     public void getRealWorldTest() {
         BoundWorld boundWorld = new BoundWorldImpl(new BoundY(0, 800), new Boundary(0, 600));
-        AlienImpl alien = new AlienImpl(new Vector2dImpl(0, 0), new Vector2dImpl(0,0), 10, 10, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl()));
+        AlienImpl alien = new AlienImpl(null, null, 0, 0, null);
         UpperWorld upperWorld = new UpperWorld(boundWorld);
         RealWorld realWorld = new RealWorld(alien, boundWorld);
         setUpWorld(upperWorld, realWorld);

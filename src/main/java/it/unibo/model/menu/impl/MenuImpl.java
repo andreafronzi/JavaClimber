@@ -1,5 +1,8 @@
 package it.unibo.model.menu.impl;
 
+import java.util.Optional;
+
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.menu.api.Menu;
 import it.unibo.model.menu.api.StateOfMenu;
 
@@ -11,6 +14,7 @@ import it.unibo.model.menu.api.StateOfMenu;
 public class MenuImpl implements Menu {
 
     private StateOfMenu currentState;
+    private Optional<LaunchedGame> launchedGame;
 
     /**
      * Creates a new MenuImpl instance.
@@ -34,5 +38,17 @@ public class MenuImpl implements Menu {
     public StateOfMenu getState() {
         return this.currentState;
     }
+
+    @Override
+    public Optional<LaunchedGame> getLaunchedGame() {
+        return this.launchedGame;
+    }
+
+    @Override
+    public void setLaunchedGame(final LaunchedGame launchedGame) {
+        this.launchedGame = Optional.of(launchedGame);
+    }
     
+    //getter e setter di launchGame
+
 }

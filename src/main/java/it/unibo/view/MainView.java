@@ -1,17 +1,12 @@
 package it.unibo.view;
 
-import it.unibo.controller.api.EndController;
-import it.unibo.controller.api.GameLaunchedController;
-import it.unibo.controller.api.InventoryController;
-import it.unibo.controller.api.MenuController;
-import it.unibo.controller.api.PauseController;
-import it.unibo.controller.api.ShopController;
+import it.unibo.controller.api.*;
 
 public interface MainView {
 
     void setMenuView(MenuController menuController);
 
-    void setGameLaunchedView(GameLaunchedController gameLaunchedController);
+    void setGameLaunchedView(GameLaunchedController gameLaunchedController, GameLaunchedInputController gameLaunchedInputController);
 
     void setInventoryView(InventoryController inventoryController);
 

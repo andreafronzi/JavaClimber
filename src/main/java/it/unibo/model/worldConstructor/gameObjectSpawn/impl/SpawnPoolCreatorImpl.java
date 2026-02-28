@@ -1,8 +1,13 @@
 package it.unibo.model.worldConstructor.gameObjectSpawn.impl;
 
 import java.util.List;
+import java.util.function.Function;
 
 import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.world.api.BaseWorld;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.AddOnPositionSetter;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPositionSetterImpl;
+import it.unibo.model.worldConstructor.gameObjectSpawn.api.ObjectSelector;
 import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPool;
 import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPoolCreator;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Pair;
@@ -13,15 +18,27 @@ import it.unibo.model.gameObj.api.Platform;
 
 /**
  * Implementation of PlatformPoolCreator.
- * Iterates through the configured pools to find a matching object for a given spawn chance.
+ * Iterates through the configured pools to find a matching object for a given spawn chanwce.
  */
 public class SpawnPoolCreatorImpl implements SpawnPoolCreator {
 
-    private List<Pair<Platform>> platforms;
-    private List<Pair<Enemy>> monsters;
-    private List<Pair<Gadget>> gadgets;
-    private List<Pair<Coin>> money;
-    // private List<Pair<Trap>> traps;
+    private List<Pair<Double,Function<Vector2d,Platform>>> platforms;
+    private List<Pair<Double,Function<Vector2d,Enemy>>> monsters;
+    private List<Pair<Double,Function<Vector2d,Gadget>>> gadgets;
+    private List<Pair<Double,Function<Vector2d,Coin>>> moneys;
+    private final BaseWorld world;
+    private final AddOnPositionSetter addOnPositionSetter;
+    private double width;
+    private final ObjectSelector objectSelector;
+    // private List<Pair<Double,Function<Vector2d,Trap>>> traps;
+
+    public SpawnPoolCreatorImpl(final SpawnPool platformPool, final BaseWorld world) {
+        this.setSpawnPool(platformPool);
+        this.addOnPositionSetter = new AddOnPositionSetterImpl();
+        this.objectSelector = new ObjectSelectorImpl();
+        this.world = world;
+        this.width = platformPool.getWidth();
+    }
 
     /**
      * {@inheritDoc}
@@ -30,7 +47,7 @@ public class SpawnPoolCreatorImpl implements SpawnPoolCreator {
         this.platforms = platformPool.getPlatformPool();
         this.monsters = platformPool.getMonsterPool();
         this.gadgets = platformPool.getGadgetPool();
-        this.money = platformPool.getMoneyPool();
+        this.moneys = platformPool.getMoneyPool();
         // this.traps = platformPool.getTrapPool();
     }
 
@@ -38,52 +55,32 @@ public class SpawnPoolCreatorImpl implements SpawnPoolCreator {
      * {@inheritDoc}
      */
     @Override
-    public Platform createPlatform(final double chance, final Vector2d pos) {
-        for (final var p : this.platforms) {
-            if (chance <= p.getChance()) {
-                return p.createGameObj(pos);
-            }
-        }
-        return null;
+    public void createPlatform(final double chance, final Vector2d pos) {
+        objectSelector.selector(chance, pos, this.platforms).ifPresent(world::addPlatform);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Enemy createMonster(final double chance, final Vector2d pos) {
-        for (final var p : this.monsters) {
-            if (chance <= p.getChance()) {
-                return p.createGameObj(pos);
-            }
-        }
-        return null;
+    public void createMonster(final double chance, final Vector2d pos) {
+        objectSelector.selector(chance, pos, this.monsters).ifPresent(monster -> world.addMonster(addOnPositionSetter.generatePosition(monster, this.width)));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Gadget createGadget(final double chance, final Vector2d pos) {
-        for (final var p : this.gadgets) {
-            if (chance <= p.getChance()) {
-                return p.createGameObj(pos);
-            }
-        }
-        return null;
+    public void createGadget(final double chance, final Vector2d pos) {
+        objectSelector.selector(chance, pos, this.gadgets).ifPresent(gadget -> world.addGadget(addOnPositionSetter.generatePosition(gadget, this.width)));
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}chance
      */
     @Override
-    public Coin createMoney(final double chance, final Vector2d pos) {
-        for (final var p : this.money) {
-            if (chance <= p.getChance()) {
-                return p.createGameObj(pos);
-            }
-        }
-        return null;
+    public void createMoney(final double chance, final Vector2d pos) {
+        objectSelector.selector(chance, pos, this.moneys).ifPresent(money -> world.addMoney(addOnPositionSetter.generatePosition(money, this.width)));
     }
 
     /*

@@ -2,7 +2,12 @@ package it.unibo.controller.impl;
 
 import java.util.Optional;
 
+import it.unibo.controller.api.GameLaunchedController;
 import it.unibo.controller.api.MainController;
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
+import it.unibo.model.menu.api.Menu;
+import it.unibo.model.menu.impl.LaunchedGameState;
+import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.persistence.api.SaveManager;
 import it.unibo.model.persistence.api.SaveState;
 import it.unibo.model.persistence.impl.SaveManagerImpl;
@@ -19,6 +24,8 @@ import it.unibo.view.MainView;
 public class MainControllerImpl implements MainController {
 
     private MainView mainView;
+
+    private final Menu menu;
     private final SaveManager saveManager;
     private final ScoreManager scoreManager;
     private final ShopItemFactory shopItemFactory;
@@ -27,12 +34,14 @@ public class MainControllerImpl implements MainController {
 
     public MainControllerImpl(){
         this.saveManager = new SaveManagerImpl();
+        this.menu = new MenuImpl();
         this.scoreManager = new ScoreManagerImpl();
         this.shopItemFactory = new ShopItemFactoryImpl();
         this.inventory = new InventoryImpl(shopItemFactory);
         this.shopManager = new ShopManagerImpl(shopItemFactory, inventory);
         this.loadGame();
     }
+
 
     @Override
     public void setView(MainView view) {
@@ -46,9 +55,9 @@ public class MainControllerImpl implements MainController {
     }
 
     @Override
-    public void openGameLaunchedView() {
-        GameLaunchedControllerImpl gameLaunchedController = new GameLaunchedControllerImpl(this);
-        mainView.setGameLaunchedView(gameLaunchedController);
+    public void launchGame() {
+        final GameLaunchedControllerImpl gameLaunchedController = new GameLaunchedControllerImpl(this.menu, this.menu.getLaunchedGame().commandState());
+        mainView.setGameLaunchedView(gameLaunchedController, gameLaunchedController);
     }
 
     @Override
@@ -65,13 +74,13 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public void openEndView() {
-        EndControllerImpl endController = new EndControllerImpl(this);
+        EndControllerImpl endController = new EndControllerImpl(this.menu.getLaunchedGame().get(), this.menu, this);
         mainView.setEndView(endController);
     }
 
     @Override
     public void openPauseView() {
-        PauseControllerImpl pauseController = new PauseControllerImpl(this);
+        PauseControllerImpl pauseController = new PauseControllerImpl(this.menu.getLaunchedGame().get(), this.menu, this.menu.getLaunchedGame().get().getState(), this);
         mainView.setPauseView(pauseController);
     }
 

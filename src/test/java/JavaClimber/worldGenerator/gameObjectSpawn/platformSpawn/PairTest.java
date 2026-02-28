@@ -1,9 +1,10 @@
-package JavaClimber.world;
+package JavaClimber.worldGenerator.gameObjectSpawn.platformSpawn;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.function.Function;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.model.gameObj.PlatformBuilder.impl.PlatformBuilderImpl;
@@ -15,8 +16,9 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PairIm
 
 public class PairTest {
 
-    private Pair<Platform> pairPlatform;
+    private Pair<Double,Function<Vector2d, Platform>> pairPlatform;
 
+    @BeforeEach
     private void setUpPair(final double chance, final Function<Vector2d, Platform> function) {
         this.pairPlatform = new PairImpl<>(chance, function);
     }
@@ -31,7 +33,7 @@ public class PairTest {
     public void getChanceTest() {
         double chance = 1;
         setUpPair(chance, (p) -> createPlatform(p));
-        assertEquals(chance, this.pairPlatform.getChance());
+        assertEquals(chance, this.pairPlatform.getX());
     }
 
     @Test
@@ -39,8 +41,8 @@ public class PairTest {
         Vector2d pos = new Vector2dImpl(10, 15);
         double chance = 1;
         setUpPair(chance, (p) -> createPlatform(p));
-        assertEquals(pos.getX(), pairPlatform.createGameObj(pos).getPosX());
-        assertEquals(pos.getY(), pairPlatform.createGameObj(pos).getPosY());
+        assertEquals(pos.getX(), pairPlatform.getY().apply(pos).getPosX());
+        assertEquals(pos.getY(), pairPlatform.getY().apply(pos).getPosY());
     }
 
 }
