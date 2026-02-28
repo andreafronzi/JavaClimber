@@ -5,6 +5,10 @@ import java.util.List;
 
 import it.unibo.controller.api.MainController;
 import it.unibo.controller.api.ShopController;
+import it.unibo.model.menu.api.Menu;
+import it.unibo.model.menu.impl.InventoryState;
+import it.unibo.model.menu.impl.MenuImpl;
+import it.unibo.model.menu.impl.MenuState;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopManager;
 import it.unibo.view.shop.api.ShopView;
@@ -14,6 +18,7 @@ import it.unibo.view.shop.api.ShopView;
  */
 public class ShopControllerImpl implements ShopController {
 
+    private final Menu menu;
     private final ShopManager shopManager;
     private final MainController mainController;
     private ShopView view;
@@ -25,6 +30,7 @@ public class ShopControllerImpl implements ShopController {
     public ShopControllerImpl(final MainController mainController, final ShopManager shopManager) {
         this.mainController = mainController;
         this.shopManager = shopManager;
+        this.menu = new MenuImpl();
     }
 
     @Override
@@ -111,11 +117,13 @@ public class ShopControllerImpl implements ShopController {
 
     @Override
     public void openInventory() {
+        menu.setState(new InventoryState(menu));
         mainController.openInventoryView();
     }
 
     @Override
     public void exit() {
+        menu.setState(new MenuState(menu));
         mainController.openMenuView();
     }
 
