@@ -8,16 +8,20 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import it.unibo.controller.api.InventoryController;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopItemFactory;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
+import it.unibo.view.SpriteEnum;
+import it.unibo.view.SpriteManager;
 import it.unibo.view.inventory.api.InventoryView;
 
 public class InventoryViewImpl extends JPanel implements InventoryView {
 
     private final InventoryController controller;
+    private final SpriteManager spriteManager;
     private JLabel coinsLabel;
     private JPanel itemsPanel;
     private JPanel skinsPanel;
@@ -27,7 +31,7 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
     public InventoryViewImpl(InventoryController controller) {
         super(new BorderLayout());
         this.controller = controller;
-
+        this.spriteManager = new SpriteManager();
         initialize();
     }
 
@@ -36,6 +40,10 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         final JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
+        JLabel titleLabel = new JLabel("INVENTORY");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setForeground(Color.BLUE);
+        topPanel.add(titleLabel, BorderLayout.WEST);
         this.coinsLabel = new JLabel("Coins: 0");
         this.coinsLabel.setFont(new Font("Arial", Font.BOLD, 16));
 
@@ -84,9 +92,33 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         card.setMaximumSize(new Dimension(280, 250));
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel imgLabel = new JLabel("IMG");
-        imgLabel.setPreferredSize(new Dimension(100, 100));
-        imgLabel.setMaximumSize(new Dimension(100, 100));
+        JLabel imgLabel;
+        SpriteEnum spriteKey;
+        switch (item.getId()) {
+            case "s_sub":
+                spriteKey = SpriteEnum.SUB_RIGHT;
+                break;
+            case "s_astro":
+                spriteKey = SpriteEnum.ASTRO_RIGHT;
+                break;
+            case "s_sport":
+                spriteKey = SpriteEnum.SPORT_RIGHT;
+                break;
+            case "s_ninja":
+                spriteKey = SpriteEnum.NINJA_RIGHT;
+                break;
+            default:
+                spriteKey = SpriteEnum.DOODLER_RIGHT;
+                break;
+        }
+        BufferedImage img = spriteManager.get(spriteKey);
+        if (img != null) {
+            Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            imgLabel = new JLabel(new ImageIcon(scaledImg));
+        } else {
+            imgLabel = new JLabel("Image not found");
+            imgLabel.setPreferredSize(new Dimension(100, 100));
+        }
         imgLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel nameLabel = new JLabel(item.getName());
@@ -102,7 +134,7 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         selectBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         card.add(imgLabel);
-        card.add(Box.createVerticalStrut(5));
+        card.add(Box.createVerticalStrut(30));
         card.add(nameLabel);
         card.add(descLabel);
         card.add(priceLabel);
@@ -234,8 +266,7 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
 
     private JLabel createSubHeader(String text) {
         JLabel label = new JLabel(text);
-        label.setFont(new Font("Arial", Font.BOLD, 15));
-        label.setForeground(Color.BLUE);
+        label.setFont(new Font("Arial", Font.BOLD, 16));
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         label.setBorder(new EmptyBorder(10, 0, 5, 0));
         return label;
