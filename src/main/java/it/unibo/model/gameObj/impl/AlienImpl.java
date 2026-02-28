@@ -84,38 +84,6 @@ public class AlienImpl extends GameObj implements Alien {
    * {@inheritDoc}
    */
   @Override
-  public boolean isMovingLeft() {
-    return this.movingLeft;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public boolean isMovingRight() {
-    return this.movingRight;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void moveLeft() {
-    this.movingLeft = true;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void moveRight() {
-    this.movingRight = true;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
   public void notifyCollision(final StaticEntity gObj, final Boundary boundary, final GameWorld gameWorld) {
     gObj.onHitBy(this, this.physic, boundary, gameWorld, this.activeUpgrades);
   }
