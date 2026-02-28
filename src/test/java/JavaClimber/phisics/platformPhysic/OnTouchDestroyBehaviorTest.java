@@ -73,7 +73,7 @@ public class OnTouchDestroyBehaviorTest {
      */
     @BeforeEach
     public void setUp() {
-        final ActiveUpgrades upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl());
+        final ActiveUpgrades upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
         this.alien = new AlienImpl(new Vector2dImpl(INITIAL_X, INITIAL_Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, upgrades);
         this.world = new RealWorld(this.alien, new BoundWorldImpl(new BoundY(UPPER_BOUND, LOWER_BOUND), new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY))); 
         this.platformToRemove = new PlatformImpl(new Vector2dImpl(PLATFORM2_X, PLATFORM2_Y), PLATFORM_WIDTH, PLATFORM_HEIGHT, Optional.empty(), Optional.of(new OnTouchDestroyBehavior()));
@@ -87,7 +87,7 @@ public class OnTouchDestroyBehaviorTest {
      */
     @Test
     public void verifyPlatformDestruction() {
-        final ActiveUpgrades upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl());
+        final ActiveUpgrades upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
         final AlienPhysic physic = new AlienNormalPhysic();
         final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
         
