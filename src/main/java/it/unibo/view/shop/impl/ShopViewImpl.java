@@ -263,6 +263,8 @@ public class ShopViewImpl extends JPanel implements ShopView {
     @Override
     public void updateItems(List<ShopItem> skins, List<ShopItem> permUpgrades, List<ShopItem> tempUpgrades) {
         skinsPanel.removeAll();
+        permPanel.removeAll();
+        tempPanel.removeAll();
 
         /* skins */
         for (int i = 0; i < skins.size(); i++) {
@@ -342,6 +344,11 @@ public class ShopViewImpl extends JPanel implements ShopView {
                     return 2; 
                 }
                 return 0;
+            }
+            @Override
+            public void setView(ShopView view) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'setView'");
             }
         
         };

@@ -144,10 +144,17 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         container.add(progressBar);
         container.add(Box.createVerticalStrut(20));
 
-        ShopItem actualItem = items.get(selectedLevel - 1);
-        JLabel name = new JLabel("Actual: " + actualItem.getName());
+        JLabel name;
+        JLabel desc;
+        if (selectedLevel > 0) {
+            ShopItem actualItem = items.get(selectedLevel - 1);
+            name = new JLabel("Actual: " + actualItem.getName());
+            desc = new JLabel(actualItem.getDescription());
+        } else {
+            name = new JLabel("Actual: NESSUNO");
+            desc = new JLabel("Nessun potenziamento attivo");
+        }
         name.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JLabel desc = new JLabel(actualItem.getDescription());
         desc.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
@@ -236,12 +243,21 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
 
     private void addTempCategory(String title, String prefix, List<ShopItem> items, List<Boolean> tempStatus) {
         tempPanel.add(createSubHeader(title));
+        boolean hasCategoryItems = false;
         for (int i = 0; i < items.size(); i++) {
             ShopItem item = items.get(i);
             if (item.getId().startsWith(prefix)) {
                 tempPanel.add(createTemporaryWidget(item, i, tempStatus.get(i)));
                 tempPanel.add(Box.createVerticalStrut(10));
+                hasCategoryItems = true;
             }
+        }
+
+        if (!hasCategoryItems) {
+            JLabel emtyLabel = new JLabel("Nessun potenziamento temporaneo acquistato");
+            emtyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            tempPanel.add(emtyLabel);
+            tempPanel.add(Box.createVerticalStrut(50));
         }
     }
 
@@ -320,6 +336,10 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
             @Override public List<ShopItem> getOwnedSkins() { return ownedSkins; }
             @Override public List<ShopItem> getOwnedTempItems() { return ownedTemp; }
             @Override public List<Boolean> getTempItemsStatus() { return tempStatus; }
+            @Override public void setView(InventoryView view) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'setView'");
+            }
         };
 
         SwingUtilities.invokeLater(() -> {

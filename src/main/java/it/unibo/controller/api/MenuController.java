@@ -1,6 +1,10 @@
 package it.unibo.controller.api;
 
+import it.unibo.view.menu.api.MenuView;
+
 public interface MenuController {
+
+    public void setView(MenuView view);
 
     public void start();
 

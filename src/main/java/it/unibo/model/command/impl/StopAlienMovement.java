@@ -16,11 +16,7 @@ public class StopAlienMovement implements RunningCommand {
   private static final double NULL_SPEED = 0;
 
   /**
-   * {@inheritDoc}
    * Stop alien movement.
-   *
-   * @param alien the alien to stop
-   * @param launchedGame the game context
    */
   @Override
   public void execute(final Alien alien, final LaunchedGame launchedGame) {

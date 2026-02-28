@@ -1,7 +1,9 @@
 package it.unibo.view.GameLaunchedView.impl;
 
 import it.unibo.controller.api.GameLaunchedController;
+import it.unibo.controller.api.GameLaunchedInputController;
 import it.unibo.controller.impl.GameLaunchedControllerImpl;
+import it.unibo.view.GameLaunchedView.input.impl.LaunchedGameInputHandlerImpl;
 import it.unibo.view.SpriteManager;
 import it.unibo.view.GameLaunchedView.renderers.impl.AlienRenderer;
 import it.unibo.view.GameLaunchedView.renderers.impl.CoinRender;
@@ -22,7 +24,7 @@ public class GameLaunchedViewPanelImpl extends JPanel {
   /**
    * The {@link GameLaunchedControllerImpl} which provide the game elements to render.
    */
-  private final GameLaunchedController controller;
+  private final GameLaunchedController launchedController;
 
   /**
    * Renders the {@link it.unibo.model.gameObj.api.Alien} entity within the game view panel.
@@ -52,11 +54,12 @@ public class GameLaunchedViewPanelImpl extends JPanel {
   /**
    * <p>Construct a new {@link GameLaunchedViewPanelImpl}.</p>
    *
-   * @param controller the {@link GameLaunchedControllerImpl} which provide the game elements to render.
+   * @param launchedController the {@link GameLaunchedControllerImpl} which provide the game elements to render.
+   * @param inputController the {@link GameLaunchedInputController} which handle the input from the user.
    */
-  public GameLaunchedViewPanelImpl(final GameLaunchedController controller) {
+  public GameLaunchedViewPanelImpl(final GameLaunchedController launchedController, final GameLaunchedInputController inputController) {
     super();
-    this.controller = controller;
+    this.launchedController = launchedController;
 
     final SpriteManager spriteManager = new SpriteManager();
     spriteManager.loadResources();
@@ -66,6 +69,8 @@ public class GameLaunchedViewPanelImpl extends JPanel {
     this.enemyRenderer = new EnemyRenderer(spriteManager);
     this.coinRenderer = new CoinRender(spriteManager);
     this.gadgetRenderer = new GadgetRenderer(spriteManager);
+
+    this.addKeyListener(new LaunchedGameInputHandlerImpl(inputController));
   }
 
   /**
@@ -85,10 +90,10 @@ public class GameLaunchedViewPanelImpl extends JPanel {
    * @param g the {@code Graphics2D} object used for rendering the game elements.
    */
   private void renderAll(final Graphics2D g) {
-    this.alienRenderer.render(List.of(this.controller.getAlien()), g);
-    this.platformRenderer.render(this.controller.getPlatforms(), g);
-    this.enemyRenderer.render(this.controller.getEnemy(), g);
-    this.coinRenderer.render(this.controller.getCoins(), g);
-    this.gadgetRenderer.render(this.controller.getGadgets(), g);
+    this.launchedController.getAlien().ifPresent(alien -> this.alienRenderer.render(List.of(alien), g));
+    this.launchedController.getPlatforms().ifPresent(platforms -> this.platformRenderer.render(platforms, g));
+    this.launchedController.getEnemy().ifPresent(enemies -> this.enemyRenderer.render(enemies, g));
+    this.launchedController.getCoins().ifPresent(coins -> this.coinRenderer.render(coins, g));
+    this.launchedController.getGadgets().ifPresent(gadgets -> this.gadgetRenderer.render(gadgets, g));
   }
 }
