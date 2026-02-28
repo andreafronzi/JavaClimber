@@ -15,5 +15,20 @@ public enum SpriteEnum {
     ASTRO_RIGHT,
     ASTRO_LEFT,
     NINJA_RIGHT,
-    NINJA_LEFT
+    NINJA_LEFT,
+    SOCCER_RIGHT,
+    SOCCER_LEFT,
+    BUNNY_RIGHT,
+    BUNNY_LEFT,
+    FRANK_RIGHT,
+    FRANK_LEFT,
+    FROZEN_RIGHT,
+    FROZEN_LEFT,
+    GHOST_RIGHT,
+    GHOST_LEFT,
+    ICE_RIGHT,
+    ICE_LEFT,
+    JUNGLE_RIGHT,
+    JUNGLE_LEFT,
+    
 }

@@ -45,7 +45,20 @@ public class SpriteManager {
         sprites.put(SpriteEnum.ASTRO_LEFT, this.load("astro_left.png"));
         sprites.put(SpriteEnum.NINJA_RIGHT, this.load("ninja_right.png"));
         sprites.put(SpriteEnum.NINJA_LEFT, this.load("ninja_left.png"));
-    
+        sprites.put(SpriteEnum.SOCCER_RIGHT, this.load("soccer_right.png"));
+        sprites.put(SpriteEnum.SOCCER_LEFT, this.load("soccer_left.png"));
+        sprites.put(SpriteEnum.BUNNY_RIGHT, this.load("bunny_right.png"));
+        sprites.put(SpriteEnum.BUNNY_LEFT, this.load("bunny_left.png"));
+        sprites.put(SpriteEnum.FRANK_RIGHT, this.load("frank_right.png"));
+        sprites.put(SpriteEnum.FRANK_LEFT, this.load("frank_left.png"));
+        sprites.put(SpriteEnum.FROZEN_RIGHT, this.load("frozen_right.png"));
+        sprites.put(SpriteEnum.FROZEN_LEFT, this.load("frozen_left.png"));
+        sprites.put(SpriteEnum.GHOST_RIGHT, this.load("ghost_right.png"));
+        sprites.put(SpriteEnum.GHOST_LEFT, this.load("ghost_left.png"));
+        sprites.put(SpriteEnum.ICE_RIGHT, this.load("ice_right.png"));
+        sprites.put(SpriteEnum.ICE_LEFT, this.load("ice_left.png"));
+        sprites.put(SpriteEnum.JUNGLE_RIGHT, this.load("jungle_right.png"));
+        sprites.put(SpriteEnum.JUNGLE_LEFT, this.load("jungle_left.png"));
     }
 
     /**

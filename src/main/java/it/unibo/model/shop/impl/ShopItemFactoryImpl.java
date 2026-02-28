@@ -27,8 +27,15 @@ public class ShopItemFactoryImpl implements ShopItemFactory {
             new SkinItemImpl("s_basic", "Basic Alien", "Original alien", 0, Map.of()),
             new SkinItemImpl("s_sub", "Submarine Alien", "Directly from the sea with x1.2 Speed", 100, Map.of(ShopItemStat.SPEED, 1.2)),
             new SkinItemImpl("s_sport", "Sportive Alien", "From the NBA with x1.2 Jump", 250, Map.of(ShopItemStat.JUMP_HEIGHT, 1.2)),
+            new SkinItemImpl("s_soccer", "Soccer Alien", "From the Soccer field with x1.2 Speed", 300, Map.of(ShopItemStat.SPEED, 1.4)),
             new SkinItemImpl("s_astro", "Astronaut alien", "From the space with x1.5 Jump", 500, Map.of(ShopItemStat.JUMP_HEIGHT, 1.5)),
-            new SkinItemImpl("s_ninja", "Ninja Alien", "From the Ninja Clan with x1.5 Speed", 400, Map.of(ShopItemStat.SPEED, 1.5))
+            new SkinItemImpl("s_ninja", "Ninja Alien", "From the Ninja Clan with x1.5 Speed", 400, Map.of(ShopItemStat.SPEED, 1.5)),
+            new SkinItemImpl("s_bunny", "Bunny Alien", "From the forest with x1.3 Speed", 350, Map.of(ShopItemStat.SPEED, 1.3)),
+            new SkinItemImpl("s_frank", "Frankenstain Alien", "From the horror movie with x1.4 Jump", 450, Map.of(ShopItemStat.JUMP_HEIGHT, 1.4)),
+            new SkinItemImpl("s_frozen", "Frozen Alien", "From the ice world with x1.2 Speed and x1.2 Jump", 550, Map.of(ShopItemStat.SPEED, 1.2, ShopItemStat.JUMP_HEIGHT, 1.2)),
+            new SkinItemImpl("s_ghost", "Ghost Alien", "From the haunted house with x1.3 Speed and x1.3 Jump", 600, Map.of(ShopItemStat.SPEED, 1.3, ShopItemStat.JUMP_HEIGHT, 1.3)),
+            new SkinItemImpl("s_ice", "Ice Alien", "From the ice cave with x1.4 Speed and x1.4 Jump", 700, Map.of(ShopItemStat.SPEED, 1.4, ShopItemStat.JUMP_HEIGHT, 1.4)),
+            new SkinItemImpl("s_jungle", "Jungle Alien", "From the jungle with x1.5 Speed and x1.5 Jump", 800, Map.of(ShopItemStat.SPEED, 1.5, ShopItemStat.JUMP_HEIGHT, 1.5))
         );
     }
 
