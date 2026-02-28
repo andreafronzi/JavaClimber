@@ -20,12 +20,16 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * <p>Rapresent the implementation of {@link GameLaunchedController} and {@link GameLaunchedInputController}.</p>
+ * <p>
+ * Rapresent the implementation of {@link GameLaunchedController} and
+ * {@link GameLaunchedInputController}.
+ * </p>
  */
 public class GameLaunchedControllerImpl implements GameLaunchedController, GameLaunchedInputController {
 
   /**
-   * The {@link LaunchedGame} entity which provide the data to render and receive the command to update the model.
+   * The {@link LaunchedGame} entity which provide the data to render and receive
+   * the command to update the model.
    */
   private final LaunchedGame launchedGame;
 
@@ -44,8 +48,8 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
   @Override
   public Optional<Alien> getAlien() {
     return this.launchedGame.getWorld()
-      .map(World::getRealWorld)
-      .map(GameWorld::getAlien);
+        .map(World::getRealWorld)
+        .map(GameWorld::getAlien);
   }
 
   /**
@@ -74,8 +78,8 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
   @Override
   public Optional<List<Gadget>> getGadgets() {
     return this.launchedGame.getWorld()
-      .map(World::getRealWorld)
-      .map(BaseWorld::getGadgets);
+        .map(World::getRealWorld)
+        .map(BaseWorld::getGadgets);
   }
 
   /**
@@ -84,8 +88,8 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
   @Override
   public Optional<List<Platform>> getPlatforms() {
     return this.launchedGame.getWorld()
-      .map(World::getRealWorld)
-      .map(BaseWorld::getPlatforms);
+        .map(World::getRealWorld)
+        .map(BaseWorld::getPlatforms);
   }
 
   /**
@@ -119,4 +123,14 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
   public void handleReleaseMovementCommand() {
     this.launchedGame.addCommand(new StopAlienMovement());
   }
+
+  @Override
+  public void runGame() {
+    while () {
+      // prendi evento
+      this.launchedGame.getState().execute();
+      // renderizza
+    }
+  }
+
 }

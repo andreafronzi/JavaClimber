@@ -25,12 +25,11 @@ public interface LaunchedGame extends CommandState<RunningCommand> {
      */
     public StateOfLaunchedGame getState();
 
-    /**
-     * Starts the main game loop.
-     */
-    public void gameLoop();
-
     public Optional<World> getWorld();
 
     public void setWorld(final World world);
+
+    public boolean isRunning();
+
+    public void setRunning(final boolean running);
 }

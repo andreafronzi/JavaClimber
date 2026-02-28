@@ -44,4 +44,9 @@ public interface GameLaunchedController {
    * @return the {@link Platform} entities
    */
   public Optional<List<Platform>> getPlatforms();
+
+  /**
+   * <p>Run {@link LaunchedGame}.</p>
+   */
+  public void runGame(); 
 }

@@ -46,18 +46,6 @@ public class LaunchedGameImpl implements LaunchedGame {
         return this.state;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void gameLoop() {
-        while (running) {
-            // prendi evento
-            this.state.execute();
-            // renderizza
-        }
-    }
-
     @Override
     public Optional<World> getWorld() {
         return this.world;
@@ -76,5 +64,15 @@ public class LaunchedGameImpl implements LaunchedGame {
     @Override
     public RunningCommand pollCommand() {
         return commands.poll();
+    }
+
+    @Override
+    public boolean isRunning() {
+        return this.running;
+    }
+
+    @Override
+    public void setRunning(final boolean running) {
+        this.running = running;
     }
 }
