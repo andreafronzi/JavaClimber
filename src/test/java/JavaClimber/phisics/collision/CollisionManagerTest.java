@@ -74,12 +74,12 @@ public class CollisionManagerTest {
     @BeforeEach
     public void setUp() {
         this.alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT,
-                new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()), new ShopItemFactoryImpl()));
+                new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
         final Boundary boundary = new Boundary(LEFT_SIDE, RIGHT_SIDE);
         this.collisionManager = new CollisionManagerImpl(boundary);
         this.realWorld = new RealWorld(alien, new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_SIDE, RIGHT_SIDE)));
         this.e = new EnemyImpl(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT - 1));
-        this.c = new CoinImpl(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT - 1), new ScoreManagerImpl(0));
+        this.c = new CoinImpl(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT - 1), new ScoreManagerImpl());
         this.g = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT - 1));
     }
 

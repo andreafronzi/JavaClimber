@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Test class for AlienNormalPhysic.
+ * <p>Test class for {@link AlienNormalPhysic}.</p>
  */
 public class AlienNormalPhysicTest {
 
@@ -66,7 +66,7 @@ public class AlienNormalPhysicTest {
    * Test the {@link AlienNormalPhysic#update(Alien, double, Boundary, ActiveUpgrades)} method to verify expected vertical movement behavior.
    */
   @Test
-  void testUpdateAlienPosition() {
+  public void testUpdateAlienPosition() {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, activeUpgrades);
@@ -82,7 +82,7 @@ public class AlienNormalPhysicTest {
    * It verifies that Pacman effect correctly repositions the alien to the left edge of the boundary.
    */
   @Test
-  void testRightToLeftPacmanEffect() {
+  public void testRightToLeftPacmanEffect() {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X1, Y), new Vector2dImpl(SPEED1_X, SPEED_Y), WIDTH, HEIGHT, activeUpgrades);
@@ -96,7 +96,7 @@ public class AlienNormalPhysicTest {
    * It verifies that Pacman effect correctly repositions the alien to the right edge of the boundary.
    */
   @Test
-  void testLeftToRightPacmanEffect() {
+  public void testLeftToRightPacmanEffect() {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED2_X, SPEED_Y), WIDTH, HEIGHT, activeUpgrades);
@@ -130,7 +130,7 @@ public class AlienNormalPhysicTest {
    * Tests the {@link AlienNormalPhysic#hitGadget(Alien, Gadget, ActiveUpgrades)} method.
    */
   @Test
-  void testHitGadget() {
+  public void testHitGadget() {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGHT, activeUpgrades);
@@ -150,7 +150,7 @@ public class AlienNormalPhysicTest {
    * Tests the {@link AlienNormalPhysic#hitPlatform(Alien, Platform, Boundary, ActiveUpgrades)} method.
    */
   @Test
-  void testHitPlatform() {
+  public void testHitPlatform() {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGHT, activeUpgrades);
@@ -164,5 +164,27 @@ public class AlienNormalPhysicTest {
     physic.hitPlatform(alien, platform, boundary.getBoundX(), new RealWorld(alien, boundary), activeUpgrades);
     assertEquals(alien.getPosY(), platform.getPosY() - alien.getHeight(), EPSILON);
     assertEquals(SPEED_AFTER_JUMP, alien.getSpeedY(), EPSILON);
+  }
+
+  @Test
+  public void testAlienDeadOnEnemyCollision() {
+    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
+    final AlienPhysic physic = new AlienNormalPhysic();
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGHT, activeUpgrades);
+    final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
+    final Enemy enemy = new EnemyImpl(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT));
+
+    // Simulate the alien hitting the enemy
+    physic.hitEnemy(alien, enemy, new RealWorld(alien, boundary), activeUpgrades);
+
+    // Verify that the alien's position and speed are updated as expected
+    assertEquals(alien.getPosY(), enemy.getPosY() - alien.getHeight(), EPSILON);
+    assertEquals(SPEED_AFTER_JUMP, alien.getSpeedY(), EPSILON);
+
+    // Simulate the alien falling after hitting the enemy
+    alien.updatePosition(DT, boundary, new LaunchedGameImpl());
+
+    // Verify that the alien's position is updated correctly after falling
+    assertEquals(Y_AFTER_HIT_ENEMY, alien.getPosY(), EPSILON);
   }
 }

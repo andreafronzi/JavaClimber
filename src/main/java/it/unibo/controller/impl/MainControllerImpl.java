@@ -56,7 +56,7 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public void launchGame() {
-        final GameLaunchedControllerImpl gameLaunchedController = new GameLaunchedControllerImpl(this.menu, this.menu.getLaunchedGame().commandState());
+        final GameLaunchedControllerImpl gameLaunchedController = new GameLaunchedControllerImpl(this.menu.getLaunchedGame().get());
         mainView.setGameLaunchedView(gameLaunchedController, gameLaunchedController);
     }
 

@@ -2,9 +2,7 @@ package it.unibo.controller.impl;
 
 import it.unibo.controller.api.GameLaunchedController;
 import it.unibo.controller.api.GameLaunchedInputController;
-import it.unibo.model.LaunchedGame.api.CommandState;
 import it.unibo.model.LaunchedGame.api.LaunchedGame;
-import it.unibo.model.command.api.RunningCommand;
 import it.unibo.model.command.impl.EnterPausa;
 import it.unibo.model.command.impl.MoveAlienLeft;
 import it.unibo.model.command.impl.MoveAlienRight;
@@ -27,11 +25,6 @@ import java.util.Optional;
 public class GameLaunchedControllerImpl implements GameLaunchedController, GameLaunchedInputController {
 
   /**
-   * Rapresent an instance of generic CommandState which deal with the input provided by the keyboard in response to user use.
-   */
-  private final CommandState<RunningCommand> runningCommand;
-
-  /**
    * The {@link LaunchedGame} entity which provide the data to render and receive the command to update the model.
    */
   private final LaunchedGame launchedGame;
@@ -40,12 +33,9 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    * Constructor new GameLaunchedControllerImpl.
    *
    * @param launchedGame the launched game entity
-   * @param runningCommand an instance of generic CommandState which deal with the input provided by the keyboard in response to user use.
    */
-  public GameLaunchedControllerImpl(final LaunchedGame launchedGame, final CommandState<RunningCommand> runningCommand) {
+  public GameLaunchedControllerImpl(final LaunchedGame launchedGame) {
     this.launchedGame = launchedGame;
-    this.runningCommand = runningCommand;
-
   }
 
   /**
@@ -103,7 +93,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    */
   @Override
   public void handleMoveRightCommand() {
-    this.runningCommand.addCommand(new EnterPausa());
+    this.launchedGame.addCommand(new MoveAlienRight());
   }
 
   /**
@@ -111,7 +101,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    */
   @Override
   public void handleMoveLeftCommand() {
-    this.runningCommand.addCommand(new MoveAlienLeft());
+    this.launchedGame.addCommand(new MoveAlienLeft());
   }
 
   /**
@@ -119,7 +109,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    */
   @Override
   public void handlePauseCommand() {
-    this.runningCommand.addCommand(new MoveAlienRight());
+    this.launchedGame.addCommand(new EnterPausa());
   }
 
   /**
@@ -127,6 +117,6 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    */
   @Override
   public void handleReleaseMovementCommand() {
-    this.runningCommand.addCommand(new StopAlienMovement());
+    this.launchedGame.addCommand(new StopAlienMovement());
   }
 }
