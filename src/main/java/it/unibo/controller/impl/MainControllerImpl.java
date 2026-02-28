@@ -1,7 +1,10 @@
 package it.unibo.controller.impl;
 
+import java.util.Optional;
+
 import it.unibo.controller.api.MainController;
 import it.unibo.model.persistence.api.SaveManager;
+import it.unibo.model.persistence.api.SaveState;
 import it.unibo.model.persistence.impl.SaveManagerImpl;
 import it.unibo.model.score.api.ScoreManager;
 import it.unibo.model.score.impl.ScoreManagerImpl;
@@ -15,7 +18,6 @@ import it.unibo.view.MainView;
 
 public class MainControllerImpl implements MainController {
 
-    private final static String FILE_PATH = "saves.json";
     private MainView mainView;
     private final SaveManager saveManager;
     private final ScoreManager scoreManager;
@@ -24,11 +26,12 @@ public class MainControllerImpl implements MainController {
     private final Inventory inventory;
 
     public MainControllerImpl(){
-        this.saveManager = new SaveManagerImpl(FILE_PATH);
+        this.saveManager = new SaveManagerImpl();
         this.scoreManager = new ScoreManagerImpl();
         this.shopItemFactory = new ShopItemFactoryImpl();
         this.inventory = new InventoryImpl(shopItemFactory);
         this.shopManager = new ShopManagerImpl(shopItemFactory, inventory, scoreManager, saveManager);
+        this.loadGame();
     }
 
     @Override
@@ -72,4 +75,20 @@ public class MainControllerImpl implements MainController {
         mainView.setPauseView(pauseController);
     }
 
+    @Override
+    public void saveProgress() {
+        SaveState currentState = new SaveState(inventory.getTotalCoins(), scoreManager.getHighScore(), inventory.getOwnedItems(), inventory.getConsumablesStatus(), inventory.getSelectedSkin(), inventory.getSelectedJumpLevel(), inventory.getSelectedSpeedLevel());
+        this.saveManager.save(currentState);
+    }
+
+    private void loadGame() {
+        Optional<SaveState> loadedState = this.saveManager.load();
+        if (loadedState.isPresent()) {
+            this.inventory.loadState(loadedState.get());
+            this.scoreManager.loadState(loadedState.get());
+        } else {
+            SaveState initialState = new SaveState(0, 0, this.inventory.getOwnedItems(), this.inventory.getConsumablesStatus(), this.inventory.getSelectedSkin(), this.inventory.getSelectedJumpLevel(), this.inventory.getSelectedSpeedLevel());
+            this.saveManager.save(initialState);
+        }
+    }
 }

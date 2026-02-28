@@ -17,4 +17,6 @@ public interface MainController {
     void openEndView();
 
     void openPauseView();
+
+    void saveProgress();
 }
