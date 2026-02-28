@@ -104,13 +104,35 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
             case "s_sport":
                 spriteKey = SpriteEnum.SPORT_RIGHT;
                 break;
+            case "s_soccer":
+                spriteKey = SpriteEnum.SOCCER_RIGHT;
+                break;
             case "s_ninja":
                 spriteKey = SpriteEnum.NINJA_RIGHT;
+                break;
+            case "s_bunny":
+                spriteKey = SpriteEnum.BUNNY_RIGHT;
+                break;
+            case "s_frank":
+                spriteKey = SpriteEnum.FRANK_RIGHT;
+                break;
+            case "s_frozen":
+                spriteKey = SpriteEnum.FROZEN_RIGHT;
+                break;
+            case "s_ghost":
+                spriteKey = SpriteEnum.GHOST_RIGHT;
+                break;
+            case "s_ice":
+                spriteKey = SpriteEnum.ICE_RIGHT;
+                break;
+            case "s_jungle":
+                spriteKey = SpriteEnum.JUNGLE_RIGHT;
                 break;
             default:
                 spriteKey = SpriteEnum.DOODLER_RIGHT;
                 break;
         }
+        
         BufferedImage img = spriteManager.get(spriteKey);
         if (img != null) {
             Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
