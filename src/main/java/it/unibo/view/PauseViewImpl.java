@@ -4,14 +4,16 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import it.unibo.controller.api.PauseController;
+
 public class PauseViewImpl extends JPanel implements PauseView {
 
-    final private MainView view;
+    final private PauseController controller;
     final private JButton resume;
     final private JButton menu;
 
-    public PauseViewImpl(MainView view) {
-        this.view = view;
+    public PauseViewImpl(PauseController controller) {
+        this.controller = controller;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.resume = new JButton("Resume");
         this.menu = new JButton("Menu");
@@ -31,12 +33,12 @@ public class PauseViewImpl extends JPanel implements PauseView {
 
     @Override
     public void resume() {
-        view.resume();
+        this.controller.resume();
     }
 
     @Override
     public void menu() {
-        view.menu();
+        this.controller.menu();
     }
     
 }
