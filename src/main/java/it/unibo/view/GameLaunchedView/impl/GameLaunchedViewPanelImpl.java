@@ -76,7 +76,7 @@ public class GameLaunchedViewPanelImpl extends JPanel {
   /**
    * {@inheritDoc}
    *
-   * @param g the {@code Graphics} the copy of the graphics used to paint component
+   * @param g the {@code Java.awt.Graphics} the copy of the graphics used to paint component
    */
   @Override
   public void paintComponent(final Graphics g) {
