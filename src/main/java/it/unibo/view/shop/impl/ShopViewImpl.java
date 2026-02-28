@@ -145,7 +145,8 @@ public class ShopViewImpl extends JPanel implements ShopView {
         
         JLabel nameLabel = new JLabel(item.getName());
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JLabel descLabel = new JLabel(item.getDescription());
+        JLabel descLabel = new JLabel("<html><div style='text-align: center; width: 180px;'>" + item.getDescription() + "</div></html>");
+        descLabel.setHorizontalAlignment(SwingConstants.CENTER);
         descLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel priceLabel = new JLabel(item.getPrice() + "$");
         priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
