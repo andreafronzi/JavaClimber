@@ -68,8 +68,8 @@ public class InventoryTest {
         inventory.deselectSkin();
         assertEquals(DEFAULT_SKIN, inventory.getSelectedSkin());
 
-        inventory.addItem("s_primitive");
-        assertEquals("s_primitive", inventory.getSelectedSkin());
+        inventory.addItem("s_sub");
+        assertEquals("s_sub", inventory.getSelectedSkin());
     }
 
     /**

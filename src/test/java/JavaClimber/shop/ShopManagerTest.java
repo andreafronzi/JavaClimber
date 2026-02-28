@@ -116,7 +116,7 @@ public class ShopManagerTest {
     @Test
     void testCannotBuySkinTwice() {
         inventory.addCoins(100);
-        ShopItem item = itemFactory.getItemById("s_primitive").get();
+        ShopItem item = itemFactory.getItemById("s_sub").get();
         assertTrue(shopManager.buyItem(item));
         
         assertFalse(shopManager.canBuyItem(item));

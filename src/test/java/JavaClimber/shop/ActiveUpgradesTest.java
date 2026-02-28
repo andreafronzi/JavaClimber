@@ -35,11 +35,11 @@ public class ActiveUpgradesTest {
      */
     @Test
     void testSkinApplication() {
-        String skinId = "s_primitive";
+        String skinId = "s_sub";
         inventory.addItem(skinId);
         inventory.equipSkin(skinId);
         activeUpgrades.updateValues();
-        assertEquals(1.1, activeUpgrades.getSpeedMultiplier());
+        assertEquals(1.2, activeUpgrades.getSpeedMultiplier());
         assertEquals(1.0, activeUpgrades.getJumpMultiplier());
         assertEquals(1, activeUpgrades.getCoinMultiplier());
     }
