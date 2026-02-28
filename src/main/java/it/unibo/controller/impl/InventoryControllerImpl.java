@@ -5,6 +5,10 @@ import java.util.Set;
 
 import it.unibo.controller.api.InventoryController;
 import it.unibo.controller.api.MainController;
+import it.unibo.model.menu.api.Menu;
+import it.unibo.model.menu.impl.MenuImpl;
+import it.unibo.model.menu.impl.MenuState;
+import it.unibo.model.menu.impl.ShoppingState;
 import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopItemFactory;
@@ -19,6 +23,7 @@ public class InventoryControllerImpl implements InventoryController {
     private final Inventory inventory;
     private InventoryView view;
     private final ShopItemFactory factory;
+    private final Menu menu;
 
     /**
      * Construct a InventoryControllerImpl with required model and factory.
@@ -29,6 +34,7 @@ public class InventoryControllerImpl implements InventoryController {
         this.mainController = mainController;
         this.inventory = inventory;
         this.factory = factory;
+        this.menu = new MenuImpl();
     }
 
     @Override
@@ -39,14 +45,12 @@ public class InventoryControllerImpl implements InventoryController {
 
     @Override
     public void selectSkin(int index) {
-        List<ShopItem> allSkins = factory.getSkins();
-        if (isValidIndex(index, allSkins)) {
-            String skinId = allSkins.get(index).getId();
-            if (inventory.hasItem(skinId)) {
-                inventory.equipSkin(skinId);
-                this.mainController.saveProgress();
-                refreshView();
-            }
+        List<ShopItem> ownedSkin = this.getOwnedSkins();
+        if (isValidIndex(index, ownedSkin)) {
+            String skinId = ownedSkin.get(index).getId();
+            inventory.equipSkin(skinId);
+            this.mainController.saveProgress();
+            refreshView();
         }
     }
 
@@ -155,11 +159,13 @@ public class InventoryControllerImpl implements InventoryController {
 
     @Override
     public void openShop() {
+        menu.setState(new ShoppingState(menu));
         mainController.openShopView();
     }
 
     @Override
     public void exit() {
+        menu.setState(new MenuState(menu));
         mainController.openMenuView();
     }
     
