@@ -73,13 +73,13 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public void openEndView() {
-        EndControllerImpl endController = new EndControllerImpl(this);
+        EndControllerImpl endController = new EndControllerImpl(this.menu.getLaunchedGame().get(), this.menu, this);
         mainView.setEndView(endController);
     }
 
     @Override
     public void openPauseView() {
-        PauseControllerImpl pauseController = new PauseControllerImpl(this);
+        PauseControllerImpl pauseController = new PauseControllerImpl(this.menu.getLaunchedGame().get(), this.menu, this.menu.getLaunchedGame().get().getState(), this);
         mainView.setPauseView(pauseController);
     }
 
