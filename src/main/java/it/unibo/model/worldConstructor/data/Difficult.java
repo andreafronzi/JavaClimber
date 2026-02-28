@@ -1,6 +1,6 @@
 package it.unibo.model.worldConstructor.data;
 
-import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnSpawnRate;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.AddOnPool;
 import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPool;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.Distance;
 
@@ -23,7 +23,7 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.Distan
  * @param platformPool the pool of objects available for this difficulty
  */
 public record Difficult(double height,
-        AddOnSpawnRate addOnSpawnRate,
         Distance distance,
+        AddOnPool addOnPool,
         SpawnPool platformPool) {
 }
