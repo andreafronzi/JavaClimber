@@ -67,14 +67,12 @@ public class MainViewImpl implements MainView {
     @Override
     public void setEndView(EndController endController) {
         EndViewImpl endView = new EndViewImpl(endController);
-        endController.setView(endView);
         switchPanel(endView);
     }
 
     @Override
     public void setPauseView(PauseController pauseController) {
         PauseViewImpl pauseView = new PauseViewImpl(pauseController);
-        pauseController.setView(pauseView);
         switchPanel(pauseView);
     }
 
