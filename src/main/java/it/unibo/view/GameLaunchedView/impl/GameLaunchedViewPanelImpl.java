@@ -2,7 +2,6 @@ package it.unibo.view.GameLaunchedView.impl;
 
 import it.unibo.controller.api.GameLaunchedController;
 import it.unibo.controller.api.GameLaunchedInputController;
-import it.unibo.controller.impl.GameLaunchedControllerImpl;
 import it.unibo.view.GameLaunchedView.input.impl.LaunchedGameInputHandlerImpl;
 import it.unibo.view.SpriteManager;
 import it.unibo.view.GameLaunchedView.renderers.impl.AlienRenderer;
