@@ -5,17 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
-import java.util.Optional;
-
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.model.persistence.api.SaveManager;
-import it.unibo.model.persistence.api.SaveState;
-import it.unibo.model.persistence.impl.SaveManagerImpl;
 import it.unibo.model.score.api.ScoreManager;
-import it.unibo.model.score.impl.ScoreManagerImpl;
 import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopItemFactory;
@@ -29,23 +21,9 @@ import it.unibo.model.shop.impl.ShopManagerImpl;
  */
 public class ShopManagerTest {
 
-    private static final String TEST_FILE = "test_save.json";
-    private ScoreManager scoreManager = new ScoreManagerImpl();
     private ShopItemFactory itemFactory = new ShopItemFactoryImpl();
-    private SaveManager storage = new SaveManagerImpl(TEST_FILE);
     private Inventory inventory = new InventoryImpl(itemFactory);
-    private ShopManager shopManager = new ShopManagerImpl(itemFactory, inventory, scoreManager, storage);
-
-    /**
-     * After tests delete the file if exist.
-     */
-    @AfterEach
-    void tearDown() {
-        File file = new File(TEST_FILE);
-        if (file.exists()) {
-            file.delete();
-        }
-    }
+    private ShopManager shopManager = new ShopManagerImpl(itemFactory, inventory);
 
     /**
      * Tests a successfull skin purchase.
@@ -143,29 +121,5 @@ public class ShopManagerTest {
         
         assertFalse(shopManager.canBuyItem(item));
         assertFalse(shopManager.buyItem(item));
-    }
-
-    /**
-     * Tests the saving after a purchase.
-     * Verifies if the file exist, its loading and the correction of data
-     */
-    @Test
-    void testSaveAfterPurchase() {
-        inventory.addCoins(600);
-        ShopItem skin = itemFactory.getItemById("s_primitive").get();
-        assertTrue(shopManager.buyItem(skin));
-
-        File saveFile = new File(TEST_FILE);
-        assertTrue(saveFile.exists(), "Il file di salvataggio dovrebbe essere stato creato");
-
-        Optional<SaveState> loadedState = storage.load();
-        assertTrue(loadedState.isPresent());
-        
-        SaveState data = loadedState.get();
-        assertEquals(500, data.getCoins());
-        assertTrue(data.getOwnedItems().contains("s_primitive"));
-        assertEquals("s_primitive", data.getSelectedSkin());
-        assertEquals(0, data.getSelectedJumpLevel());
-        assertEquals(0, data.getSelectedSpeedLevel());
     }
 }
