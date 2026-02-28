@@ -15,6 +15,11 @@ import java.util.Objects;
 public class AlienRenderer implements EntityRenderer<Alien> {
 
     /**
+     * The constant representing the null speed of the Alien.
+     */
+    private static final double NULL_SPEED = 0.0;
+
+    /**
      * The {@link SpriteManager} used to get the alien sprite.
      */
     private final SpriteManager spriteManager;
@@ -36,7 +41,7 @@ public class AlienRenderer implements EntityRenderer<Alien> {
         final Image sprite;
         final Alien alien = aliens.getFirst();
 
-        if (alien.getSpeedX() >= 0) {
+        if (alien.getSpeedX() >= NULL_SPEED) {
             sprite = spriteManager.get(SpriteEnum.DOODLER_RIGHT);
         } else {
             sprite = spriteManager.get(SpriteEnum.DOODLER_LEFT);
