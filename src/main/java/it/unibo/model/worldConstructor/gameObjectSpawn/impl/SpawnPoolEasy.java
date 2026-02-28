@@ -2,11 +2,13 @@ package it.unibo.model.worldConstructor.gameObjectSpawn.impl;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Function;
 
 import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.FactoryAddOn;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.FactoryAddOnImpl;
 import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPool;
@@ -21,11 +23,11 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PairIm
  */
 public class SpawnPoolEasy implements SpawnPool {
 
-    private final List<Pair<Platform>> platformPool;
-    private final List<Pair<Enemy>> monsterPool;
-    private final List<Pair<Gadget>> gadgetPool;
-    private final List<Pair<Coin>> moneyPool;
-    // private final List<Pair<Trap>> trapPool;
+    private final List<Pair<Double,Function<Vector2d,Platform>>> platformPool;
+    private final List<Pair<Double,Function<Vector2d,Enemy>>> monsterPool;
+    private final List<Pair<Double,Function<Vector2d,Gadget>>> gadgetPool;
+    private final List<Pair<Double,Function<Vector2d,Coin>>> moneyPool;
+    // private final List<Pair<Double,Function<Vector2d,Trap>>> trapPool;
     private final double width;
     private final double height;
     private final Director director;
@@ -34,12 +36,7 @@ public class SpawnPoolEasy implements SpawnPool {
     /**
      * Constructs the easy platform pool and initializes the object lists.
      */
-    public SpawnPoolEasy(final double width, final double height, final double coinWidth,
-            final double coinHeight,
-            final double enemyWidth,
-            final double enemyHeight,
-            final double elycapWidth,
-            final double elycapHeight) {
+    public SpawnPoolEasy(final double width, final double height) {
         this.width = width;
         this.height = height;
         this.platformPool = new LinkedList<>();
@@ -61,7 +58,7 @@ public class SpawnPoolEasy implements SpawnPool {
      * {@inheritDoc}
      */
     @Override
-    public List<Pair<Platform>> getPlatformPool() {
+    public List<Pair<Double,Function<Vector2d,Platform>>> getPlatformPool() {
         return List.copyOf(this.platformPool);
     }
 
@@ -69,7 +66,7 @@ public class SpawnPoolEasy implements SpawnPool {
      * {@inheritDoc}
      */
     @Override
-    public List<Pair<Enemy>> getMonsterPool() {
+    public List<Pair<Double,Function<Vector2d,Enemy>>> getMonsterPool() {
         return List.copyOf(this.monsterPool);
     }
 
@@ -77,7 +74,7 @@ public class SpawnPoolEasy implements SpawnPool {
      * {@inheritDoc}
      */
     @Override
-    public List<Pair<Gadget>> getGadgetPool() {
+    public List<Pair<Double,Function<Vector2d,Gadget>>> getGadgetPool() {
         return List.copyOf(this.gadgetPool);
     }
 
@@ -85,7 +82,7 @@ public class SpawnPoolEasy implements SpawnPool {
      * {@inheritDoc}
      */
     @Override
-    public List<Pair<Coin>> getMoneyPool() {
+    public List<Pair<Double,Function<Vector2d,Coin>>> getMoneyPool() {
         return List.copyOf(this.moneyPool);
     }
 
@@ -99,19 +96,19 @@ public class SpawnPoolEasy implements SpawnPool {
     private void initializePlatformPool() {
         this.platformPool.add(new PairImpl<>(0.5, this.director::normalPlatform));
         this.platformPool.add(new PairImpl<>(0.75, this.director::movingOnTouchPlatform));
-        this.platformPool.add(new PairImpl<>(1, this.director::movingPlatform));
+        this.platformPool.add(new PairImpl<>(1.0, this.director::movingPlatform));
     }
 
     private void initializeMonsterPool() {
-        this.monsterPool.add(new PairImpl<>(1, this.factoryAddOn::createEnemy));
+        this.monsterPool.add(new PairImpl<>(1.0, this.factoryAddOn::createEnemy));
     }
 
     private void initializeGadgetPool() {
-        this.gadgetPool.add(new PairImpl<>(1, this.factoryAddOn::createElycap));
+        this.gadgetPool.add(new PairImpl<>(1.0, this.factoryAddOn::createElycap));
     }
 
     private void initializeMoneyPool() {
-        this.moneyPool.add(new PairImpl<>(1, this.factoryAddOn::createCoin));
+        this.moneyPool.add(new PairImpl<>(1.0, this.factoryAddOn::createCoin));
     }
 
     @Override

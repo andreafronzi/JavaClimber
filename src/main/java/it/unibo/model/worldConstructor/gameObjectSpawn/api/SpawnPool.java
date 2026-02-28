@@ -1,11 +1,13 @@
 package it.unibo.model.worldConstructor.gameObjectSpawn.api;
 
 import java.util.List;
+import java.util.function.Function;
 
 import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Pair;
 
 /**
@@ -20,30 +22,30 @@ public interface SpawnPool {
      * 
      * @return a list of pairs containing platform factories and their spawn chances
      */
-    public List<Pair<Platform>> getPlatformPool();
+    public List<Pair<Double,Function<Vector2d,Platform>>> getPlatformPool();
 
     /**
      * Retrieves the pool of available enemies (monsters).
      * 
      * @return a list of pairs containing enemy factories and their spawn chances
      */
-    public List<Pair<Enemy>> getMonsterPool();
+    public List<Pair<Double,Function<Vector2d,Enemy>>> getMonsterPool();
 
     /**
      * Retrieves the pool of available gadgets.
      * 
      * @return a list of pairs containing gadget factories and their spawn chances
      */
-    public List<Pair<Gadget>> getGadgetPool();
+    public List<Pair<Double,Function<Vector2d,Gadget>>> getGadgetPool();
 
     /**
      * Retrieves the pool of available coins (money).
      * 
      * @return a list of pairs containing coin factories and their spawn chances
      */
-    public List<Pair<Coin>> getMoneyPool();
+    public List<Pair<Double,Function<Vector2d,Coin>>> getMoneyPool();
 
-    // public List<Pair<Trap>> getTrapPool();
+    // public List<Pair<Double,Function<Vector2d,Trap>>> getTrapPool();
 
     /**
      * Retrieves the width of the platform for this pool.
