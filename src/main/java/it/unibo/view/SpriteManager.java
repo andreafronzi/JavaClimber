@@ -30,12 +30,22 @@ public class SpriteManager {
      * Loads the sprite resources into the sprites map.
      */
     public void loadResources() {
-        sprites.put(SpriteEnum.DOODLER_LEFT, this.load("doodler_left.png"));
-        sprites.put(SpriteEnum.DOODLER_RIGHT, this.load("doodler_right.png"));
+        sprites.put(SpriteEnum.DOODLER_LEFT, this.load("doodle_left.png"));
+        sprites.put(SpriteEnum.DOODLER_RIGHT, this.load("doodle_right.png"));
         sprites.put(SpriteEnum.ENEMY, this.load("enemy.png"));
         sprites.put(SpriteEnum.GADGET, this.load("gadget.png"));
         sprites.put(SpriteEnum.PLATFORM, this.load("platform.png"));
-
+        sprites.put(SpriteEnum.PLATFORM_GREEN, this.load("platform_green.png"));
+        sprites.put(SpriteEnum.COIN, this.load("coin.png"));
+        sprites.put(SpriteEnum.SUB_RIGHT, this.load("sub_right.png"));
+        sprites.put(SpriteEnum.SUB_LEFT, this.load("sub_left.png"));
+        sprites.put(SpriteEnum.SPORT_RIGHT, this.load("sport_right.png"));
+        sprites.put(SpriteEnum.SPORT_LEFT, this.load("sport_left.png"));
+        sprites.put(SpriteEnum.ASTRO_RIGHT, this.load("astro_right.png"));
+        sprites.put(SpriteEnum.ASTRO_LEFT, this.load("astro_left.png"));
+        sprites.put(SpriteEnum.NINJA_RIGHT, this.load("ninja_right.png"));
+        sprites.put(SpriteEnum.NINJA_LEFT, this.load("ninja_left.png"));
+    
     }
 
     /**

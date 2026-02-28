@@ -7,5 +7,13 @@ public enum SpriteEnum {
     ENEMY,
     GADGET,
     PLATFORM,
-    COIN
+    COIN,
+    SUB_RIGHT,
+    SUB_LEFT,
+    SPORT_RIGHT,
+    SPORT_LEFT,
+    ASTRO_RIGHT,
+    ASTRO_LEFT,
+    NINJA_RIGHT,
+    NINJA_LEFT
 }
