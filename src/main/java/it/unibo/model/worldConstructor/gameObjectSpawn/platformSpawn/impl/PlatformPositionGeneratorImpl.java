@@ -2,10 +2,9 @@ package it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl;
 
 import java.util.Random;
 
-import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
-import it.unibo.model.world.impl.BoundY;
+import it.unibo.model.world.api.BoundWorld;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.PlatformPositionGenerator;
 
@@ -26,12 +25,12 @@ public class PlatformPositionGeneratorImpl implements PlatformPositionGenerator 
     /**
      * Constructs a new PlatformPositionGeneratorImpl.
      */
-    public PlatformPositionGeneratorImpl(final Boundary boundX, final BoundY boundY, final Platform platform) {
+    public PlatformPositionGeneratorImpl(final BoundWorld boundWorld, final Vector2d platformPos) {
         this.randomNumber = new Random();
         // previousPlatformPosition.setX(platform.getPosX());
         // previousPlatformPosition.setY(platform.getPosY());
-        previousPlatformPosition = new Vector2dImpl(boundX.x1() / 2, boundY.maxY() - 20);
-        this.boundX = boundX;
+        previousPlatformPosition = platformPos;
+        this.boundX = boundWorld.getBoundX();
     }
 
     /**
