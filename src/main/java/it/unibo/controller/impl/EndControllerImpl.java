@@ -24,15 +24,19 @@ public class EndControllerImpl implements EndController{
     public void menu() {
         this.launchedGame.setState(new EndState(this.launchedGame));;
         this.menu.setState(new MenuState(this.menu));
+        this.mainController.openMenuView();
     }
 
     @Override
     public void restart() {
         this.launchedGame.setState(new InitialState(this.launchedGame));
+        this.mainController.launchGame();
     }
 
     @Override
-    public void openViewEnd() {
+    public void end() {
+        this.launchedGame.setState(new EndState(this.launchedGame));
+        this.menu.setState(new MenuState(this.menu));
         this.mainController.openEndView();
     }
 
