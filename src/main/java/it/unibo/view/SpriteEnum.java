@@ -3,15 +3,16 @@ package it.unibo.view;
 public enum SpriteEnum {
     DOODLER_LEFT, 
     DOODLER_RIGHT,
-    PLATFORM_GREEN,
+    GREEN_PLATFORM,
     ENEMY,
     GADGET,
-    PLATFORM,
+    HORIZONTAL_MOVE_PLATFORM,
+    BROKEN_PLATFORM,
     COIN,
     SUB_RIGHT,
     SUB_LEFT,
-    SPORT_RIGHT,
-    SPORT_LEFT,
+    BASKET_RIGHT,
+    BASKET_LEFT,
     ASTRO_RIGHT,
     ASTRO_LEFT,
     NINJA_RIGHT,
@@ -29,6 +30,23 @@ public enum SpriteEnum {
     ICE_RIGHT,
     ICE_LEFT,
     JUNGLE_RIGHT,
-    JUNGLE_LEFT,
-    
+    JUNGLE_LEFT;
+
+    public static SpriteEnum fromSkinId(String skinId) {
+        return fromSkinId(skinId, true);
+    }
+
+    public static SpriteEnum fromSkinId(String skinId, boolean isRight) {
+        if (skinId == null || skinId.equals("s_basic")) {
+            return isRight ? DOODLER_RIGHT : DOODLER_LEFT;
+        }
+        
+        try {
+            String suffix = isRight ? "_RIGHT" : "_LEFT";
+            String enumName = skinId.replace("s_", "").toUpperCase() + suffix;
+            return SpriteEnum.valueOf(enumName); 
+        } catch (IllegalArgumentException e) {
+            return isRight ? DOODLER_RIGHT : DOODLER_LEFT; 
+        }
+    }
 }
