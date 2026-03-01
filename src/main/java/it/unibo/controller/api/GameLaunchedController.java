@@ -15,33 +15,40 @@ public interface GameLaunchedController {
    *
    * @return the {@link Alien} entity
    */
-  public Optional<Alien> getAlien();
+  Optional<Alien> getAlien();
 
   /**
    * <p>Provide to the view the {@link Coin} entities to render if present.</p>
    *
    * @return the {@link Coin} entities
    */
-  public Optional<List<Coin>> getCoins();
+  Optional<List<Coin>> getCoins();
 
   /**
    * <p>Provide to the view the {@link Enemy} entities to render if present.</p>
    *
    * @return the {@link Enemy} entities
    */
-  public Optional<List<Enemy>> getEnemy();
+  Optional<List<Enemy>> getEnemy();
 
   /**
    * <p>Provide to the view the {@link Gadget} entities to render if present.</p>
    *
    * @return the {@link Gadget} entities
    */
-  public Optional<List<Gadget>> getGadgets();
+  Optional<List<Gadget>> getGadgets();
 
   /**
    * <p>Provide to the view the {@link Platform} entities to render if present.</p>
    *
    * @return the {@link Platform} entities
    */
-  public Optional<List<Platform>> getPlatforms();
+  Optional<List<Platform>> getPlatforms();
+
+  /**
+   * <p>Provide to the view the active skin to render.</p>
+   *
+   * @return the id of the active skin
+   */  
+  String getActiveSkin();
 }
