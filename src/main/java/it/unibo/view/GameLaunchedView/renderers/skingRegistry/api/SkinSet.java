@@ -12,12 +12,12 @@ public interface SkinSet {
      * 
      * @return the left-facing sprite
      */
-    SpriteEnum getLeft();
+    SpriteEnum left();
     
     /**
      * <p>Gets the sprite for the right-facing character.</p>
      * 
      * @return the right-facing sprite
      */
-    SpriteEnum getRight();
+    SpriteEnum right();
 }
