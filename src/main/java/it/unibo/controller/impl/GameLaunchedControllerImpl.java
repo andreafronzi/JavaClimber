@@ -96,6 +96,9 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
       .map(BaseWorld::getPlatforms);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String getActiveSkin() {
     return this.inventory.getSelectedSkin();
