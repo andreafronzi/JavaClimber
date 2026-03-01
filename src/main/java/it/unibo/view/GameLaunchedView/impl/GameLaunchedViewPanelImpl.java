@@ -63,7 +63,7 @@ public class GameLaunchedViewPanelImpl extends JPanel {
     final SpriteManager spriteManager = new SpriteManager();
     spriteManager.loadResources();
 
-    this.alienRenderer = new AlienRenderer(spriteManager);
+    this.alienRenderer = new AlienRenderer(spriteManager, this.launchedController.getActiveSkin());
     this.platformRenderer = new PlatformRenderer(spriteManager);
     this.enemyRenderer = new EnemyRenderer(spriteManager);
     this.coinRenderer = new CoinRender(spriteManager);
