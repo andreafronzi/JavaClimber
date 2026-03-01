@@ -11,6 +11,7 @@ import it.unibo.model.gameObj.impl.AlienImpl;
 import it.unibo.model.gameObj.impl.EliCap;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienEliCapPhysic;
+import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.impl.ActiveUpgradesImpl;
 import it.unibo.model.shop.impl.InventoryImpl;
@@ -66,8 +67,8 @@ public class AlienEliCapPhysicTest {
 
 
     /**
-     * Verify that AlienEliCapPhysic is setted correctly when EliCap is collected through {@link Gadget#onCollect(Alien)} and wheter his application works as expected 
-     * through {@link Alien#updatePosition(double, Boundary)} and {@link AlienPhysic#update(Alien, double, Boundary)}.
+     * <p>Verify that AlienEliCapPhysic is setted correctly when EliCap is collected through {@link Gadget#onCollect(Alien)} and wheter his application works as expected 
+     * through {@link Alien#updatePosition(double, Boundary)} and {@link AlienPhysic#update(Alien, double, Boundary)}.</p>
      */
     @Test
     public void testAlienEliCapPhysicBehavior() {
@@ -88,7 +89,7 @@ public class AlienEliCapPhysicTest {
     }
 
     /**
-     * Test to verify if an update equals to the time interval of the EliCap gadget correctly update the alien position and speed.
+     * <p>Test to verify if an update equals to the time interval of the EliCap gadget correctly update the alien position and speed.</p>
      */
     @Test
     public void testAlienEliCapPhysicBehaviorUpdatingWithTimeInterval() {
@@ -108,7 +109,7 @@ public class AlienEliCapPhysicTest {
     }
 
     /**
-     * Test to verify if an update greater than the time interval of the EliCap gadget correctly update the alien position and speed, and if the alien physic is setted to AlienNormalPhysic after the time interval.
+     * <p>Test to verify if an update greater than the time interval of the EliCap gadget correctly update the alien position and speed, and if the alien physic is setted to {@link AlienNormalPhysic} after the time interval.</p>
      */
     @Test
     public void testAlienEliCapPhysicBehaviorUpdatingWithMoreThanTimeInterval() {
