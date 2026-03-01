@@ -30,23 +30,5 @@ public enum SpriteEnum {
     ICE_RIGHT,
     ICE_LEFT,
     JUNGLE_RIGHT,
-    JUNGLE_LEFT;
-
-    public static SpriteEnum fromSkinId(String skinId) {
-        return fromSkinId(skinId, true);
-    }
-
-    public static SpriteEnum fromSkinId(String skinId, boolean isRight) {
-        if (skinId == null || skinId.equals("s_basic")) {
-            return isRight ? DOODLER_RIGHT : DOODLER_LEFT;
-        }
-        
-        try {
-            String suffix = isRight ? "_RIGHT" : "_LEFT";
-            String enumName = skinId.replace("s_", "").toUpperCase() + suffix;
-            return SpriteEnum.valueOf(enumName); 
-        } catch (IllegalArgumentException e) {
-            return isRight ? DOODLER_RIGHT : DOODLER_LEFT; 
-        }
-    }
+    JUNGLE_LEFT
 }
