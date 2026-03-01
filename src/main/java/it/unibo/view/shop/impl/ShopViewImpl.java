@@ -15,12 +15,16 @@ import it.unibo.model.shop.api.ShopItemFactory;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
 import it.unibo.view.SpriteEnum;
 import it.unibo.view.SpriteManager;
+import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinRegistry;
+import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinSet;
+import it.unibo.view.GameLaunchedView.renderers.skingRegistry.impl.SkinRegistryImpl;
 import it.unibo.view.shop.api.ShopView;
 
 public class ShopViewImpl extends JPanel implements ShopView {
 
     private final ShopController controller;
     private final SpriteManager spriteManager;
+    private final SkinRegistry skinRegistry;
     private JLabel coinsLabel;
     private JPanel itemsPanel;
     private JPanel skinsPanel;
@@ -31,6 +35,7 @@ public class ShopViewImpl extends JPanel implements ShopView {
         super(new BorderLayout());
         this.controller = controller;
         this.spriteManager = new SpriteManager();
+        this.skinRegistry = new SkinRegistryImpl();
         initialize();
     }
 
@@ -104,8 +109,8 @@ public class ShopViewImpl extends JPanel implements ShopView {
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel imgLabel;
-        SpriteEnum spriteKey = SpriteEnum.fromSkinId(item.getId());
-        BufferedImage img = spriteManager.get(spriteKey);
+        SkinSet skinSet = skinRegistry.getSkinSet(item.getId());
+        BufferedImage img = spriteManager.get(skinSet.right());
         if (img != null) {
             Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
             imgLabel = new JLabel(new ImageIcon(scaledImg));
