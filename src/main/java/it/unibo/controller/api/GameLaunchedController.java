@@ -51,4 +51,9 @@ public interface GameLaunchedController {
    * @return the id of the active skin
    */  
   String getActiveSkin();
+
+  /**
+   * <p>Run {@link LaunchedGame}.</p>
+   */
+  void runGame(); 
 }
