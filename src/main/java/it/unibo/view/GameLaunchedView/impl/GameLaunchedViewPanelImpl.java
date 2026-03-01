@@ -2,7 +2,6 @@ package it.unibo.view.GameLaunchedView.impl;
 
 import it.unibo.controller.api.GameLaunchedController;
 import it.unibo.controller.api.GameLaunchedInputController;
-import it.unibo.controller.impl.GameLaunchedControllerImpl;
 import it.unibo.view.GameLaunchedView.input.impl.LaunchedGameInputHandlerImpl;
 import it.unibo.view.SpriteManager;
 import it.unibo.view.GameLaunchedView.renderers.impl.AlienRenderer;
@@ -64,7 +63,7 @@ public class GameLaunchedViewPanelImpl extends JPanel {
     final SpriteManager spriteManager = new SpriteManager();
     spriteManager.loadResources();
 
-    this.alienRenderer = new AlienRenderer(spriteManager);
+    this.alienRenderer = new AlienRenderer(spriteManager, this.launchedController.getActiveSkin());
     this.platformRenderer = new PlatformRenderer(spriteManager);
     this.enemyRenderer = new EnemyRenderer(spriteManager);
     this.coinRenderer = new CoinRender(spriteManager);
@@ -76,7 +75,7 @@ public class GameLaunchedViewPanelImpl extends JPanel {
   /**
    * {@inheritDoc}
    *
-   * @param g the {@code Graphics} the copy of the graphics used to paint component
+   * @param g the {@code Java.awt.Graphics} the copy of the graphics used to paint component
    */
   @Override
   public void paintComponent(final Graphics g) {

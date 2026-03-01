@@ -12,6 +12,7 @@ import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.world.api.BaseWorld;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.World;
@@ -20,12 +21,21 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * <p>Rapresent the implementation of {@link GameLaunchedController} and {@link GameLaunchedInputController}.</p>
+ * <p>
+ * Rapresent the implementation of {@link GameLaunchedController} and
+ * {@link GameLaunchedInputController}.
+ * </p>
  */
 public class GameLaunchedControllerImpl implements GameLaunchedController, GameLaunchedInputController {
 
   /**
-   * The {@link LaunchedGame} entity which provide the data to render and receive the command to update the model.
+   * The {@link Inventory} which provide the active skin and receive the command to update the model.
+   */
+  private final Inventory inventory;
+
+  /**
+   * The {@link LaunchedGame} entity which provide the data to render and receive
+   * the command to update the model.
    */
   private final LaunchedGame launchedGame;
 
@@ -33,9 +43,11 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    * Constructor new GameLaunchedControllerImpl.
    *
    * @param launchedGame the launched game entity
+   * @param inventory the inventory entity
    */
-  public GameLaunchedControllerImpl(final LaunchedGame launchedGame) {
+  public GameLaunchedControllerImpl(final LaunchedGame launchedGame, final Inventory inventory) {
     this.launchedGame = launchedGame;
+    this.inventory = inventory;
   }
 
   /**
@@ -44,8 +56,8 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
   @Override
   public Optional<Alien> getAlien() {
     return this.launchedGame.getWorld()
-      .map(World::getRealWorld)
-      .map(GameWorld::getAlien);
+        .map(World::getRealWorld)
+        .map(GameWorld::getAlien);
   }
 
   /**
@@ -74,8 +86,8 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
   @Override
   public Optional<List<Gadget>> getGadgets() {
     return this.launchedGame.getWorld()
-      .map(World::getRealWorld)
-      .map(BaseWorld::getGadgets);
+        .map(World::getRealWorld)
+        .map(BaseWorld::getGadgets);
   }
 
   /**
@@ -84,8 +96,16 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
   @Override
   public Optional<List<Platform>> getPlatforms() {
     return this.launchedGame.getWorld()
-      .map(World::getRealWorld)
-      .map(BaseWorld::getPlatforms);
+        .map(World::getRealWorld)
+        .map(BaseWorld::getPlatforms);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String getActiveSkin() {
+    return this.inventory.getSelectedSkin();
   }
 
   /**
@@ -119,4 +139,14 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
   public void handleReleaseMovementCommand() {
     this.launchedGame.addCommand(new StopAlienMovement());
   }
+
+  @Override
+  public void runGame() {
+    while () {
+      // prendi evento
+      this.launchedGame.getState().execute();
+      // renderizza
+    }
+  }
+
 }
