@@ -43,8 +43,19 @@ public class ShopViewImpl extends JPanel implements ShopView {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(Color.BLUE);
         topPanel.add(titleLabel, BorderLayout.WEST);
+
+        final JPanel coinsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 0));
         this.coinsLabel = new JLabel("Coins: 0");
-        this.coinsLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        this.coinsLabel.setFont(new Font("Arial", Font.BOLD, 18));
+
+        JLabel coinIconLabel = new JLabel();
+        BufferedImage coinImg = spriteManager.get(SpriteEnum.COIN);
+        if (coinImg != null) {
+            Image scaledCoin = coinImg.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            coinIconLabel.setIcon(new ImageIcon(scaledCoin));
+        }
+        coinsPanel.add(coinsLabel);
+        coinsPanel.add(coinIconLabel);
         
         final JButton inventoryButton = new JButton("INVENTORY");
         inventoryButton.addActionListener(e -> controller.openInventory());
@@ -53,7 +64,7 @@ public class ShopViewImpl extends JPanel implements ShopView {
         exitButton.addActionListener(e -> controller.exit());
         
         final JPanel rightHeader = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 0));
-        rightHeader.add(coinsLabel);
+        rightHeader.add(coinsPanel);
         rightHeader.add(inventoryButton);
         rightHeader.add(exitButton);
         
@@ -93,46 +104,7 @@ public class ShopViewImpl extends JPanel implements ShopView {
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel imgLabel;
-        SpriteEnum spriteKey;
-        switch (item.getId()) {
-            case "s_sub":
-                spriteKey = SpriteEnum.SUB_RIGHT;
-                break;
-            case "s_astro":
-                spriteKey = SpriteEnum.ASTRO_RIGHT;
-                break;
-            case "s_sport":
-                spriteKey = SpriteEnum.SPORT_RIGHT;
-                break;
-            case "s_soccer":
-                spriteKey = SpriteEnum.SOCCER_RIGHT;
-                break;
-            case "s_ninja":
-                spriteKey = SpriteEnum.NINJA_RIGHT;
-                break;
-            case "s_bunny":
-                spriteKey = SpriteEnum.BUNNY_RIGHT;
-                break;
-            case "s_frank":
-                spriteKey = SpriteEnum.FRANK_RIGHT;
-                break;
-            case "s_frozen":
-                spriteKey = SpriteEnum.FROZEN_RIGHT;
-                break;
-            case "s_ghost":
-                spriteKey = SpriteEnum.GHOST_RIGHT;
-                break;
-            case "s_ice":
-                spriteKey = SpriteEnum.ICE_RIGHT;
-                break;
-            case "s_jungle":
-                spriteKey = SpriteEnum.JUNGLE_RIGHT;
-                break;
-            default:
-                spriteKey = SpriteEnum.DOODLER_RIGHT;
-                break;
-        }
-        
+        SpriteEnum spriteKey = SpriteEnum.fromSkinId(item.getId());
         BufferedImage img = spriteManager.get(spriteKey);
         if (img != null) {
             Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
