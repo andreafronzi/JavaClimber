@@ -1,5 +1,6 @@
 package it.unibo.model.physics.collision.api;
 
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameObj.api.*;
 import it.unibo.model.world.api.GameWorld;
 
@@ -13,7 +14,8 @@ public interface CollisionManager {
   /**
    * Detects collisions between the Alien and other game objects, including platforms, coins, enemies, and gadgets.
    *
-   * @param gameWorld world's elements container
+   * @param gameWorld world's elements container#
+   * @param launchedGame the {@link LaunchedGame} instance which manage game state changes
    */
-  void detectCollisions(GameWorld gameWorld);
+  void detectCollisions(GameWorld gameWorld, LaunchedGame launchedGame);
 }
