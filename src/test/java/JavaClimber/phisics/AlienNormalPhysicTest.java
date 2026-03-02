@@ -8,20 +8,25 @@ import it.unibo.model.LaunchedGame.impl.EndState;
 import it.unibo.model.LaunchedGame.impl.LaunchedGameImpl;
 import it.unibo.model.gameObj.PlatformBuilder.impl.PlatformBuilderImpl;
 import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.AlienImpl;
+import it.unibo.model.gameObj.impl.CoinImpl;
 import it.unibo.model.gameObj.impl.EliCap;
 import it.unibo.model.gameObj.impl.EnemyImpl;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
+import it.unibo.model.score.api.ScoreManager;
+import it.unibo.model.score.impl.ScoreManagerImpl;
 import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.shop.impl.ActiveUpgradesImpl;
 import it.unibo.model.shop.impl.InventoryImpl;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
 import it.unibo.model.world.api.BoundWorld;
+import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.BoundWorldImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
@@ -66,8 +71,10 @@ public class AlienNormalPhysicTest {
   private static final double NEW_Y = 108;
   private static final double Y_AFTER_HIT_ENEMY = 104;
 
+  private static final int COINS_NUMBER = 1;
+
   /**
-   * <p>Test the {@link AlienNormalPhysic#update(Alien, double, Boundary, ActiveUpgrades)} method to verify expected vertical movement behavior.</p>
+   * <p>Test the {@link AlienNormalPhysic#update(Alien, double, BoundWorld, ActiveUpgrades, LaunchedGame)} method to verify expected vertical movement behavior.</p>
    */
   @Test
   public void testUpdateAlienPosition() {
@@ -82,7 +89,7 @@ public class AlienNormalPhysicTest {
   }
 
   /**
-   * <p>Tests the behavior of the {@link AlienNormalPhysic#update(Alien, double, Boundary, ActiveUpgrades)} method.
+   * <p>Tests the behavior of the {@link AlienNormalPhysic#update(Alien, double, BoundWorld, ActiveUpgrades, LaunchedGame)} method.
    * It verifies that Pacman effect correctly repositions the alien to the left edge of the boundary.</p>
    */
   @Test
@@ -96,7 +103,7 @@ public class AlienNormalPhysicTest {
   }
 
   /**
-   * <p>Tests the behavior of the {@link AlienNormalPhysic#update(Alien, double, Boundary, ActiveUpgrades)} method.
+   * <p>Tests the behavior of the {@link AlienNormalPhysic#update(Alien, double, BoundWorld, ActiveUpgrades, LaunchedGame)} method.
    * It verifies that Pacman effect correctly repositions the alien to the right edge of the boundary.</p>
    */
   @Test
@@ -110,7 +117,7 @@ public class AlienNormalPhysicTest {
   }
 
   /**
-   * <p>Tests the {@link AlienNormalPhysic#hitEnemy(Alien, Enemy, ActiveUpgrades)} method. Verify wheter, after the touch, is setted the new vertical speed and if the position update deal with the logic.</p>
+   * <p>Tests the {@link AlienNormalPhysic#hitEnemy(Alien, Enemy, LaunchedGame, ActiveUpgrades)} method. Verify wheter, after the touch, is setted the new vertical speed and if the position update deal with the logic.</p>
    */
   @Test
   public void testHitEnemy() {
@@ -128,6 +135,23 @@ public class AlienNormalPhysicTest {
     //after updating position
     alien.updatePosition(DT, boundary, new LaunchedGameImpl());
     assertEquals(Y_AFTER_HIT_ENEMY, alien.getPosY(), EPSILON);
+  }
+
+  /**
+   * <p>Tests the {@link AlienNormalPhysic#hitCoin(Coin, ActiveUpgrades, GameWorld)} method. Verify wheter, after the touch, is updated the number of coin collected.</p>
+   */
+  @Test
+  public void testHitCoin() {
+    final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
+    final AlienPhysic physic = new AlienNormalPhysic();
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, activeUpgrades);
+    final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));    
+    final ScoreManager scoreManager = new ScoreManagerImpl();
+    final Coin coin = new CoinImpl(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT), scoreManager);
+
+    physic.hitCoin(coin, activeUpgrades, new RealWorld(alien, boundary));
+    
+    assertEquals(COINS_NUMBER, scoreManager.getCoins(), EPSILON);
   }
 
   /**
@@ -170,6 +194,9 @@ public class AlienNormalPhysicTest {
     assertEquals(SPEED_AFTER_JUMP, alien.getSpeedY(), EPSILON);
   }
 
+  /**
+   * <p>Tests the {@link AlienNormalPhysic#hitEnemy(Alien, Enemy, RealWorld, LaunchedGame, ActiveUpgrades)} method to verify that the game transitions to an end state when the alien collides with an enemy.</p>
+   */
   @Test
   public void testAlienDeadOnEnemyCollision() {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
