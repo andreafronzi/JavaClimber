@@ -1,4 +1,4 @@
-package JavaClimber.worldGenerator.gameObjectSpawn;
+package JavaClimber.worldConstructor.gameObjectSpawn;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -8,21 +8,16 @@ import org.junit.jupiter.api.Test;
 import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPool;
 import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
 
-public class PlatformPoolTest {
-    
-    private static final int WINDOW_WIDTH = 800;
-    private static final int WINDOW_HEIGHT = 600;
-    private static final int MIN_PLATFORM_WIDTH = 20;
-    private static final int MIN_PLATFORM_HEIGHT = 20;
-    private static final int MAX_PLATFORM_WIDTH = 30;
-    private static final int MAX_PLATFORM_HEIGHT = 30;
-    private static final int MIN_PLATFORM_SPACING = 40;
-    private static final int MAX_PLATFORM_SPACING = 40;
+public class SpawnPoolTest {
 
     private SpawnPool platformPool;
 
+    private static final double PLATFORM_WIDTH = 30;
+    private static final double PLATFORM_HEIGHT = 20;
+
     @BeforeEach
     public void setUp() {
+        this.platformPool = new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT);
     }
 
     @Test
