@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Unit test class for testing the functionality of the {@link Vector2d} implementation {@link Vector2dImpl}.
+ * <p>Unit test class for testing the functionality of the {@link Vector2d} implementation {@link Vector2dImpl}.</p>
  */
 public class Vector2dTest {
   /**
-   * Tests the {@link Vector2d#getX()} method.
+   * <p>Tests the {@link Vector2d#getX()} method.</p>
    */
   @Test
   public void testGetX() {
@@ -20,7 +20,7 @@ public class Vector2dTest {
   }
 
     /**
-     * Tests the {@link Vector2d#getY()} method.
+     * <p>Tests the {@link Vector2d#getY()} method.</p>
      */
     @Test
     public void testGetY() {
@@ -29,7 +29,7 @@ public class Vector2dTest {
     }
 
   /**
-   * Test for negative coordinates.
+   * <p>Test for negative coordinates.</p>
    */
     @Test
     public void testNegativeCoordinates() {
@@ -39,7 +39,7 @@ public class Vector2dTest {
     }
 
   /**
-   * Test for zero coordinates.
+   * <o>Test for zero coordinates.</p>
    */
     @Test
     public void testZeroCoordinates() {
@@ -49,7 +49,7 @@ public class Vector2dTest {
     }
 
     /**
-     * Tests the {@link Vector2d#setX(double)} method.
+     * <p>Tests the {@link Vector2d#setX(double)} method.</p>
      */
     @Test
     public void testSetX() {
@@ -59,7 +59,7 @@ public class Vector2dTest {
     }
 
   /**
-   * Tests the {@link Vector2d#setY(double)} method.
+   * <p>Tests the {@link Vector2d#setY(double)} method.</p>
    */
   @Test
     public void testSetY() {
