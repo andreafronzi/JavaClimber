@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.model.LaunchedGame.impl.LaunchedGameImpl;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
@@ -89,7 +90,7 @@ public class CollisionManagerTest {
     @Test
     public void detectCollisionOnEnemyTest() {
         this.realWorld.addMonster(this.e);
-        this.collisionManager.detectCollisions(realWorld);
+        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl());
         assertFalse(this.realWorld.getMonsters().contains(this.e));
     }
 
@@ -99,7 +100,7 @@ public class CollisionManagerTest {
     @Test
     public void detectCollisionOnCoinTest() {
         this.realWorld.addMoney(this.c);
-        this.collisionManager.detectCollisions(realWorld);
+        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl());
         assertFalse(this.realWorld.getMoneys().contains(this.c));
     }
 
@@ -109,7 +110,7 @@ public class CollisionManagerTest {
     @Test
     public void detectCollisionOnGadgetTest() {
         this.realWorld.addGadget(this.g);
-        this.collisionManager.detectCollisions(realWorld);
+        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl());
         assertFalse(this.realWorld.getGadgets().contains(this.g));
     }
 }
