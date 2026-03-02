@@ -16,9 +16,9 @@ public class AddOnPoolEasy implements AddOnPool {
     private SpawnPoolCreator spawnPoolCreator;
     private final double chanceAddOn;
 
-    public AddOnPoolEasy() {
+    public AddOnPoolEasy(final SpawnPoolCreator spawnPoolCreator, final double chanceAddOn) {
         this.addOnPool = new LinkedList<>();
-        this.chanceAddOn = 0.3;
+        this.chanceAddOn = chanceAddOn;
         createAddOn();
     }
 
@@ -38,5 +38,9 @@ public class AddOnPoolEasy implements AddOnPool {
         this.addOnPool.add(new PairImpl<Double,BiConsumer<Double,Vector2dImpl>>(1.0, this.spawnPoolCreator::createMoney));
     }
 
+    @Override
+    public void setSpawnPoolCreator(final SpawnPoolCreator spawnPoolCreator) {
+        this.spawnPoolCreator = spawnPoolCreator;
+    }
     
 }
