@@ -13,6 +13,9 @@ public class ScoreManagerImpl implements ScoreManager {
     private int highScore;
     private double startY;
 
+    /**
+     * Construct a ScoreManagerImpl with default values.
+     */
     public ScoreManagerImpl() {
         this.coins = 0;
         this.currentScore = 0;
@@ -20,6 +23,9 @@ public class ScoreManagerImpl implements ScoreManager {
         this.startY = 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateScore(double playerY) {
         int score = (int) Math.max(0, startY - playerY);
@@ -32,6 +38,9 @@ public class ScoreManagerImpl implements ScoreManager {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addCoins(int coins) {
         if (coins > 0) {
@@ -39,26 +48,41 @@ public class ScoreManagerImpl implements ScoreManager {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getCurrentScore() {
         return this.currentScore;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getCoins() {
         return this.coins;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getHighScore() {
         return Math.max(this.highScore, this.currentScore);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void loadState(SaveState state) {
         this.highScore = state.getHighestScore();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setStartY(double y) {
         this.startY = y;
