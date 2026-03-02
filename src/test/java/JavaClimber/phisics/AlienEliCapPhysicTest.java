@@ -6,17 +6,23 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.model.LaunchedGame.impl.LaunchedGameImpl;
 import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.impl.AlienImpl;
+import it.unibo.model.gameObj.impl.CoinImpl;
 import it.unibo.model.gameObj.impl.EliCap;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienEliCapPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
+import it.unibo.model.score.api.ScoreManager;
+import it.unibo.model.score.impl.ScoreManagerImpl;
+import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.shop.impl.ActiveUpgradesImpl;
 import it.unibo.model.shop.impl.InventoryImpl;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
 import it.unibo.model.world.api.BoundWorld;
+import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.BoundWorldImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
@@ -63,6 +69,8 @@ public class AlienEliCapPhysicTest {
     private static final double DT = 1;
     private static final double DT2 = 2;
     private static final double DT3 = 3;
+
+    private static final int COINS_NUMBER = 1;
 
 
 
@@ -124,4 +132,22 @@ public class AlienEliCapPhysicTest {
         assertEquals(SPEED_AFTER_ELICAP_AND_GRAVITY_X, alien.getSpeedX(), EPSILON);
         assertEquals(SPEED_AFTER_ELICAP_AND_GRAVITY_Y, alien.getSpeedY(), EPSILON);
     }
+
+    /**
+    * <p>Tests the {@link AlienEliCapPhysic#hitCoin(Coin, ActiveUpgrades, GameWorld)} method. Verify wheter, after the touch, is updated the number of coin collected.</p>
+    */
+    @Test
+    public void testHitCoin() {
+        final ScoreManager scoreManager = new ScoreManagerImpl();
+        final Coin coin = new CoinImpl(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT), scoreManager);
+        final Gadget eliCap = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y));
+        final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
+        final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_SIDE, RIGHT_SIDE));
+        
+        eliCap.onCollect(alien, new RealWorld(alien, boundary));
+
+        alien.notifyCollision(coin, boundary.getBoundX(), new RealWorld(alien, boundary), new LaunchedGameImpl());
+    
+        assertEquals(COINS_NUMBER, scoreManager.getCoins(), EPSILON);
+  }
 }
