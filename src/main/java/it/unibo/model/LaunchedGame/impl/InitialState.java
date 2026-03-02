@@ -1,6 +1,26 @@
 package it.unibo.model.LaunchedGame.impl;
 
+import java.util.List;
+
 import it.unibo.model.LaunchedGame.api.*;
+import it.unibo.model.camera.impl.AltitudeManager;
+import it.unibo.model.camera.impl.CameraImpl;
+import it.unibo.model.gameObj.impl.AlienImpl;
+import it.unibo.model.physics.collision.impl.CollisionManagerImpl;
+import it.unibo.model.score.impl.ScoreManagerImpl;
+import it.unibo.model.world.impl.BoundWorldImpl;
+import it.unibo.model.world.impl.BoundY;
+import it.unibo.model.world.impl.Boundary;
+import it.unibo.model.world.impl.RealWorld;
+import it.unibo.model.world.impl.UpperWorld;
+import it.unibo.model.world.impl.World;
+import it.unibo.model.worldConstructor.data.Difficult;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPoolEasy;
+import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolCreatorImpl;
+import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.Distance;
+import it.unibo.model.worldConstructor.worldGenerator.impl.WorldConstructorImpl;
+import it.unibo.model.worldConstructor.worldGenerator.impl.WorldDifficultImpl;
 
 /**
  * Represents the initial state of a launched game.
@@ -16,13 +36,40 @@ public class InitialState extends BaseLaunchedState {
     public InitialState(final LaunchedGame launchedGame) {
         super(launchedGame);
     }
-    
+
     /**
      * {@inheritDoc}
      * Performs initialization tasks.
      */
     @Override
     public void onEnter() {
-        //operazioni di inizializzazione
+        var boundX = new Boundary(0, 0);
+        var boundY = new BoundY(0, 0);
+        var boundary = new BoundWorldImpl(boundY, boundX);
+        var upperWorld = new UpperWorld(boundary);
+        var alien = new AlienImpl(null, null, 0, 0, null);
+        var realWorld = new RealWorld(alien, boundary);
+        var world = new World(upperWorld, realWorld);
+        this.launchedGame.setWorld(world);
+        var distanceEasy = new Distance(0, 0, 0);
+        var spawnPoolCreator = new SpawnPoolCreatorImpl(upperWorld);
+        var addOnPoolEasy = new AddOnPoolEasy(spawnPoolCreator, 0.5);
+        var spawnPoolEasy = new SpawnPoolEasy(0, 0);
+        var difficultList = List.of(new Difficult(
+                0,
+                distanceEasy,
+                addOnPoolEasy,
+                spawnPoolEasy));
+        spawnPoolCreator.setSpawnPool(spawnPoolEasy);
+        var worldConstructor = new WorldConstructorImpl(upperWorld, difficultList.getFirst(), spawnPoolCreator);
+        var worldDifficult = new WorldDifficultImpl(alien, difficultList);
+        worldDifficult.registerObserver(worldConstructor);
+        var altitudeManager = new AltitudeManager(alien);
+        altitudeManager.addObserver(worldDifficult);
+        var camera = new CameraImpl(boundX.x1() - boundX.x1(), boundY.maxY() - boundY.minY(), world, worldConstructor);
+        altitudeManager.addObserver(camera);
+        var scoreManager = new ScoreManagerImpl();
+        var collisionManager = new CollisionManagerImpl(boundX);
+        launchedGame.setState(new RunningState(launchedGame, world, collisionManager, altitudeManager, scoreManager));
     }
 }

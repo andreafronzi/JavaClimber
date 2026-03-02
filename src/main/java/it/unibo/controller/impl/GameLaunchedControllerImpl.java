@@ -126,10 +126,25 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
 
   @Override
   public void runGame() {
-    while () {
-      // prendi evento
-      this.launchedGame.getState().execute();
-      // renderizza
+    long previousCycleStartTime = System.currentTimeMillis();
+    while (launchedGame.isRunning()) {
+      long currentCycleStartTime = System.currentTimeMillis();
+      long elapsed = currentCycleStartTime - previousCycleStartTime;
+      this.launchedGame.getState().execute(elapsed);
+      this.waitForNextFrame(currentCycleStartTime);
+      previousCycleStartTime = currentCycleStartTime;
+    }
+  }
+
+  private void waitForNextFrame(final long currentCycleStartTime) {
+    final long dt = System.currentTimeMillis() - currentCycleStartTime;
+    final long period = 7;
+    if (dt < period) {
+      try {
+        Thread.sleep(period - dt);
+      } catch (final InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
     }
   }
 
