@@ -27,9 +27,9 @@ import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
 
 /**
- * Test class for the {@link CollisionManagerImpl}.
+ * <p>Test class for the {@link CollisionManagerImpl}.
  * This class contains unit tests to verify the correct behavior of the collision detection mechanism: 
- * verify that the collision logic correctly work and that when a collision occurs the collided element is removed from the world. 
+ * verify that the collision logic correctly work and that when a collision occurs the collided element is removed from the world.</p> 
  */
 public class CollisionManagerTest {
 
@@ -70,7 +70,7 @@ public class CollisionManagerTest {
     private Gadget g;
 
     /**
-     * Sets up the test environment before each test case is executed. Initializes the Alien, CollisionManager, RealWorld, and the Enemy, Coin, and Gadget instances used in the tests.
+     * <p>Sets up the test environment before each test case is executed. Initializes the Alien, CollisionManager, RealWorld, and the Enemy, Coin, and Gadget instances used in the tests.</p>
      */
     @BeforeEach
     public void setUp() {
@@ -85,7 +85,7 @@ public class CollisionManagerTest {
     }
 
     /**
-     * Tests the {@link CollisionManager#detectCollisions(RealWorld)} method to verify that when the Alien collides with an Enemy, the Enemy is removed from the RealWorld.
+     * <p>Tests the {@link CollisionManager#detectCollisions(RealWorld)} method to verify that when the Alien collides with an Enemy, the Enemy is removed from the RealWorld.</p>
      */
     @Test
     public void detectCollisionOnEnemyTest() {
@@ -95,7 +95,7 @@ public class CollisionManagerTest {
     }
 
     /**
-     * Tests the {@link CollisionManager#detectCollisions(RealWorld)} method to verify that when the Alien collides with a Coin, the Coin is removed from the RealWorld.
+     * <p>Tests the {@link CollisionManager#detectCollisions(RealWorld)} method to verify that when the Alien collides with a Coin, the Coin is removed from the RealWorld.</p>
      */
     @Test
     public void detectCollisionOnCoinTest() {
@@ -105,7 +105,7 @@ public class CollisionManagerTest {
     }
 
     /**
-     * Tests the {@link CollisionManager#detectCollisions(RealWorld)} method to verify that when the Alien collides with a Gadget, the Gadget is removed from the RealWorld.
+     * <p>Tests the {@link CollisionManager#detectCollisions(RealWorld)} method to verify that when the Alien collides with a Gadget, the Gadget is removed from the RealWorld.</p>
      */
     @Test
     public void detectCollisionOnGadgetTest() {
