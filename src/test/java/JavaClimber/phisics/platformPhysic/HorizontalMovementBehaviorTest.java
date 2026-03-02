@@ -10,12 +10,10 @@ import it.unibo.model.physics.platformPhysic.api.MovementBehaviour;
 import it.unibo.model.physics.platformPhysic.impl.HorizontalMovementBehavior;
 import it.unibo.model.world.impl.Boundary;
 
-
-
 /**
- * Test class for the horizontal movement behavior of game objects.
+ * <p>Test class for the horizontal movement behavior of game objects.
  * This class ensures that the {@link HorizontalMovementBehavior} functions correctly
- * by simulating various scenarios, including movement across boundaries, and verifying results.
+ * by simulating various scenarios, including movement across boundaries, and verifying results.</p>
  */
 public class HorizontalMovementBehaviorTest {
 
@@ -38,7 +36,7 @@ public class HorizontalMovementBehaviorTest {
   private static final double DELTA_S_3 = -300;
 
   /**
-   * Tests Obj horizontal movement behavior
+   * <p>Tests Obj horizontal movement behavior.</p>
    */
   @Test
   public void testOrizzontalMovementBehaviour() {
@@ -51,9 +49,9 @@ public class HorizontalMovementBehaviorTest {
   }
 
   /**
-   *Tests the behavior when the object reaches the right boundary.
-   *It verifies that the object's position is correctly clamped within the boundary limits
-   *and does not exceed the right edge.
+   * <p>Tests the behavior when the object reaches the right boundary.
+   * It verifies that the object's position is correctly clamped within the boundary limits
+   * and does not exceed the right edge.</p>
    */
   @Test
   public void testRightBourderTouchBeavior() {
@@ -66,9 +64,9 @@ public class HorizontalMovementBehaviorTest {
   }
 
   /**
-   *Tests the behavior when the object reaches the left boundary.
-   *It verifies that the object's position is correctly clamped within the boundary limits
-   *and does not exceed the left edge.
+   * <p>Tests the behavior when the object reaches the left boundary.
+   * It verifies that the object's position is correctly clamped within the boundary limits
+   * and does not exceed the left edge.</p>
    */
   @Test
   public void testLeftBourderTouchBeavior() {
@@ -79,5 +77,4 @@ public class HorizontalMovementBehaviorTest {
     assertEquals(LEFT_BOUNDARY, p.getX(), EPSILON);
     assertEquals(INITIAL_Y, p.getY(), EPSILON);
   }
-
 }
