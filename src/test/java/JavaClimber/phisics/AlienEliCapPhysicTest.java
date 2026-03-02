@@ -29,7 +29,7 @@ import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
 
 /**
- * Test class for {@link AlienEliCapPhysic}.
+ * <p>Test class for {@link AlienEliCapPhysic}.</p>
  */
 public class AlienEliCapPhysicTest {
 
@@ -71,8 +71,6 @@ public class AlienEliCapPhysicTest {
     private static final double DT3 = 3;
 
     private static final int COINS_NUMBER = 1;
-
-
 
     /**
      * <p>Verify that AlienEliCapPhysic is setted correctly when EliCap is collected through {@link Gadget#onCollect(Alien)} and wheter his application works as expected 
