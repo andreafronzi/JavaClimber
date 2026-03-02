@@ -1,22 +1,34 @@
 package JavaClimber.phisics;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
- * <p>Unit test class for testing the functionality of the {@link Vector2d} implementation {@link Vector2dImpl}.</p>
+ * <p>Test the functionality of the {@link Vector2d} implementation {@link Vector2dImpl}.</p>
  */
 public class Vector2dTest {
+
+  private static final double EPSILON = 0.001;
+
+  private static final double X = 10;
+  private static final double Y = 20;
+
+  private static final double NEGATIVE_X = -5;
+  private static final double NEGATIVE_Y = -15;
+
+  private static final double NEW_X = 5;
+  private static final double NEW_Y = 10;
+
   /**
    * <p>Tests the {@link Vector2d#getX()} method.</p>
    */
   @Test
   public void testGetX() {
-   final Vector2d p = new Vector2dImpl(10, 20);
-    assertEquals(10, p.getX(), 0.001);
+   final Vector2d p = new Vector2dImpl(X, Y);
+    assertEquals(X, p.getX(), EPSILON);
   }
 
     /**
@@ -24,8 +36,8 @@ public class Vector2dTest {
      */
     @Test
     public void testGetY() {
-      final Vector2d p = new Vector2dImpl(10, 20);
-      assertEquals(20, p.getY(), 0.001);
+      final Vector2d p = new Vector2dImpl(X, Y);
+      assertEquals(Y, p.getY(), EPSILON);
     }
 
   /**
@@ -33,19 +45,19 @@ public class Vector2dTest {
    */
     @Test
     public void testNegativeCoordinates() {
-      final Vector2d p = new Vector2dImpl(-5, -15);
-      assertEquals(-5, p.getX(), 0.001);
-      assertEquals(-15, p.getY(), 0.001);
+      final Vector2d p = new Vector2dImpl(NEGATIVE_X, NEGATIVE_Y);
+      assertEquals(NEGATIVE_X, p.getX(), EPSILON);
+      assertEquals(NEGATIVE_Y, p.getY(), EPSILON);
     }
 
   /**
-   * <o>Test for zero coordinates.</p>
+   * <p>Test for zero coordinates.</p>
    */
     @Test
     public void testZeroCoordinates() {
         final Vector2d p = new Vector2dImpl(0, 0);
-        assertEquals(0, p.getX(), 0.001);
-        assertEquals(0, p.getY(), 0.001);
+        assertEquals(0, p.getX(), EPSILON);
+        assertEquals(0, p.getY(), EPSILON);
     }
 
     /**
@@ -53,9 +65,9 @@ public class Vector2dTest {
      */
     @Test
     public void testSetX() {
-        final Vector2d p = new Vector2dImpl(10, 20);
-        p.setX(30);
-        assertEquals(30, p.getX(), 0.001);
+        final Vector2d p = new Vector2dImpl(X, Y);
+        p.setX(NEW_X);
+        assertEquals(NEW_X, p.getX(), EPSILON);
     }
 
   /**
@@ -63,8 +75,8 @@ public class Vector2dTest {
    */
   @Test
     public void testSetY() {
-        final Vector2d d = new Vector2dImpl(10, 20);
-        d.setY(30);
-        assertEquals(30, d.getY(), 0.001);
+        final Vector2d d = new Vector2dImpl(X, Y);
+        d.setY(NEW_Y);
+        assertEquals(NEW_Y, d.getY(), EPSILON);
     }
 }
