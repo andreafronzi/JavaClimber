@@ -5,6 +5,10 @@ import java.util.Set;
 
 import it.unibo.controller.api.InventoryController;
 import it.unibo.controller.api.MainController;
+import it.unibo.model.menu.api.Menu;
+import it.unibo.model.menu.impl.MenuImpl;
+import it.unibo.model.menu.impl.MenuState;
+import it.unibo.model.menu.impl.ShoppingState;
 import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopItemFactory;
@@ -19,9 +23,11 @@ public class InventoryControllerImpl implements InventoryController {
     private final Inventory inventory;
     private InventoryView view;
     private final ShopItemFactory factory;
+    private final Menu menu;
 
     /**
      * Construct a InventoryControllerImpl with required model and factory.
+     * @param mainController the main controller for managing view transitions and saving progress
      * @param inventory the model inventory
      * @param factory the factory for items
      */
@@ -29,27 +35,35 @@ public class InventoryControllerImpl implements InventoryController {
         this.mainController = mainController;
         this.inventory = inventory;
         this.factory = factory;
+        this.menu = new MenuImpl();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setView(InventoryView view) {
         this.view = view;
         refreshView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void selectSkin(int index) {
-        List<ShopItem> allSkins = factory.getSkins();
-        if (isValidIndex(index, allSkins)) {
-            String skinId = allSkins.get(index).getId();
-            if (inventory.hasItem(skinId)) {
-                inventory.equipSkin(skinId);
-                this.mainController.saveProgress();
-                refreshView();
-            }
+        List<ShopItem> ownedSkin = this.getOwnedSkins();
+        if (isValidIndex(index, ownedSkin)) {
+            String skinId = ownedSkin.get(index).getId();
+            inventory.equipSkin(skinId);
+            this.mainController.saveProgress();
+            refreshView();
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void plusJump() {
         int current = inventory.getSelectedJumpLevel();
@@ -60,6 +74,9 @@ public class InventoryControllerImpl implements InventoryController {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void minusJump() {
         int current = inventory.getSelectedJumpLevel();
@@ -70,6 +87,9 @@ public class InventoryControllerImpl implements InventoryController {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void plusVelocity() {
         int current = inventory.getSelectedSpeedLevel();
@@ -80,6 +100,9 @@ public class InventoryControllerImpl implements InventoryController {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void minusVelocity() {
         int current = inventory.getSelectedSpeedLevel();
@@ -90,6 +113,9 @@ public class InventoryControllerImpl implements InventoryController {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void toggleTemporaryItem(int index) {
         List<String> consumablesId = inventory.getConsumablesStatus().keySet().stream().sorted().toList();
@@ -99,21 +125,33 @@ public class InventoryControllerImpl implements InventoryController {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getEquippedSkin() {
         return inventory.getSelectedSkin();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getMaxJumpLevelOwned() {
         return getMaxLevelOwned("pp_jump");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getMaxSpeedLevelOwned() {
         return getMaxLevelOwned("pp_speed");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ShopItem> getOwnedSkins() {
         return factory.getSkins().stream()
@@ -121,6 +159,9 @@ public class InventoryControllerImpl implements InventoryController {
                 .toList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ShopItem> getOwnedTempItems() {
         return inventory.getConsumablesStatus().keySet().stream()
@@ -129,16 +170,25 @@ public class InventoryControllerImpl implements InventoryController {
                 .toList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getSelectedJumpLevel() {
         return inventory.getSelectedJumpLevel();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getSelectedSpeedLevel() {
         return inventory.getSelectedSpeedLevel();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Boolean> getTempItemsStatus() {
         Set<String> active = inventory.getActiveConsumables();
@@ -148,21 +198,35 @@ public class InventoryControllerImpl implements InventoryController {
                 .toList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void openInventory() {
         mainController.openInventoryView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void openShop() {
+        menu.setState(new ShoppingState(menu));
         mainController.openShopView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void exit() {
+        menu.setState(new MenuState(menu));
         mainController.openMenuView();
     }
     
+    /**
+     * Refresh the inventory view with current data from the model.
+     */
     private void refreshView() {
         if (view != null) {
             List<ShopItem> ownedSkin = getOwnedSkins();

@@ -10,6 +10,10 @@ import it.unibo.view.shop.api.ShopView;
  */
 public interface ShopController {
 
+    /**
+     * Set the view for this controller and refresh it with current data.
+     * @param view the shop view to set
+     */
     void setView(ShopView view);
     
     /**
@@ -34,12 +38,28 @@ public interface ShopController {
      */
     void buySkin(int index);
 
+    /**
+     * Get the list of skins available in the shop.
+     * @return a list of skins in the shop
+     */
     List<ShopItem> getSkins();
 
+    /**
+     * Get the list of temporary power ups available in the shop.
+     * @return a list of temporary power ups in the shop
+     */
     List<ShopItem> getPermanetUpgrades();
 
+    /**
+     * Get the list of temporary power ups available in the shop.
+     * @return a list of temporary power ups in the shop
+     */
     List<ShopItem> getTemporaryUpgrades();
 
+    /**
+     * Get the number of coins currently owned by the player.
+     * @return the number of coins
+     */
     int getCoins();
 
     /**
@@ -49,10 +69,21 @@ public interface ShopController {
      */
     boolean isOwned(ShopItem item);
 
+    /**
+     * Get the current level of a specific permanent power up type, based on the prefix of the item Id.
+     * @param prefix the Id prefix for the power up type
+     * @return the current level of the power up type
+     */
     int getCurrentLevel(String prefix);
     
+    /**
+     * Open the shop view.
+     */
     void openShop();
 
+    /**
+     * Open the inventory view.
+     */
     void openInventory();
     
     /**

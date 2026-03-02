@@ -15,12 +15,16 @@ import it.unibo.model.shop.api.ShopItemFactory;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
 import it.unibo.view.SpriteEnum;
 import it.unibo.view.SpriteManager;
+import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinRegistry;
+import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinSet;
+import it.unibo.view.GameLaunchedView.renderers.skingRegistry.impl.SkinRegistryImpl;
 import it.unibo.view.shop.api.ShopView;
 
 public class ShopViewImpl extends JPanel implements ShopView {
 
     private final ShopController controller;
     private final SpriteManager spriteManager;
+    private final SkinRegistry skinRegistry;
     private JLabel coinsLabel;
     private JPanel itemsPanel;
     private JPanel skinsPanel;
@@ -31,6 +35,7 @@ public class ShopViewImpl extends JPanel implements ShopView {
         super(new BorderLayout());
         this.controller = controller;
         this.spriteManager = new SpriteManager();
+        this.skinRegistry = new SkinRegistryImpl();
         initialize();
     }
 
@@ -43,8 +48,19 @@ public class ShopViewImpl extends JPanel implements ShopView {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(Color.BLUE);
         topPanel.add(titleLabel, BorderLayout.WEST);
+
+        final JPanel coinsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 0));
         this.coinsLabel = new JLabel("Coins: 0");
-        this.coinsLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        this.coinsLabel.setFont(new Font("Arial", Font.BOLD, 18));
+
+        JLabel coinIconLabel = new JLabel();
+        BufferedImage coinImg = spriteManager.get(SpriteEnum.COIN);
+        if (coinImg != null) {
+            Image scaledCoin = coinImg.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            coinIconLabel.setIcon(new ImageIcon(scaledCoin));
+        }
+        coinsPanel.add(coinsLabel);
+        coinsPanel.add(coinIconLabel);
         
         final JButton inventoryButton = new JButton("INVENTORY");
         inventoryButton.addActionListener(e -> controller.openInventory());
@@ -53,7 +69,7 @@ public class ShopViewImpl extends JPanel implements ShopView {
         exitButton.addActionListener(e -> controller.exit());
         
         final JPanel rightHeader = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 0));
-        rightHeader.add(coinsLabel);
+        rightHeader.add(coinsPanel);
         rightHeader.add(inventoryButton);
         rightHeader.add(exitButton);
         
@@ -93,47 +109,8 @@ public class ShopViewImpl extends JPanel implements ShopView {
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel imgLabel;
-        SpriteEnum spriteKey;
-        switch (item.getId()) {
-            case "s_sub":
-                spriteKey = SpriteEnum.SUB_RIGHT;
-                break;
-            case "s_astro":
-                spriteKey = SpriteEnum.ASTRO_RIGHT;
-                break;
-            case "s_sport":
-                spriteKey = SpriteEnum.SPORT_RIGHT;
-                break;
-            case "s_soccer":
-                spriteKey = SpriteEnum.SOCCER_RIGHT;
-                break;
-            case "s_ninja":
-                spriteKey = SpriteEnum.NINJA_RIGHT;
-                break;
-            case "s_bunny":
-                spriteKey = SpriteEnum.BUNNY_RIGHT;
-                break;
-            case "s_frank":
-                spriteKey = SpriteEnum.FRANK_RIGHT;
-                break;
-            case "s_frozen":
-                spriteKey = SpriteEnum.FROZEN_RIGHT;
-                break;
-            case "s_ghost":
-                spriteKey = SpriteEnum.GHOST_RIGHT;
-                break;
-            case "s_ice":
-                spriteKey = SpriteEnum.ICE_RIGHT;
-                break;
-            case "s_jungle":
-                spriteKey = SpriteEnum.JUNGLE_RIGHT;
-                break;
-            default:
-                spriteKey = SpriteEnum.DOODLER_RIGHT;
-                break;
-        }
-        
-        BufferedImage img = spriteManager.get(spriteKey);
+        SkinSet skinSet = skinRegistry.getSkinSet(item.getId());
+        BufferedImage img = spriteManager.get(skinSet.right());
         if (img != null) {
             Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
             imgLabel = new JLabel(new ImageIcon(scaledImg));
@@ -145,7 +122,8 @@ public class ShopViewImpl extends JPanel implements ShopView {
         
         JLabel nameLabel = new JLabel(item.getName());
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JLabel descLabel = new JLabel(item.getDescription());
+        JLabel descLabel = new JLabel("<html><div style='text-align: center; width: 180px;'>" + item.getDescription() + "</div></html>");
+        descLabel.setHorizontalAlignment(SwingConstants.CENTER);
         descLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel priceLabel = new JLabel(item.getPrice() + "$");
         priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);

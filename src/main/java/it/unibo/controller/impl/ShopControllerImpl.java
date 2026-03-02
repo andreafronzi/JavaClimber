@@ -5,6 +5,10 @@ import java.util.List;
 
 import it.unibo.controller.api.MainController;
 import it.unibo.controller.api.ShopController;
+import it.unibo.model.menu.api.Menu;
+import it.unibo.model.menu.impl.InventoryState;
+import it.unibo.model.menu.impl.MenuImpl;
+import it.unibo.model.menu.impl.MenuState;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopManager;
 import it.unibo.view.shop.api.ShopView;
@@ -14,35 +18,50 @@ import it.unibo.view.shop.api.ShopView;
  */
 public class ShopControllerImpl implements ShopController {
 
+    private final Menu menu;
     private final ShopManager shopManager;
     private final MainController mainController;
     private ShopView view;
     
     /**
      * Construct new ShopControllerImpl with specified shop manager.
+     * @param mainController the main controller for managing view transitions and saving progress
      * @param shopManager the model manager
      */
     public ShopControllerImpl(final MainController mainController, final ShopManager shopManager) {
         this.mainController = mainController;
         this.shopManager = shopManager;
+        this.menu = new MenuImpl();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setView(final ShopView view) {
         this.view = view;
         refreshView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void upgradeJump() {
         buyNextLevel("pp_jump");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void upgradeSpeed() {
         buyNextLevel("pp_speed");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void buyTemporaryItem(int index) {
         List<ShopItem> tempItems = shopManager.getTemporaryUpgrades();
@@ -57,6 +76,9 @@ public class ShopControllerImpl implements ShopController {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void buySkin(int index) {
         List<ShopItem> skins = shopManager.getSkins();
@@ -71,31 +93,49 @@ public class ShopControllerImpl implements ShopController {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getCoins() {
         return shopManager.getCoins();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ShopItem> getPermanetUpgrades() {
         return shopManager.getPermanentUpgrades();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ShopItem> getSkins() {
         return shopManager.getSkins();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ShopItem> getTemporaryUpgrades() {
         return shopManager.getTemporaryUpgrades();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isOwned(ShopItem item) {
         return shopManager.isAlreadyOwned(item);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getCurrentLevel(String prefix) {
         return (int) shopManager.getPermanentUpgrades().stream()
@@ -104,21 +144,35 @@ public class ShopControllerImpl implements ShopController {
                 .count();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void openShop() {
         mainController.openShopView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void openInventory() {
+        menu.setState(new InventoryState(menu));
         mainController.openInventoryView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void exit() {
+        menu.setState(new MenuState(menu));
         mainController.openMenuView();
     }
 
+    /**
+     * Refresh the shop view with current data from the model.
+     */
     private void refreshView() {
         if (view != null) {
             view.updateItems(getSkins(), getPermanetUpgrades(), getTemporaryUpgrades());

@@ -10,6 +10,10 @@ import it.unibo.view.inventory.api.InventoryView;
  */
 public interface InventoryController {
 
+    /**
+     * Set the view for this controller and refresh it with current data.
+     * @param view the inventory view to set
+     */
     void setView(InventoryView view);
     
     /**
@@ -44,24 +48,62 @@ public interface InventoryController {
      */
     void toggleTemporaryItem(int index);
 
+    /**
+     * Get the currently selected jump level.
+     * @return the currently selected jump level
+     */
     int getSelectedJumpLevel();
 
+    /**
+     * Get the currently selected speed level.
+     * @return the currently selected speed level
+     */
     int getSelectedSpeedLevel();
 
+    /**
+     * Get the maximum jump level owned by the player.
+     * @return the maximum jump level owned by the player
+     */
     int getMaxJumpLevelOwned();
 
+    /**
+     * Get the maximum speed level owned by the player.
+     * @return the maximum speed level owned by the player
+     */
     int getMaxSpeedLevelOwned();
 
+    /**
+     * Get the currently equipped skin.
+     * @return the id of the currently equipped skin
+     */
     String getEquippedSkin();
 
+    /**
+     * Get the list of owned skins.
+     * @return the list of owned skins
+     */
     List<ShopItem> getOwnedSkins();
 
+    /**
+     * Get the list of owned temporary power ups.
+     * @return the list of owned temporary power ups
+     */
     List<ShopItem> getOwnedTempItems();
     
+    /**
+     * Get the list of temporary power ups status.
+     * @return the list of temporary power ups status
+     */
     List<Boolean> getTempItemsStatus();
 
+    /**
+     * Open the inventory view.
+     */
     void openInventory();
 
+    /**
+     * Open the shop view.
+     */
     void openShop();
 
     /**
