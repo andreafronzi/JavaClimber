@@ -1,5 +1,6 @@
 package it.unibo.model.gameObj.impl;
 
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.GameObj;
 import it.unibo.model.gameObj.api.Platform;
@@ -43,7 +44,7 @@ public class PlatformImpl extends GameObj implements Platform {
   }
 
   @Override
-  public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final GameWorld gameWorld, final ActiveUpgrades activeUpgrades) {
+  public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final GameWorld gameWorld, final LaunchedGame launchedGame, final ActiveUpgrades activeUpgrades) {
     physic.hitPlatform(alien, this, boundary, gameWorld, activeUpgrades);
   }
 

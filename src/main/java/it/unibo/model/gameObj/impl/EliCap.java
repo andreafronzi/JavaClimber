@@ -1,5 +1,6 @@
 package it.unibo.model.gameObj.impl;
 
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.GameObj;
@@ -43,7 +44,7 @@ public class EliCap extends GameObj implements Gadget{
     }
 
     @Override
-    public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final GameWorld gameWorld, final ActiveUpgrades activeUpgrades) {
+    public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final GameWorld gameWorld, final LaunchedGame launchedGame, final ActiveUpgrades activeUpgrades) {
       physic.hitGadget(alien, this, gameWorld);
   }
 }

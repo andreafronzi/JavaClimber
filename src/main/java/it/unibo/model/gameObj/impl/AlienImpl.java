@@ -70,8 +70,8 @@ public class AlienImpl extends GameObj implements Alien {
    * {@inheritDoc}
    */
   @Override
-  public void notifyCollision(final StaticEntity gObj, final Boundary boundary, final GameWorld gameWorld) {
-    gObj.onHitBy(this, this.physic, boundary, gameWorld, this.activeUpgrades);
+  public void notifyCollision(final StaticEntity gObj, final Boundary boundary, final GameWorld gameWorld, final LaunchedGame launchedGame) {
+    gObj.onHitBy(this, this.physic, boundary, gameWorld, launchedGame, this.activeUpgrades);
   }
 
   /**
