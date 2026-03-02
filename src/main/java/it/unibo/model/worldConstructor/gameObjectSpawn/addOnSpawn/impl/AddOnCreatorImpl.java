@@ -21,7 +21,7 @@ public class AddOnCreatorImpl implements AddOnCreator {
     }
 
     @Override
-    public void createAddOn(final Double chance, final Vector2d position) {
+    public void selectAddOn(final Double chance, final Vector2d position) {
         random.nextDouble();
         for (var addOn : addOnPool) {
             if (chance <= addOn.getX()) {
@@ -29,5 +29,10 @@ public class AddOnCreatorImpl implements AddOnCreator {
             }
         }
     }
-    
+
+    @Override
+    public void setAddOnPool(final AddOnPool addOnPool) {
+        this.addOnPool = addOnPool.getAddOnPool();
+    }
+   
 }
