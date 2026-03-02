@@ -25,11 +25,12 @@ public class PlatformPositionGeneratorImpl implements PlatformPositionGenerator 
     /**
      * Constructs a new PlatformPositionGeneratorImpl.
      */
-    public PlatformPositionGeneratorImpl(final BoundWorld boundWorld, final Vector2d platformPos) {
+    public PlatformPositionGeneratorImpl(final BoundWorld boundWorld, final Vector2d platformPos, final Distance distance) {
         this.randomNumber = new Random();
         // previousPlatformPosition.setX(platform.getPosX());
         // previousPlatformPosition.setY(platform.getPosY());
         previousPlatformPosition = platformPos;
+        this.distance = distance;
         this.boundX = boundWorld.getBoundX();
     }
 
