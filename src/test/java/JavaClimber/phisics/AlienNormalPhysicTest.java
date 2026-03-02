@@ -29,8 +29,6 @@ import it.unibo.model.world.impl.RealWorld;
 
 import org.junit.jupiter.api.Test;
 
-import JavaClimber.state.launchedGameTest;
-
 /**
  * <p>Test class for {@link AlienNormalPhysic}.</p>
  */
@@ -123,7 +121,7 @@ public class AlienNormalPhysicTest {
     final Enemy enemy = new EnemyImpl(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT));
 
     //before updating position
-    physic.hitEnemy(alien, enemy, new RealWorld(alien, boundary), activeUpgrades);
+    physic.hitEnemy(alien, enemy, new RealWorld(alien, boundary), new LaunchedGameImpl(), activeUpgrades);
     assertEquals(alien.getPosY(), enemy.getPosY() - alien.getHeight(), EPSILON);
     assertEquals(SPEED_AFTER_JUMP, alien.getSpeedY(), EPSILON);
 
@@ -182,7 +180,6 @@ public class AlienNormalPhysicTest {
 
     final LaunchedGame game = new LaunchedGameImpl();
 
-    // Simulate the alien hitting the enemy
     physic.hitEnemy(alien, enemy, new RealWorld(alien, boundary), game, activeUpgrades);
     assertTrue(game.getState() instanceof EndState);
   }
