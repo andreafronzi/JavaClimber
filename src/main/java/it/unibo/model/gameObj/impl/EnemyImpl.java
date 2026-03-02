@@ -1,5 +1,6 @@
 package it.unibo.model.gameObj.impl;
 
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.GameObj;
@@ -38,7 +39,7 @@ public class EnemyImpl extends GameObj implements Enemy {
    * {@inheritDoc}
    */
   @Override
-  public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final GameWorld gameWorld, final ActiveUpgrades activeUpgrades) {
-    physic.hitEnemy(alien, this, gameWorld, activeUpgrades);
+  public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final GameWorld gameWorld, final LaunchedGame launchedGame, final ActiveUpgrades activeUpgrades) {
+    physic.hitEnemy(alien, this, gameWorld, launchedGame, activeUpgrades);
   }
 }

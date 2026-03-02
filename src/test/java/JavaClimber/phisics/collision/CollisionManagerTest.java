@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.model.LaunchedGame.impl.LaunchedGameImpl;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
@@ -26,9 +27,9 @@ import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
 
 /**
- * Test class for the {@link CollisionManagerImpl}.
+ * <p>Test class for the {@link CollisionManagerImpl}.
  * This class contains unit tests to verify the correct behavior of the collision detection mechanism: 
- * verify that the collision logic correctly work and that when a collision occurs the collided element is removed from the world. 
+ * verify that the collision logic correctly work and that when a collision occurs the collided element is removed from the world.</p> 
  */
 public class CollisionManagerTest {
 
@@ -69,12 +70,11 @@ public class CollisionManagerTest {
     private Gadget g;
 
     /**
-     * Sets up the test environment before each test case is executed. Initializes the Alien, CollisionManager, RealWorld, and the Enemy, Coin, and Gadget instances used in the tests.
+     * <p>Sets up the test environment before each test case is executed. Initializes the Alien, CollisionManager, RealWorld, and the Enemy, Coin, and Gadget instances used in the tests.</p>
      */
     @BeforeEach
     public void setUp() {
-        this.alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT,
-                new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
+        this.alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
         final Boundary boundary = new Boundary(LEFT_SIDE, RIGHT_SIDE);
         this.collisionManager = new CollisionManagerImpl(boundary);
         this.realWorld = new RealWorld(alien, new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_SIDE, RIGHT_SIDE)));
@@ -84,32 +84,32 @@ public class CollisionManagerTest {
     }
 
     /**
-     * Tests the {@link CollisionManager#detectCollisions(RealWorld)} method to verify that when the Alien collides with an Enemy, the Enemy is removed from the RealWorld.
+     * <p>Tests the {@link CollisionManager#detectCollisions(RealWorld)} method to verify that when the Alien collides with an Enemy, the Enemy is removed from the RealWorld.</p>
      */
     @Test
     public void detectCollisionOnEnemyTest() {
         this.realWorld.addMonster(this.e);
-        this.collisionManager.detectCollisions(realWorld);
+        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl());
         assertFalse(this.realWorld.getMonsters().contains(this.e));
     }
 
     /**
-     * Tests the {@link CollisionManager#detectCollisions(RealWorld)} method to verify that when the Alien collides with a Coin, the Coin is removed from the RealWorld.
+     * <p>Tests the {@link CollisionManager#detectCollisions(RealWorld)} method to verify that when the Alien collides with a Coin, the Coin is removed from the RealWorld.</p>
      */
     @Test
     public void detectCollisionOnCoinTest() {
         this.realWorld.addMoney(this.c);
-        this.collisionManager.detectCollisions(realWorld);
+        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl());
         assertFalse(this.realWorld.getMoneys().contains(this.c));
     }
 
     /**
-     * Tests the {@link CollisionManager#detectCollisions(RealWorld)} method to verify that when the Alien collides with a Gadget, the Gadget is removed from the RealWorld.
+     * <p>Tests the {@link CollisionManager#detectCollisions(RealWorld)} method to verify that when the Alien collides with a Gadget, the Gadget is removed from the RealWorld.</p>
      */
     @Test
     public void detectCollisionOnGadgetTest() {
         this.realWorld.addGadget(this.g);
-        this.collisionManager.detectCollisions(realWorld);
+        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl());
         assertFalse(this.realWorld.getGadgets().contains(this.g));
     }
 }

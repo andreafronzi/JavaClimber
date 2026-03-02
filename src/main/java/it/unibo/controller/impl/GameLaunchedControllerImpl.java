@@ -12,6 +12,7 @@ import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.world.api.BaseWorld;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.World;
@@ -28,6 +29,11 @@ import java.util.Optional;
 public class GameLaunchedControllerImpl implements GameLaunchedController, GameLaunchedInputController {
 
   /**
+   * The {@link Inventory} which provide the active skin and receive the command to update the model.
+   */
+  private final Inventory inventory;
+
+  /**
    * The {@link LaunchedGame} entity which provide the data to render and receive
    * the command to update the model.
    */
@@ -37,9 +43,11 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    * Constructor new GameLaunchedControllerImpl.
    *
    * @param launchedGame the launched game entity
+   * @param inventory the inventory entity
    */
-  public GameLaunchedControllerImpl(final LaunchedGame launchedGame) {
+  public GameLaunchedControllerImpl(final LaunchedGame launchedGame, final Inventory inventory) {
     this.launchedGame = launchedGame;
+    this.inventory = inventory;
   }
 
   /**
@@ -90,6 +98,14 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
     return this.launchedGame.getWorld()
         .map(World::getRealWorld)
         .map(BaseWorld::getPlatforms);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String getActiveSkin() {
+    return this.inventory.getSelectedSkin();
   }
 
   /**

@@ -30,18 +30,6 @@ public class AlienImpl extends GameObj implements Alien {
   private AlienPhysic physic;
 
   /**
-   * This flag is set to {@code true} when the Alien is currently moving to the left,
-   * and {@code false} otherwise.
-   */
-  private boolean movingLeft;
-
-  /**
-   * This flag is set to {@code true} when the Alien is currently moving to the right,
-   * and {@code false} otherwise.
-   */
-  private boolean movingRight;
-
-  /**
    * The two-dimensional speed of the Alien.
    */
   private final Vector2d speed;
@@ -57,8 +45,6 @@ public class AlienImpl extends GameObj implements Alien {
    */
   public AlienImpl(final Vector2d position, final Vector2d speed, final double width, final double height, final ActiveUpgrades activeUpgrades) {
     super(height, width, position);
-    this.movingLeft = false;
-    this.movingRight = false;
     this.speed = speed;
     this.physic = new AlienNormalPhysic();
     this.activeUpgrades = activeUpgrades;
@@ -84,8 +70,8 @@ public class AlienImpl extends GameObj implements Alien {
    * {@inheritDoc}
    */
   @Override
-  public void notifyCollision(final StaticEntity gObj, final Boundary boundary, final GameWorld gameWorld) {
-    gObj.onHitBy(this, this.physic, boundary, gameWorld, this.activeUpgrades);
+  public void notifyCollision(final StaticEntity gObj, final Boundary boundary, final GameWorld gameWorld, final LaunchedGame launchedGame) {
+    gObj.onHitBy(this, this.physic, boundary, gameWorld, launchedGame, this.activeUpgrades);
   }
 
   /**

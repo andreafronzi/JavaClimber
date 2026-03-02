@@ -1,6 +1,7 @@
 package it.unibo.model.physics.alienPhysic.impl;
 
 import it.unibo.model.LaunchedGame.api.LaunchedGame;
+import it.unibo.model.LaunchedGame.impl.EndState;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
@@ -62,7 +63,7 @@ public class AlienNormalPhysic extends TemplatePhysic {
   }
 
   @Override
-  public void hitEnemy(final Alien alien, final Enemy e, final GameWorld gameWorld, final ActiveUpgrades activeUpgrades) {
+  public void hitEnemy(final Alien alien, final Enemy e, final GameWorld gameWorld, final LaunchedGame launchedGame, final ActiveUpgrades activeUpgrades) {
     final double eTollerance = 10;
     final boolean falling = alien.getSpeedY() > 0;
     final boolean above = (alien.getPosY() + alien.getHeight()) <= (e.getHeight() + eTollerance);
@@ -72,6 +73,8 @@ public class AlienNormalPhysic extends TemplatePhysic {
       final double vy = -10 * activeUpgrades.getJumpMultiplier();
       e.die(gameWorld);
       alien.setSpeed(new Vector2dImpl(vx, vy));
+    } else {
+      launchedGame.setState(new EndState(launchedGame));
     }
   }
 

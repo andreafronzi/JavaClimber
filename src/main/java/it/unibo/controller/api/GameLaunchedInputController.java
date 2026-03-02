@@ -14,7 +14,7 @@ public interface GameLaunchedInputController {
    * allowing the Alien to begin or continue moving in the rightward direction.
    * </p>
    */
-  public void handleMoveRightCommand();
+  void handleMoveRightCommand();
 
   /**
    * <p>
@@ -23,14 +23,14 @@ public interface GameLaunchedInputController {
    * allowing the Alien to begin or continue moving in the leftward direction.
    * </p>
    */
-  public void handleMoveLeftCommand();
+  void handleMoveLeftCommand();
 
   /**
    * <p>
    * Handle the input to pause the {@link it.unibo.model.LaunchedGame.api.LaunchedGame}.
    * </p>
    */
-  public void handlePauseCommand();
+  void handlePauseCommand();
 
   /**
    * <p>
@@ -39,5 +39,5 @@ public interface GameLaunchedInputController {
    *   allowing the Alien to stop moving when the user releases the movement key.
    * </p>
    */
-  public void handleReleaseMovementCommand();
+  void handleReleaseMovementCommand();
 }

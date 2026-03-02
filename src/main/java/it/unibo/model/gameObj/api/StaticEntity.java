@@ -1,5 +1,6 @@
 package it.unibo.model.gameObj.api;
 
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.world.api.GameWorld;
@@ -17,9 +18,10 @@ public interface StaticEntity extends GameObject {
    *
    * @param alien the {@link Alien} that collides with this entity
    * @param physic the {@link AlienPhysic} that influences the Alien's behavior upon collision
-   * @param boundary the boundary of the world
+   * @param boundary the {@link Boundary} of the world
    * @param gameWorld the {@link GameWorld} which contains all element
-   * @param activeUpgrades the active upgrades affecting the Alien
+   * @param launchedGame the {@link LaunchedGame} instance which manage game state changes
+   * @param activeUpgrades the {@link ActiveUpgrades} affecting the Alien
    */
-  void onHitBy(Alien alien, AlienPhysic physic, Boundary boundary, GameWorld gameWorld, ActiveUpgrades activeUpgrades);
+  void onHitBy(Alien alien, AlienPhysic physic, Boundary boundary, GameWorld gameWorld, LaunchedGame launchedGame, ActiveUpgrades activeUpgrades);
 }

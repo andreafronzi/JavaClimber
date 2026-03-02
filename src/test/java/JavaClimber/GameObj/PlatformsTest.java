@@ -14,7 +14,7 @@ import it.unibo.model.gameObj.api.Platform;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Test class for Platform game object.
+ * Test class for the {@link Platform} game object.
  */
 public class PlatformsTest {
 
@@ -36,7 +36,7 @@ public class PlatformsTest {
     private static final double DT = 1;
 
     /**
-     * Tests the platform generation using PlatformBuilder.
+     * Tests the {@link Platform} generation using {@link PlatformBuilder}.
      */
     @Test
     public void generatePlatformsTest() {
