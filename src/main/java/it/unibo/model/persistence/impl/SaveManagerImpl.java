@@ -21,15 +21,25 @@ public class SaveManagerImpl implements SaveManager {
     private final String filePath;
     private final Gson gson;
 
+    /**
+     * Constructor for SaveManagerImpl with specified file path (used for testing).
+     * @param filePath
+     */
     public SaveManagerImpl(final String filePath) {
         this.filePath = filePath;
         this.gson = new GsonBuilder().setPrettyPrinting().create();
     }
 
+    /**
+     * Constructor for SaveManagerImpl with default file path.
+     */
     public SaveManagerImpl() {
         this(System.getProperty("user.home") + File.separator + "java_climber_save.json");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void save(SaveState state) {
         try (Writer writer = new FileWriter(filePath)) {
@@ -39,6 +49,9 @@ public class SaveManagerImpl implements SaveManager {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<SaveState> load() {
         final File file = new File(filePath);
