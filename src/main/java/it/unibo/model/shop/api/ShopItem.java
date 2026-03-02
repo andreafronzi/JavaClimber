@@ -1,6 +1,5 @@
 package it.unibo.model.shop.api;
 
-import it.unibo.model.gameObj.api.Alien;
 import java.util.Map;
 
 /**
@@ -49,13 +48,6 @@ public interface ShopItem {
      * @return a map of statistics and their corresponding boost values
      */
     Map<ShopItemStat, Double> getStats();
-
-    /**
-     * Apply the effect of the shop item to the given Alien.
-     * 
-     * @param alien the Alien to which the effect will be applied
-     */
-    void applyEffect(Alien alien);
 
     /**
      * Get the initial duration of the item in matches

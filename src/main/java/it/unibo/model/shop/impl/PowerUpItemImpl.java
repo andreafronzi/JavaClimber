@@ -2,7 +2,6 @@ package it.unibo.model.shop.impl;
 
 import java.util.Map;
 
-import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.shop.api.ShopItemStat;
 import it.unibo.model.shop.api.ShopItemType;
 
@@ -13,19 +12,25 @@ public class PowerUpItemImpl extends AbstractShopItem {
 
     private final int initialDuration;
 
-
+    /**
+     * Constructor for PowerUpItemImpl with all required fields.
+     * @param id the id of the shop item
+     * @param name the name of the shop item
+     * @param description the description of the shop item
+     * @param price the price of the shop item
+     * @param type the type of the shop item
+     * @param stats the stats boosted by the shop item
+     * @param duration the initial duration of the item in matches (0 for permanent items)
+     */
     public PowerUpItemImpl(String id, String name, String description, int price, ShopItemType type,
             Map<ShopItemStat, Double> stats, final int duration) {
         super(id, name, description, price, type, stats);
         this.initialDuration = duration;
     }
 
-    @Override
-    public void applyEffect(Alien alien) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'applyEffect'");
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getInitialDuration() {
         return this.initialDuration;

@@ -2,7 +2,6 @@ package it.unibo.model.shop.impl;
 
 import java.util.Map;
 
-import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.shop.api.ShopItemStat;
 import it.unibo.model.shop.api.ShopItemType;
 
@@ -11,17 +10,22 @@ import it.unibo.model.shop.api.ShopItemType;
  */
 public class SkinItemImpl extends AbstractShopItem {
 
+    /**
+     * Constructor for SkinItemImpl with all required fields.
+     * @param id the id of the shop item
+     * @param name the name of the shop item
+     * @param description the description of the shop item
+     * @param price the price of the shop item
+     * @param stats the stats boosted by the shop item
+     */
     public SkinItemImpl(String id, String name, String description, int price,
             Map<ShopItemStat, Double> stats) {
         super(id, name, description, price, ShopItemType.SKIN, stats);
     }
 
-    @Override
-    public void applyEffect(Alien alien) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'applyEffect'");
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getInitialDuration() {
         return 0;

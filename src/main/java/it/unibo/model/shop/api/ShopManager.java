@@ -64,5 +64,9 @@ public interface ShopManager {
      */
     List<ShopItem> getTemporaryUpgrades();
 
+    /**
+     * Get the total amount of coins of the player.
+     * @return the total amount of coins
+     */
     int getCoins();
 }
