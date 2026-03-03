@@ -13,27 +13,27 @@ import it.unibo.model.gameObj.api.Alien;
 public class AltitudeManager implements AltitudeSubject {
 
     private final List<AltitudeObserver> observerList = new ArrayList<>();
-    private double highestY;
+    private final double thresholdY;;
     private final Alien alien;
 
     /**
-     * 
-     * @param alien the player to monitor
+     * Constructs an AltitudeManager with the given alien and thresholdY.
+     * @param alien alien the player to monitor
+     * @param thresholdY the threshold Y value that triggers the altitude update when the alien moves above it
      */
-    public AltitudeManager(Alien alien) {
+    public AltitudeManager(Alien alien, double thresholdY) {
         this.alien = alien;
-        this.highestY = alien.getPosY();
+        this.thresholdY = thresholdY;
     }
 
     /**
-     * Checks the current position of the alien with the highest point reached.
-     * If the alien has moved up, it calculates the difference, updates the highest point and notifies the observer
+     * Checks the current position of the alien with the thresholdY.
+     * If the alien's Y position is below the thresholdY, it calculates the delta and notifies the observers.
      */
     public void verifiedAltitude() {
         double currentY = alien.getPosY();
-        if (currentY < highestY) {
-            double delta = highestY - currentY;
-            highestY = currentY;
+        if (currentY < thresholdY) {
+            double delta = thresholdY - currentY;
             notifyObserver(delta);
         }
     }

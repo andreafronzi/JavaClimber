@@ -17,7 +17,7 @@ import java.util.Set;
  */
 public class ScoreManagerTest {
 
-    private ScoreManager scoreManager;
+    private ScoreManagerImpl scoreManager;
 
     /**
      * Sets up a new ScoreManager instance before each test.
@@ -41,11 +41,11 @@ public class ScoreManagerTest {
     }
 
     /**
-     * Tests the {@link ScoreManager#updateScore(double)} method.
+     * Tests the {@link ScoreManager#updateScore(double)} method without camera movement.
      * Score = max(0, |startY - playerY|)
      */
     @Test
-    void testUpdateScore() {
+    void testUpdateScoreStaticCamera() {
         scoreManager.setStartY(600.0);
 
         scoreManager.updateScore(450.0);
@@ -55,6 +55,22 @@ public class ScoreManagerTest {
         assertEquals(500, scoreManager.getCurrentScore());
 
         scoreManager.updateScore(300.0);
+        assertEquals(500, scoreManager.getCurrentScore());
+    }
+
+    /**
+     * Tests the {@link ScoreManager#updateScore(double)} method with camera movement.
+      * Score = max(0, |startY - (playerY - totalCameraDelta)|)
+     */
+    @Test
+    void testUpdateScoreWithCameraDelta() {
+        scoreManager.setStartY(600.0);
+        scoreManager.updateScore(300.0);
+        assertEquals(300, scoreManager.getCurrentScore());
+        scoreManager.update(100.0);
+        scoreManager.updateScore(400.0);
+        assertEquals(300, scoreManager.getCurrentScore());
+        scoreManager.updateScore(200.0);
         assertEquals(500, scoreManager.getCurrentScore());
     }
 
@@ -81,5 +97,8 @@ public class ScoreManagerTest {
 
         scoreManager.updateScore(400.0);
         assertEquals(200, scoreManager.getHighScore());
+        scoreManager.update(50.0);
+        scoreManager.updateScore(300.0);
+        assertEquals(350, scoreManager.getHighScore());
     }
 }

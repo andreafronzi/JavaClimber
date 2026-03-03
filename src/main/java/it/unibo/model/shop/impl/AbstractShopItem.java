@@ -3,7 +3,6 @@ package it.unibo.model.shop.impl;
 import java.util.Collections;
 import java.util.Map;
 
-import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopItemStat;
 import it.unibo.model.shop.api.ShopItemType;
@@ -20,8 +19,7 @@ public abstract class AbstractShopItem implements ShopItem{
     private final Map<ShopItemStat, Double> stats;
 
     /**
-     * Constructor for AbstractShopItem.
-     * 
+     * Constructor for AbstractShopItem with all required fields.
      * @param id          the unique identifier of the shop item
      * @param name        the name of the shop item
      * @param description the description of the shop item
@@ -39,39 +37,57 @@ public abstract class AbstractShopItem implements ShopItem{
         this.stats = Collections.unmodifiableMap(stats);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getId() {
         return this.id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName() {
         return this.name;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getPrice() {
         return this.price;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ShopItemType getType() {
         return this.type;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<ShopItemStat, Double> getStats() {
         return this.stats;
     }
 
-    @Override
-    public abstract void applyEffect(Alien alien);
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public abstract int getInitialDuration();
 

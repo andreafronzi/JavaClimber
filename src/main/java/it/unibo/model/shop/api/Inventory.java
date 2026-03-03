@@ -132,5 +132,9 @@ public interface Inventory {
      */
     void setTotalCoins(int coins);
 
+    /**
+     * Get the ShopItemFactory.
+     * @return the ShopItemFactory instance
+     */
     ShopItemFactory getFactory();
 }

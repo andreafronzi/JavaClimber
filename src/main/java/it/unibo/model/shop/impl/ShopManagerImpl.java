@@ -17,16 +17,27 @@ public class ShopManagerImpl implements ShopManager {
     private final ShopItemFactory itemFactory;
     private final Inventory inventory;
 
+    /**
+     * Constructor for ShopManagerImpl with required factory and inventory.
+     * @param itemFactory the factory for shop items
+     * @param inventory the inventory to manage purchases and ownership
+     */
     public ShopManagerImpl(ShopItemFactory itemFactory, Inventory inventory) {
         this.itemFactory = itemFactory;
         this.inventory = inventory;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ShopItem> getCatalog() {
         return this.itemFactory.getAllItems();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean buyItem(ShopItem item) {
         if (canBuyItem(item)) {
@@ -54,11 +65,17 @@ public class ShopManagerImpl implements ShopManager {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isAlreadyOwned(ShopItem item) {
         return inventory.hasItem(item.getId());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean canBuyItem(ShopItem item) {
         boolean hasEnough = inventory.getTotalCoins() >= item.getPrice();
@@ -75,6 +92,9 @@ public class ShopManagerImpl implements ShopManager {
         return hasEnough;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Inventory getInventory() {
         return this.inventory;
@@ -105,21 +125,33 @@ public class ShopManagerImpl implements ShopManager {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ShopItem> getSkins() {
         return this.itemFactory.getSkins();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ShopItem> getPermanentUpgrades() {
         return this.itemFactory.getPowerUpsPermanent();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ShopItem> getTemporaryUpgrades() {
         return this.itemFactory.getPowerUpsTemporary();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getCoins() {
         return inventory.getTotalCoins();

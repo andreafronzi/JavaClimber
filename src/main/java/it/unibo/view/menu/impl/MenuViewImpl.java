@@ -50,8 +50,9 @@ public class MenuViewImpl extends JPanel implements MenuView{
         btnExit.addActionListener(e -> exit());
 
         buttonPanel.add(Box.createVerticalGlue());
+        buttonPanel.add(Box.createVerticalStrut(30));
         buttonPanel.add(titleLabel);
-        buttonPanel.add(Box.createVerticalStrut(60));
+        buttonPanel.add(Box.createVerticalStrut(30));
         
         buttonPanel.add(btnStart);
         buttonPanel.add(Box.createVerticalStrut(SPACING));

@@ -29,6 +29,12 @@ public class InventoryImpl implements Inventory {
 
     /**
      * Initializes internal collections for tracking owned items, active consumables, and sets the default skin selection to none.
+     
+    */
+
+    /**
+     * Initializes internal collections for tracking owned items, active consumables, and sets the default skin.
+     * @param factory the factory for items
      */
     public InventoryImpl(ShopItemFactory factory) {
         this.factory = factory;
@@ -40,6 +46,9 @@ public class InventoryImpl implements Inventory {
         this.totalCoins = 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addItem(String itemId) {
         this.ownedItems.add(itemId);
@@ -63,16 +72,25 @@ public class InventoryImpl implements Inventory {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasItem(String itemId) {
         return this.ownedItems.contains(itemId) || this.consumables.containsKey(itemId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<String> getOwnedItems() {
         return Set.copyOf(this.ownedItems);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void equipSkin(String itemId) {
         if (this.ownedItems.contains(itemId)) {
@@ -80,27 +98,42 @@ public class InventoryImpl implements Inventory {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void deselectSkin() {
         this.selectedSkin = DEFAULT_SKIN;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getSelectedSkin() {
         return this.selectedSkin;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addConsumable(String itemId, int matchesDuration) {
         this.consumables.put(itemId, matchesDuration);
         toggleConsumable(itemId, this.factory);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<String, Integer> getConsumablesStatus() {
         return Map.copyOf(this.consumables);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateConsumables() {
         final Iterator<Map.Entry<String, Integer>> it = this.consumables.entrySet().iterator();
@@ -119,6 +152,9 @@ public class InventoryImpl implements Inventory {
         activeConsumables.removeIf(id -> !consumables.containsKey(id));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void loadState(SaveState state) {
         this.activeConsumables.clear();
@@ -139,26 +175,41 @@ public class InventoryImpl implements Inventory {
         this.totalCoins = state.getCoins();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getSelectedJumpLevel() {
         return this.selectedJumpLevel;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setSelectedJumpLevel(int level) {
         this.selectedJumpLevel = level;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getSelectedSpeedLevel() {
         return this.selectedSpeedLevel;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setSelectedSpeedLevel(int level) {
         this.selectedSpeedLevel = level;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void toggleConsumable(String itemId, ShopItemFactory factory) {
         if (activeConsumables.contains(itemId)) {
@@ -174,6 +225,9 @@ public class InventoryImpl implements Inventory {
         activeConsumables.add(itemId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<String> getActiveConsumables() {
         return Set.copyOf(this.activeConsumables);
@@ -192,11 +246,17 @@ public class InventoryImpl implements Inventory {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getTotalCoins() {
         return this.totalCoins;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addCoins(int amount) {
         if (amount > 0) {
@@ -204,6 +264,9 @@ public class InventoryImpl implements Inventory {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean spendCoins(int amount) {
         if (amount > 0 && this.totalCoins >= amount) {
@@ -213,11 +276,17 @@ public class InventoryImpl implements Inventory {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setTotalCoins(int coins) {
         this.totalCoins = coins;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ShopItemFactory getFactory(){
         return this.factory;

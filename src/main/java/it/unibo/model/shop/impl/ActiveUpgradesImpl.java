@@ -18,7 +18,7 @@ public class ActiveUpgradesImpl implements ActiveUpgrades {
     private int currentCoinMultiplier;
 
     /**
-     * 
+     * Constructor for ActiveUpgradesImpl with required inventory.
      * @param inventory the player's inventory
      */
     public ActiveUpgradesImpl(Inventory inventory) {

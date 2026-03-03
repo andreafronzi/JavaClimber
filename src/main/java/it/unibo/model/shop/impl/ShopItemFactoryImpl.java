@@ -10,18 +10,28 @@ import it.unibo.model.shop.api.ShopItemFactory;
 import it.unibo.model.shop.api.ShopItemStat;
 import it.unibo.model.shop.api.ShopItemType;
 
+/**
+ * Implementation of {@link ShopItemFactory} interface.
+ */
 public class ShopItemFactoryImpl implements ShopItemFactory {
 
     private final List<ShopItem> skins;
     private final List<ShopItem> powerUpsTemporary;
     private final List<ShopItem> powerUpsPermanent;
 
+    /**
+     * Constructor for ShopItemFactoryImpl that initializes the shop items.
+     */
     public ShopItemFactoryImpl() {
         this.skins = createSkins();
         this.powerUpsTemporary = createPowerUpsTemporary();
         this.powerUpsPermanent = createPowerUpsPermanent();
     }
 
+    /**
+     * Create the list of skin items available in the shop.
+     * @return the list of skin items
+     */
     private List<ShopItem> createSkins(){
         return List.of(
             new SkinItemImpl("s_basic", "Basic Alien", "Original alien", 0, Map.of()),
@@ -39,9 +49,12 @@ public class ShopItemFactoryImpl implements ShopItemFactory {
         );
     }
 
+    /**
+     * Create the list of temporary power up items available in the shop.
+     * @return the list of temporary power up items
+     */
     private List<ShopItem> createPowerUpsTemporary() {
         return List.of(
-            /* PowerUp temporary */
             new PowerUpItemImpl("pt_jump1", "Power Jump 1", "Jump higher x1.3 for 3 matches", 50, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.3), 3),
             new PowerUpItemImpl("pt_jump2", "Power Jump 2", "Jump higher x1.3 for 5 matches", 70, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.3), 5),
             new PowerUpItemImpl("pt_jump3", "Power Jump 3", "Jump higher x1.5 for 5 matches", 150, ShopItemType.TEMPORARY_UPGRADE, Map.of(ShopItemStat.JUMP_HEIGHT, 1.5), 5),
@@ -56,6 +69,10 @@ public class ShopItemFactoryImpl implements ShopItemFactory {
         );
     }
 
+    /**
+     * Create the list of permanent power up items available in the shop.
+     * @return the list of permanent power up items
+     */
     private List<ShopItem> createPowerUpsPermanent() {
         return List.of(
             /* Speed PowerUp permanent */
@@ -73,21 +90,33 @@ public class ShopItemFactoryImpl implements ShopItemFactory {
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ShopItem> getSkins() {
         return List.copyOf(this.skins);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ShopItem> getPowerUpsTemporary() {
         return List.copyOf((this.powerUpsTemporary));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ShopItem> getPowerUpsPermanent() {
         return List.copyOf((this.powerUpsPermanent));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ShopItem> getAllItems() {
         return Stream.of(skins, powerUpsTemporary, powerUpsPermanent)
@@ -95,6 +124,9 @@ public class ShopItemFactoryImpl implements ShopItemFactory {
                  .toList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<ShopItem> getItemById(String itemId) {
         return getAllItems().stream()

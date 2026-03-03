@@ -16,6 +16,16 @@ public class SaveState {
     private final int selectedJumpLevel;
     private final int selectedSpeedLevel;
 
+    /**
+     * Construct a SaveState with all the required information.
+     * @param coins number of coin collected
+     * @param highestScore the highest score of the player
+     * @param ownedItems a set of owned item IDs
+     * @param consumables a map of consumable item IDs to their remaining matches
+     * @param selectedSkin a String containing the selected skin ID.
+     * @param selectedJumpLevel a int containing the selected level of jump power-up level.
+     * @param selectedSpeedLevel a int containing the selected level of speed power-up level.
+     */
     public SaveState(int coins, int highestScore, Set<String> ownedItems, Map<String, Integer> consumables, String selectedSkin, int selectedJumpLevel, int selectedSpeedLevel) {
         this.coins = coins;
         this.highestScore = highestScore;
