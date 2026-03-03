@@ -1,9 +1,13 @@
 package it.unibo.model.camera.impl;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import it.unibo.model.camera.api.AltitudeObserver;
 import it.unibo.model.camera.api.Camera;
+import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.GameObject;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.world.impl.World;
@@ -51,16 +55,19 @@ public class CameraImpl implements Camera, AltitudeObserver {
     public void update(double delta) {
         this.totAbbass += delta;
 
-        moveWorldList(world.getRealWorld().getPlatforms(), delta);
-        moveWorldList(world.getRealWorld().getMoneys(), delta);
-        moveWorldList(world.getRealWorld().getGadgets(), delta);
-        moveWorldList(world.getRealWorld().getMonsters(), delta);
-
-
-        moveWorldList(world.getUpperWorld().getPlatforms(), delta);
-        moveWorldList(world.getUpperWorld().getGadgets(), delta);
-        moveWorldList(world.getUpperWorld().getMoneys(), delta);
-        moveWorldList(world.getUpperWorld().getMonsters(), delta);
+        Alien alien = world.getRealWorld().getAlien();
+        alien.setPosition(new Vector2dImpl(alien.getPosX(), alien.getPosY() + delta));
+        
+        List.of(
+            world.getRealWorld().getPlatforms(),
+            world.getRealWorld().getMoneys(),
+            world.getRealWorld().getGadgets(),
+            world.getRealWorld().getMonsters(),
+            world.getUpperWorld().getPlatforms(),
+            world.getUpperWorld().getMoneys(),
+            world.getUpperWorld().getGadgets(),
+            world.getUpperWorld().getMonsters()
+        ).forEach(list -> moveWorldList(list, delta));
 
         transferGameObj();
         cleanRealWorld();
@@ -87,28 +94,31 @@ public class CameraImpl implements Camera, AltitudeObserver {
         double dynamicMargin = this.height / 6.0; 
         double viewLimit = this.y - dynamicMargin;
 
-        while (!world.getUpperWorld().getPlatforms().isEmpty() && world.getUpperWorld().getPlatforms().get(0).getPosY() > viewLimit) {
-            world.getUpperWorld().removeFirstPlatform().ifPresent(p -> {
-                world.getRealWorld().addPlatform(p);
-            });
-        }
+        var upper = world.getUpperWorld();
+        var real = world.getRealWorld();
 
-        while (!world.getUpperWorld().getGadgets().isEmpty() && world.getUpperWorld().getGadgets().get(0).getPosY() > viewLimit) {
-            world.getUpperWorld().removeFirstGadget().ifPresent(g -> {
-                world.getRealWorld().addGadget(g);
-            });
-        }
+        transferCategory(upper::getPlatforms, upper::removeFirstPlatform, real::addPlatform, viewLimit);
+        transferCategory(upper::getGadgets,   upper::removeFirstGadget,   real::addGadget,   viewLimit);
+        transferCategory(upper::getMoneys,    upper::removeFirstMoney,    real::addMoney,    viewLimit);
+        transferCategory(upper::getMonsters,  upper::removeFirstMonster,  real::addMonster,  viewLimit);
+    }
 
-        while (!world.getUpperWorld().getMoneys().isEmpty() && world.getUpperWorld().getMoneys().get(0).getPosY() > viewLimit) {
-            world.getUpperWorld().removeFirstMoney().ifPresent(m -> {
-                world.getRealWorld().addMoney(m);
-            });
-        }
-
-        while (!world.getUpperWorld().getMonsters().isEmpty() && world.getUpperWorld().getMonsters().get(0).getPosY() > viewLimit) {
-            world.getUpperWorld().removeFirstMonster().ifPresent(m -> {
-                world.getRealWorld().addMonster(m);
-            });
+    /**
+     * Support method for transferGameObj that abstracts the logic of transferring objects from upper to real world for a specific category of game objects.
+     * @param <T> the type of the game object category to transfer
+     * @param getList a supplier for the list of the category in the upper world
+     * @param removeFirst a supplier for removing the first element of the category in the upper world
+     * @param addToReal a consumer for adding an element to the real world
+     * @param viewLimit the y position limit that determines when to transfer objects from upper to real world
+     */
+    private <T extends GameObject> void transferCategory(
+            Supplier<List<T>> getList, 
+            Supplier<Optional<T>> removeFirst, 
+            Consumer<T> addToReal, 
+            double viewLimit) {
+        
+        while (!getList.get().isEmpty() && getList.get().get(0).getPosY() > viewLimit) {
+            removeFirst.get().ifPresent(addToReal);
         }
     }
 
@@ -117,10 +127,13 @@ public class CameraImpl implements Camera, AltitudeObserver {
      */
     private void cleanRealWorld() {
         double limit = this.height;
-        world.getRealWorld().getPlatforms().removeIf(obj -> obj.getPosY() > limit);
-        world.getRealWorld().getGadgets().removeIf(obj -> obj.getPosY() > limit);
-        world.getRealWorld().getMonsters().removeIf(obj -> obj.getPosY() > limit);
-        world.getRealWorld().getMoneys().removeIf(obj -> obj.getPosY() > limit);
+
+        List.of(
+            world.getRealWorld().getPlatforms(),
+            world.getRealWorld().getGadgets(),
+            world.getRealWorld().getMonsters(),
+            world.getRealWorld().getMoneys()
+        ).forEach(list -> list.removeIf(obj -> obj.getPosY() > limit));
     }
 
     /**
