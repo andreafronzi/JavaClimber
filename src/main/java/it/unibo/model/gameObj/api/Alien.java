@@ -58,4 +58,10 @@ public interface Alien extends GameObject {
    * @param launchedGame the launched game
    */
   void updatePosition(double dt, BoundWorld boundWorld, LaunchedGame launchedGame);
+
+  boolean isMovingLeft();
+  boolean isMovingRight();
+  void moveLeft();
+  void moveRight();
+  void stopMoving();
 }
