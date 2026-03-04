@@ -2,6 +2,7 @@ package it.unibo.model.worldConstructor.worldGenerator.impl;
 
 import java.util.Random;
 
+import it.unibo.model.camera.api.AltitudeObserver;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.world.api.BoundWorld;
@@ -21,7 +22,7 @@ import it.unibo.model.worldConstructor.worldGenerator.api.WorldConstructor;
  * gadgets)
  * based on the current difficulty.
  */
-public class WorldConstructorImpl implements WorldConstructor, Observer {
+public class WorldConstructorImpl implements WorldConstructor, Observer, AltitudeObserver {
 
   private Difficult difficult;
   private final PlatformPositionGenerator platformPositionGenerator;
@@ -36,7 +37,8 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
    *
    * @param difficult the initial difficulty configuration
    */
-  public WorldConstructorImpl(final UpperWorld world, final Difficult difficult, final SpawnPoolCreator spawnPoolCreator) {
+  public WorldConstructorImpl(final UpperWorld world, final Difficult difficult,
+      final SpawnPoolCreator spawnPoolCreator) {
     this.difficult = difficult;
     this.random = new Random();
     this.bound = world.getBoundWorld();
@@ -63,6 +65,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
     double chanceAddOn = random.nextDouble(1.0);
     Vector2d pos = platformPositionGenerator.generatePosition(difficult.platformPool().getWidth(),
         difficult.platformPool().getHeight());
+    this.platformPos = pos;
     platformPoolCreator.createPlatform(chance, pos);
 
     if (chanceAddOn < difficult.addOnPool().getChanceAddOn()) {
@@ -84,6 +87,11 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
     this.platformPoolCreator.setSpawnPool(difficult.platformPool());
     this.addOnCreator.setAddOnPool(difficult.addOnPool());
     this.difficult = difficult;
+  }
+
+  @Override
+  public void update(double delta) {
+    fillWorld();
   }
 
 }
