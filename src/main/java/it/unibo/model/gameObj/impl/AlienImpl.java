@@ -13,9 +13,9 @@ import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.Boundary;
 
 /**
- * A concrete implementation of the {@link Alien} interface.
+ * <p>A concrete implementation of the {@link Alien} interface.
  * This class represents an alien entity within the game, providing
- * logic for its dimensions, speed, physic behavior, and position updates.
+ * logic for its dimensions, speed, physic behavior, and position updates.</p>
  */
 public class AlienImpl extends GameObj implements Alien {
 
@@ -41,8 +41,8 @@ public class AlienImpl extends GameObj implements Alien {
   private boolean movingRight = false;
 
   /**
-   * Constructs a new Alien with the specified two-dimensional position, null
-   * speed, and specified width and height.
+   * <p>Constructs a new Alien with the specified two-dimensional position, null
+   * speed, and specified width and height.</p>
    *
    * @param position       the initial position of the Alien
    * @param speed          the initial speed of the Alien
