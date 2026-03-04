@@ -23,7 +23,6 @@ public class EndControllerImpl implements EndController{
     
     @Override
     public void menu() {
-        this.launchedGame.setState(new EndState(this.launchedGame));
         this.menu.setState(new MenuState(this.menu));
     }
 
