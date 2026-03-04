@@ -23,6 +23,7 @@ public class EndState extends BaseLaunchedState {
      */
     @Override
     public void onEnter() {
-        //operazioni di salvataggio
+        this.launchedGame.getMenu().getMainController().openEndView();
+        this.launchedGame.getMenu().getMainController().saveProgress();
     }
 }
