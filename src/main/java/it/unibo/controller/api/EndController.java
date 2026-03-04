@@ -6,6 +6,4 @@ public interface EndController {
 
     public void restart();
 
-    public void end();
-
 }
