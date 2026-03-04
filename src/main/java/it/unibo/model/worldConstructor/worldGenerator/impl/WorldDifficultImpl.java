@@ -32,7 +32,6 @@ public class WorldDifficultImpl implements WorldDifficult, Subject, AltitudeObse
         this.alien = alien;
         this.observers = new LinkedList<>();
         this.difficultList = List.copyOf(difficultList);
-        sortList();
         this.difficult = this.difficultList.getFirst();
         notifyObservers(difficult);
     }
