@@ -1,6 +1,7 @@
 package it.unibo.view.GameLaunchedView.renderers.impl;
 
 import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.GameObjDimension;
 import it.unibo.view.GameLaunchedView.renderers.api.EntityRenderer;
 import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinRegistry;
 import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinSet;
@@ -15,11 +16,6 @@ import java.util.Objects;
  * Renderer for the {@link Alien} in the game.
  */
 public class AlienRenderer implements EntityRenderer<Alien> {
-
-    /**
-     * The constant representing the null speed of the Alien.
-     */
-    private static final double NULL_SPEED = 0.0;
 
     /**
      * An {@link SkinSet} istance 
@@ -52,7 +48,7 @@ public class AlienRenderer implements EntityRenderer<Alien> {
         final Image sprite;
         final Alien alien = aliens.getFirst();
 
-        if (alien.getSpeedX() >= NULL_SPEED) {
+        if (alien.getSpeedX() >= GameObjDimension.NULL_ALIEN_SPEED) {
             sprite = spriteManager.get(this.skinSet.right());
         } else {
             sprite = spriteManager.get(this.skinSet.left());
