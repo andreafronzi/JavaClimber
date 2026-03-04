@@ -2,7 +2,11 @@ package it.unibo.model.menu.api;
 
 import java.util.Optional;
 
+import it.unibo.controller.api.MainController;
 import it.unibo.model.LaunchedGame.api.LaunchedGame;
+import it.unibo.model.score.api.ScoreManager;
+import it.unibo.model.shop.api.Inventory;
+import it.unibo.model.shop.api.ShopManager;
 
 /**
  * Interface representing the menu context in the State Pattern.
@@ -28,4 +32,11 @@ public interface Menu {
     
     public void setLaunchedGame(LaunchedGame launchedGame);
 
+    public MainController getMainController();
+
+    public Inventory getInventory();
+
+    public ShopManager getShopManager();
+
+    public ScoreManager getScoreManager();
 }
