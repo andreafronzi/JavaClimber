@@ -11,6 +11,8 @@ public class MoveAlienRight implements RunningCommand {
 
   /**
    * <p>Move the {@link Alien} right.</p>
+   * 
+   * @param alien the {@link Alien} to move.
    */
   @Override
   public void execute(final Alien alien, final LaunchedGame launchedGame) {
