@@ -231,7 +231,7 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         return container;
     }
 
-    private JPanel createTemporaryWidget(ShopItem item, int index, boolean isActive) {
+    private JPanel createTemporaryWidget(ShopItem item, int index, boolean isActive, int duration) {
         final JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBorder(BorderFactory.createCompoundBorder(
@@ -245,8 +245,8 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         JLabel descLabel = new JLabel(item.getDescription());
         descLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel priceLabel = new JLabel(item.getPrice() + "$");
-        priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel durationLabel = new JLabel("Remaining: " + duration + " matches");
+        durationLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton selectButton = new JButton(isActive ? "DESELECT" : "SELECT");
         selectButton.addActionListener(e -> controller.toggleTemporaryItem(index));
@@ -256,7 +256,7 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         card.add(Box.createVerticalStrut(5));
         card.add(descLabel);
         card.add(Box.createVerticalStrut(5));
-        card.add(priceLabel);
+        card.add(durationLabel);
         card.add(Box.createVerticalGlue());
         card.add(selectButton);
 
@@ -271,14 +271,23 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         return label;
     }
 
-    private void addTempCategory(String title, String prefix, List<ShopItem> items, List<Boolean> tempStatus) {
-        tempPanel.add(createSubHeader(title));
+    private void addTempCategory(String title, String prefix, List<ShopItem> items, List<Boolean> tempStatus, List<Integer> tempDuration) {
+        JPanel categoryContainer = new JPanel();
+        categoryContainer.setLayout(new BoxLayout(categoryContainer, BoxLayout.Y_AXIS));
+        categoryContainer.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.BLACK, 1), 
+                BorderFactory.createEmptyBorder(10, 20, 10, 20)));
+        categoryContainer.setMaximumSize(new Dimension(340, 1000));
+        categoryContainer.setAlignmentX(Component.CENTER_ALIGNMENT);
+        categoryContainer.add(createSubHeader(title));
+        categoryContainer.add(Box.createVerticalStrut(10));
+        
         boolean hasCategoryItems = false;
         for (int i = 0; i < items.size(); i++) {
             ShopItem item = items.get(i);
             if (item.getId().startsWith(prefix)) {
-                tempPanel.add(createTemporaryWidget(item, i, tempStatus.get(i)));
-                tempPanel.add(Box.createVerticalStrut(10));
+                categoryContainer.add(createTemporaryWidget(item, i, tempStatus.get(i), tempDuration.get(i)));
+                categoryContainer.add(Box.createVerticalStrut(10));
                 hasCategoryItems = true;
             }
         }
@@ -286,9 +295,11 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         if (!hasCategoryItems) {
             JLabel emtyLabel = new JLabel("Nessun potenziamento temporaneo acquistato");
             emtyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-            tempPanel.add(emtyLabel);
-            tempPanel.add(Box.createVerticalStrut(50));
+            categoryContainer.add(emtyLabel);
+            categoryContainer.add(Box.createVerticalStrut(50));
         }
+        tempPanel.add(categoryContainer);
+        tempPanel.add(Box.createVerticalStrut(20));
     }
 
     @Override
@@ -300,7 +311,7 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
 
     @Override
     public void updateInventory(List<ShopItem> ownedSkins, String equippedSkinId, List<ShopItem> allPermItems, int selectedJump, int maxJump,
-            int selectedSpeed, int maxSpeed, List<ShopItem> ownedTemp, List<Boolean> tempStatus) {
+            int selectedSpeed, int maxSpeed, List<ShopItem> ownedTemp, List<Boolean> tempStatus, List<Integer> tempDuration) {
         skinsPanel.removeAll();
         permPanel.removeAll();
         tempPanel.removeAll();
@@ -319,9 +330,9 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
 
         //temporary upgrades
         if (ownedTemp != null && tempStatus != null) {
-            addTempCategory("JUMP HEIGHT", "pt_jump", ownedTemp, tempStatus);
-            addTempCategory("SPEED BOOST", "pt_speed", ownedTemp, tempStatus);
-            addTempCategory("COIN MULTIPLIER", "pt_coin", ownedTemp, tempStatus);
+            addTempCategory("JUMP HEIGHT", "pt_jump", ownedTemp, tempStatus, tempDuration);
+            addTempCategory("SPEED BOOST", "pt_speed", ownedTemp, tempStatus, tempDuration);
+            addTempCategory("COIN MULTIPLIER", "pt_coin", ownedTemp, tempStatus, tempDuration);
         }
 
         this.revalidate();
@@ -366,6 +377,7 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
             @Override public List<ShopItem> getOwnedSkins() { return ownedSkins; }
             @Override public List<ShopItem> getOwnedTempItems() { return ownedTemp; }
             @Override public List<Boolean> getTempItemsStatus() { return tempStatus; }
+            @Override public List<Integer> getTempItemsDuration() { return List.of(10, 20, 30, 40, 50, 60); }
             @Override public void setView(InventoryView view) {
                 // TODO Auto-generated method stub
                 throw new UnsupportedOperationException("Unimplemented method 'setView'");
@@ -379,7 +391,7 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
 
             InventoryViewImpl inventoryPanel = new InventoryViewImpl(mockController);
             inventoryPanel.updateCoins(150);
-            inventoryPanel.updateInventory(mockController.getOwnedSkins(), mockController.getEquippedSkin(), factory.getPowerUpsPermanent(), mockController.getSelectedJumpLevel(), mockController.getMaxJumpLevelOwned(), mockController.getSelectedSpeedLevel(), mockController.getMaxSpeedLevelOwned(), mockController.getOwnedTempItems(), mockController.getTempItemsStatus());
+            inventoryPanel.updateInventory(mockController.getOwnedSkins(), mockController.getEquippedSkin(), factory.getPowerUpsPermanent(), mockController.getSelectedJumpLevel(), mockController.getMaxJumpLevelOwned(), mockController.getSelectedSpeedLevel(), mockController.getMaxSpeedLevelOwned(), mockController.getOwnedTempItems(), mockController.getTempItemsStatus(), mockController.getTempItemsDuration());
             
             testFrame.add(inventoryPanel);
             testFrame.setLocationRelativeTo(null);
