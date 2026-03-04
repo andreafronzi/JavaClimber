@@ -110,4 +110,6 @@ public interface InventoryController {
      * Exit from the Inventory and back to the menù.
      */
     void exit();
+
+    List<Integer> getTempItemsDuration();
 }

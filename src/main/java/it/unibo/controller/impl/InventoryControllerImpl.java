@@ -222,6 +222,15 @@ public class InventoryControllerImpl implements InventoryController {
     public void exit() {
         menu.setState(new MenuState(menu));
     }
+
+    @Override
+    public List<Integer> getTempItemsDuration() {
+        var consumablesMap = inventory.getConsumablesStatus();        
+        return consumablesMap.keySet().stream()
+                .sorted()
+                .map(id -> consumablesMap.get(id))
+                .toList();
+    }
     
     /**
      * Refresh the inventory view with current data from the model.
@@ -237,7 +246,8 @@ public class InventoryControllerImpl implements InventoryController {
             int maxSpeed = getMaxSpeedLevelOwned();
             List<ShopItem> ownedTempItems = getOwnedTempItems();
             List<Boolean> tempItemsStatus = getTempItemsStatus();
-            this.view.updateInventory(ownedSkin, equippedSkin, allPermItems, selectedJump, maxJump, selectedSpeed, maxSpeed, ownedTempItems, tempItemsStatus);
+            List<Integer> tempItemsDuration = getTempItemsDuration();
+            this.view.updateInventory(ownedSkin, equippedSkin, allPermItems, selectedJump, maxJump, selectedSpeed, maxSpeed, ownedTempItems, tempItemsStatus, tempItemsDuration);
             this.view.updateCoins(inventory.getTotalCoins());
         }
     }
