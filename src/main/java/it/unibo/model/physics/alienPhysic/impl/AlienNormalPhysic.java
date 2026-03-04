@@ -14,6 +14,7 @@ import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.world.api.BoundWorld;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.Boundary;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.GameObjDimension;
 
 /**
  * A concrete implementation of the {@link AlienPhysic} interface.
@@ -44,14 +45,12 @@ public class AlienNormalPhysic extends TemplatePhysic {
 
     final double newVelY = speedY + (GRAVITY * dt);
     if(alien.isMovingLeft()) {
-      alien.setSpeed(new Vector2dImpl(-200, newVelY));
+      alien.setSpeed(new Vector2dImpl(GameObjDimension.LEFT_ALIEN_SPEED_X, newVelY));
     } else if(alien.isMovingRight()) {
-      alien.setSpeed(new Vector2dImpl(200, newVelY));
+      alien.setSpeed(new Vector2dImpl(GameObjDimension.RIGHT_ALIEN_SPEED_X, newVelY));
     } else {
-      alien.setSpeed(new Vector2dImpl(0, newVelY));
+      alien.setSpeed(new Vector2dImpl(GameObjDimension.NULL_ALIEN_SPEED, newVelY));
     }
-
-    // alien.setSpeed(new Vector2dImpl(alien.getSpeedX(), newVelY));
     alien.setPosition(new Vector2dImpl(alien.getPosX()  + alien.getSpeedX() * dt * activeUpgrades.getSpeedMultiplier(), alien.getPosY() + alien.getSpeedY() * dt * activeUpgrades.getSpeedMultiplier()));
   }
 
