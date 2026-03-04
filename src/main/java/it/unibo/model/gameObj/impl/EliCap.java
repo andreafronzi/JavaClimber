@@ -19,12 +19,12 @@ public class EliCap extends GameObj implements Gadget{
   /**
    * Represents the duration time of the gadget effect.
    */
-  private static final double TIME_INTERVALL = 2;
+  private static final double TIME_INTERVALL = 3;
 
   /**
    * Represents the vertical speed of the gadget effect.
    */
-  private static final double VERTICAL_SPEED = -10;
+  private static final double VERTICAL_SPEED = -500.0;
 
   /**
    * Constructor of the EliCap gadget.
