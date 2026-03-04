@@ -6,6 +6,7 @@ import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.LaunchedGame.impl.EndState;
 import it.unibo.model.LaunchedGame.impl.InitialState;
 import it.unibo.model.menu.api.Menu;
+import it.unibo.model.menu.impl.LaunchedGameState;
 import it.unibo.model.menu.impl.MenuState;
 
 public class EndControllerImpl implements EndController{
@@ -22,22 +23,14 @@ public class EndControllerImpl implements EndController{
     
     @Override
     public void menu() {
-        this.launchedGame.setState(new EndState(this.launchedGame));;
+        this.launchedGame.setState(new EndState(this.launchedGame));
         this.menu.setState(new MenuState(this.menu));
-        this.mainController.openMenuView();
     }
 
     @Override
     public void restart() {
         this.launchedGame.setState(new InitialState(this.launchedGame));
-        this.mainController.launchGame();
-    }
-
-    @Override
-    public void end() {
-        this.launchedGame.setState(new EndState(this.launchedGame));
-        this.menu.setState(new MenuState(this.menu));
-        this.mainController.openEndView();
+        this.menu.setState(new LaunchedGameState(this.menu));
     }
 
 }
