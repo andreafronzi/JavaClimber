@@ -9,6 +9,7 @@ import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.score.api.ScoreManager;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.FactoryAddOn;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.FactoryAddOnImpl;
 import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPool;
@@ -36,7 +37,7 @@ public class SpawnPoolEasy implements SpawnPool {
     /**
      * Constructs the easy platform pool and initializes the object lists.
      */
-    public SpawnPoolEasy(final double width, final double height) {
+    public SpawnPoolEasy(final double width, final double height, final ScoreManager scoreManager) {
         this.width = width;
         this.height = height;
         this.platformPool = new LinkedList<>();
@@ -45,7 +46,7 @@ public class SpawnPoolEasy implements SpawnPool {
         this.moneyPool = new LinkedList<>();
         // this.trapPool = new LinkedList<>();
         this.director = new DirectorImpl(width, height);
-        this.factoryAddOn = new FactoryAddOnImpl();
+        this.factoryAddOn = new FactoryAddOnImpl(scoreManager);
 
         initializePlatformPool();
         initializeMonsterPool();
