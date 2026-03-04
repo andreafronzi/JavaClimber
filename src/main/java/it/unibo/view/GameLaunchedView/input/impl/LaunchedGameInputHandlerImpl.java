@@ -59,7 +59,10 @@ public class LaunchedGameInputHandlerImpl implements KeyListener{
    */
   @Override
   public void keyPressed(final KeyEvent e) {
-    this.onPressedActions.get(e.getKeyCode()).run();
+    Runnable action = this.onPressedActions.get(e.getKeyCode());
+    if (action != null) {
+      action.run();
+    }
   }
 
   /**
@@ -67,7 +70,10 @@ public class LaunchedGameInputHandlerImpl implements KeyListener{
    */
   @Override
   public void keyReleased(final KeyEvent e) {
-    this.onReleasedActions.get(e.getKeyCode()).run();
+    Runnable action = this.onReleasedActions.get(e.getKeyCode());
+    if (action != null) {
+      action.run();
+    }
   }
 
   /**
