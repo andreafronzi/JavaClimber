@@ -19,8 +19,8 @@ public interface PlatformPositionGenerator {
     /**
      * Sets the difficulty context, which influences position generation parameters (e.g., distance).
      * 
-     * @param difficult the current difficulty settings
+     * @param distance the current distance settings
      */
-    public void setDistance(Distance difficult);
+    public void setDistance(Distance distance);
 
 }

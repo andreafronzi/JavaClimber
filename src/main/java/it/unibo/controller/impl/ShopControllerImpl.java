@@ -9,6 +9,7 @@ import it.unibo.model.menu.api.Menu;
 import it.unibo.model.menu.impl.InventoryState;
 import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.menu.impl.MenuState;
+import it.unibo.model.menu.impl.ShoppingState;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.model.shop.api.ShopManager;
 import it.unibo.view.shop.api.ShopView;
@@ -31,7 +32,7 @@ public class ShopControllerImpl implements ShopController {
     public ShopControllerImpl(final MainController mainController, final ShopManager shopManager) {
         this.mainController = mainController;
         this.shopManager = shopManager;
-        this.menu = new MenuImpl();
+        this.menu = new MenuImpl(mainController);
     }
 
     /**
@@ -149,7 +150,7 @@ public class ShopControllerImpl implements ShopController {
      */
     @Override
     public void openShop() {
-        mainController.openShopView();
+        menu.setState(new ShoppingState(menu));
     }
 
     /**
@@ -158,7 +159,6 @@ public class ShopControllerImpl implements ShopController {
     @Override
     public void openInventory() {
         menu.setState(new InventoryState(menu));
-        mainController.openInventoryView();
     }
 
     /**
@@ -167,7 +167,6 @@ public class ShopControllerImpl implements ShopController {
     @Override
     public void exit() {
         menu.setState(new MenuState(menu));
-        mainController.openMenuView();
     }
 
     /**

@@ -35,6 +35,12 @@ public class AlienImpl extends GameObj implements Alien {
   private final Vector2d speed;
 
   /**
+   * The direction the Alien is moving.
+   */
+  private boolean movingLeft = false;
+  private boolean movingRight = false;
+
+  /**
    * Constructs a new Alien with the specified two-dimensional position, null speed, and specified width and height.
    *
    * @param position the initial position of the Alien
@@ -70,8 +76,8 @@ public class AlienImpl extends GameObj implements Alien {
    * {@inheritDoc}
    */
   @Override
-  public void notifyCollision(final StaticEntity gObj, final Boundary boundary, final GameWorld gameWorld) {
-    gObj.onHitBy(this, this.physic, boundary, gameWorld, this.activeUpgrades);
+  public void notifyCollision(final StaticEntity gObj, final Boundary boundary, final GameWorld gameWorld, final LaunchedGame launchedGame) {
+    gObj.onHitBy(this, this.physic, boundary, gameWorld, launchedGame, this.activeUpgrades);
   }
 
   /**
@@ -97,5 +103,41 @@ public class AlienImpl extends GameObj implements Alien {
   @Override
   public void updatePosition(final double dt, final BoundWorld boundWorld, final LaunchedGame launchedGame) {
     this.physic.update(this, dt, boundWorld, activeUpgrades, launchedGame);
+  }
+
+  @Override
+  public boolean isMovingLeft() {
+    return this.movingLeft;
+  }
+
+  @Override
+  public boolean isMovingRight() {
+    return this.movingRight;
+  }
+
+  @Override
+  public void moveLeft() {
+    if(this.movingRight) {
+      this.movingRight = false;
+    }
+    if(!this.movingLeft ) {
+      this.movingLeft = true;
+    }
+  }
+
+  @Override
+  public void moveRight() {
+    if(this.movingLeft) {
+      this.movingLeft = false;
+    }
+    if(!this.movingRight ) {
+      this.movingRight = true;
+    }
+  }
+
+    @Override
+  public void stopMoving() {
+    this.movingLeft = false;
+    this.movingRight = false;
   }
 }

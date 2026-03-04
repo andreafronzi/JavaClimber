@@ -2,6 +2,7 @@ package it.unibo.model.worldConstructor.worldGenerator.impl;
 
 import java.util.Random;
 
+import it.unibo.model.camera.api.AltitudeObserver;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.world.api.BoundWorld;
@@ -9,8 +10,8 @@ import it.unibo.model.world.impl.UpperWorld;
 import it.unibo.model.worldConstructor.data.Difficult;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.AddOnCreator;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnCreatorImpl;
-import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPositionSetterImpl;
-import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolCreatorImpl;
+import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPoolCreator;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.PlatformPositionGenerator;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPositionGeneratorImpl;
 import it.unibo.model.worldConstructor.worldGenerator.api.Observer;
 import it.unibo.model.worldConstructor.worldGenerator.api.WorldConstructor;
@@ -21,11 +22,11 @@ import it.unibo.model.worldConstructor.worldGenerator.api.WorldConstructor;
  * gadgets)
  * based on the current difficulty.
  */
-public class WorldConstructorImpl implements WorldConstructor, Observer {
+public class WorldConstructorImpl implements WorldConstructor, Observer, AltitudeObserver {
 
   private Difficult difficult;
-  private final PlatformPositionGeneratorImpl platformPositionGenerator;
-  private final SpawnPoolCreatorImpl platformPoolCreator;
+  private final PlatformPositionGenerator platformPositionGenerator;
+  private final SpawnPoolCreator platformPoolCreator;
   private final AddOnCreator addOnCreator;
   private final Random random;
   private final BoundWorld bound;
@@ -36,14 +37,15 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
    *
    * @param difficult the initial difficulty configuration
    */
-  public WorldConstructorImpl(final Difficult difficult, final UpperWorld world) {
+  public WorldConstructorImpl(final UpperWorld world, final Difficult difficult,
+      final SpawnPoolCreator spawnPoolCreator) {
     this.difficult = difficult;
     this.random = new Random();
     this.bound = world.getBoundWorld();
-    this.platformPoolCreator = new SpawnPoolCreatorImpl(difficult.platformPool(), world);
+    this.platformPoolCreator = spawnPoolCreator;
     this.platformPos = new Vector2dImpl(bound.getBoundX().x1() / 2, bound.getBoundY().maxY() - 100);
     platformPoolCreator.createPlatform(0, platformPos);
-    this.platformPositionGenerator = new PlatformPositionGeneratorImpl(bound, platformPos);
+    this.platformPositionGenerator = new PlatformPositionGeneratorImpl(bound, platformPos, difficult.distance());
     this.platformPositionGenerator.setDistance(difficult.distance());
     this.addOnCreator = new AddOnCreatorImpl(difficult.addOnPool());
   }
@@ -63,6 +65,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
     double chanceAddOn = random.nextDouble(1.0);
     Vector2d pos = platformPositionGenerator.generatePosition(difficult.platformPool().getWidth(),
         difficult.platformPool().getHeight());
+    this.platformPos = pos;
     platformPoolCreator.createPlatform(chance, pos);
 
     if (chanceAddOn < difficult.addOnPool().getChanceAddOn()) {
@@ -72,7 +75,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
 
   private void createAddOn() {
     double chance = random.nextDouble(1.0);
-    addOnCreator.createAddOn(chance, platformPos);
+    addOnCreator.selectAddOn(chance, platformPos);
   }
 
   /**
@@ -80,9 +83,15 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
    */
   @Override
   public void update(Difficult difficult) {
-    platformPositionGenerator.setDistance(difficult.distance());
-    platformPoolCreator.setSpawnPool(difficult.platformPool());
+    this.platformPositionGenerator.setDistance(difficult.distance());
+    this.platformPoolCreator.setSpawnPool(difficult.platformPool());
+    this.addOnCreator.setAddOnPool(difficult.addOnPool());
     this.difficult = difficult;
+  }
+
+  @Override
+  public void update(double delta) {
+    fillWorld();
   }
 
 }

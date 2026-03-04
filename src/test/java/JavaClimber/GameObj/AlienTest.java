@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Test class for Alien game object.
+ * Test class for the {@link AlienImpl} game object.
  */
 public class AlienTest {
 

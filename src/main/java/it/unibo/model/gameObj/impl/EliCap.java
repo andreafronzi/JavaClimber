@@ -1,5 +1,6 @@
 package it.unibo.model.gameObj.impl;
 
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.api.GameObj;
@@ -18,12 +19,12 @@ public class EliCap extends GameObj implements Gadget{
   /**
    * Represents the duration time of the gadget effect.
    */
-  private static final double TIME_INTERVALL = 2;
+  private static final double TIME_INTERVALL = 3;
 
   /**
    * Represents the vertical speed of the gadget effect.
    */
-  private static final double VERTICAL_SPEED = -10;
+  private static final double VERTICAL_SPEED = -500.0;
 
   /**
    * Constructor of the EliCap gadget.
@@ -43,7 +44,7 @@ public class EliCap extends GameObj implements Gadget{
     }
 
     @Override
-    public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final GameWorld gameWorld, final ActiveUpgrades activeUpgrades) {
+    public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final GameWorld gameWorld, final LaunchedGame launchedGame, final ActiveUpgrades activeUpgrades) {
       physic.hitGadget(alien, this, gameWorld);
   }
 }

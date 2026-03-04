@@ -32,12 +32,10 @@ public class SpawnPoolCreatorImpl implements SpawnPoolCreator {
     private final ObjectSelector objectSelector;
     // private List<Pair<Double,Function<Vector2d,Trap>>> traps;
 
-    public SpawnPoolCreatorImpl(final SpawnPool platformPool, final BaseWorld world) {
-        this.setSpawnPool(platformPool);
+    public SpawnPoolCreatorImpl(final BaseWorld world) {
         this.addOnPositionSetter = new AddOnPositionSetterImpl();
         this.objectSelector = new ObjectSelectorImpl();
         this.world = world;
-        this.width = platformPool.getWidth();
     }
 
     /**
@@ -48,6 +46,7 @@ public class SpawnPoolCreatorImpl implements SpawnPoolCreator {
         this.monsters = platformPool.getMonsterPool();
         this.gadgets = platformPool.getGadgetPool();
         this.moneys = platformPool.getMoneyPool();
+        this.width = platformPool.getWidth();
         // this.traps = platformPool.getTrapPool();
     }
 

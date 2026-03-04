@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
+import it.unibo.model.LaunchedGame.impl.LaunchedGameImpl;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.AlienImpl;
@@ -69,7 +71,7 @@ public class OnTouchDestroyBehaviorTest {
     private Platform platformToRemove;
 
     /**
-     * Set up the test environment by initializing the alien, the world, and the platforms before each test case.
+     * <p>Set up the test environment by initializing the alien, the world, and the platforms before each test case.</p>
      */
     @BeforeEach
     public void setUp() {
@@ -83,19 +85,20 @@ public class OnTouchDestroyBehaviorTest {
     }
     
     /**
-     * Verify that when the alien touches the {@link Platform} with the {@link OnTouchDestroyBehavior}, the platform is removed from the world.
+     * <p>Verify that when the alien touches the {@link Platform} with the {@link OnTouchDestroyBehavior}, the platform is removed from the world.</p>
      */
     @Test
     public void verifyPlatformDestruction() {
         final ActiveUpgrades upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
         final AlienPhysic physic = new AlienNormalPhysic();
         final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
+        final LaunchedGame launchedGame = new LaunchedGameImpl();
         
         this.alien.setPhysic(physic);
 
         assertEquals(this.platformToRemove.getPosY(), alien.getPosY() + HEIGHT);
 
-        this.platformToRemove.onHitBy(this.alien, physic, boundary, this.world, upgrades);
+        this.platformToRemove.onHitBy(this.alien, physic, boundary, this.world, launchedGame, upgrades);
         assertFalse(this.world.getPlatforms().contains(this.platformToRemove));
     } 
 }

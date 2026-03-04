@@ -13,7 +13,7 @@ public class MoveAlienRight implements RunningCommand {
   /**
    * A constant representing the horizontal speed set to the {@link Alien}.
    */
-  private static final double SPEED_X = 10;
+  private static final double SPEED_X = 400.0;
 
   /**
    * <p>Move the {@link Alien} right.</p>

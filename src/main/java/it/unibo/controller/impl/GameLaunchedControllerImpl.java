@@ -3,10 +3,14 @@ package it.unibo.controller.impl;
 import it.unibo.controller.api.GameLaunchedController;
 import it.unibo.controller.api.GameLaunchedInputController;
 import it.unibo.model.LaunchedGame.api.LaunchedGame;
+import it.unibo.model.command.api.RunningCommand;
 import it.unibo.model.command.impl.EnterPausa;
 import it.unibo.model.command.impl.MoveAlienLeft;
 import it.unibo.model.command.impl.MoveAlienRight;
+import it.unibo.model.command.impl.MoveLeftMod;
+import it.unibo.model.command.impl.MoveRigthMod;
 import it.unibo.model.command.impl.StopAlienMovement;
+import it.unibo.model.command.impl.StopMoveMod;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
@@ -20,6 +24,8 @@ import it.unibo.model.world.impl.World;
 import java.util.List;
 import java.util.Optional;
 
+import javax.swing.JPanel;
+
 /**
  * <p>
  * Rapresent the implementation of {@link GameLaunchedController} and
@@ -29,7 +35,8 @@ import java.util.Optional;
 public class GameLaunchedControllerImpl implements GameLaunchedController, GameLaunchedInputController {
 
   /**
-   * The {@link Inventory} which provide the active skin and receive the command to update the model.
+   * The {@link Inventory} which provide the active skin and receive the command
+   * to update the model.
    */
   private final Inventory inventory;
 
@@ -39,11 +46,13 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    */
   private final LaunchedGame launchedGame;
 
+  private JPanel panel;
+
   /**
    * Constructor new GameLaunchedControllerImpl.
    *
    * @param launchedGame the launched game entity
-   * @param inventory the inventory entity
+   * @param inventory    the inventory entity
    */
   public GameLaunchedControllerImpl(final LaunchedGame launchedGame, final Inventory inventory) {
     this.launchedGame = launchedGame;
@@ -113,7 +122,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    */
   @Override
   public void handleMoveRightCommand() {
-    this.launchedGame.addCommand(new MoveAlienRight());
+    this.launchedGame.addCommand(new MoveRigthMod());
   }
 
   /**
@@ -121,7 +130,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    */
   @Override
   public void handleMoveLeftCommand() {
-    this.launchedGame.addCommand(new MoveAlienLeft());
+    this.launchedGame.addCommand(new MoveLeftMod());
   }
 
   /**
@@ -137,16 +146,57 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    */
   @Override
   public void handleReleaseMovementCommand() {
-    this.launchedGame.addCommand(new StopAlienMovement());
+    this.launchedGame.addCommand(new StopMoveMod());
   }
+
+  private static final long FRAME_TIME_MS = 16; 
 
   @Override
   public void runGame() {
-    while () {
-      // prendi evento
-      this.launchedGame.getState().execute();
-      // renderizza
+    new Thread(() -> {
+      long previousCycleStartTime = System.nanoTime();
+
+      while (launchedGame.isRunning()) {
+        long currentCycleStartTime = System.nanoTime();
+        long elapsedNanos = currentCycleStartTime - previousCycleStartTime;
+
+        double dt = elapsedNanos / 1_000_000_000.0;
+
+        previousCycleStartTime = currentCycleStartTime;
+
+        Optional<RunningCommand> cmd;
+        while ((cmd = this.launchedGame.pollCommand()).isPresent()) {
+          cmd.get().execute(launchedGame.getWorld().get().getRealWorld().getAlien(), launchedGame);
+        }
+
+        this.launchedGame.getState().execute(dt);
+
+        this.panel.repaint();
+
+        java.awt.Toolkit.getDefaultToolkit().sync(); 
+
+        this.waitForNextFrame(currentCycleStartTime);
+      }
+    }, "GameLoop").start();
+  }
+
+  private void waitForNextFrame(final long currentCycleStartTimeNano) {
+    long elapsedTimeMs = (System.nanoTime() - currentCycleStartTimeNano) / 1_000_000;
+
+    long sleepTime = FRAME_TIME_MS - elapsedTimeMs;
+
+    if (sleepTime > 0) {
+      try {
+        Thread.sleep(sleepTime);
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
     }
+  }
+
+  @Override
+  public void setPanel(final JPanel panel) {
+    this.panel = panel;
   }
 
 }

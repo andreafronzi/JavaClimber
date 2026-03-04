@@ -1,5 +1,7 @@
 package it.unibo.model.menu.impl;
 
+import it.unibo.model.LaunchedGame.impl.InitialState;
+import it.unibo.model.LaunchedGame.impl.LaunchedGameImpl;
 import it.unibo.model.menu.api.*;
 
 /**
@@ -22,7 +24,10 @@ public class LaunchedGameState extends BaseMenuState {
      */
     @Override
     public void execute() {
-        // Implementation of the execute method for LaunchedGameState
+        var launchedGame = new LaunchedGameImpl(this.menu.getMainController(), this.menu);
+        this.menu.setLaunchedGame(launchedGame);
+        launchedGame.setState(new InitialState(launchedGame));
+        this.menu.getMainController().launchGame();
     }
     
 }

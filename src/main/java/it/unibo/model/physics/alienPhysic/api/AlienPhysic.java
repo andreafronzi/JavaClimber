@@ -32,9 +32,10 @@ public interface AlienPhysic {
    * @param alien the {@link Alien} involved in the collision
    * @param e the {@link Enemy} involved in the collision
    * @param gameWorld the {@link GameWorld} which contains all gameObj
+   * @param launchedGame the {@link LaunchedGame} which can be ended if the Alien collides with an Enemy
    * @param activeUpgrades the {@link ActiveUpgrades} affecting the Alien
    */
-  void hitEnemy(Alien alien, Enemy e, GameWorld gameWorld, ActiveUpgrades activeUpgrades);
+  void hitEnemy(Alien alien, Enemy e, GameWorld gameWorld, LaunchedGame launchedGame,ActiveUpgrades activeUpgrades);
 
   /**
    * Handles the interaction between an {@link Alien} and a {@link Gadget}.

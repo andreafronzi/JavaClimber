@@ -1,4 +1,4 @@
-package JavaClimber.worldGenerator.gameObjectSpawn.platformSpawn;
+package JavaClimber.worldConstructor.gameObjectSpawn.platformSpawn;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

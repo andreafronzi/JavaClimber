@@ -1,4 +1,4 @@
-package JavaClimber.worldGenerator.gameObjectSpawn;
+package JavaClimber.worldConstructor.gameObjectSpawn;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -9,7 +9,7 @@ import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolCreatorImpl;
 import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
 
-public class PlatformPoolCreatorTest {
+public class SpawnPoolCreatorTest {
 
     private SpawnPoolCreatorImpl platformPoolCreator;
 

@@ -4,6 +4,8 @@ import it.unibo.model.physics.api.Vector2d;
 
 public interface AddOnCreator {
 
-    public void createAddOn(Double chance, Vector2d position);
+    public void selectAddOn(Double chance, Vector2d position);
+
+    public void setAddOnPool(AddOnPool addOnPool);
 
 }

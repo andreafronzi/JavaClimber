@@ -4,10 +4,14 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import it.unibo.controller.api.MainController;
+import it.unibo.controller.api.MenuController;
+import it.unibo.controller.impl.MainControllerImpl;
 import it.unibo.model.LaunchedGame.api.BaseLaunchedState;
 import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.LaunchedGame.api.StateOfLaunchedGame;
 import it.unibo.model.command.api.RunningCommand;
+import it.unibo.model.menu.api.Menu;
 import it.unibo.model.world.impl.World;
 
 /**
@@ -20,11 +24,16 @@ public class LaunchedGameImpl implements LaunchedGame {
     private StateOfLaunchedGame state;
     private Optional<World> world;
     private final Queue<RunningCommand> commands;
+    private final MainController mainController;
+    private final Menu menu;
 
     private boolean running;
 
-    public LaunchedGameImpl() {
+    public LaunchedGameImpl(final MainController mainController, final Menu menuController) {
+        this.mainController = mainController;
         this.commands = new ArrayBlockingQueue<>(100);
+        this.running = false;
+        this.menu = menuController;
     }
 
     /**
@@ -62,8 +71,8 @@ public class LaunchedGameImpl implements LaunchedGame {
     }
 
     @Override
-    public RunningCommand pollCommand() {
-        return commands.poll();
+    public Optional<RunningCommand> pollCommand() {
+        return Optional.ofNullable(commands.poll());
     }
 
     @Override
@@ -75,4 +84,10 @@ public class LaunchedGameImpl implements LaunchedGame {
     public void setRunning(final boolean running) {
         this.running = running;
     }
+
+    @Override
+    public Menu getMenu() {
+        return this.menu;
+    }
+    
 }

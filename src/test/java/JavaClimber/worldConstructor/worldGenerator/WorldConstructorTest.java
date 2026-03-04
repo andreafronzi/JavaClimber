@@ -1,4 +1,4 @@
-package JavaClimber.worldGenerator.worldGenerator;
+package JavaClimber.worldConstructor.worldGenerator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

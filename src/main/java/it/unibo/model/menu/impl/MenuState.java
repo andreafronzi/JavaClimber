@@ -22,7 +22,7 @@ public class MenuState extends BaseMenuState {
      */
     @Override
     public void execute() {
-        // Implementation of the execute method
+        this.menu.getMainController().openMenuView();
     }
     
 }

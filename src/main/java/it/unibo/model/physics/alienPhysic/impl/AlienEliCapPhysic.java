@@ -67,7 +67,7 @@ public class AlienEliCapPhysic extends TemplatePhysic {
   }
 
   @Override
-  public void hitEnemy(final Alien alien, final Enemy e, final GameWorld gameWorld, final ActiveUpgrades activeUpgrades) {
+  public void hitEnemy(final Alien alien, final Enemy e, final GameWorld gameWorld, final LaunchedGame launchedGame, final ActiveUpgrades activeUpgrades) {
 
   }
 

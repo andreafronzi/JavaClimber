@@ -1,5 +1,6 @@
 package it.unibo.model.physics.collision.impl;
 
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameObj.api.*;
 import it.unibo.model.physics.collision.api.CollisionManager;
 import it.unibo.model.world.api.GameWorld;
@@ -33,7 +34,7 @@ public class CollisionManagerImpl implements CollisionManager {
    * {@inheritDoc}
    */
   @Override
-  public void detectCollisions(final GameWorld gameWorld) {
+  public void detectCollisions(final GameWorld gameWorld, final LaunchedGame launchedGame) {
 
     final Alien alien = gameWorld.getAlien();
 
@@ -41,7 +42,7 @@ public class CollisionManagerImpl implements CollisionManager {
         .flatMap(List::stream)
         .filter(se -> checkCollision(alien, se))
         .toList()
-        .forEach(se -> alien.notifyCollision(se, boundary, gameWorld));
+        .forEach(se -> alien.notifyCollision(se, boundary, gameWorld, launchedGame));
   }
 
   /**

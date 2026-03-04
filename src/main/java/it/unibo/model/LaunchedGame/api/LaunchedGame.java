@@ -2,7 +2,9 @@ package it.unibo.model.LaunchedGame.api;
 
 import java.util.Optional;
 
+import it.unibo.controller.api.MainController;
 import it.unibo.model.command.api.RunningCommand;
+import it.unibo.model.menu.api.Menu;
 import it.unibo.model.world.impl.World;
 
 /**
@@ -32,4 +34,6 @@ public interface LaunchedGame extends CommandState<RunningCommand> {
     public boolean isRunning();
 
     public void setRunning(final boolean running);
+
+    public Menu getMenu();
 }

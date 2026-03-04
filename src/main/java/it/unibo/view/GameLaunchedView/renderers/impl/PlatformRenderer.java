@@ -33,7 +33,7 @@ public class PlatformRenderer implements EntityRenderer<Platform> {
      */
     @Override
     public void render(final List<Platform> platforms, final Graphics2D g) {
-        final Image sprite = spriteManager.get(SpriteEnum.PLATFORM);
+        final Image sprite = spriteManager.get(SpriteEnum.GREEN_PLATFORM);
         if (!Objects.isNull(sprite)) {
             platforms.forEach(platform -> {
                 g.drawImage(sprite,

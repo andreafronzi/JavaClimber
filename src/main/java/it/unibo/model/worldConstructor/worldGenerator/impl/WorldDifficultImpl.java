@@ -3,6 +3,7 @@ package it.unibo.model.worldConstructor.worldGenerator.impl;
 import java.util.LinkedList;
 import java.util.List;
 
+import it.unibo.model.camera.api.AltitudeObserver;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.worldConstructor.data.Difficult;
 import it.unibo.model.worldConstructor.worldGenerator.api.Observer;
@@ -14,7 +15,7 @@ import it.unibo.model.worldConstructor.worldGenerator.api.WorldDifficult;
  * Manages difficulty levels by observing the player's height (Alien) and
  * notifying observers when a new difficulty threshold is reached.
  */
-public class WorldDifficultImpl implements WorldDifficult, Subject {
+public class WorldDifficultImpl implements WorldDifficult, Subject, AltitudeObserver {
 
     private final Alien alien;
     private final List<Observer> observers;
@@ -31,8 +32,8 @@ public class WorldDifficultImpl implements WorldDifficult, Subject {
         this.alien = alien;
         this.observers = new LinkedList<>();
         this.difficultList = List.copyOf(difficultList);
-        sortList();
         this.difficult = this.difficultList.getFirst();
+        notifyObservers(difficult);
     }
 
     private void sortList(){
@@ -77,6 +78,11 @@ public class WorldDifficultImpl implements WorldDifficult, Subject {
         for (var o : observers) {
             o.update(difficult);
         }
+    }
+
+    @Override
+    public void update(double delta) {
+        this.createDifficult();
     }
 
 }

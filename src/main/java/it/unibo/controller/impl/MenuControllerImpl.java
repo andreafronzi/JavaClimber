@@ -25,8 +25,8 @@ public class MenuControllerImpl implements MenuController{
      * @param mainController the main controller for managing view transitions and saving progress
      * @param scoreManager the model manager for scores
      */
-    public MenuControllerImpl(MainController mainController, ScoreManager scoreManager) {
-        this.menu = new MenuImpl();
+    public MenuControllerImpl(final MainController mainController, final ScoreManager scoreManager, final Menu menu) {
+        this.menu = menu;
         this.mainController = mainController;
         this.scoreManager = scoreManager;
     }
@@ -45,8 +45,7 @@ public class MenuControllerImpl implements MenuController{
      */
     @Override
     public void start() {
-        menu.setState(new LaunchedGameState(menu));
-        mainController.launchGame();
+        this.menu.setState(new LaunchedGameState(this.menu));
     }
 
     /**

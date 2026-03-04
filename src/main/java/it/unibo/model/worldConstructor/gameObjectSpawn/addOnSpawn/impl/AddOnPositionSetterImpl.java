@@ -26,7 +26,7 @@ public class AddOnPositionSetterImpl implements AddOnPositionSetter{
     }
 
     private <X extends GameObject> double generatePosY(final X addOn, final double platformPosY) {
-        return platformPosY + addOn.getHeight(); // posizione iniziale della piattaforma + altezza dell'add-on
+        return platformPosY - addOn.getHeight(); // posizione iniziale della piattaforma + altezza dell'add-on
     }
 
 }
