@@ -6,6 +6,7 @@ import java.util.Set;
 import it.unibo.controller.api.InventoryController;
 import it.unibo.controller.api.MainController;
 import it.unibo.model.menu.api.Menu;
+import it.unibo.model.menu.impl.InventoryState;
 import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.menu.impl.MenuState;
 import it.unibo.model.menu.impl.ShoppingState;
@@ -35,7 +36,7 @@ public class InventoryControllerImpl implements InventoryController {
         this.mainController = mainController;
         this.inventory = inventory;
         this.factory = factory;
-        this.menu = new MenuImpl();
+        this.menu = new MenuImpl(mainController);
     }
 
     /**
@@ -203,7 +204,7 @@ public class InventoryControllerImpl implements InventoryController {
      */
     @Override
     public void openInventory() {
-        mainController.openInventoryView();
+        menu.setState(new InventoryState(menu));
     }
 
     /**
@@ -212,7 +213,6 @@ public class InventoryControllerImpl implements InventoryController {
     @Override
     public void openShop() {
         menu.setState(new ShoppingState(menu));
-        mainController.openShopView();
     }
 
     /**
@@ -221,7 +221,6 @@ public class InventoryControllerImpl implements InventoryController {
     @Override
     public void exit() {
         menu.setState(new MenuState(menu));
-        mainController.openMenuView();
     }
     
     /**
