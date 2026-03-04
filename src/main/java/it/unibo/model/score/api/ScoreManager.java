@@ -48,4 +48,6 @@ public interface ScoreManager {
      * @param y the starting Y coordinate.
      */
     void setStartY(double y);
+
+    void resetScore();
 }

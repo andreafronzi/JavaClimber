@@ -100,4 +100,11 @@ public class ScoreManagerImpl implements ScoreManager, AltitudeObserver {
         this.startY = y;
     }
 
+    @Override
+    public void resetScore() {
+        this.currentScore = 0;
+        this.coins = 0;
+        this.totalCameraDelta = 0;
+        this.startY = 0;
+    }
 }
