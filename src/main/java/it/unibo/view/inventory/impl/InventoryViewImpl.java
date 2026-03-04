@@ -213,7 +213,7 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
                     controller.plusJump();
                 }
                 if (prefix.contains("speed")) {
-                    controller.plusJump();
+                    controller.plusVelocity();
                 }
             });
         }
