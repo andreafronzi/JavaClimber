@@ -24,9 +24,10 @@ public class LaunchedGameState extends BaseMenuState {
      */
     @Override
     public void execute() {
-        var launchedGame = new LaunchedGameImpl();
+        var launchedGame = new LaunchedGameImpl(this.menu.getMainController(), this.menu);
         this.menu.setLaunchedGame(launchedGame);
         launchedGame.setState(new InitialState(launchedGame));
+        this.menu.getMainController().launchGame();
     }
     
 }
