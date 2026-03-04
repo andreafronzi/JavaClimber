@@ -1,5 +1,8 @@
 package it.unibo.view;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -11,15 +14,18 @@ import it.unibo.view.shop.impl.ShopViewImpl;
 
 public class MainViewImpl implements MainView {
 
+    public static final int DECREASE_SCREEN_SIZE = 2;
+
     private final JFrame frame;
     private JPanel currentPanel;
 
     public MainViewImpl() {
         this.frame = new JFrame("Java Climber");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(1000, 600);
+        this.frame.setSize(600, 600);
         this.frame.setLocationRelativeTo(null);
         this.frame.setVisible(true);
+        this.setWindowSize();
     }
 
     private void switchPanel(JPanel newPanel) {
@@ -32,6 +38,15 @@ public class MainViewImpl implements MainView {
         frame.repaint();
     }
 
+    public void setWindowSize() {
+        final Toolkit toolkit = Toolkit.getDefaultToolkit();
+        final Dimension screenSize = toolkit.getScreenSize();
+        final int width = (int) (screenSize.getWidth());
+        final int height = (int) (screenSize.getHeight());
+        System.out.println("Screen size: " + width + "x" + height);
+        this.frame.setSize(width, height);
+    }
+
     @Override
     public void setMenuView(MenuController menuController) {
         MenuViewImpl menuView = new MenuViewImpl(menuController);
@@ -42,7 +57,13 @@ public class MainViewImpl implements MainView {
     @Override
     public void setGameLaunchedView(final GameLaunchedController gameLaunchedController, final GameLaunchedInputController gameLaunchedInputController) {
         final GameLaunchedViewPanelImpl gameLaunchedView = new GameLaunchedViewPanelImpl(gameLaunchedController, gameLaunchedInputController);
+        gameLaunchedController.setPanel(gameLaunchedView);
         switchPanel(gameLaunchedView);
+        
+        gameLaunchedView.setFocusable(true);
+        gameLaunchedView.requestFocusInWindow();
+        
+        new Thread(gameLaunchedController::runGame, "GameLoop").start();
     }
 
     @Override
