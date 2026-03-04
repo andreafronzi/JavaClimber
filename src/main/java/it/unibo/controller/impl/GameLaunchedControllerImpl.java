@@ -199,4 +199,14 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
     this.panel = panel;
   }
 
+  @Override
+  public int getCurrentScore() {
+      return this.launchedGame.getMenu().getScoreManager().getCurrentScore();
+  }
+
+  @Override
+  public int getCollectedCoins() {
+    return this.launchedGame.getMenu().getScoreManager().getCoins();
+  }
+
 }

@@ -61,4 +61,6 @@ public interface GameLaunchedController {
   void runGame(); 
 
   void setPanel(JPanel panel);
+  int getCurrentScore();
+  int getCollectedCoins();
 }
