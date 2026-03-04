@@ -22,7 +22,7 @@ public class ShoppingState extends BaseMenuState {
      */
     @Override
     public void execute() {
-        // Implementation of the execute method for ShoppingState
+        this.menu.getMainController().openShopView();
     }
     
 }
