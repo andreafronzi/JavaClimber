@@ -22,7 +22,7 @@ public class InventoryState extends BaseMenuState {
      */
     @Override
     public void execute() {
-        // Implementation of the execute method for InventoryState
+        this.menu.getMainController().openInventoryView();
     }
     
 }
