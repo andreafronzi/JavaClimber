@@ -26,6 +26,7 @@ public class AddOnCreatorImpl implements AddOnCreator {
         for (var addOn : addOnPool) {
             if (chance <= addOn.getX()) {
                 addOn.getY().accept(random.nextDouble(1.0), new Vector2dImpl(position.getX(), position.getY()));
+                break;
             }
         }
     }
