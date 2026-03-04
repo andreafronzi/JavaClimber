@@ -1,9 +1,12 @@
 package it.unibo.controller.api;
 
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameObj.api.*;
 
 import java.util.List;
 import java.util.Optional;
+
+import javax.swing.JPanel;
 
 /**
  * <p>Rapresent a controller which give to the view the data to render.</p>
@@ -56,4 +59,6 @@ public interface GameLaunchedController {
    * <p>Run {@link LaunchedGame}.</p>
    */
   void runGame(); 
+
+  void setPanel(JPanel panel);
 }
