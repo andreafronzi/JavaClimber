@@ -7,6 +7,7 @@ import it.unibo.model.gameObj.impl.CoinImpl;
 import it.unibo.model.gameObj.impl.EliCap;
 import it.unibo.model.gameObj.impl.EnemyImpl;
 import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.score.api.ScoreManager;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.FactoryAddOn;
 
 public class FactoryAddOnImpl implements FactoryAddOn {
@@ -17,8 +18,10 @@ public class FactoryAddOnImpl implements FactoryAddOn {
     private final double enemyHeight;
     private final double elycapWidth;
     private final double elycapHeight;
+    private final ScoreManager scoreManager;
 
-    public FactoryAddOnImpl() {
+    public FactoryAddOnImpl(final ScoreManager scoreManager) {
+        this.scoreManager = scoreManager;
         this.coinWidth = GameObjDimension.COIN_WIDTH;
         this.coinHeight = GameObjDimension.COIN_HEIGHT;
         this.enemyWidth = GameObjDimension.ENEMY_WIDTH;
@@ -30,7 +33,7 @@ public class FactoryAddOnImpl implements FactoryAddOn {
 
     @Override
     public Coin createCoin(final Vector2d position) {
-        return new CoinImpl(coinWidth, coinHeight, position, null);
+        return new CoinImpl(coinWidth, coinHeight, position, this.scoreManager);
     }
 
     @Override
