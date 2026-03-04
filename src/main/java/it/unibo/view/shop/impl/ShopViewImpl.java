@@ -269,14 +269,27 @@ public class ShopViewImpl extends JPanel implements ShopView {
     }
 
     private void addTempCategory(String title, String prefix, List<ShopItem> items) {
-        tempPanel.add(createSubHeader(title));
+        JPanel categoryContainer = new JPanel();
+        categoryContainer.setLayout(new BoxLayout(categoryContainer, BoxLayout.Y_AXIS));
+        categoryContainer.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.BLACK, 1), 
+                BorderFactory.createEmptyBorder(10, 20, 10, 20)));
+        categoryContainer.setAlignmentX(Component.CENTER_ALIGNMENT);
+        categoryContainer.add(createSubHeader(title));
+        categoryContainer.add(Box.createVerticalStrut(10));
+        
         for (int i = 0; i < items.size(); i++) {
             ShopItem item = items.get(i);
             if (item.getId().startsWith(prefix)) {
-                tempPanel.add(createTemporaryWidget(item, i));
-                tempPanel.add(Box.createVerticalStrut(10));
+                categoryContainer.add(createTemporaryWidget(item, i));
+                categoryContainer.add(Box.createVerticalStrut(10));
             }
         }
+
+        Dimension maxSize = categoryContainer.getPreferredSize();
+        categoryContainer.setMaximumSize(new Dimension(340, maxSize.height));
+        tempPanel.add(categoryContainer);
+        tempPanel.add(Box.createVerticalStrut(20));
     }
 
     @Override
