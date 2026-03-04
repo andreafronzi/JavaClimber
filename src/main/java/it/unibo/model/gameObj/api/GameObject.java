@@ -2,6 +2,11 @@ package it.unibo.model.gameObj.api;
 
 import it.unibo.model.physics.api.Vector2d;
 
+/**
+ * <p>
+ * Represents a game object in a two-dimensional {@link GameWorld}.
+ * </p>
+ */
 public interface GameObject {
 
   /**
@@ -29,7 +34,9 @@ public interface GameObject {
   double getWidth();
 
   /**
+   * <p>
    * Set GameObject's position with the one provided.
+   * </p>
    *
    * @param position the new position of the object
    */

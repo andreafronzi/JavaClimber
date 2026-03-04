@@ -12,9 +12,13 @@ import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.Boundary;
 
 /**
- * Represents the EliCap gadget. When the alien collects it, it will have a vertical speed for a certain time interval, then it will return to normal physic.
+ * <p>
+ * Represents the EliCap gadget. When the alien collects it, it will have a
+ * vertical speed for a certain time interval, then it will return to normal
+ * physic.
+ * </p>
  */
-public class EliCap extends GameObj implements Gadget{
+public class EliCap extends GameObj implements Gadget {
 
   /**
    * Represents the duration time of the gadget effect.
@@ -27,24 +31,33 @@ public class EliCap extends GameObj implements Gadget{
   private static final double VERTICAL_SPEED = -500.0;
 
   /**
+   * <p>
    * Constructor of the EliCap gadget.
+   * </p>
    *
-   * @param height the height of the gadget
-   * @param width the width of the gadget
+   * @param height   the height of the gadget
+   * @param width    the width of the gadget
    * @param position the position of the gadget
    */
   public EliCap(final double height, final double width, final Vector2d position) {
-        super(height, width, position);
-    }
+    super(height, width, position);
+  }
 
-    @Override
-    public void onCollect(final Alien alien, final GameWorld gameWorld) {
-        alien.setPhysic(new AlienEliCapPhysic(TIME_INTERVALL, VERTICAL_SPEED));
-        gameWorld.removeGadget(this);
-    }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void onCollect(final Alien alien, final GameWorld gameWorld) {
+    alien.setPhysic(new AlienEliCapPhysic(TIME_INTERVALL, VERTICAL_SPEED));
+    gameWorld.removeGadget(this);
+  }
 
-    @Override
-    public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final GameWorld gameWorld, final LaunchedGame launchedGame, final ActiveUpgrades activeUpgrades) {
-      physic.hitGadget(alien, this, gameWorld);
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final GameWorld gameWorld,
+      final LaunchedGame launchedGame, final ActiveUpgrades activeUpgrades) {
+    physic.hitGadget(alien, this, gameWorld);
   }
 }

@@ -11,16 +11,20 @@ import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.Boundary;
 
 /**
+ * <p>
  * Represents an implementation of the {@link Enemy} interface.
  * This class models an enemy entity within a two-dimensional game environment.
+ * </p>
  */
 public class EnemyImpl extends GameObj implements Enemy {
 
   /**
+   * <p>
    * Constructs a new EnemyImpl.
+   * </p>
    *
-   * @param height Enemy's height
-   * @param width Enemy's width
+   * @param height   Enemy's height
+   * @param width    Enemy's width
    * @param position the position of the Enemy
    */
   public EnemyImpl(final double height, final double width, final Vector2d position) {
@@ -39,7 +43,8 @@ public class EnemyImpl extends GameObj implements Enemy {
    * {@inheritDoc}
    */
   @Override
-  public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final GameWorld gameWorld, final LaunchedGame launchedGame, final ActiveUpgrades activeUpgrades) {
+  public void onHitBy(final Alien alien, final AlienPhysic physic, final Boundary boundary, final GameWorld gameWorld,
+      final LaunchedGame launchedGame, final ActiveUpgrades activeUpgrades) {
     physic.hitEnemy(alien, this, gameWorld, launchedGame, activeUpgrades);
   }
 }

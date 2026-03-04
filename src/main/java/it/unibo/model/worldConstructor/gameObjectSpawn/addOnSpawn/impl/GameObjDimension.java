@@ -19,4 +19,7 @@ public class GameObjDimension {
     public static final double NULL_ALIEN_SPEED = 0;
     public static final double LEFT_ALIEN_SPEED_X = -400.0;
     public static final double RIGHT_ALIEN_SPEED_X = 400.0;
+
+    public static final double GRAVITY = 200.0;
+
 }
