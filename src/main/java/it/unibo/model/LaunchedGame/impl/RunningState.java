@@ -31,6 +31,11 @@ public class RunningState extends BaseLaunchedState {
         this.scoreManager = scoreManager;
     }
 
+    @Override
+    public void onEnter() {
+        this.launchedGame.setRunning(true);
+    }
+
     /**
      * {@inheritDoc}
      * Executes the gameplay logic.
@@ -38,7 +43,7 @@ public class RunningState extends BaseLaunchedState {
     @Override
     public void execute(final double dt) {
         world.getRealWorld().getAlien().updatePosition(dt, world.getRealWorld().getBoundWorld(), this.launchedGame);
-        collisionManager.detectCollisions(world.getRealWorld());
+        collisionManager.detectCollisions(world.getRealWorld(), this.launchedGame);
         scoreManager.updateScore(world.getRealWorld().getAlien().getPosY());
         altitudeManager.verifiedAltitude();
     }
