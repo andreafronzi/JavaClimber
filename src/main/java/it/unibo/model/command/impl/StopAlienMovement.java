@@ -10,7 +10,9 @@ import it.unibo.model.gameObj.api.Alien;
 public class StopAlienMovement implements RunningCommand {
 
   /**
-   * Stop alien movement.
+   * <p>Stop the {@link Alien} movement.</p>
+   * 
+   * @param alien the {@link Alien} to stop.
    */
   @Override
   public void execute(final Alien alien, final LaunchedGame launchedGame) {
