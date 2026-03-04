@@ -26,6 +26,30 @@ public interface Alien extends GameObject {
   double getSpeedY();
 
   /**
+   * Check if the Alien is currently moving left.
+   * 
+   * @return {@code true} if the Alien is moving left, {@code false} otherwise.
+   */
+  boolean isMovingLeft();
+
+  /**
+   * Check if the Alien is currently moving right.
+   * 
+   * @return {@code true} if the Alien is moving right, {@code false} otherwise.
+   */
+  boolean isMovingRight();
+
+  /**
+   * Initiates movement of the Alien to the left. This method should set the Alien's state to indicate that it is moving left.
+   */
+  void moveLeft();
+
+  /**
+   * Initiates movement of the Alien to the right. This method should set the Alien's state to indicate that it is moving right.
+   */
+  void moveRight();
+
+  /**
    * Notifies the Alien of a collision with a {@link StaticEntity}.
    * This method is called when the Alien comes into contact with a StaticEntity
    *
@@ -51,6 +75,11 @@ public interface Alien extends GameObject {
   void setSpeed(Vector2d speed);
 
   /**
+   * Stop Alien's movement.
+   */
+  void stopMoving();
+
+  /**
    * update Alien's position.
    *
    * @param dt elapsed time between two updates
@@ -58,10 +87,4 @@ public interface Alien extends GameObject {
    * @param launchedGame the launched game
    */
   void updatePosition(double dt, BoundWorld boundWorld, LaunchedGame launchedGame);
-
-  boolean isMovingLeft();
-  boolean isMovingRight();
-  void moveLeft();
-  void moveRight();
-  void stopMoving();
 }
