@@ -122,7 +122,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    */
   @Override
   public void handleMoveRightCommand() {
-    this.launchedGame.addCommand(new MoveRigthMod());
+    this.launchedGame.addCommand(new MoveAlienRight());
   }
 
   /**
@@ -130,7 +130,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    */
   @Override
   public void handleMoveLeftCommand() {
-    this.launchedGame.addCommand(new MoveLeftMod());
+    this.launchedGame.addCommand(new MoveAlienLeft());
   }
 
   /**
@@ -146,7 +146,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    */
   @Override
   public void handleReleaseMovementCommand() {
-    this.launchedGame.addCommand(new StopMoveMod());
+    this.launchedGame.addCommand(new StopAlienMovement());
   }
 
   private static final long FRAME_TIME_MS = 16; 
