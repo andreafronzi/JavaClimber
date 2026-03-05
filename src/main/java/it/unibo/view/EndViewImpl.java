@@ -41,6 +41,23 @@ public class EndViewImpl extends JPanel implements EndView {
 
         this.add(Box.createVerticalGlue());
         this.add(titoloMorte);
+
+        this.add(Box.createRigidArea(new Dimension(0, 15)));
+        
+        if (this.controller.isNewHighScore()) {
+            JLabel newRecordLabel = new JLabel("NEW HIGH SCORE: " + this.controller.getScore());
+            newRecordLabel.setFont(new Font(Font.SERIF, Font.BOLD, 36));
+            newRecordLabel.setForeground(new Color(255, 215, 0)); 
+            newRecordLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            this.add(newRecordLabel);
+        } else {
+            JLabel scoreLabel = new JLabel("Score: " + this.controller.getScore());
+            scoreLabel.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+            scoreLabel.setForeground(Color.WHITE);
+            scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            this.add(scoreLabel);
+        }
+
         this.add(Box.createRigidArea(new Dimension(0, 30)));
         this.add(this.restart);
         this.add(Box.createRigidArea(new Dimension(0, 10)));
