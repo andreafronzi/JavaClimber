@@ -223,6 +223,9 @@ public class InventoryControllerImpl implements InventoryController {
         menu.setState(new MenuState(menu));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Integer> getTempItemsDuration() {
         var consumablesMap = inventory.getConsumablesStatus();        
