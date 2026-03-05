@@ -14,6 +14,7 @@ public class ScoreManagerImpl implements ScoreManager, AltitudeObserver {
     private int highScore;
     private double startY;
     private double totalCameraDelta;
+    private boolean isNewHighScore;
 
     /**
      * Construct a ScoreManagerImpl with default values.
@@ -46,6 +47,7 @@ public class ScoreManagerImpl implements ScoreManager, AltitudeObserver {
             this.currentScore = score;
             if (this.currentScore > this.highScore) {
                 this.highScore = this.currentScore;
+                this.isNewHighScore = true;
             }
         }
     }
@@ -106,5 +108,11 @@ public class ScoreManagerImpl implements ScoreManager, AltitudeObserver {
         this.coins = 0;
         this.totalCameraDelta = 0;
         this.startY = 0;
+        this.isNewHighScore = false;
+    }
+
+    @Override
+    public boolean isNewHighScore() {
+        return this.isNewHighScore;
     }
 }

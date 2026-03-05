@@ -50,4 +50,5 @@ public interface ScoreManager {
     void setStartY(double y);
 
     void resetScore();
+    boolean isNewHighScore();
 }
