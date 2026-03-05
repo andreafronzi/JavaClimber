@@ -32,4 +32,14 @@ public class EndControllerImpl implements EndController{
         this.menu.setState(new LaunchedGameState(this.menu));
     }
 
+    @Override
+    public int getScore() {
+        return this.menu.getScoreManager().getCurrentScore();
+    }
+
+    @Override
+    public boolean isNewHighScore() {
+        return this.menu.getScoreManager().isNewHighScore();
+    }
+
 }
