@@ -102,6 +102,9 @@ public class ScoreManagerImpl implements ScoreManager, AltitudeObserver {
         this.startY = y;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resetScore() {
         this.currentScore = 0;
@@ -111,6 +114,9 @@ public class ScoreManagerImpl implements ScoreManager, AltitudeObserver {
         this.isNewHighScore = false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isNewHighScore() {
         return this.isNewHighScore;
