@@ -21,6 +21,9 @@ import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinSet;
 import it.unibo.view.GameLaunchedView.renderers.skingRegistry.impl.SkinRegistryImpl;
 import it.unibo.view.inventory.api.InventoryView;
 
+/**
+ * Implementation of {@link InventoryView} interface.
+ */
 public class InventoryViewImpl extends JPanel implements InventoryView {
 
     private final InventoryController controller;
@@ -32,6 +35,10 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
     private JPanel permPanel;
     private JPanel tempPanel;
 
+    /**
+     * Construct a InventoryViewImpl with specified controller.
+     * @param controller the controller for managing user interactions and updating the view
+     */
     public InventoryViewImpl(InventoryController controller) {
         super(new BorderLayout());
         this.controller = controller;
@@ -40,8 +47,10 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         initialize();
     }
 
+    /**
+     * Initialize the view components.
+     */
     private void initialize() {
-        // parte superiore COINS+SHOP+EXIT
         final JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
@@ -76,7 +85,6 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         topPanel.add(rightHeader, BorderLayout.EAST);
         this.add(topPanel, BorderLayout.NORTH);
 
-        // parte centrale ITEMS
         this.itemsPanel = new JPanel(new GridLayout(1, 3, 10, 0));
 
         this.skinsPanel = createCategoryPanel("SKINS");
@@ -88,6 +96,11 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         this.add(scrollPane, BorderLayout.CENTER);
     }
 
+    /**
+     * Helper method to create a category panel with a title and add it to the items panel.
+     * @param title the title of the category panel
+     * @return the created category panel
+     */
     private JPanel createCategoryPanel(String title) {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(BorderFactory.createTitledBorder(title));
@@ -98,6 +111,13 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         return content;
     }
 
+    /**
+     * Helper method to create a widget for a skin item.
+     * @param item the skin item to create the widget for
+     * @param index the index of the item in the skins list
+     * @param isEquipped whether the skin is currently equipped
+     * @return a JPanel representing the skin widget
+     */
     private JPanel createSkinWidget(ShopItem item, int index, boolean isEquipped) {
         JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
@@ -143,6 +163,15 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         return card;
     }
 
+    /**
+     * Helper method to create a widget for a permanent power up category.
+     * @param title the title of the widget
+     * @param prefix the prefix for filtering items
+     * @param items the list of shop items
+     * @param selectedLevel the currently selected level
+     * @param maxOwnedLevel the maximum owned level
+     * @return the created permanent power-up widget
+     */
     private JPanel createPermanentWidget(String title, String prefix, List<ShopItem> items, int selectedLevel, int maxOwnedLevel) {
         JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
@@ -231,6 +260,14 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         return container;
     }
 
+    /**
+     * Helper method to create a widget for a temporary power up item.
+     * @param item the shop item to create the widget for
+     * @param index the index of the item in the temporary items list
+     * @param isActive whether the item is currently active
+     * @param duration the remaining duration of the item in matches
+     * @return the created temporary power-up widget
+     */
     private JPanel createTemporaryWidget(ShopItem item, int index, boolean isActive, int duration) {
         final JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
@@ -263,6 +300,11 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         return card;
     }
 
+    /**
+     * Helper method to create a subheader label for category sections.
+     * @param text the text for the subheader
+     * @return the created subheader label
+     */
     private JLabel createSubHeader(String text) {
         JLabel label = new JLabel(text);
         label.setFont(new Font("Arial", Font.BOLD, 16));
@@ -271,6 +313,14 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         return label;
     }
 
+    /**
+     * Helper method to create a temporary power-up category section.
+     * @param title the title of the category
+     * @param prefix the prefix for filtering items
+     * @param items the list of items in the category
+     * @param tempStatus the list of active statuses for the temporary items
+     * @param tempDuration the list of remaining durations for the temporary items
+     */
     private void addTempCategory(String title, String prefix, List<ShopItem> items, List<Boolean> tempStatus, List<Integer> tempDuration) {
         JPanel categoryContainer = new JPanel();
         categoryContainer.setLayout(new BoxLayout(categoryContainer, BoxLayout.Y_AXIS));
@@ -302,6 +352,9 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         tempPanel.add(Box.createVerticalStrut(20));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void display() {
         this.setVisible(true);
@@ -309,6 +362,9 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         this.repaint();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateInventory(List<ShopItem> ownedSkins, String equippedSkinId, List<ShopItem> allPermItems, int selectedJump, int maxJump,
             int selectedSpeed, int maxSpeed, List<ShopItem> ownedTemp, List<Boolean> tempStatus, List<Integer> tempDuration) {
@@ -316,19 +372,16 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         permPanel.removeAll();
         tempPanel.removeAll();
 
-        //Skins
         for(int i = 0; i < ownedSkins.size(); i++) {
             skinsPanel.add(Box.createVerticalStrut(10));
             skinsPanel.add(createSkinWidget(ownedSkins.get(i), i, ownedSkins.get(i).getId().equals(equippedSkinId)));
         }
 
-        //permanent upgrades
         permPanel.add(Box.createVerticalStrut(10));
         permPanel.add(createPermanentWidget("JUMP HEIGHT", "pp_jump", allPermItems, selectedJump, maxJump));
         permPanel.add(Box.createVerticalStrut(30));
         permPanel.add(createPermanentWidget("SPEED BOOST", "pp_speed", allPermItems, selectedSpeed, maxSpeed));
 
-        //temporary upgrades
         if (ownedTemp != null && tempStatus != null) {
             addTempCategory("JUMP HEIGHT", "pt_jump", ownedTemp, tempStatus, tempDuration);
             addTempCategory("SPEED BOOST", "pt_speed", ownedTemp, tempStatus, tempDuration);
@@ -339,11 +392,17 @@ public class InventoryViewImpl extends JPanel implements InventoryView {
         this.repaint();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateCoins(int coins) {
         this.coinsLabel.setText("Coins: " + coins);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void close() {
         this.setVisible(false);
