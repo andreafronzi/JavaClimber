@@ -95,8 +95,8 @@ public class SpawnPoolEasy implements SpawnPool {
      */
 
     private void initializePlatformPool() {
-        this.platformPool.add(new PairImpl<>(0.5, this.director::normalPlatform));
-        this.platformPool.add(new PairImpl<>(0.75, this.director::movingOnTouchPlatform));
+        this.platformPool.add(new PairImpl<>(0.0, this.director::normalPlatform));
+        this.platformPool.add(new PairImpl<>(0.0, this.director::movingOnTouchPlatform));
         this.platformPool.add(new PairImpl<>(1.0, this.director::movingPlatform));
     }
 
@@ -110,16 +110,6 @@ public class SpawnPoolEasy implements SpawnPool {
 
     private void initializeMoneyPool() {
         this.moneyPool.add(new PairImpl<>(1.0, this.factoryAddOn::createCoin));
-    }
-
-    @Override
-    public double getWidth() {
-        return this.width;
-    }
-
-    @Override
-    public double getHeight() {
-        return this.height;
     }
 
     /*
