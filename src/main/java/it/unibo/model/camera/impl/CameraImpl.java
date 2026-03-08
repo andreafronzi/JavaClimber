@@ -59,11 +59,15 @@ public class CameraImpl implements Camera, AltitudeObserver {
         alien.setPosition(new Vector2dImpl(alien.getPosX(), alien.getPosY() + delta));
         
         List.of(
-            world.getRealWorld().getPlatforms(),
+            world.getRealWorld().getStaticPlatforms(),
+            world.getRealWorld().getOnTouchPlatforms(),
+            world.getRealWorld().getMovingPlatforms(),
             world.getRealWorld().getMoneys(),
             world.getRealWorld().getGadgets(),
             world.getRealWorld().getMonsters(),
-            world.getUpperWorld().getPlatforms(),
+            world.getUpperWorld().getStaticPlatforms(),
+            world.getUpperWorld().getOnTouchPlatforms(),
+            world.getUpperWorld().getMovingPlatforms(),
             world.getUpperWorld().getMoneys(),
             world.getUpperWorld().getGadgets(),
             world.getUpperWorld().getMonsters()
@@ -97,7 +101,9 @@ public class CameraImpl implements Camera, AltitudeObserver {
         var upper = world.getUpperWorld();
         var real = world.getRealWorld();
 
-        transferCategory(upper::getPlatforms, upper::removeFirstPlatform, real::addPlatform, viewLimit);
+        transferCategory(upper::getStaticPlatforms, upper::removeFirstStaticPlatform, real::addStaticPlatform, viewLimit);
+        transferCategory(upper::getMovingPlatforms, upper::removeFirstMovingPlatform, real::addMovingPlatform, viewLimit);
+        transferCategory(upper::getOnTouchPlatforms, upper::removeFirstOnTouchPlatform, real::addOnTouchPlatform, viewLimit);
         transferCategory(upper::getGadgets,   upper::removeFirstGadget,   real::addGadget,   viewLimit);
         transferCategory(upper::getMoneys,    upper::removeFirstMoney,    real::addMoney,    viewLimit);
         transferCategory(upper::getMonsters,  upper::removeFirstMonster,  real::addMonster,  viewLimit);
@@ -129,7 +135,9 @@ public class CameraImpl implements Camera, AltitudeObserver {
         double limit = this.height;
 
         List.of(
-            world.getRealWorld().getPlatforms(),
+            world.getRealWorld().getStaticPlatforms(),
+            world.getRealWorld().getOnTouchPlatforms(),
+            world.getRealWorld().getMovingPlatforms(),
             world.getRealWorld().getGadgets(),
             world.getRealWorld().getMonsters(),
             world.getRealWorld().getMoneys()
