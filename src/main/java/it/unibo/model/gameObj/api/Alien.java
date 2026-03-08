@@ -8,8 +8,8 @@ import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.Boundary;
 
 /**
- * Represents an Alien entity in a two-dimensional game environment.
- * This interface provides methods to manage the Alien's physic movement.
+ * <p>Represents an Alien entity in a two-dimensional game environment.
+ * This interface provides methods to manage the Alien's physic movement.</p>
  */
 public interface Alien extends GameObject {
 
@@ -26,8 +26,34 @@ public interface Alien extends GameObject {
   double getSpeedY();
 
   /**
-   * Notifies the Alien of a collision with a {@link StaticEntity}.
-   * This method is called when the Alien comes into contact with a StaticEntity
+   * <p>Check if the Alien is currently moving left.</p>
+   * 
+   * @return {@code true} if the Alien is moving left, {@code false} otherwise.
+   */
+  boolean isMovingLeft();
+
+  /**
+   * <p>Check if the Alien is currently moving right.</p>
+   * 
+   * @return {@code true} if the Alien is moving right, {@code false} otherwise.
+   */
+  boolean isMovingRight();
+
+  /**
+   * <p>Initiates movement of the Alien to the left.</p>
+   * <p>This method should set the Alien's state to indicate that it is moving left.</p>
+   */
+  void moveLeft();
+
+  /**
+   * <p>Initiates movement of the Alien to the right.</p>
+   * <p>This method should set the Alien's state to indicate that it is moving right.</p>
+   */
+  void moveRight();
+
+  /**
+   * <p>Notifies the Alien of a collision with a {@link StaticEntity}.
+   * This method is called when the Alien comes into contact with a StaticEntity</p>
    *
    * @param gObj the {@link StaticEntity} that the Alien has collided with
    * @param boundary the {@link Boundary} of the world
@@ -37,31 +63,30 @@ public interface Alien extends GameObject {
   void notifyCollision(StaticEntity gObj, Boundary boundary, GameWorld gameWorld, LaunchedGame launchedGame);
 
   /**
-   * Set Alien's physic
+   * <p>Set Alien's physic</p>
    *
    * @param physic the new physic of the Alien
    */
   public void setPhysic(AlienPhysic physic);
 
   /**
-   * Set Alien's speed with the one provided.
+   * <p>Set Alien's speed with the one provided.</p>
    *
    * @param speed the new speed of the Alien
    */
   void setSpeed(Vector2d speed);
 
   /**
-   * update Alien's position.
+   * <p>Stop Alien's movement.</p>
+   */
+  void stopMoving();
+
+  /**
+   * <p>update Alien's position.</p>
    *
    * @param dt elapsed time between two updates
    * @param boundWorld the boundary of the world
    * @param launchedGame the launched game
    */
   void updatePosition(double dt, BoundWorld boundWorld, LaunchedGame launchedGame);
-
-  boolean isMovingLeft();
-  boolean isMovingRight();
-  void moveLeft();
-  void moveRight();
-  void stopMoving();
 }
