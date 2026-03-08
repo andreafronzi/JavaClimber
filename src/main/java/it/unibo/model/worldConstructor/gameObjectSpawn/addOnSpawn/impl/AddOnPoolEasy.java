@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.AddOnPool;
 import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPoolCreator;
@@ -12,7 +13,7 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PairIm
 
 public class AddOnPoolEasy implements AddOnPool {
 
-    private final List<Pair<Double,BiConsumer<Double,Vector2dImpl>>> addOnPool;
+    private final List<Pair<Double,BiConsumer<Double,Platform>>> addOnPool;
     private SpawnPoolCreator spawnPoolCreator;
     private final double chanceAddOn;
 
@@ -22,7 +23,7 @@ public class AddOnPoolEasy implements AddOnPool {
     }
 
     @Override
-    public List<Pair<Double,BiConsumer<Double,Vector2dImpl>>> getAddOnPool() {
+    public List<Pair<Double,BiConsumer<Double,Platform>>> getAddOnPool() {
         return this.addOnPool;
     }
     
@@ -32,9 +33,9 @@ public class AddOnPoolEasy implements AddOnPool {
     }
 
     private void createAddOn() {
-        this.addOnPool.add(new PairImpl<Double,BiConsumer<Double,Vector2dImpl>>(0.2, this.spawnPoolCreator::createGadget));
-        this.addOnPool.add(new PairImpl<Double,BiConsumer<Double,Vector2dImpl>>(0.4, this.spawnPoolCreator::createMonster));
-        this.addOnPool.add(new PairImpl<Double,BiConsumer<Double,Vector2dImpl>>(1.0, this.spawnPoolCreator::createMoney));
+        this.addOnPool.add(new PairImpl<Double,BiConsumer<Double,Platform>>(0.2, this.spawnPoolCreator::createGadget));
+        this.addOnPool.add(new PairImpl<Double,BiConsumer<Double,Platform>>(0.4, this.spawnPoolCreator::createMonster));
+        this.addOnPool.add(new PairImpl<Double,BiConsumer<Double,Platform>>(1.0, this.spawnPoolCreator::createMoney));
     }
 
     @Override

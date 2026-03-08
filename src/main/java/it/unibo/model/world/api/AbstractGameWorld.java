@@ -19,8 +19,24 @@ public abstract class AbstractGameWorld extends AbstractQueueWorld implements Ga
      * {@inheritDoc}
      */
     @Override
-    public boolean removePlatform(final Platform platform) {
-        return platforms.remove(platform);
+    public boolean removeStaticPlatform(final Platform platform) {
+        return staticPlatforms.remove(platform);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean removeMovingPlatform(final Platform platform) {
+        return movingPlatforms.remove(platform);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean removeOnTouchPlatform(final Platform platform) {
+        return onTouchPlatforms.remove(platform);
     }
 
     /**

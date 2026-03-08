@@ -8,7 +8,7 @@ import it.unibo.model.gameObj.api.Platform;
 
 /**
  * Interface for a world that acts as a queue (FIFO).
- * Allows removing the first element for each entity type, 
+ * Allows removing the first element for each entity type,
  * treating the world storage as a queue.
  */
 public interface QueueWorld extends BaseWorld {
@@ -18,8 +18,12 @@ public interface QueueWorld extends BaseWorld {
      *
      * @return an {@link Optional} containing the removed platform if present,
      *         or an empty Optional if the queue is empty.
-     */ 
-    Optional<Platform> removeFirstPlatform();
+     */
+    Optional<Platform> removeFirstStaticPlatform();
+
+    Optional<Platform> removeFirstMovingPlatform();
+
+    Optional<Platform> removeFirstOnTouchPlatform();
 
     /**
      * Removes and returns the first enemy (monster) available in the queue.

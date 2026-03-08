@@ -2,6 +2,7 @@ package it.unibo.model.worldConstructor.data;
 
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.AddOnPool;
 import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPool;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.PlatformPool;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.Distance;
 
 /**
@@ -24,6 +25,7 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.Distan
  */
 public record Difficult(double height,
         Distance distance,
+        SpawnPool spawnPool,
         AddOnPool addOnPool,
-        SpawnPool platformPool) {
+        PlatformPool platformPool) {
 }

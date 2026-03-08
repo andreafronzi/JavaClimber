@@ -15,37 +15,51 @@ public interface BaseWorld {
 
     /**
      * Retrieves the list of platforms.
+     * 
      * @return a List of {@link Platform} objects.
      */
-    List<Platform> getPlatforms();
+    List<Platform> getStaticPlatforms();
+
+    List<Platform> getMovingPlatforms();
+
+    List<Platform> getOnTouchPlatforms();
 
     /**
      * Retrieves the list of enemies.
+     * 
      * @return a List of {@link Enemy} objects.
      */
     List<Enemy> getMonsters();
 
     /**
      * Retrieves the list of gadgets.
+     * 
      * @return a List of {@link Gadget} objects.
      */
     List<Gadget> getGadgets();
 
     /**
      * Retrieves the list of coins.
+     * 
      * @return a List of {@link Coin} objects.
      */
     List<Coin> getMoneys();
 
     /**
      * Adds a platform.
+     * 
      * @param platform the platform to add.
      * @return true if added successfully.
      */
-    boolean addPlatform(Platform platform);
+    boolean addStaticPlatform(Platform platform);
+
+    boolean addMovingPlatform(Platform platform);
+
+    boolean addOnTouchPlatform(Platform platform);
 
     /**
      * Adds an enemy.
+     * 
      * @param monster the enemy to add.
      * @return true if added successfully.
      */
@@ -53,6 +67,7 @@ public interface BaseWorld {
 
     /**
      * Adds a gadget.
+     * 
      * @param gadget the gadget to add.
      * @return true if added successfully.
      */
@@ -60,6 +75,7 @@ public interface BaseWorld {
 
     /**
      * Adds a coin.
+     * 
      * @param money the coin to add.
      * @return true if added successfully.
      */

@@ -10,6 +10,6 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Pair;
 
 public interface ObjectSelector {
     
-    public <X extends GameObject> Optional<X> selector(double chance, Vector2d pos, List<Pair<Double,Function<Vector2d,X>>> addOns);
+    public <X extends GameObject> Optional<X> selector(double chance, double x, double y, List<Pair<Double,Function<Vector2d,X>>> addOns);
 
 }

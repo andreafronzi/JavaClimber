@@ -18,7 +18,11 @@ public interface GameWorld extends BaseWorld {
      * @param platform the platform to be removed.
      * @return true if the platform was found and removed, false otherwise.
      */
-    boolean removePlatform(Platform platform);
+    boolean removeStaticPlatform(Platform platform);
+
+    boolean removeMovingPlatform(Platform platform);
+
+    boolean removeOnTouchPlatform(Platform platform);
 
     /**
      * Removes a specific enemy (monster) from the world.
