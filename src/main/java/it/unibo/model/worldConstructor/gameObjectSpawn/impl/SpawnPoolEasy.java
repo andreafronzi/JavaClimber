@@ -24,13 +24,13 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PairIm
  */
 public class SpawnPoolEasy implements SpawnPool {
 
-    private final List<Pair<Double,Function<Vector2d,Platform>>> platformPool;
+    private final List<Pair<Double,Function<Vector2d,Platform>>> staticPlatformPool;
+    private final List<Pair<Double,Function<Vector2d,Platform>>> movingPlatformPool;
+    private final List<Pair<Double,Function<Vector2d,Platform>>> onTouchPlatformPool;
     private final List<Pair<Double,Function<Vector2d,Enemy>>> monsterPool;
     private final List<Pair<Double,Function<Vector2d,Gadget>>> gadgetPool;
     private final List<Pair<Double,Function<Vector2d,Coin>>> moneyPool;
     // private final List<Pair<Double,Function<Vector2d,Trap>>> trapPool;
-    private final double width;
-    private final double height;
     private final Director director;
     private final FactoryAddOn factoryAddOn;
 
@@ -38,9 +38,9 @@ public class SpawnPoolEasy implements SpawnPool {
      * Constructs the easy platform pool and initializes the object lists.
      */
     public SpawnPoolEasy(final double width, final double height, final ScoreManager scoreManager) {
-        this.width = width;
-        this.height = height;
-        this.platformPool = new LinkedList<>();
+        this.staticPlatformPool = new LinkedList<>();
+        this.movingPlatformPool = new LinkedList<>();
+        this.onTouchPlatformPool = new LinkedList<>();
         this.monsterPool = new LinkedList<>();
         this.gadgetPool = new LinkedList<>();
         this.moneyPool = new LinkedList<>();
@@ -48,7 +48,9 @@ public class SpawnPoolEasy implements SpawnPool {
         this.director = new DirectorImpl(width, height);
         this.factoryAddOn = new FactoryAddOnImpl(scoreManager);
 
-        initializePlatformPool();
+        initializeStaticPlatformPool();
+        initializeMovingPlatformPool();
+        initializeOnTouchPlatformPool();
         initializeMonsterPool();
         initializeGadgetPool();
         initializeMoneyPool();
@@ -59,9 +61,19 @@ public class SpawnPoolEasy implements SpawnPool {
      * {@inheritDoc}
      */
     @Override
-    public List<Pair<Double,Function<Vector2d,Platform>>> getPlatformPool() {
-        return List.copyOf(this.platformPool);
+    public List<Pair<Double,Function<Vector2d,Platform>>> getStaticPlatformPool() {
+        return List.copyOf(this.staticPlatformPool);
     }
+
+    @Override
+    public List<Pair<Double,Function<Vector2d,Platform>>> getMovingPlatformPool() {
+        return List.copyOf(this.movingPlatformPool);
+    }
+
+    @Override
+    public List<Pair<Double,Function<Vector2d,Platform>>> getOnTouchPlatformPool() {
+        return List.copyOf(this.onTouchPlatformPool);
+    }   
 
     /**
      * {@inheritDoc}
@@ -94,10 +106,16 @@ public class SpawnPoolEasy implements SpawnPool {
      * }
      */
 
-    private void initializePlatformPool() {
-        this.platformPool.add(new PairImpl<>(0.0, this.director::normalPlatform));
-        this.platformPool.add(new PairImpl<>(0.0, this.director::movingOnTouchPlatform));
-        this.platformPool.add(new PairImpl<>(1.0, this.director::movingPlatform));
+    private void initializeStaticPlatformPool() {
+        this.staticPlatformPool.add(new PairImpl<>(1.0, this.director::normalPlatform));
+    }
+
+    private void initializeMovingPlatformPool() {
+        this.movingPlatformPool.add(new PairImpl<>(1.0, this.director::movingPlatform));
+    }
+
+    private void initializeOnTouchPlatformPool() {
+        this.onTouchPlatformPool.add(new PairImpl<>(1.0, this.director::movingOnTouchPlatform));
     }
 
     private void initializeMonsterPool() {
