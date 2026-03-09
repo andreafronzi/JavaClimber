@@ -20,6 +20,8 @@ public class AddOnPoolEasy implements AddOnPool {
     public AddOnPoolEasy(final SpawnPoolCreator spawnPoolCreator, final double chanceAddOn) {
         this.addOnPool = new LinkedList<>();
         this.chanceAddOn = chanceAddOn;
+        this.spawnPoolCreator = spawnPoolCreator;
+        this.createAddOn();
     }
 
     @Override
