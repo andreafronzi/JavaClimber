@@ -20,9 +20,31 @@ public abstract class AbstractQueueWorld extends AbstractWorldContainer implemen
      * {@inheritDoc}
      */
     @Override
-    public Optional<Platform> removeFirstPlatform() {
-        if (!platforms.isEmpty()) {
-            return Optional.of(platforms.removeFirst());
+    public Optional<Platform> removeFirstStaticPlatform() {
+        if (!staticPlatforms.isEmpty()) {
+            return Optional.of(staticPlatforms.removeFirst());
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Platform> removeFirstMovingPlatform() {
+        if (!movingPlatforms.isEmpty()) {
+            return Optional.of(movingPlatforms.removeFirst());
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Platform> removeFirstOnTouchPlatform() {
+        if (!onTouchPlatforms.isEmpty()) {
+            return Optional.of(onTouchPlatforms.removeFirst());
         }
         return Optional.empty();
     }

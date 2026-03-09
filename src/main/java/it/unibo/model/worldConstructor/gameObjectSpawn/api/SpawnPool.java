@@ -47,18 +47,4 @@ public interface SpawnPool {
 
     // public List<Pair<Double,Function<Vector2d,Trap>>> getTrapPool();
 
-    /**
-     * Retrieves the width of the platform for this pool.
-     * 
-     * @return the width of the platform pool
-     */
-    public double getWidth();
-
-    /**
-     * Retrieves the height of the platform for this pool.
-     * 
-     * @return the height of the platform pool
-     */
-    public double getHeight();
-
 }

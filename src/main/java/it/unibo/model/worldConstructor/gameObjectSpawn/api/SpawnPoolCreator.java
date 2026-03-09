@@ -1,5 +1,6 @@
 package it.unibo.model.worldConstructor.gameObjectSpawn.api;
 
+import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.physics.api.Vector2d;
 
 
@@ -23,7 +24,11 @@ public interface SpawnPoolCreator {
      * @param pos the position where the platform should be created
      * @return the created Platform, or null if no match found
      */
-    public void createPlatform(double chance, Vector2d pos);
+    void createStaticPlatform(double chance, Vector2d pos);
+
+    void createMovingPlatform(double chance, Vector2d pos);
+
+    void createOnTouchPlatform(double chance, Vector2d pos);
 
     /**
      * Creates a monster (enemy) based on the given chance.
@@ -32,7 +37,7 @@ public interface SpawnPoolCreator {
      * @param pos the position where the monster should be created
      * @return the created Enemy, or null if no match found
      */
-    public void createMonster(double chance, Vector2d pos);
+    public void createMonster(double chance, Platform platform);
 
     /**
      * Creates a gadget based on the given chance.
@@ -41,7 +46,7 @@ public interface SpawnPoolCreator {
      * @param pos the position where the gadget should be created
      * @return the created Gadget, or null if no match found
      */
-    public void createGadget(double chance, Vector2d pos);
+    public void createGadget(double chance, Platform platform);
 
     /**
      * Creates a coin (money) based on the given chance.
@@ -50,8 +55,10 @@ public interface SpawnPoolCreator {
      * @param pos the position where the coin should be created
      * @return the created Coin, or null if no match found
      */
-    public void createMoney(double chance, Vector2d pos);
+    public void createMoney(double chance, Platform platform);
 
     // public Trap createTrap(double chance, Vector2d pos);
+
+
 
 }

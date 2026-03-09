@@ -14,7 +14,9 @@ import it.unibo.model.gameObj.api.Platform;
  */
 public abstract class AbstractWorldContainer implements BaseWorld {
 
-    protected final List<Platform> platforms;
+    protected final List<Platform> staticPlatforms;
+    protected final List<Platform> movingPlatforms;
+    protected final List<Platform> onTouchPlatforms;
     protected final List<Coin> moneys;
     protected final List<Enemy> monsters;
     protected final List<Gadget> gadgets;
@@ -24,7 +26,9 @@ public abstract class AbstractWorldContainer implements BaseWorld {
      * Constructs a new AbstractWorldContainer with empty entity lists.
      */
     public AbstractWorldContainer(final BoundWorld boundWorld) {
-        this.platforms = new LinkedList<>();
+        this.staticPlatforms = new LinkedList<>();
+        this.movingPlatforms = new LinkedList<>();
+        this.onTouchPlatforms = new LinkedList<>();
         this.moneys = new LinkedList<>();
         this.gadgets = new LinkedList<>();
         this.monsters = new LinkedList<>();
@@ -59,8 +63,18 @@ public abstract class AbstractWorldContainer implements BaseWorld {
      * {@inheritDoc}
      */
     @Override
-    public boolean addPlatform(final Platform platform) {
-        return this.platforms.add(platform);
+    public boolean addStaticPlatform(final Platform platform) {
+        return this.staticPlatforms.add(platform);
+    }
+
+    @Override
+    public boolean addMovingPlatform(Platform platform) {
+        return this.movingPlatforms.add(platform);
+    }
+
+    @Override
+    public boolean addOnTouchPlatform(Platform platform) {
+        return this.onTouchPlatforms.add(platform);
     }
 
     /**
@@ -88,8 +102,18 @@ public abstract class AbstractWorldContainer implements BaseWorld {
     }
 
         @Override
-    public List<Platform> getPlatforms() {
-        return this.platforms;
+    public List<Platform> getStaticPlatforms() {
+        return this.staticPlatforms;
+    }
+
+    @Override
+    public List<Platform> getMovingPlatforms() {
+        return this.movingPlatforms;
+    }
+
+    @Override
+    public List<Platform> getOnTouchPlatforms() {
+        return this.onTouchPlatforms;
     }
 
     public BoundWorld getBoundWorld() {

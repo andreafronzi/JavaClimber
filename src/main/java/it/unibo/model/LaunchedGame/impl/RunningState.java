@@ -43,6 +43,7 @@ public class RunningState extends BaseLaunchedState {
     @Override
     public void execute(final double dt) {
         world.getRealWorld().getAlien().updatePosition(dt, world.getRealWorld().getBoundWorld(), this.launchedGame);
+        world.getRealWorld().getMovingPlatforms().forEach(p -> p.updatePosition(dt, world.getRealWorld().getBoundWorld().getBoundX()));
         collisionManager.detectCollisions(world.getRealWorld(), this.launchedGame);
         scoreManager.updateScore(world.getRealWorld().getAlien().getPosY());
         altitudeManager.verifiedAltitude();

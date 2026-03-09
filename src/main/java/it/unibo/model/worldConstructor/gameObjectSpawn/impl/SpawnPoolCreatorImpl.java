@@ -28,7 +28,6 @@ public class SpawnPoolCreatorImpl implements SpawnPoolCreator {
     private List<Pair<Double,Function<Vector2d,Coin>>> moneys;
     private final BaseWorld world;
     private final AddOnPositionSetter addOnPositionSetter;
-    private double width;
     private final ObjectSelector objectSelector;
     // private List<Pair<Double,Function<Vector2d,Trap>>> traps;
 
@@ -46,7 +45,6 @@ public class SpawnPoolCreatorImpl implements SpawnPoolCreator {
         this.monsters = platformPool.getMonsterPool();
         this.gadgets = platformPool.getGadgetPool();
         this.moneys = platformPool.getMoneyPool();
-        this.width = platformPool.getWidth();
         // this.traps = platformPool.getTrapPool();
     }
 
@@ -54,32 +52,42 @@ public class SpawnPoolCreatorImpl implements SpawnPoolCreator {
      * {@inheritDoc}
      */
     @Override
-    public void createPlatform(final double chance, final Vector2d pos) {
-        objectSelector.selector(chance, pos, this.platforms).ifPresent(world::addPlatform);
+    public void createStaticPlatform(final double chance, final Vector2d pos) {
+        objectSelector.selector(chance, pos.getX(), pos.getY(), this.platforms).ifPresent(world::addStaticPlatform);
+    }
+
+    @Override
+    public void createMovingPlatform(final double chance, final Vector2d pos) {
+        objectSelector.selector(chance, pos.getX(), pos.getY(), this.platforms).ifPresent(world::addMovingPlatform);
+    }
+
+    @Override
+    public void createOnTouchPlatform(final double chance, final Vector2d pos) {
+        objectSelector.selector(chance, pos.getX(), pos.getY(), this.platforms).ifPresent(world::addOnTouchPlatform);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void createMonster(final double chance, final Vector2d pos) {
-        objectSelector.selector(chance, pos, this.monsters).ifPresent(monster -> world.addMonster(addOnPositionSetter.generatePosition(monster, this.width)));
+    public void createMonster(final double chance, final Platform platform) {
+        objectSelector.selector(chance, platform.getPosX(), platform.getPosY(), this.monsters).ifPresent(monster -> world.addMonster(addOnPositionSetter.generatePosition(monster, platform.getWidth())));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void createGadget(final double chance, final Vector2d pos) {
-        objectSelector.selector(chance, pos, this.gadgets).ifPresent(gadget -> world.addGadget(addOnPositionSetter.generatePosition(gadget, this.width)));
+    public void createGadget(final double chance, final Platform platform) {
+        objectSelector.selector(chance, platform.getPosX(), platform.getPosY(), this.gadgets).ifPresent(gadget -> world.addGadget(addOnPositionSetter.generatePosition(gadget, platform.getWidth())));
     }
 
     /**
      * {@inheritDoc}chance
      */
     @Override
-    public void createMoney(final double chance, final Vector2d pos) {
-        objectSelector.selector(chance, pos, this.moneys).ifPresent(money -> world.addMoney(addOnPositionSetter.generatePosition(money, this.width)));
+    public void createMoney(final double chance, final Platform platform) {
+        objectSelector.selector(chance, platform.getPosX(), platform.getPosY(), this.moneys).ifPresent(money -> world.addMoney(addOnPositionSetter.generatePosition(money, platform.getWidth())));
     }
 
     /*
