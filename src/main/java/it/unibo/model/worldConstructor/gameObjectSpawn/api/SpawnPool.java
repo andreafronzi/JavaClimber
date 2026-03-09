@@ -22,7 +22,11 @@ public interface SpawnPool {
      * 
      * @return a list of pairs containing platform factories and their spawn chances
      */
-    public List<Pair<Double,Function<Vector2d,Platform>>> getPlatformPool();
+    public List<Pair<Double,Function<Vector2d,Platform>>> getStaticPlatformPool();
+
+    public List<Pair<Double,Function<Vector2d,Platform>>> getMovingPlatformPool();
+
+    public List<Pair<Double,Function<Vector2d,Platform>>> getOnTouchPlatformPool();
 
     /**
      * Retrieves the pool of available enemies (monsters).
