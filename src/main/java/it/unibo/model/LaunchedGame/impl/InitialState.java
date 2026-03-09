@@ -50,6 +50,7 @@ public class InitialState extends BaseLaunchedState {
      */
     @Override
     public void onEnter() {
+        while (this.launchedGame.pollCommand().isPresent()) { }
         var boundX = new Boundary(0, 600);
         var boundY = new BoundY(0, 1000);
         var boundary = new BoundWorldImpl(boundY, boundX);
