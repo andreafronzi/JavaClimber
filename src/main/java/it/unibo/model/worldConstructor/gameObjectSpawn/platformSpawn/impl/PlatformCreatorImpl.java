@@ -23,7 +23,6 @@ public class PlatformCreatorImpl implements PlatformCreator {
 
     @Override
     public void createPlatform(double chance, Vector2d pos) {
-        random.nextDouble();
         for (var platform : platformPool) {
             if (chance <= platform.getX()) {
                 platform.getY().accept(random.nextDouble(1.0), new Vector2dImpl(pos.getX(), pos.getY()));
