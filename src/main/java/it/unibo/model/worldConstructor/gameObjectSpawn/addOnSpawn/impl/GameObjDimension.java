@@ -21,5 +21,13 @@ public class GameObjDimension {
     public static final double RIGHT_ALIEN_SPEED_X = 400.0;
 
     public static final double GRAVITY = 1300.0;
+    public static final double EASY_PLATFORM_WIDTH = 30;
+    public static final double EASY_PLATFORM_HEIGHT = 10;
+
+    public static final double MEDIUM_PLATFORM_WIDTH = 30;
+    public static final double MEDIUM_PLATFORM_HEIGHT = 10;
+
+    public static final double HARD_PLATFORM_WIDTH = 30;
+    public static final double HARD_PLATFORM_HEIGHT = 10;
 
 }
