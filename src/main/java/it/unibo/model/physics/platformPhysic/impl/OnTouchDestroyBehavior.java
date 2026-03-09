@@ -17,6 +17,6 @@ public class OnTouchDestroyBehavior implements OnTouchBehaviour {
    */
   @Override
   public void onTouch(final Platform platform, final Boundary boundary, final GameWorld gameWorld) {
-    gameWorld.removePlatform(platform);
+    gameWorld.removeOnTouchPlatform(platform);
   }
 }
