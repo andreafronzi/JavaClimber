@@ -14,14 +14,14 @@ public class PlatformPoolEasy implements PlatformPool {
     private final List<Pair<Double, BiConsumer<Double, Vector2d>>> platformPool;
 
     private SpawnPoolCreator spawnPoolCreator;
-    private final double chancePlatform;
     private final double width;
     private final double height;
 
-    public PlatformPoolEasy(final SpawnPoolCreator spawnPoolCreator, final double chancePlatform, final double width,
+    public PlatformPoolEasy(final SpawnPoolCreator spawnPoolCreator, final double width,
             final double height) {
         this.platformPool = new LinkedList<>();
-        this.chancePlatform = chancePlatform;
+        this.spawnPoolCreator = spawnPoolCreator;
+        this.createPlatform();
         this.width = width;
         this.height = height;
     }
@@ -29,11 +29,6 @@ public class PlatformPoolEasy implements PlatformPool {
     @Override
     public List<Pair<Double, BiConsumer<Double, Vector2d>>> getPlatformPool() {
         return this.platformPool;
-    }
-
-    @Override
-    public double getChancePlatform() {
-        return this.chancePlatform;
     }
 
     private void createPlatform() {
