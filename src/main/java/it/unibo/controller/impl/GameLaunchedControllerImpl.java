@@ -18,6 +18,7 @@ import it.unibo.model.world.api.BaseWorld;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.World;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,9 +102,11 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    */
   @Override
   public Optional<List<Platform>> getPlatforms() {
-    return this.launchedGame.getWorld()
-        .map(World::getRealWorld)
-        .map(BaseWorld::getPlatforms);
+    final List<Platform> platforms = new ArrayList<>();
+    platforms.addAll(this.launchedGame.getWorld().get().getRealWorld().getMovingPlatforms());
+    platforms.addAll(this.launchedGame.getWorld().get().getRealWorld().getOnTouchPlatforms());
+    platforms.addAll(this.launchedGame.getWorld().get().getRealWorld().getStaticPlatforms());
+    return Optional.of(platforms);
   }
 
   /**
