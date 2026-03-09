@@ -16,9 +16,7 @@ public interface PlatformPool {
     public List<Pair<Double, BiConsumer<Double, Vector2d>>> getPlatformPool();
 
     void setSpawnPoolCreator(SpawnPoolCreator spawnPoolCreator);
-
-    double getChancePlatform();
-
+    
     double getWidth();
 
     double getHeight();
