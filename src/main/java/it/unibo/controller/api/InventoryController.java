@@ -110,4 +110,10 @@ public interface InventoryController {
      * Exit from the Inventory and back to the menù.
      */
     void exit();
+
+    /**
+     * Returns the remaining matches for each consumable item in the order of their IDs.
+     * @return a list of remaining matches for each consumable item, sorted by item ID
+     */
+    List<Integer> getTempItemsDuration();
 }

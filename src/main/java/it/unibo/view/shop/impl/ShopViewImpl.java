@@ -20,6 +20,9 @@ import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinSet;
 import it.unibo.view.GameLaunchedView.renderers.skingRegistry.impl.SkinRegistryImpl;
 import it.unibo.view.shop.api.ShopView;
 
+/**
+ * Implementation of {@link ShopView} interface.
+ */
 public class ShopViewImpl extends JPanel implements ShopView {
 
     private final ShopController controller;
@@ -31,6 +34,10 @@ public class ShopViewImpl extends JPanel implements ShopView {
     private JPanel permPanel;
     private JPanel tempPanel;
 
+    /**
+     * Construct a ShopViewImpl with specified controller.
+     * @param controller the controller for managing user interactions and updating the view
+     */
     public ShopViewImpl(ShopController controller) {
         super(new BorderLayout());
         this.controller = controller;
@@ -39,8 +46,10 @@ public class ShopViewImpl extends JPanel implements ShopView {
         initialize();
     }
 
+    /**
+     * Initialize the view components.
+     */
     private void initialize() {
-        //parte superiore COINS+INVENTORY+EXIT
         final JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         
@@ -76,7 +85,6 @@ public class ShopViewImpl extends JPanel implements ShopView {
         topPanel.add(rightHeader, BorderLayout.EAST);
         this.add(topPanel, BorderLayout.NORTH);
         
-        //parte centrale ITEMS
         this.itemsPanel = new JPanel(new GridLayout(1, 3, 10, 0));
         
         this.skinsPanel = createCategoryPanel("SKINS");
@@ -88,6 +96,11 @@ public class ShopViewImpl extends JPanel implements ShopView {
         this.add(scrollPane, BorderLayout.CENTER);
     }
 
+    /**
+     * Helper method to create a category panel with a title and add it to the items panel.
+     * @param title the title of the category panel
+     * @return the created category panel
+     */
     private JPanel createCategoryPanel(String title) {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(BorderFactory.createTitledBorder(title));
@@ -98,6 +111,12 @@ public class ShopViewImpl extends JPanel implements ShopView {
         return content;
     }
 
+    /**
+     * Helper method to create a widget for a skin item.
+     * @param item the skin item to create the widget for
+     * @param index the index of the item in the skins list
+     * @return a JPanel representing the skin widget
+     */
     private JPanel createSkinWidget(ShopItem item, int index) {
         JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
@@ -149,6 +168,13 @@ public class ShopViewImpl extends JPanel implements ShopView {
         return card;  
     }
 
+    /**
+     * Helper method to create a widget for a permanent power up category.
+     * @param title the title of the widget
+     * @param prefix the prefix for filtering items
+     * @param items the list of shop items
+     * @return the created permanent power-up widget
+     */
     private JPanel createPermanentWidget(String title, String prefix, List<ShopItem> items) {
         JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
@@ -222,6 +248,12 @@ public class ShopViewImpl extends JPanel implements ShopView {
         return container;
     }
 
+    /**
+     * Helper method to create a widget for a temporary power up item.
+     * @param item the shop item to create the widget for
+     * @param index the index of the item in the temporary items list
+     * @return the created temporary power-up widget
+     */
     private JPanel createTemporaryWidget(ShopItem item, int index) {
         final JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
@@ -260,6 +292,11 @@ public class ShopViewImpl extends JPanel implements ShopView {
         return card;
     }
 
+    /**
+     * Helper method to create a subheader label for category sections.
+     * @param text the text for the subheader
+     * @return the created subheader label
+     */
     private JLabel createSubHeader(String text) {
         JLabel label = new JLabel(text);
         label.setFont(new Font("Arial", Font.BOLD, 16));
@@ -268,17 +305,39 @@ public class ShopViewImpl extends JPanel implements ShopView {
         return label;
     }
 
+    /**
+     * Helper method to create a temporary power-up category section.
+     * @param title the title of the category
+     * @param prefix the prefix for filtering items
+     * @param items the list of items in the category
+     */
     private void addTempCategory(String title, String prefix, List<ShopItem> items) {
-        tempPanel.add(createSubHeader(title));
+        JPanel categoryContainer = new JPanel();
+        categoryContainer.setLayout(new BoxLayout(categoryContainer, BoxLayout.Y_AXIS));
+        categoryContainer.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.BLACK, 1), 
+                BorderFactory.createEmptyBorder(10, 20, 10, 20)));
+        categoryContainer.setAlignmentX(Component.CENTER_ALIGNMENT);
+        categoryContainer.add(createSubHeader(title));
+        categoryContainer.add(Box.createVerticalStrut(10));
+        
         for (int i = 0; i < items.size(); i++) {
             ShopItem item = items.get(i);
             if (item.getId().startsWith(prefix)) {
-                tempPanel.add(createTemporaryWidget(item, i));
-                tempPanel.add(Box.createVerticalStrut(10));
+                categoryContainer.add(createTemporaryWidget(item, i));
+                categoryContainer.add(Box.createVerticalStrut(10));
             }
         }
+
+        Dimension maxSize = categoryContainer.getPreferredSize();
+        categoryContainer.setMaximumSize(new Dimension(340, maxSize.height));
+        tempPanel.add(categoryContainer);
+        tempPanel.add(Box.createVerticalStrut(20));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void display() {
         this.setVisible(true);
@@ -286,30 +345,33 @@ public class ShopViewImpl extends JPanel implements ShopView {
         this.repaint();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateCoins(int coins) {
         this.coinsLabel.setText("Coins: " + coins);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateItems(List<ShopItem> skins, List<ShopItem> permUpgrades, List<ShopItem> tempUpgrades) {
         skinsPanel.removeAll();
         permPanel.removeAll();
         tempPanel.removeAll();
 
-        /* skins */
         for (int i = 0; i < skins.size(); i++) {
             skinsPanel.add(Box.createVerticalStrut(10));
             skinsPanel.add(createSkinWidget(skins.get(i), i));
         }
 
-        /* perm power ups */
         permPanel.add(Box.createVerticalStrut(10));
         permPanel.add(createPermanentWidget("JUMP HEIGHT", "pp_jump", permUpgrades));
         permPanel.add(Box.createVerticalStrut(30));
         permPanel.add(createPermanentWidget("SPEED BOOST", "pp_speed", permUpgrades));
 
-        /* temp power ups */
         addTempCategory("JUMP HEIGHT", "pt_jump", tempUpgrades);
         addTempCategory("SPEED BOOST", "pt_speed", tempUpgrades);
         addTempCategory("COIN MULTIPLIER", "pt_coin", tempUpgrades);
@@ -318,11 +380,17 @@ public class ShopViewImpl extends JPanel implements ShopView {
         skinsPanel.repaint();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void close() {
         this.setVisible(false);

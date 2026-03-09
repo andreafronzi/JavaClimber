@@ -118,6 +118,11 @@ public class GameLaunchedViewPanelImpl extends JPanel {
 
     g2d.translate(xOffset, 0);
     this.renderAll(g2d);
+
+    g2d.setColor(Color.BLACK);
+    g2d.setFont(new Font("Arial", Font.BOLD, 24));
+    g2d.drawString("Score: " + this.launchedController.getCurrentScore(), 15, 30);
+    g2d.drawString("Coins: " + this.launchedController.getCollectedCoins(), 15, 60);
     g2d.translate(-xOffset, 0);
   }
 
