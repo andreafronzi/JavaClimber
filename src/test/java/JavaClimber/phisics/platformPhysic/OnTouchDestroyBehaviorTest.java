@@ -89,9 +89,9 @@ public class OnTouchDestroyBehaviorTest {
         this.platformToRemove = new PlatformImpl(new Vector2dImpl(PLATFORM2_X, PLATFORM2_Y), PLATFORM_WIDTH,
                 PLATFORM_HEIGHT, Optional.empty(), Optional.of(new OnTouchDestroyBehavior()));
 
-        this.world.addPlatform(new PlatformImpl(new Vector2dImpl(PLATFORM1_X, PLATFORM1_Y), PLATFORM_WIDTH,
-                PLATFORM_HEIGHT, Optional.empty(), Optional.empty()));
-        this.world.addPlatform(this.platformToRemove);
+        this.world.addOnTouchPlatform((new PlatformImpl(new Vector2dImpl(PLATFORM1_X, PLATFORM1_Y), PLATFORM_WIDTH,
+                PLATFORM_HEIGHT, Optional.empty(), Optional.empty())));
+        this.world.addOnTouchPlatform(this.platformToRemove);
     }
 
     /**
@@ -113,6 +113,6 @@ public class OnTouchDestroyBehaviorTest {
         assertEquals(this.platformToRemove.getPosY(), alien.getPosY() + HEIGHT);
 
         this.platformToRemove.onHitBy(this.alien, physic, boundary, this.world, launchedGame, upgrades);
-        assertFalse(this.world.getPlatforms().contains(this.platformToRemove));
+        assertFalse(this.world.getOnTouchPlatforms().contains(this.platformToRemove));
     }
 }

@@ -45,7 +45,7 @@ public class CollisionManagerImpl implements CollisionManager {
 
     final Alien alien = gameWorld.getAlien();
 
-    Stream.of(gameWorld.getPlatforms(), gameWorld.getGadgets(), gameWorld.getMoneys(), gameWorld.getMonsters())
+    Stream.of(gameWorld.getMovingPlatforms(), gameWorld.getOnTouchPlatforms(), gameWorld.getStaticPlatforms(), gameWorld.getGadgets(), gameWorld.getMoneys(), gameWorld.getMonsters())
         .flatMap(List::stream)
         .filter(se -> checkCollision(alien, se))
         .toList()
