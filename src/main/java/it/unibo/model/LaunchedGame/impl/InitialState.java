@@ -6,6 +6,7 @@ import it.unibo.model.LaunchedGame.api.*;
 import it.unibo.model.camera.impl.AltitudeManager;
 import it.unibo.model.camera.impl.CameraImpl;
 import it.unibo.model.gameObj.impl.AlienImpl;
+import it.unibo.model.gameObj.impl.PlatformImpl;
 import it.unibo.model.physics.collision.impl.CollisionManagerImpl;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.score.impl.ScoreManagerImpl;
@@ -67,7 +68,6 @@ public class InitialState extends BaseLaunchedState {
         var addOnPoolEasy = new AddOnPoolEasy(spawnPoolCreator, 0.5);
         var difficultList = List.of(new Difficult(0, distanceEasy, spawnPoolEasy, addOnPoolEasy, platformPoolEasy));
         spawnPoolCreator.setSpawnPool(spawnPoolEasy);
-        addOnPoolEasy.setSpawnPoolCreator(spawnPoolCreator);
         var worldConstructor = new WorldConstructorImpl(upperWorld, difficultList.getFirst(), spawnPoolCreator);
         var worldDifficult = new WorldDifficultImpl(alien, difficultList);
         worldDifficult.registerObserver(worldConstructor);
