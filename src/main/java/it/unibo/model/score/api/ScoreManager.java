@@ -48,4 +48,15 @@ public interface ScoreManager {
      * @param y the starting Y coordinate.
      */
     void setStartY(double y);
+
+    /**
+     * Resets the current score, coins, total camera delta, and starting Y position to their initial values. Also resets the new high score flag.
+     */
+    void resetScore();
+
+    /**
+     * Returns whether the current score is a new high score.
+     * @return
+     */
+    boolean isNewHighScore();
 }

@@ -6,4 +6,8 @@ public interface EndController {
 
     public void restart();
 
+    public int getScore();
+
+    public boolean isNewHighScore();
+
 }

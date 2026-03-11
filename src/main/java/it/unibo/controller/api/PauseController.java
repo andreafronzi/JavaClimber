@@ -8,4 +8,8 @@ public interface PauseController {
 
     public void pause();
 
+    public int getScore();
+
+    public boolean isNewHighScore();
+
 }

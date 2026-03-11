@@ -42,4 +42,14 @@ public class PauseControllerImpl implements PauseController {
         this.mainController.openPauseView();
     }
 
+    @Override
+    public int getScore() {
+        return this.launchedGame.getMenu().getScoreManager().getCurrentScore();
+    }
+
+    @Override
+    public boolean isNewHighScore() {
+        return this.launchedGame.getMenu().getScoreManager().isNewHighScore();
+    }
+
 }

@@ -3,6 +3,7 @@ package it.unibo.model.LaunchedGame.impl;
 import java.util.List;
 
 import it.unibo.model.LaunchedGame.api.*;
+import it.unibo.model.camera.api.AltitudeObserver;
 import it.unibo.model.camera.impl.AltitudeManager;
 import it.unibo.model.camera.impl.CameraImpl;
 import it.unibo.model.gameObj.impl.AlienImpl;
@@ -76,8 +77,9 @@ public class InitialState extends BaseLaunchedState {
         var camera = new CameraImpl(boundX.x1() - boundX.x1(), boundY.maxY() - boundY.minY(), world, worldConstructor);
         altitudeManager.addObserver(camera);
         altitudeManager.addObserver(worldConstructor);
-        var scoreManager = new ScoreManagerImpl();
-        altitudeManager.addObserver(scoreManager);
+        var scoreManager = this.launchedGame.getMenu().getScoreManager();
+        scoreManager.resetScore();
+        altitudeManager.addObserver((AltitudeObserver) scoreManager);
         var collisionManager = new CollisionManagerImpl(boundX);
         worldConstructor.fillWorld();
         camera.update(0);

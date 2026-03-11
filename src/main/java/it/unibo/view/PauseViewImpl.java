@@ -39,6 +39,23 @@ public class PauseViewImpl extends JPanel implements PauseView {
 
         this.add(Box.createVerticalGlue());
         this.add(pauseTitle);
+
+        this.add(Box.createRigidArea(new Dimension(0, 15)));
+        
+        if (this.controller.isNewHighScore()) {
+            JLabel newRecordLabel = new JLabel("NEW HIGH SCORE: " + this.controller.getScore());
+            newRecordLabel.setFont(new Font(Font.SERIF, Font.BOLD, 36));
+            newRecordLabel.setForeground(new Color(255, 215, 0));
+            newRecordLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            this.add(newRecordLabel);
+        } else {
+            JLabel scoreLabel = new JLabel("Score: " + this.controller.getScore());
+            scoreLabel.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+            scoreLabel.setForeground(Color.WHITE);
+            scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            this.add(scoreLabel);
+        }
+
         this.add(Box.createRigidArea(new Dimension(0, 30)));
         this.add(this.resume);
         this.add(Box.createRigidArea(new Dimension(0, 10)));

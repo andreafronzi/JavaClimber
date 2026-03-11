@@ -23,7 +23,6 @@ public class EndControllerImpl implements EndController{
     
     @Override
     public void menu() {
-        this.launchedGame.setState(new EndState(this.launchedGame));
         this.menu.setState(new MenuState(this.menu));
     }
 
@@ -31,6 +30,16 @@ public class EndControllerImpl implements EndController{
     public void restart() {
         this.launchedGame.setState(new InitialState(this.launchedGame));
         this.menu.setState(new LaunchedGameState(this.menu));
+    }
+
+    @Override
+    public int getScore() {
+        return this.menu.getScoreManager().getCurrentScore();
+    }
+
+    @Override
+    public boolean isNewHighScore() {
+        return this.menu.getScoreManager().isNewHighScore();
     }
 
 }

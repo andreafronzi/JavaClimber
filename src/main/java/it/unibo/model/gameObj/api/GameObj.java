@@ -3,9 +3,12 @@ package it.unibo.model.gameObj.api;
 import it.unibo.model.physics.api.Vector2d;
 
 /**
- * Abstract game object with a two-dimensional position and a two-dimensional size.
+ * <p>
+ * Abstract game object with a two-dimensional position and a two-dimensional
+ * size.
  * This class provides common functionalities to manage the position
  * of an object in a Cartesian coordinate system.
+ * </p>
  */
 public abstract class GameObj implements GameObject {
 
@@ -25,7 +28,9 @@ public abstract class GameObj implements GameObject {
   protected final Vector2d position;
 
   /**
+   * <p>
    * Constructs a new GameObj with the specified two-dimensional position.
+   * </p>
    *
    * @param position the initial position of the game object,
    *                 provided as a {@link Vector2d} instance
@@ -36,25 +41,44 @@ public abstract class GameObj implements GameObject {
     this.position = position;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public double getHeight() {
     return this.height;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public double getPosX() {
     return this.position.getX();
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public double getPosY() {
     return this.position.getY();
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public double getWidth() {
     return this.width;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public void setPosition(final Vector2d position) {
     this.position.setX(position.getX());
     this.position.setY(position.getY());
   }
-
 }

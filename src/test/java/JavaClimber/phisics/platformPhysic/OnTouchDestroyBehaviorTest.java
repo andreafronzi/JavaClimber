@@ -8,12 +8,14 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.controller.impl.MainControllerImpl;
 import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.LaunchedGame.impl.LaunchedGameImpl;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.AlienImpl;
 import it.unibo.model.gameObj.impl.PlatformImpl;
+import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
@@ -26,6 +28,7 @@ import it.unibo.model.world.impl.BoundWorldImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
+import it.unibo.view.MainViewImpl;
 
 /**
  * Test class for {@link OnTouchDestroyBehavior}.
@@ -64,41 +67,52 @@ public class OnTouchDestroyBehaviorTest {
      * The {@link RealWorld} in which the test will be executed.
      */
     private RealWorld world;
-    
+
     /**
      * The {@link Platform} that will be removed when touched by the alien.
      */
     private Platform platformToRemove;
 
     /**
-     * <p>Set up the test environment by initializing the alien, the world, and the platforms before each test case.</p>
+     * <p>
+     * Set up the test environment by initializing the alien, the world, and the
+     * platforms before each test case.
+     * </p>
      */
     @BeforeEach
     public void setUp() {
         final ActiveUpgrades upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
-        this.alien = new AlienImpl(new Vector2dImpl(INITIAL_X, INITIAL_Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, upgrades);
-        this.world = new RealWorld(this.alien, new BoundWorldImpl(new BoundY(UPPER_BOUND, LOWER_BOUND), new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY))); 
-        this.platformToRemove = new PlatformImpl(new Vector2dImpl(PLATFORM2_X, PLATFORM2_Y), PLATFORM_WIDTH, PLATFORM_HEIGHT, Optional.empty(), Optional.of(new OnTouchDestroyBehavior()));
+        this.alien = new AlienImpl(new Vector2dImpl(INITIAL_X, INITIAL_Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH,
+                HEIGHT, upgrades);
+        this.world = new RealWorld(this.alien,
+                new BoundWorldImpl(new BoundY(UPPER_BOUND, LOWER_BOUND), new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY)));
+        this.platformToRemove = new PlatformImpl(new Vector2dImpl(PLATFORM2_X, PLATFORM2_Y), PLATFORM_WIDTH,
+                PLATFORM_HEIGHT, Optional.empty(), Optional.of(new OnTouchDestroyBehavior()));
 
-        this.world.addPlatform(new PlatformImpl(new Vector2dImpl(PLATFORM1_X, PLATFORM1_Y), PLATFORM_WIDTH, PLATFORM_HEIGHT, Optional.empty(), Optional.empty()));
-        this.world.addPlatform(this.platformToRemove);
+        this.world.addOnTouchPlatform((new PlatformImpl(new Vector2dImpl(PLATFORM1_X, PLATFORM1_Y), PLATFORM_WIDTH,
+                PLATFORM_HEIGHT, Optional.empty(), Optional.empty())));
+        this.world.addOnTouchPlatform(this.platformToRemove);
     }
-    
+
     /**
-     * <p>Verify that when the alien touches the {@link Platform} with the {@link OnTouchDestroyBehavior}, the platform is removed from the world.</p>
+     * <p>
+     * Verify that when the alien touches the {@link Platform} with the
+     * {@link OnTouchDestroyBehavior}, the platform is removed from the world.
+     * </p>
      */
     @Test
     public void verifyPlatformDestruction() {
         final ActiveUpgrades upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
         final AlienPhysic physic = new AlienNormalPhysic();
         final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
-        final LaunchedGame launchedGame = new LaunchedGameImpl();
-        
+        final LaunchedGame launchedGame = new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()),
+                new MenuImpl(new MainControllerImpl(new MainViewImpl())));
+
         this.alien.setPhysic(physic);
 
         assertEquals(this.platformToRemove.getPosY(), alien.getPosY() + HEIGHT);
 
         this.platformToRemove.onHitBy(this.alien, physic, boundary, this.world, launchedGame, upgrades);
-        assertFalse(this.world.getPlatforms().contains(this.platformToRemove));
-    } 
+        assertFalse(this.world.getOnTouchPlatforms().contains(this.platformToRemove));
+    }
 }

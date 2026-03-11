@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import it.unibo.controller.impl.MainControllerImpl;
 import it.unibo.model.LaunchedGame.impl.LaunchedGameImpl;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Coin;
@@ -11,6 +12,7 @@ import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.gameObj.impl.AlienImpl;
 import it.unibo.model.gameObj.impl.CoinImpl;
 import it.unibo.model.gameObj.impl.EliCap;
+import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienEliCapPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
@@ -27,6 +29,7 @@ import it.unibo.model.world.impl.BoundWorldImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
+import it.unibo.view.MainViewImpl;
 
 /**
  * <p>Test class for {@link AlienEliCapPhysic}.</p>
@@ -87,7 +90,7 @@ public class AlienEliCapPhysicTest {
         assertEquals(SPEED_Y, alien.getSpeedY(), EPSILON);
         assertEquals(SPEED_X, alien.getSpeedX(), EPSILON);
 
-        alien.updatePosition(DT, boundary, new LaunchedGameImpl());
+        alien.updatePosition(DT, boundary, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()), new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
         assertEquals(X1, alien.getPosX(), EPSILON);
         assertEquals(Y1, alien.getPosY(), EPSILON);
         assertEquals(ELICAP_SPEED_X, alien.getSpeedX(), EPSILON);
@@ -107,7 +110,7 @@ public class AlienEliCapPhysicTest {
         assertEquals(SPEED_Y, alien.getSpeedY(), EPSILON);  
         assertEquals(SPEED_X, alien.getSpeedX(), EPSILON);
 
-        alien.updatePosition(DT2, boundary, new LaunchedGameImpl());
+        alien.updatePosition(DT2, boundary, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()), new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
         assertEquals(X2, alien.getPosX(), EPSILON);
         assertEquals(Y2, alien.getPosY(), EPSILON);
         assertEquals(ELICAP_SPEED_X, alien.getSpeedX(), EPSILON);
@@ -123,7 +126,7 @@ public class AlienEliCapPhysicTest {
         final Gadget eliCap = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y));
         final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
         eliCap.onCollect(alien, new RealWorld(alien, boundary));
-        alien.updatePosition(DT3, boundary, new LaunchedGameImpl());
+        alien.updatePosition(DT3, boundary, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()), new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
 
         assertEquals(X3, alien.getPosX(), EPSILON);
         assertEquals(Y3, alien.getPosY(), EPSILON);
@@ -144,7 +147,7 @@ public class AlienEliCapPhysicTest {
         
         eliCap.onCollect(alien, new RealWorld(alien, boundary));
 
-        alien.notifyCollision(coin, boundary.getBoundX(), new RealWorld(alien, boundary), new LaunchedGameImpl());
+        alien.notifyCollision(coin, boundary.getBoundX(), new RealWorld(alien, boundary), new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()), new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
     
         assertEquals(COINS_NUMBER, scoreManager.getCoins(), EPSILON);
   }

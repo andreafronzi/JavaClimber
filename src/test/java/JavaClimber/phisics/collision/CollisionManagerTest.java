@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.controller.impl.MainControllerImpl;
 import it.unibo.model.LaunchedGame.impl.LaunchedGameImpl;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Coin;
@@ -14,6 +15,7 @@ import it.unibo.model.gameObj.impl.AlienImpl;
 import it.unibo.model.gameObj.impl.CoinImpl;
 import it.unibo.model.gameObj.impl.EliCap;
 import it.unibo.model.gameObj.impl.EnemyImpl;
+import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.physics.collision.api.CollisionManager;
 import it.unibo.model.physics.collision.impl.CollisionManagerImpl;
 import it.unibo.model.physics.impl.Vector2dImpl;
@@ -25,6 +27,7 @@ import it.unibo.model.world.impl.BoundWorldImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
+import it.unibo.view.MainViewImpl;
 
 /**
  * <p>Test class for the {@link CollisionManagerImpl}.
@@ -89,7 +92,7 @@ public class CollisionManagerTest {
     @Test
     public void detectCollisionOnEnemyTest() {
         this.realWorld.addMonster(this.e);
-        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl());
+        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()), new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
         assertFalse(this.realWorld.getMonsters().contains(this.e));
     }
 
@@ -99,7 +102,7 @@ public class CollisionManagerTest {
     @Test
     public void detectCollisionOnCoinTest() {
         this.realWorld.addMoney(this.c);
-        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl());
+        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()), new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
         assertFalse(this.realWorld.getMoneys().contains(this.c));
     }
 
@@ -109,7 +112,7 @@ public class CollisionManagerTest {
     @Test
     public void detectCollisionOnGadgetTest() {
         this.realWorld.addGadget(this.g);
-        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl());
+        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()), new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
         assertFalse(this.realWorld.getGadgets().contains(this.g));
     }
 }

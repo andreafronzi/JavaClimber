@@ -14,71 +14,83 @@ import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.world.api.BoundWorld;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.Boundary;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.GameObjDimension;
 
 /**
+ * <p>
  * A concrete implementation of the {@link AlienPhysic} interface.
  * This class applies gravitational force on the vertical axis and
  * manages boundary behavior with a Pacman effect.
+ * </p>
  */
 public class AlienNormalPhysic extends TemplatePhysic {
 
-  private static final double GRAVITY = 200.0;
-
   /**
+   * <p>
    * Constructs an instance of {@code AlienNormalPhysic}.
+   * </p>
    */
-  public AlienNormalPhysic() {}
+  public AlienNormalPhysic() {
+  }
 
   /**
    * Update alien position and speed applying gravity.
    *
-   * @param alien the alien to update
-   * @param dt the time step
-   * @param boundWorld the boundary of the world
+   * @param alien          the alien to update
+   * @param dt             the time step
+   * @param boundWorld     the boundary of the world
    * @param activeUpgrades the active upgrades affecting the Alien
-   * @param launchedGame the launched game
+   * @param launchedGame   the launched game
    */
   @Override
-  protected void moveAlien(final Alien alien, final double dt, final BoundWorld boundWorld, final ActiveUpgrades activeUpgrades, final LaunchedGame launchedGame) {
+  protected void moveAlien(final Alien alien, final double dt, final BoundWorld boundWorld,
+      final ActiveUpgrades activeUpgrades, final LaunchedGame launchedGame) {
     final double speedY = alien.getSpeedY();
 
-    final double newVelY = speedY + (GRAVITY * dt);
-    if(alien.isMovingLeft()) {
-      alien.setSpeed(new Vector2dImpl(-200, newVelY));
-    } else if(alien.isMovingRight()) {
-      alien.setSpeed(new Vector2dImpl(200, newVelY));
+    final double newVelY = speedY + (GameObjDimension.GRAVITY * dt);
+    if (alien.isMovingLeft()) {
+      alien.setSpeed(new Vector2dImpl(GameObjDimension.LEFT_ALIEN_SPEED_X, newVelY));
+    } else if (alien.isMovingRight()) {
+      alien.setSpeed(new Vector2dImpl(GameObjDimension.RIGHT_ALIEN_SPEED_X, newVelY));
     } else {
-      alien.setSpeed(new Vector2dImpl(0, newVelY));
+      alien.setSpeed(new Vector2dImpl(GameObjDimension.NULL_ALIEN_SPEED, newVelY));
     }
-
-    // alien.setSpeed(new Vector2dImpl(alien.getSpeedX(), newVelY));
-    alien.setPosition(new Vector2dImpl(alien.getPosX()  + alien.getSpeedX() * dt * activeUpgrades.getSpeedMultiplier(), alien.getPosY() + alien.getSpeedY() * dt * activeUpgrades.getSpeedMultiplier()));
+    alien.setPosition(new Vector2dImpl(alien.getPosX() + alien.getSpeedX() * dt * activeUpgrades.getSpeedMultiplier(),
+        alien.getPosY() + alien.getSpeedY() * dt * activeUpgrades.getSpeedMultiplier()));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
-  public void hitPlatform(final Alien alien, final Platform p, final Boundary boundary, final GameWorld gameWorld, final ActiveUpgrades activeUpgrades) {
+  public void hitPlatform(final Alien alien, final Platform p, final Boundary boundary, final GameWorld gameWorld,
+      final ActiveUpgrades activeUpgrades) {
     final double pTollerance = 0;
     final boolean falling = alien.getSpeedY() > 0;
     final boolean above = (alien.getPosY() + alien.getHeight()) >= (p.getPosY() + p.getHeight() + pTollerance);
 
     if (falling && !above) {
       final double vx = 0;
-      final double vy = -500 * activeUpgrades.getJumpMultiplier();
-      p.onTouch(boundary,gameWorld);
+      final double vy = -1000 * activeUpgrades.getJumpMultiplier();
+      p.onTouch(boundary, gameWorld);
       alien.setPosition(new Vector2dImpl(alien.getPosX(), p.getPosY() - alien.getHeight()));
       alien.setSpeed(new Vector2dImpl(vx, vy));
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
-  public void hitEnemy(final Alien alien, final Enemy e, final GameWorld gameWorld, final LaunchedGame launchedGame, final ActiveUpgrades activeUpgrades) {
+  public void hitEnemy(final Alien alien, final Enemy e, final GameWorld gameWorld, final LaunchedGame launchedGame,
+      final ActiveUpgrades activeUpgrades) {
     final double eTollerance = 0;
     final boolean falling = alien.getSpeedY() > 0;
     final boolean above = (alien.getPosY() + alien.getHeight()) >= (e.getPosY() + e.getHeight() + eTollerance);
 
     if (falling && !above) {
       final double vx = 0;
-      final double vy = -300 * activeUpgrades.getJumpMultiplier();
+      final double vy = -1000 * activeUpgrades.getJumpMultiplier();
       e.die(gameWorld);
       alien.setSpeed(new Vector2dImpl(vx, vy));
     } else {
@@ -86,11 +98,17 @@ public class AlienNormalPhysic extends TemplatePhysic {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void hitGadget(final Alien alien, final Gadget g, final GameWorld gameWorld) {
     g.onCollect(alien, gameWorld);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void hitCoin(final Coin coin, final ActiveUpgrades activeUpgrades, final GameWorld gameWorld) {
     coin.collectCoin(gameWorld, activeUpgrades.getCoinMultiplier());

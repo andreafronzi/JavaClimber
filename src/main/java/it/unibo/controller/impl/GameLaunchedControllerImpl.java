@@ -7,10 +7,7 @@ import it.unibo.model.command.api.RunningCommand;
 import it.unibo.model.command.impl.EnterPausa;
 import it.unibo.model.command.impl.MoveAlienLeft;
 import it.unibo.model.command.impl.MoveAlienRight;
-import it.unibo.model.command.impl.MoveLeftMod;
-import it.unibo.model.command.impl.MoveRigthMod;
 import it.unibo.model.command.impl.StopAlienMovement;
-import it.unibo.model.command.impl.StopMoveMod;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
@@ -21,6 +18,7 @@ import it.unibo.model.world.api.BaseWorld;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.World;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -104,9 +102,11 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    */
   @Override
   public Optional<List<Platform>> getPlatforms() {
-    return this.launchedGame.getWorld()
-        .map(World::getRealWorld)
-        .map(BaseWorld::getPlatforms);
+    final List<Platform> platforms = new ArrayList<>();
+    platforms.addAll(this.launchedGame.getWorld().get().getRealWorld().getMovingPlatforms());
+    platforms.addAll(this.launchedGame.getWorld().get().getRealWorld().getOnTouchPlatforms());
+    platforms.addAll(this.launchedGame.getWorld().get().getRealWorld().getStaticPlatforms());
+    return Optional.of(platforms);
   }
 
   /**
@@ -122,7 +122,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    */
   @Override
   public void handleMoveRightCommand() {
-    this.launchedGame.addCommand(new MoveRigthMod());
+    this.launchedGame.addCommand(new MoveAlienRight());
   }
 
   /**
@@ -130,7 +130,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    */
   @Override
   public void handleMoveLeftCommand() {
-    this.launchedGame.addCommand(new MoveLeftMod());
+    this.launchedGame.addCommand(new MoveAlienLeft());
   }
 
   /**
@@ -146,7 +146,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    */
   @Override
   public void handleReleaseMovementCommand() {
-    this.launchedGame.addCommand(new StopMoveMod());
+    this.launchedGame.addCommand(new StopAlienMovement());
   }
 
   private static final long FRAME_TIME_MS = 16; 
@@ -197,6 +197,16 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
   @Override
   public void setPanel(final JPanel panel) {
     this.panel = panel;
+  }
+
+  @Override
+  public int getCurrentScore() {
+      return this.launchedGame.getMenu().getScoreManager().getCurrentScore();
+  }
+
+  @Override
+  public int getCollectedCoins() {
+    return this.launchedGame.getMenu().getScoreManager().getCoins();
   }
 
 }
