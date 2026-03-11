@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.model.score.impl.ScoreManagerImpl;
 import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPool;
 import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
 
@@ -17,13 +18,25 @@ public class SpawnPoolTest {
 
     @BeforeEach
     public void setUp() {
-        this.platformPool = new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT);
+        this.platformPool = new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT, new ScoreManagerImpl());
     }
 
     @Test
     public void getPlatformTest() {
-        var platforms = this.platformPool.getPlatformPool();
-        assertEquals(3, platforms.size());
+        var platforms = this.platformPool.getStaticPlatformPool();
+        assertEquals(1, platforms.size());
+    }
+
+    @Test
+    public void getMovingPlatformTest() {
+        var movingPlatforms = this.platformPool.getMovingPlatformPool();
+        assertEquals(1, movingPlatforms.size());
+    }
+
+    @Test
+    public void getOnTouchPlatformTest() {
+        var onTouchPlatforms = this.platformPool.getOnTouchPlatformPool();
+        assertEquals(1, onTouchPlatforms.size());
     }
 
         @Test
