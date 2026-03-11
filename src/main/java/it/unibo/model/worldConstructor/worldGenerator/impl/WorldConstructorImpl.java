@@ -52,8 +52,10 @@ public class WorldConstructorImpl implements WorldConstructor, Observer, Altitud
     this.random = new Random();
     this.bound = world.getBoundWorld();
     var pos = new Vector2dImpl(bound.getBoundX().x1() / 2, bound.getBoundY().maxY() - 100);
-    world.addStaticPlatform(new PlatformImpl(pos, difficult.platformPool().getWidth(),
-        difficult.platformPool().getHeight(), null, null)); // mettere nel initializer
+    var firstPlatform = new PlatformImpl(pos, difficult.platformPool().getWidth(),
+        difficult.platformPool().getHeight(), null, null);
+    world.addStaticPlatform(firstPlatform);
+    this.lastPlatformPos = pos;
     this.platformPositionGenerator = new PlatformPositionGeneratorImpl(bound, pos, difficult.distance());
     this.platformPositionGenerator.setDistance(difficult.distance());
     this.addOnCreator = new AddOnCreatorImpl(difficult.addOnPool());
