@@ -68,6 +68,9 @@ public class PlatformPositionGeneratorImpl implements PlatformPositionGenerator 
         } else {
             xMax = previousPlatformPosition.getX() + distance.maxDistanceX() + width;
         }
+        if (xMax < xMin) {
+            xMin = xMax - 1;
+        }
 
         newPlatformPosition.setX(randomNumber.nextDouble(xMin, xMax));
 
