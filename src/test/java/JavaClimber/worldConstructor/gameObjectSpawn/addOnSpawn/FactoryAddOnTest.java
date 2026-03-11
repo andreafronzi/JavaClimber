@@ -9,6 +9,7 @@ import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
 import it.unibo.model.physics.impl.Vector2dImpl;
+import it.unibo.model.score.impl.ScoreManagerImpl;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.FactoryAddOn;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.FactoryAddOnImpl;
 
@@ -20,7 +21,7 @@ public class FactoryAddOnTest {
 
     @BeforeEach
     void setUp() {
-        factoryAddOn = new FactoryAddOnImpl();
+        factoryAddOn = new FactoryAddOnImpl(new ScoreManagerImpl());
     }
 
     @Test
