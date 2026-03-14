@@ -52,7 +52,7 @@ public class InitialState extends BaseLaunchedState {
     @Override
     public void onEnter() {
         var boundX = new Boundary(0, 600);
-        var boundY = new BoundY(0, 1000);
+        var boundY = new BoundY(-1000, 1000);
         var boundary = new BoundWorldImpl(boundY, boundX);
         var upperWorld = new UpperWorld(boundary);
         var alien = new AlienImpl(new Vector2dImpl(300, 900), new Vector2dImpl(0, -1000.0), 100, 100,
