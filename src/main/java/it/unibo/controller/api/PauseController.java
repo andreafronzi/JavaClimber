@@ -6,8 +6,6 @@ public interface PauseController {
 
     public void menu();
 
-    public void pause();
-
     public int getScore();
 
     public boolean isNewHighScore();
