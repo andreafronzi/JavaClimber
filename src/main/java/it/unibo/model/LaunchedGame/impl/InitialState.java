@@ -51,7 +51,6 @@ public class InitialState extends BaseLaunchedState {
      */
     @Override
     public void onEnter() {
-        while (this.launchedGame.pollCommand().isPresent()) { }
         var boundX = new Boundary(0, 600);
         var boundY = new BoundY(0, 1000);
         var boundary = new BoundWorldImpl(boundY, boundX);
@@ -77,7 +76,6 @@ public class InitialState extends BaseLaunchedState {
         altitudeManager.addObserver(worldDifficult);
         var camera = new CameraImpl(boundX.x1() - boundX.x1(), boundY.maxY() - boundY.minY(), world, worldConstructor);
         altitudeManager.addObserver(camera);
-        altitudeManager.addObserver(worldConstructor);
         var scoreManager = this.launchedGame.getMenu().getScoreManager();
         scoreManager.resetScore();
         altitudeManager.addObserver((AltitudeObserver) scoreManager);
