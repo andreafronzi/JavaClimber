@@ -1,5 +1,8 @@
 package it.unibo.model.worldConstructor.worldGenerator.impl;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 import java.util.Queue;
 import java.util.Random;
 
@@ -28,7 +31,7 @@ import it.unibo.model.worldConstructor.worldGenerator.api.WorldConstructor;
  * gadgets)
  * based on the current difficulty.
  */
-public class WorldConstructorImpl implements WorldConstructor, Observer, AltitudeObserver {
+public class WorldConstructorImpl implements WorldConstructor, Observer{
 
   private Difficult difficult;
   private final PlatformPositionGenerator platformPositionGenerator;
@@ -53,7 +56,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer, Altitud
     this.bound = world.getBoundWorld();
     var pos = new Vector2dImpl(bound.getBoundX().x1() / 2, bound.getBoundY().maxY() - 100);
     var firstPlatform = new PlatformImpl(pos, difficult.platformPool().getWidth(),
-        difficult.platformPool().getHeight(), null, null);
+        difficult.platformPool().getHeight(), Optional.empty(), Optional.empty());
     world.addStaticPlatform(firstPlatform);
     this.lastPlatformPos = pos;
     this.platformPositionGenerator = new PlatformPositionGeneratorImpl(bound, pos, difficult.distance());
@@ -67,6 +70,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer, Altitud
    */
   @Override
   public void fillWorld() {
+    lastPlatformPos = getLastPlatformPos();
     while (lastPlatformPos.getY() > bound.getBoundY().minY() + difficult.distance().maxDistanceY()) {
       createPlatform();
     }
@@ -76,12 +80,13 @@ public class WorldConstructorImpl implements WorldConstructor, Observer, Altitud
     double chance = random.nextDouble(1.0);
     double chanceAddOn = random.nextDouble(1.0);
     Vector2d pos = platformPositionGenerator.generatePosition(difficult.platformPool().getWidth(),
-        difficult.platformPool().getHeight());
+        difficult.platformPool().getHeight(), lastPlatformPos);
     this.platformCreator.createPlatform(chance, pos);
     this.lastPlatformPos = pos;
     this.lastStaticPlatform = world.getStaticPlatforms().getLast();
 
-    if (chanceAddOn < difficult.addOnPool().getChanceAddOn() && lastStaticPlatform.getPosY() == lastPlatformPos.getY()) {
+    if (chanceAddOn < difficult.addOnPool().getChanceAddOn()
+        && lastStaticPlatform.getPosY() == lastPlatformPos.getY()) {
       createAddOn();
     }
   }
@@ -102,9 +107,28 @@ public class WorldConstructorImpl implements WorldConstructor, Observer, Altitud
     this.difficult = difficult;
   }
 
-  @Override
-  public void update(double delta) {
-    fillWorld();
-  }
+  Vector2d getLastPlatformPos() {
+    List<Platform> platforms = new LinkedList<>();
+    Vector2d pos = new Vector2dImpl(0, 0);
+    if (!world.getStaticPlatforms().isEmpty()) {
+      platforms.add(world.getStaticPlatforms().getLast());
+    }
+    if (!world.getMovingPlatforms().isEmpty()) {
+      platforms.add(world.getMovingPlatforms().getLast());
 
+    }
+    if (!world.getOnTouchPlatforms().isEmpty()) {
+      platforms.add(world.getOnTouchPlatforms().getLast());
+    }
+    if (platforms.isEmpty()) {
+      return new Vector2dImpl(bound.getBoundX().x1() / 2, bound.getBoundY().maxY());
+    }
+    pos = new Vector2dImpl(platforms.getFirst().getPosX(), platforms.getFirst().getPosY());
+    for (Platform p : platforms) {
+      if (p.getPosY() < pos.getY()) {
+        pos = new Vector2dImpl(p.getPosX(), p.getPosY());
+      }
+    }
+    return pos;
+  }
 }
