@@ -33,13 +33,6 @@ public class PauseControllerImpl implements PauseController {
     public void menu() {
         this.launchedGame.setState(new EndState(this.launchedGame));
         this.menu.setState(new MenuState(this.menu));
-        this.mainController.openMenuView();
-    }
-
-    @Override
-    public void pause() {
-        this.launchedGame.setState(new PauseState(this.launchedGame));
-        this.mainController.openPauseView();
     }
 
     @Override

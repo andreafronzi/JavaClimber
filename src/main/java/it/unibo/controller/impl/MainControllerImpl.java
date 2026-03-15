@@ -5,6 +5,8 @@ import java.util.Optional;
 import it.unibo.controller.api.GameLaunchedController;
 import it.unibo.controller.api.MainController;
 import it.unibo.model.LaunchedGame.api.LaunchedGame;
+import it.unibo.model.LaunchedGame.api.StateOfLaunchedGame;
+import it.unibo.model.LaunchedGame.impl.RunningState;
 import it.unibo.model.menu.api.Menu;
 import it.unibo.model.menu.impl.LaunchedGameState;
 import it.unibo.model.menu.impl.MenuImpl;
@@ -12,14 +14,6 @@ import it.unibo.model.menu.impl.MenuState;
 import it.unibo.model.persistence.api.SaveManager;
 import it.unibo.model.persistence.api.SaveState;
 import it.unibo.model.persistence.impl.SaveManagerImpl;
-import it.unibo.model.score.api.ScoreManager;
-import it.unibo.model.score.impl.ScoreManagerImpl;
-import it.unibo.model.shop.api.Inventory;
-import it.unibo.model.shop.api.ShopItemFactory;
-import it.unibo.model.shop.api.ShopManager;
-import it.unibo.model.shop.impl.InventoryImpl;
-import it.unibo.model.shop.impl.ShopItemFactoryImpl;
-import it.unibo.model.shop.impl.ShopManagerImpl;
 import it.unibo.view.MainView;
 
 public class MainControllerImpl implements MainController {
@@ -28,6 +22,7 @@ public class MainControllerImpl implements MainController {
 
     private final Menu menu;
     private final SaveManager saveManager;
+    private StateOfLaunchedGame runningState;
 
     public MainControllerImpl(final MainView mainView) {
         this.mainView = mainView;
@@ -53,7 +48,8 @@ public class MainControllerImpl implements MainController {
     public void launchGame() {
         final GameLaunchedControllerImpl gameLaunchedController = new GameLaunchedControllerImpl(this.menu.getLaunchedGame().get(), this.menu.getInventory());
         mainView.setGameLaunchedView(gameLaunchedController, gameLaunchedController);
-        
+        runningState = this.menu.getLaunchedGame().get().getState();
+        gameLaunchedController.runGame();   
     }
 
     @Override
@@ -76,7 +72,7 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public void openPauseView() {
-        PauseControllerImpl pauseController = new PauseControllerImpl(this.menu.getLaunchedGame().get(), this.menu, this.menu.getLaunchedGame().get().getState(), this);
+        PauseControllerImpl pauseController = new PauseControllerImpl(this.menu.getLaunchedGame().get(), this.menu, this.runningState, this);
         mainView.setPauseView(pauseController);
     }
 

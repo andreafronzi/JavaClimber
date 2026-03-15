@@ -7,6 +7,7 @@ import it.unibo.model.camera.api.AltitudeObserver;
 import it.unibo.model.camera.impl.AltitudeManager;
 import it.unibo.model.camera.impl.CameraImpl;
 import it.unibo.model.gameObj.impl.AlienImpl;
+import it.unibo.model.gameObj.impl.PlatformImpl;
 import it.unibo.model.physics.collision.impl.CollisionManagerImpl;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.score.impl.ScoreManagerImpl;
@@ -51,24 +52,23 @@ public class InitialState extends BaseLaunchedState {
     @Override
     public void onEnter() {
         var boundX = new Boundary(0, 600);
-        var boundY = new BoundY(0, 1000);
+        var boundY = new BoundY(-1000, 1000);
         var boundary = new BoundWorldImpl(boundY, boundX);
         var upperWorld = new UpperWorld(boundary);
-        var alien = new AlienImpl(new Vector2dImpl(300, 900), new Vector2dImpl(0, -200.0), 100, 100,
+        var alien = new AlienImpl(new Vector2dImpl(300, 900), new Vector2dImpl(0, -1000.0), 100, 100,
                 new ActiveUpgradesImpl(this.launchedGame.getMenu().getInventory()));
         var realWorld = new RealWorld(alien, boundary);
         var world = new World(upperWorld, realWorld);
         this.launchedGame.setWorld(world);
         var distanceEasy = new Distance(200, 100, 300);
         var spawnPoolCreator = new SpawnPoolCreatorImpl(upperWorld);
-        var spawnPoolEasy = new SpawnPoolEasy(GameObjDimension.EASY_PLATFORM_HEIGHT,
-                GameObjDimension.EASY_PLATFORM_WIDTH, this.launchedGame.getMenu().getScoreManager());
+        var spawnPoolEasy = new SpawnPoolEasy(GameObjDimension.EASY_PLATFORM_WIDTH,
+                GameObjDimension.EASY_PLATFORM_HEIGHT, this.launchedGame.getMenu().getScoreManager());
         var platformPoolEasy = new PlatformPoolEasy(spawnPoolCreator, GameObjDimension.EASY_PLATFORM_WIDTH,
                 GameObjDimension.EASY_PLATFORM_HEIGHT);
         var addOnPoolEasy = new AddOnPoolEasy(spawnPoolCreator, 0.5);
         var difficultList = List.of(new Difficult(0, distanceEasy, spawnPoolEasy, addOnPoolEasy, platformPoolEasy));
         spawnPoolCreator.setSpawnPool(spawnPoolEasy);
-        addOnPoolEasy.setSpawnPoolCreator(spawnPoolCreator);
         var worldConstructor = new WorldConstructorImpl(upperWorld, difficultList.getFirst(), spawnPoolCreator);
         var worldDifficult = new WorldDifficultImpl(alien, difficultList);
         worldDifficult.registerObserver(worldConstructor);
@@ -76,7 +76,6 @@ public class InitialState extends BaseLaunchedState {
         altitudeManager.addObserver(worldDifficult);
         var camera = new CameraImpl(boundX.x1() - boundX.x1(), boundY.maxY() - boundY.minY(), world, worldConstructor);
         altitudeManager.addObserver(camera);
-        altitudeManager.addObserver(worldConstructor);
         var scoreManager = this.launchedGame.getMenu().getScoreManager();
         scoreManager.resetScore();
         altitudeManager.addObserver((AltitudeObserver) scoreManager);

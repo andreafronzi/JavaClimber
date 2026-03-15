@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.model.score.impl.ScoreManagerImpl;
 import it.unibo.model.world.impl.BoundWorldImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
@@ -29,7 +30,7 @@ public class AddOnPoolTest {
 
     @BeforeEach
     public void setUp() {
-        var spawnPoolEasy = new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT);
+        var spawnPoolEasy = new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT, new ScoreManagerImpl());
         var world = new UpperWorld(new BoundWorldImpl(new BoundY(MIN_Y, MAX_Y), new Boundary(MIN_X, MAX_X)));
         var spawnPoolCreator = new SpawnPoolCreatorImpl(world);
         spawnPoolCreator.setSpawnPool(spawnPoolEasy);
@@ -39,7 +40,7 @@ public class AddOnPoolTest {
     @Test
     public void testGetAddOnPool() {
         var addOnPool = this.addOnPoolEasy.getAddOnPool();
-        assert(!addOnPool.isEmpty());
+        assertEquals(false, addOnPool.isEmpty());
     }
 
     @Test 

@@ -63,7 +63,6 @@ public class MainViewImpl implements MainView {
         gameLaunchedView.setFocusable(true);
         gameLaunchedView.requestFocusInWindow();
         
-        new Thread(gameLaunchedController::runGame, "GameLoop").start();
     }
 
     @Override

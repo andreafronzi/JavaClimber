@@ -14,7 +14,7 @@ public interface PlatformPositionGenerator {
      * 
      * @return a Vector2d representing the new coordinates
      */
-    public Vector2d generatePosition(double width, double height);
+    public Vector2d generatePosition(double width, double height, Vector2d previousPlatformPosition);
 
     /**
      * Sets the difficulty context, which influences position generation parameters (e.g., distance).

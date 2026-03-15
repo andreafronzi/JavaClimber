@@ -54,7 +54,6 @@ public class MenuControllerImpl implements MenuController{
     @Override
     public void shop() {
         menu.setState(new ShoppingState(menu));
-        mainController.openShopView();
     }
 
     /**
@@ -63,7 +62,6 @@ public class MenuControllerImpl implements MenuController{
     @Override
     public void inventory() {
         menu.setState(new InventoryState(menu));
-        mainController.openInventoryView();
     }
 
     /**

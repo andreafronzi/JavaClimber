@@ -27,8 +27,6 @@ public class PlatformPositionGeneratorImpl implements PlatformPositionGenerator 
      */
     public PlatformPositionGeneratorImpl(final BoundWorld boundWorld, final Vector2d platformPos, final Distance distance) {
         this.randomNumber = new Random();
-        // previousPlatformPosition.setX(platform.getPosX());
-        // previousPlatformPosition.setY(platform.getPosY());
         previousPlatformPosition = platformPos;
         this.distance = distance;
         this.boundX = boundWorld.getBoundX();
@@ -38,12 +36,12 @@ public class PlatformPositionGeneratorImpl implements PlatformPositionGenerator 
      * {@inheritDoc}
      */
     @Override
-    public Vector2d generatePosition(final double width, final double height) {
+    public Vector2d generatePosition(final double width, final double height, final Vector2d previousPlatformPosition) {
         this.newPlatformPosition = new Vector2dImpl(0, 0);
+        setPreviousPosition(previousPlatformPosition);
         genPosX(width);
         genPosY(height);
-        setPreviousPosition(newPlatformPosition);
-        return previousPlatformPosition;
+        return newPlatformPosition;
     }
 
     /**
@@ -67,6 +65,9 @@ public class PlatformPositionGeneratorImpl implements PlatformPositionGenerator 
             xMax = boundX.x1() - width;
         } else {
             xMax = previousPlatformPosition.getX() + distance.maxDistanceX() + width;
+        }
+        if (xMax < xMin) {
+            xMin = xMax - 1;
         }
 
         newPlatformPosition.setX(randomNumber.nextDouble(xMin, xMax));

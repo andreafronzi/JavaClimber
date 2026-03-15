@@ -1,51 +1,42 @@
 package it.unibo.model.worldConstructor.gameObjectSpawn.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.world.api.BaseWorld;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.AddOnPositionSetter;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPositionSetterImpl;
-import it.unibo.model.worldConstructor.gameObjectSpawn.api.ObjectSelector;
 import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPool;
 import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPoolCreator;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Pair;
-import it.unibo.model.gameObj.api.Coin;
-import it.unibo.model.gameObj.api.Enemy;
-import it.unibo.model.gameObj.api.Gadget;
+import it.unibo.model.gameObj.api.GameObject;
 import it.unibo.model.gameObj.api.Platform;
 
 /**
  * Implementation of PlatformPoolCreator.
- * Iterates through the configured pools to find a matching object for a given spawn chanwce.
+ * Iterates through the configured pools to find a matching object for a given
+ * spawn chance.
  */
 public class SpawnPoolCreatorImpl implements SpawnPoolCreator {
 
-    private List<Pair<Double,Function<Vector2d,Platform>>> platforms;
-    private List<Pair<Double,Function<Vector2d,Enemy>>> monsters;
-    private List<Pair<Double,Function<Vector2d,Gadget>>> gadgets;
-    private List<Pair<Double,Function<Vector2d,Coin>>> moneys;
+    private SpawnPool spawnPool;
     private final BaseWorld world;
     private final AddOnPositionSetter addOnPositionSetter;
-    private final ObjectSelector objectSelector;
     // private List<Pair<Double,Function<Vector2d,Trap>>> traps;
 
     public SpawnPoolCreatorImpl(final BaseWorld world) {
         this.addOnPositionSetter = new AddOnPositionSetterImpl();
-        this.objectSelector = new ObjectSelectorImpl();
         this.world = world;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setSpawnPool(final SpawnPool platformPool) {
-        this.platforms = platformPool.getPlatformPool();
-        this.monsters = platformPool.getMonsterPool();
-        this.gadgets = platformPool.getGadgetPool();
-        this.moneys = platformPool.getMoneyPool();
-        // this.traps = platformPool.getTrapPool();
+    public void setSpawnPool(final SpawnPool spawnPool) {
+        this.spawnPool = spawnPool;
     }
 
     /**
@@ -53,17 +44,20 @@ public class SpawnPoolCreatorImpl implements SpawnPoolCreator {
      */
     @Override
     public void createStaticPlatform(final double chance, final Vector2d pos) {
-        objectSelector.selector(chance, pos.getX(), pos.getY(), this.platforms).ifPresent(world::addStaticPlatform);
+        this.selector(chance, pos.getX(), pos.getY(), this.spawnPool.getStaticPlatformPool())
+                .ifPresent(world::addStaticPlatform);
     }
 
     @Override
     public void createMovingPlatform(final double chance, final Vector2d pos) {
-        objectSelector.selector(chance, pos.getX(), pos.getY(), this.platforms).ifPresent(world::addMovingPlatform);
+        this.selector(chance, pos.getX(), pos.getY(), this.spawnPool.getMovingPlatformPool())
+                .ifPresent(world::addMovingPlatform);
     }
 
     @Override
     public void createOnTouchPlatform(final double chance, final Vector2d pos) {
-        objectSelector.selector(chance, pos.getX(), pos.getY(), this.platforms).ifPresent(world::addOnTouchPlatform);
+        this.selector(chance, pos.getX(), pos.getY(), this.spawnPool.getOnTouchPlatformPool())
+                .ifPresent(world::addOnTouchPlatform);
     }
 
     /**
@@ -71,7 +65,8 @@ public class SpawnPoolCreatorImpl implements SpawnPoolCreator {
      */
     @Override
     public void createMonster(final double chance, final Platform platform) {
-        objectSelector.selector(chance, platform.getPosX(), platform.getPosY(), this.monsters).ifPresent(monster -> world.addMonster(addOnPositionSetter.generatePosition(monster, platform.getWidth())));
+        this.selector(chance, platform.getPosX(), platform.getPosY(), this.spawnPool.getMonsterPool()).ifPresent(
+                monster -> world.addMonster(addOnPositionSetter.generatePosition(monster, platform.getWidth())));
     }
 
     /**
@@ -79,7 +74,8 @@ public class SpawnPoolCreatorImpl implements SpawnPoolCreator {
      */
     @Override
     public void createGadget(final double chance, final Platform platform) {
-        objectSelector.selector(chance, platform.getPosX(), platform.getPosY(), this.gadgets).ifPresent(gadget -> world.addGadget(addOnPositionSetter.generatePosition(gadget, platform.getWidth())));
+        this.selector(chance, platform.getPosX(), platform.getPosY(), this.spawnPool.getGadgetPool()).ifPresent(
+                gadget -> world.addGadget(addOnPositionSetter.generatePosition(gadget, platform.getWidth())));
     }
 
     /**
@@ -87,7 +83,8 @@ public class SpawnPoolCreatorImpl implements SpawnPoolCreator {
      */
     @Override
     public void createMoney(final double chance, final Platform platform) {
-        objectSelector.selector(chance, platform.getPosX(), platform.getPosY(), this.moneys).ifPresent(money -> world.addMoney(addOnPositionSetter.generatePosition(money, platform.getWidth())));
+        this.selector(chance, platform.getPosX(), platform.getPosY(), this.spawnPool.getMoneyPool())
+                .ifPresent(money -> world.addMoney(addOnPositionSetter.generatePosition(money, platform.getWidth())));
     }
 
     /*
@@ -101,4 +98,14 @@ public class SpawnPoolCreatorImpl implements SpawnPoolCreator {
      * return null;
      * }
      */
+
+    public <X extends GameObject> Optional<X> selector(double chance, double x, double y,
+            List<Pair<Double, Function<Vector2d, X>>> addOns) {
+        for (final var addOn : addOns) {
+            if (chance <= addOn.getX()) {
+                return Optional.of(addOn.getY().apply(new Vector2dImpl(x, y)));
+            }
+        }
+        return Optional.empty();
+    }
 }

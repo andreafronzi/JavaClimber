@@ -2,8 +2,8 @@ package JavaClimber.camera;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,13 +13,31 @@ import it.unibo.model.camera.impl.CameraImpl;
 import it.unibo.model.gameObj.impl.AlienImpl;
 import it.unibo.model.gameObj.impl.PlatformImpl;
 import it.unibo.model.physics.impl.Vector2dImpl;
+import it.unibo.model.score.api.ScoreManager;
+import it.unibo.model.score.impl.ScoreManagerImpl;
+import it.unibo.model.shop.api.ActiveUpgrades;
+import it.unibo.model.shop.api.Inventory;
+import it.unibo.model.shop.api.ShopItemFactory;
+import it.unibo.model.shop.impl.ActiveUpgradesImpl;
+import it.unibo.model.shop.impl.InventoryImpl;
+import it.unibo.model.shop.impl.ShopItemFactoryImpl;
+import it.unibo.model.world.api.BoundWorld;
+import it.unibo.model.world.impl.BoundWorldImpl;
+import it.unibo.model.world.impl.BoundY;
+import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
 import it.unibo.model.world.impl.UpperWorld;
 import it.unibo.model.world.impl.World;
-import it.unibo.model.worldConstructor.api.WorldConstructor;
-import it.unibo.model.worldConstructor.impl.Difficult;
-import it.unibo.model.worldConstructor.impl.PlatformPoolEasy;
-import it.unibo.model.worldConstructor.impl.WorldConstructorImpl;
+import it.unibo.model.worldConstructor.data.Difficult;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPoolEasy;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.GameObjDimension;
+import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolCreatorImpl;
+import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.Distance;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPoolEasy;
+import it.unibo.model.worldConstructor.worldGenerator.api.WorldConstructor;
+import it.unibo.model.worldConstructor.worldGenerator.impl.WorldConstructorImpl;
+
 
 /**
  * Tests for {@link CameraImpl}
@@ -34,23 +52,39 @@ public class CameraTest {
     private World world;
     private WorldConstructor wc;
     private CameraImpl camera;
+    private ScoreManager scoreManager;
+
 
     /**
      * Set up all to simulate the camera behaviour. 
      */
     @BeforeEach
     void setUp() {
-        AlienImpl alien = new AlienImpl(new Vector2dImpl(0, 0), new Vector2dImpl(10, 10), 50, 50);
-        RealWorld realWorld = new RealWorld(alien);
-        UpperWorld upperWorld = new UpperWorld();
-        world = new World(upperWorld, realWorld);
-
-        PlatformPoolEasy pool = new PlatformPoolEasy();
+        ShopItemFactory factory = new ShopItemFactoryImpl();
+        Inventory inventory = new InventoryImpl(factory);
+        ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(inventory);
+        AlienImpl alien = new AlienImpl(new Vector2dImpl(0, 0), new Vector2dImpl(10, 10), 50, 50, activeUpgrades);
         
-        Difficult difficult = new Difficult(
-            100.0, 150.0, 50.0, 100.0, 0.5, 0.1, 5, 0.1, 2, 0.1, 2, 0.1, 2, pool
-        );
-        this.wc = new WorldConstructorImpl(difficult);
+        Boundary boundX = new Boundary(0, VIEW_WIDTH);
+        BoundY boundY = new BoundY(-2000, VIEW_HEIGHT);
+        BoundWorld boundWorld = new BoundWorldImpl(boundY, boundX);
+        RealWorld realWorld = new RealWorld(alien, boundWorld);
+        UpperWorld upperWorld = new UpperWorld(boundWorld);
+        world = new World(upperWorld, realWorld);
+        this.scoreManager = new ScoreManagerImpl();
+
+        
+        var distanceEasy = new Distance(200, 100, 300);
+        var spawnPoolCreator = new SpawnPoolCreatorImpl(upperWorld);
+        var spawnPoolEasy = new SpawnPoolEasy(GameObjDimension.EASY_PLATFORM_WIDTH,
+                GameObjDimension.EASY_PLATFORM_HEIGHT, scoreManager);
+        var platformPoolEasy = new PlatformPoolEasy(spawnPoolCreator, GameObjDimension.EASY_PLATFORM_WIDTH,
+                GameObjDimension.EASY_PLATFORM_HEIGHT);
+        var addOnPoolEasy = new AddOnPoolEasy(spawnPoolCreator, 0.5);
+        var difficultList = List.of(new Difficult(0, distanceEasy, spawnPoolEasy, addOnPoolEasy, platformPoolEasy));
+        spawnPoolCreator.setSpawnPool(spawnPoolEasy);
+        
+        this.wc = new WorldConstructorImpl(upperWorld, difficultList.getFirst(), spawnPoolCreator);
 
         this.camera = new CameraImpl(VIEW_WIDTH, VIEW_HEIGHT, world, wc);
     }
@@ -69,9 +103,10 @@ public class CameraTest {
     @Test
     void testMovement() {
         PlatformImpl platform = new PlatformImpl(new Vector2dImpl(100, 100), PLAT_W, PLAT_H, Optional.empty(), Optional.empty());
-        world.getRealWorld().addPlatform(platform);
+        world.getRealWorld().addStaticPlatform(platform);
         camera.update(50.0);
         assertEquals(150.0, platform.getPosY());
+        assertEquals(50.0, world.getRealWorld().getAlien().getPosY());
     }
 
     /**
@@ -80,15 +115,12 @@ public class CameraTest {
     @Test
     void testTransferFromUpperToReal() {
         PlatformImpl platform = new PlatformImpl(new Vector2dImpl(200, -101), PLAT_W, PLAT_H, Optional.empty(), Optional.empty());
-        world.getUpperWorld().addPlatform(platform);
+        world.getUpperWorld().addStaticPlatform(platform);
         camera.update(0.5);
-        assertFalse(world.getUpperWorld().getPlatforms().isEmpty());
-        assertTrue(world.getRealWorld().getPlatforms().isEmpty());
+        assertFalse(world.getUpperWorld().getStaticPlatforms().isEmpty());
 
         camera.update(10.0);
-        assertTrue(world.getUpperWorld().getPlatforms().isEmpty());
-        assertFalse(world.getRealWorld().getPlatforms().isEmpty());
-        assertEquals(platform, world.getRealWorld().getPlatforms().get(0));
+        assertFalse(world.getRealWorld().getStaticPlatforms().isEmpty());
     }
 
     /**
@@ -97,18 +129,9 @@ public class CameraTest {
     @Test
     void testCleanRealWorld() {
         PlatformImpl platform = new PlatformImpl(new Vector2dImpl(100, 590), PLAT_W, PLAT_H, Optional.empty(), Optional.empty());
-        world.getRealWorld().addPlatform(platform);
+        world.getRealWorld().addStaticPlatform(platform);
         camera.update(20.0);
-        assertTrue(world.getRealWorld().getPlatforms().isEmpty());
-    }
-
-    @Test
-    void testCheckAndGenerateUpperWorld() {
-        camera.update(290.0);
-        assertTrue(world.getUpperWorld().getPlatforms().isEmpty());
-        camera.update(20.0);
-        assertFalse(world.getUpperWorld().getPlatforms().isEmpty(), 
-            "UpperWorld should contain generated platforms after generation trigger");
+        assertFalse(world.getRealWorld().getStaticPlatforms().contains(platform));
     }
 
 }

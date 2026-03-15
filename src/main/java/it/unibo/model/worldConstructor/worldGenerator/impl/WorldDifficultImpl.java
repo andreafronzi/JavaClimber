@@ -36,10 +36,6 @@ public class WorldDifficultImpl implements WorldDifficult, Subject, AltitudeObse
         notifyObservers(difficult);
     }
 
-    private void sortList(){
-        this.difficultList.sort( (d1, d2) -> Double.compare(d1.height(), d2.height()) );
-    }
-
     /**
      * {@inheritDoc}
      */
