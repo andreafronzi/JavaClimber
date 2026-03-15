@@ -156,9 +156,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
     new Thread(() -> {
       long previousCycleStartTime = System.nanoTime();
       
-      World currentSessionWorld = this.launchedGame.getWorld().orElse(null);
-
-      while (launchedGame.isRunning() && this.launchedGame.getWorld().orElse(null) == currentSessionWorld) {
+      while (launchedGame.isRunning()) {
         long currentCycleStartTime = System.nanoTime();
         long elapsedNanos = currentCycleStartTime - previousCycleStartTime;
 
