@@ -9,6 +9,8 @@ import it.unibo.view.GameLaunchedView.renderers.impl.AlienRenderer;
 import it.unibo.view.GameLaunchedView.renderers.impl.CoinRender;
 import it.unibo.view.GameLaunchedView.renderers.impl.EnemyRenderer;
 import it.unibo.view.GameLaunchedView.renderers.impl.GadgetRenderer;
+import it.unibo.view.GameLaunchedView.renderers.impl.MovingPlatformRenderer;
+import it.unibo.view.GameLaunchedView.renderers.impl.OnTouchPlatformRenderer;
 import it.unibo.view.GameLaunchedView.renderers.impl.PlatformRenderer;
 
 import java.awt.*;
@@ -60,6 +62,20 @@ public class GameLaunchedViewPanelImpl extends JPanel {
   private final GadgetRenderer gadgetRenderer;
 
   /**
+   * Renders the moving {@link it.unibo.model.gameObj.api.Platform} entities
+   * within the
+   * game view panel.
+   */
+  private final MovingPlatformRenderer movingPlatformRenderer;
+
+  /**
+   * Renders the moving {@link it.unibo.model.gameObj.api.Platform} entities which
+   * have onTouch behaviour within the
+   * game view panel.
+   */
+  private final OnTouchPlatformRenderer onTouchPlatformRenderer;
+
+  /**
    * <p>
    * Construct a new {@link GameLaunchedViewPanelImpl}.
    * </p>
@@ -82,6 +98,8 @@ public class GameLaunchedViewPanelImpl extends JPanel {
     this.enemyRenderer = new EnemyRenderer(spriteManager);
     this.coinRenderer = new CoinRender(spriteManager);
     this.gadgetRenderer = new GadgetRenderer(spriteManager);
+    this.movingPlatformRenderer = new MovingPlatformRenderer(spriteManager);
+    this.onTouchPlatformRenderer = new OnTouchPlatformRenderer(spriteManager);
 
     this.addKeyListener(new LaunchedGameInputHandlerImpl(inputController));
     setDoubleBuffered(true); // Aggiungi questa linea nel costruttore
@@ -90,7 +108,8 @@ public class GameLaunchedViewPanelImpl extends JPanel {
   /**
    * {@inheritDoc}
    *
-   * @param g the {@code Java.awt.Graphics} the copy of the graphics used to paint component
+   * @param g the {@code Java.awt.Graphics} the copy of the graphics used to paint
+   *          component
    */
   @Override
   protected void paintComponent(final Graphics g) {
@@ -110,10 +129,10 @@ public class GameLaunchedViewPanelImpl extends JPanel {
     // Optional: Draw a light grid for the background
     g2d.setColor(new Color(230, 230, 210));
     for (int i = 0; i < gameWidth; i += 40) {
-        g2d.drawLine(xOffset + i, 0, xOffset + i, this.getHeight());
+      g2d.drawLine(xOffset + i, 0, xOffset + i, this.getHeight());
     }
     for (int i = 0; i < this.getHeight(); i += 40) {
-        g2d.drawLine(xOffset, i, xOffset + gameWidth, i);
+      g2d.drawLine(xOffset, i, xOffset + gameWidth, i);
     }
 
     g2d.translate(xOffset, 0);
@@ -135,7 +154,11 @@ public class GameLaunchedViewPanelImpl extends JPanel {
    */
   private void renderAll(final Graphics2D g) {
     this.launchedController.getAlien().ifPresent(alien -> this.alienRenderer.render(List.of(alien), g));
-    this.launchedController.getPlatforms().ifPresent(platforms -> this.platformRenderer.render(platforms, g));
+    this.launchedController.getMovingPlatforms()
+        .ifPresent(platforms -> this.movingPlatformRenderer.render(platforms, g));
+    this.launchedController.getOnTouchPlatform()
+        .ifPresent(platforms -> this.onTouchPlatformRenderer.render(platforms, g));
+    this.launchedController.getStaticPlatforms().ifPresent(platforms -> this.platformRenderer.render(platforms, g));
     this.launchedController.getEnemy().ifPresent(enemies -> this.enemyRenderer.render(enemies, g));
     this.launchedController.getCoins().ifPresent(coins -> this.coinRenderer.render(coins, g));
     this.launchedController.getGadgets().ifPresent(gadgets -> this.gadgetRenderer.render(gadgets, g));

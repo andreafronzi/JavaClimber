@@ -76,7 +76,8 @@ public class CameraImpl implements Camera, AltitudeObserver {
         transferGameObj();
         cleanRealWorld();
 
-        checkAndGenerateUpperWorld();
+        worldConstructor.fillWorld();
+        //checkAndGenerateUpperWorld();
     }
 
     /**
