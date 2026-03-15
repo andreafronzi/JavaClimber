@@ -61,6 +61,14 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    * {@inheritDoc}
    */
   @Override
+  public String getActiveSkin() {
+    return this.inventory.getSelectedSkin();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public Optional<Alien> getAlien() {
     return this.launchedGame.getWorld()
         .map(World::getRealWorld)
@@ -101,20 +109,30 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    * {@inheritDoc}
    */
   @Override
-  public Optional<List<Platform>> getPlatforms() {
-    final List<Platform> platforms = new ArrayList<>();
-    platforms.addAll(this.launchedGame.getWorld().get().getRealWorld().getMovingPlatforms());
-    platforms.addAll(this.launchedGame.getWorld().get().getRealWorld().getOnTouchPlatforms());
-    platforms.addAll(this.launchedGame.getWorld().get().getRealWorld().getStaticPlatforms());
-    return Optional.of(platforms);
+  public Optional<List<Platform>> getMovingPlatforms() {
+    return this.launchedGame.getWorld()
+        .map(World::getRealWorld)
+        .map(GameWorld::getMovingPlatforms);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  @Override
+  public Optional<List<Platform>> getOnTouchPlatform() {
+    return this.launchedGame.getWorld()
+        .map(World::getRealWorld)
+        .map(GameWorld::getOnTouchPlatforms);
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public String getActiveSkin() {
-    return this.inventory.getSelectedSkin();
+  public Optional<List<Platform>> getStaticPlatforms() {
+    return this.launchedGame.getWorld()
+        .map(World::getRealWorld)
+        .map(GameWorld::getStaticPlatforms);
   }
 
   /**
@@ -149,7 +167,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
     this.launchedGame.addCommand(new StopAlienMovement());
   }
 
-  private static final long FRAME_TIME_MS = 16; 
+  private static final long FRAME_TIME_MS = 16;
 
   @Override
   public void runGame() {
@@ -173,7 +191,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
 
         this.panel.repaint();
 
-        java.awt.Toolkit.getDefaultToolkit().sync(); 
+        java.awt.Toolkit.getDefaultToolkit().sync();
 
         this.waitForNextFrame(currentCycleStartTime);
       }
@@ -201,7 +219,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
 
   @Override
   public int getCurrentScore() {
-      return this.launchedGame.getMenu().getScoreManager().getCurrentScore();
+    return this.launchedGame.getMenu().getScoreManager().getCurrentScore();
   }
 
   @Override

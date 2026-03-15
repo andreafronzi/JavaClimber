@@ -82,15 +82,6 @@ public interface GameLaunchedController {
 
   /**
    * <p>
-   * Provide to the view the {@link Platform} entities to render if present.
-   * </p>
-   *
-   * @return the {@link Platform} entities
-   */
-  Optional<List<Platform>> getPlatforms();
-
-  /**
-   * <p>
    * Provide to the view the static {@link Platform} entities to render if
    * present.
    * </p>
