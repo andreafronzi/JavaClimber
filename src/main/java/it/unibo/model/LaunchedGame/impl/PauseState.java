@@ -23,6 +23,7 @@ public class PauseState extends BaseLaunchedState {
      */
     @Override
     public void onEnter() {
+        this.launchedGame.setRunning(false);
         this.launchedGame.getMenu().getMainController().openPauseView();
     }
 }
