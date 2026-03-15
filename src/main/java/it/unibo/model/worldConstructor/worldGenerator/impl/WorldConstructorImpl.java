@@ -3,17 +3,14 @@ package it.unibo.model.worldConstructor.worldGenerator.impl;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Queue;
 import java.util.Random;
 
-import it.unibo.model.camera.api.AltitudeObserver;
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.gameObj.impl.PlatformImpl;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.world.api.BoundWorld;
 import it.unibo.model.world.api.QueueWorld;
-import it.unibo.model.world.impl.UpperWorld;
 import it.unibo.model.worldConstructor.data.Difficult;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.AddOnCreator;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnCreatorImpl;
@@ -40,7 +37,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer{
   private final Random random;
   private final BoundWorld bound;
   private Vector2d lastPlatformPos;
-  private Platform lastStaticPlatform;
+  private Optional<Platform> lastStaticPlatform;
   private final QueueWorld world;
 
   /**
@@ -83,17 +80,21 @@ public class WorldConstructorImpl implements WorldConstructor, Observer{
         difficult.platformPool().getHeight(), lastPlatformPos);
     this.platformCreator.createPlatform(chance, pos);
     this.lastPlatformPos = pos;
-    this.lastStaticPlatform = world.getStaticPlatforms().getLast();
+    if(!world.getStaticPlatforms().isEmpty()) {
+      this.lastStaticPlatform = Optional.of(world.getStaticPlatforms().getLast());
+    } else {
+      this.lastStaticPlatform = Optional.empty();
+    }
 
     if (chanceAddOn < difficult.addOnPool().getChanceAddOn()
-        && lastStaticPlatform.getPosY() == lastPlatformPos.getY()) {
+        && lastStaticPlatform.isPresent() && lastStaticPlatform.get().getPosY() == lastPlatformPos.getY()) {
       createAddOn();
     }
   }
 
   private void createAddOn() {
     double chance = random.nextDouble(1.0);
-    addOnCreator.selectAddOn(chance, lastStaticPlatform);
+    addOnCreator.selectAddOn(chance, lastStaticPlatform.get());
   }
 
   /**
