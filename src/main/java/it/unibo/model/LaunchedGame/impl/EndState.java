@@ -23,10 +23,10 @@ public class EndState extends BaseLaunchedState {
      */
     @Override
     public void onEnter() {
+        this.launchedGame.setRunning(false);
         int collectedCoins = this.launchedGame.getMenu().getScoreManager().getCoins();
         this.launchedGame.getMenu().getInventory().addCoins(collectedCoins);
         this.launchedGame.getMenu().getInventory().updateConsumables();
-
         this.launchedGame.getMenu().getMainController().openEndView();
         this.launchedGame.getMenu().getMainController().saveProgress();
     }
