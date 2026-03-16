@@ -17,11 +17,9 @@ import it.unibo.model.shop.impl.InventoryImpl;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
 
 /**
- * Test class for the {@link RunningCommand} implementations.
+ * <p>Test class for the {@link RunningCommand} implementations.</p>
  */
 public class MovementCommandTest {
-
-    private static final double EPSILON = 0.001;
     
     private static final double X = 10;
     private static final double Y = 20;
@@ -29,15 +27,11 @@ public class MovementCommandTest {
     private static final double SPEED_X = 0;
     private static final double SPEED_Y = 0;
 
-    private static final double NULL_SPEED_X = 0;
-    private static final double SPEED_X_LEFT_AFTER_COMMAND = -10;
-    private static final double SPEED_X_RIGHT_AFTER_COMMAND = 10;
-
     private static final double WIDTH = 50;
     private static final double HEIGHT = 50;
     
     /**
-     * Test the {@link MoveAlienLeft} command by executing it on an {@link AlienImpl} and checking if the speedX is updated correctly.
+     * <p>Test the {@link MoveAlienLeft} command by executing it on an {@link AlienImpl} and checking if the speedX is updated correctly.</p>
      */
     @Test
     public void moveAlienLeftTest() {
@@ -49,7 +43,7 @@ public class MovementCommandTest {
     }
 
     /**
-     * Test the {@link MoveAlienRight} command by executing it on an {@link AlienImpl} and checking if the speedX is updated correctly.
+     * <p>Test the {@link MoveAlienRight} command by executing it on an {@link AlienImpl} and checking if the speedX is updated correctly.</p>
      */
     @Test
     public void moveAlienRightTest() {
@@ -61,7 +55,7 @@ public class MovementCommandTest {
     }
 
     /**
-     * Test the {@link StopAlienMovement} command by executing it on an {@link AlienImpl} and checking if the speedX is updated correctly.
+     * <p>Test the {@link StopAlienMovement} command by executing it on an {@link AlienImpl} and checking if the speedX is updated correctly.</p>
      */
     @Test
     public void stopAlien() {
