@@ -42,7 +42,7 @@ public class PlatformPositionGeneratorTest {
 
     @Test
     void testGeneratePosition() {
-        var newPos = platformPositionGenerator.generatePosition(PLATFORM_WIDTH, PLATFORM_HEIGHT);
+        var newPos = platformPositionGenerator.generatePosition(PLATFORM_WIDTH, PLATFORM_HEIGHT, new Vector2dImpl(POS_X, POS_Y));
         assertEquals(true, newPos.getX() >= MIN_X && newPos.getX() <= MAX_X);
         assertEquals(true, newPos.getY() >= MIN_Y && newPos.getY() <= MAX_Y);
         assertEquals(true, newPos.getX() >= POS_X - MAX_DISTANCE_X);
