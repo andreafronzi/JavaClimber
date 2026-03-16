@@ -1,6 +1,8 @@
 package JavaClimber.command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -42,9 +44,9 @@ public class MovementCommandTest {
     public void moveAlienLeftTest() {
         final RunningCommand moveLeft = new MoveAlienLeft();
         final AlienImpl alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
-        moveLeft.execute(alien, new LaunchedGameImpl());
+        moveLeft.execute(alien, new LaunchedGameImpl(null, null));
         
-        assertEquals(SPEED_X_LEFT_AFTER_COMMAND, alien.getSpeedX(), EPSILON);
+        assertTrue(alien.isMovingLeft());
     }
 
     /**
@@ -54,9 +56,9 @@ public class MovementCommandTest {
     public void moveAlienRightTest() {
         final RunningCommand moveRight = new MoveAlienRight();
         final AlienImpl alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
-        moveRight.execute(alien, new LaunchedGameImpl());
+        moveRight.execute(alien, new LaunchedGameImpl(null, null));
         
-        assertEquals(SPEED_X_RIGHT_AFTER_COMMAND, alien.getSpeedX(), EPSILON);
+        assertTrue(alien.isMovingRight());
     }
 
     /**
@@ -66,8 +68,8 @@ public class MovementCommandTest {
     public void stopAlien() {
         final RunningCommand stop = new StopAlienMovement();
         final AlienImpl alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
-        stop.execute(alien, new LaunchedGameImpl());
+        stop.execute(alien, new LaunchedGameImpl(null, null));
         
-        assertEquals(NULL_SPEED_X, alien.getSpeedX(), EPSILON);
+        assertFalse(alien.isMovingLeft() || alien.isMovingRight());
     }
 }
