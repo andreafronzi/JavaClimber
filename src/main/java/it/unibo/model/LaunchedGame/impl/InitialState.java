@@ -81,7 +81,7 @@ public class InitialState extends BaseLaunchedState {
         worldDifficult.registerObserver(worldConstructor);
         var altitudeManager = new AltitudeManager(alien, 300);
         altitudeManager.addObserver(worldDifficult);
-        var camera = new CameraImpl(boundX.x1() - boundX.x1(), boundY.maxY() - boundY.minY(), world, worldConstructor);
+        var camera = new CameraImpl(boundX.x1(), boundY.maxY() - boundY.minY(), world, worldConstructor);
         altitudeManager.addObserver(camera);
         var scoreManager = this.launchedGame.getMenu().getScoreManager();
         scoreManager.resetScore();
