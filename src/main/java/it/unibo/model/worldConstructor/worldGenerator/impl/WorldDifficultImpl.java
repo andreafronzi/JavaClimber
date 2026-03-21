@@ -17,33 +17,32 @@ import it.unibo.model.worldConstructor.worldGenerator.api.WorldDifficult;
  */
 public class WorldDifficultImpl implements WorldDifficult, Subject, AltitudeObserver {
 
-    private final Alien alien;
     private final List<Observer> observers;
     private Difficult difficult;
     private List<Difficult> difficultList;
+    private double height;
 
     /**
      * Constructs a new WorldDifficultImpl.
      * 
-     * @param alien the player character to monitor
      * @param difficultList the list of available difficulty levels
      */
-    public WorldDifficultImpl(final Alien alien, final List<Difficult> difficultList) {
-        this.alien = alien;
+    public WorldDifficultImpl(final List<Difficult> difficultList) {
         this.observers = new LinkedList<>();
         this.difficultList = List.copyOf(difficultList);
         this.difficult = this.difficultList.getFirst();
-        notifyObservers(difficult);
+        this.height = 0;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void createDifficult() {
-        if(alien.getHeight() > difficult.height()){
+    public void createDifficult(final double height) {
+        this.height += height;
+        if(this.height > difficult.height()){
             difficultList.stream().forEach((d) -> {
-                if(alien.getHeight() < d.height()){
+                if(this.height < d.height()){
                     notifyObservers(d);
                 }
             });
@@ -78,7 +77,7 @@ public class WorldDifficultImpl implements WorldDifficult, Subject, AltitudeObse
 
     @Override
     public void update(double delta) {
-        this.createDifficult();
+        this.createDifficult(delta);
     }
 
 }
