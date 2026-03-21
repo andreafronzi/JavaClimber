@@ -14,7 +14,9 @@ import it.unibo.model.world.api.QueueWorld;
 import it.unibo.model.worldConstructor.data.Difficult;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.AddOnCreator;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnCreatorImpl;
+import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPool;
 import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPoolCreator;
+import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolCreatorImpl;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.PlatformCreator;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.PlatformPositionGenerator;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformCreatorImpl;
@@ -38,6 +40,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer{
   private final BoundWorld bound;
   private Vector2d lastPlatformPos;
   private Optional<Platform> lastStaticPlatform;
+  private final SpawnPoolCreator spawnPoolCreator;
   private final QueueWorld world;
 
   /**
@@ -47,6 +50,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer{
    */
   public WorldConstructorImpl(final QueueWorld world, final Difficult difficult,
       final SpawnPoolCreator spawnPoolCreator) {
+    this.spawnPoolCreator = spawnPoolCreator;
     this.world = world;
     this.difficult = difficult;
     this.random = new Random();
@@ -103,6 +107,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer{
   @Override
   public void update(Difficult difficult) {
     this.platformPositionGenerator.setDistance(difficult.distance());
+    this.spawnPoolCreator.setSpawnPool(difficult.spawnPool());
     this.platformCreator.setPlatformPool(difficult.platformPool());
     this.addOnCreator.setAddOnPool(difficult.addOnPool());
     this.difficult = difficult;
