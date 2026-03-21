@@ -15,8 +15,6 @@ public class AddOnPoolEasy extends AddOnPoolBase {
     }
 
     private void createAddOn() {
-        this.addOnPool.add(new PairImpl<Double,BiConsumer<Double,Platform>>(0.2, this.spawnPoolCreator::createGadget));
-        this.addOnPool.add(new PairImpl<Double,BiConsumer<Double,Platform>>(0.4, this.spawnPoolCreator::createMonster));
         this.addOnPool.add(new PairImpl<Double,BiConsumer<Double,Platform>>(1.0, this.spawnPoolCreator::createMoney));
     }
     
