@@ -10,6 +10,6 @@ public interface WorldDifficult {
      * Checks and updates the current difficulty level of the world.
      * Typically called periodically or based on events.
      */
-    public void createDifficult();
+    public void createDifficult(double height);
 
 }
