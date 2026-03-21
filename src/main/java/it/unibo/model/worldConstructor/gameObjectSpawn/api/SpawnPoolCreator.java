@@ -15,7 +15,7 @@ public interface SpawnPoolCreator {
      * 
      * @param platformPool the pool containing entity factories and probabilities
      */
-    public void setSpawnPool(SpawnPool platformPool);
+    public void setSpawnPool(SpawnPool spawnPool);
     
     /**
      * Creates a platform based on the given chance.
