@@ -22,10 +22,10 @@ public class MainViewImpl implements MainView {
     public MainViewImpl() {
         this.frame = new JFrame("Java Climber");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(600, 600);
+        this.frame.setSize(600, 800);
+        //this.setWindowSize();
         this.frame.setLocationRelativeTo(null);
         this.frame.setVisible(true);
-        this.setWindowSize();
     }
 
     private void switchPanel(JPanel newPanel) {
