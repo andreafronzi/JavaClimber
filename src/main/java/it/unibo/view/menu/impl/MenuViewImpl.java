@@ -174,31 +174,4 @@ public class MenuViewImpl extends JPanel implements MenuView{
         this.controller.exit();
     }
 
-    public static void main(String[] args) {
-        // Mock del controller
-        MenuController mockController = new MenuController() {
-            @Override public void openViewMenu() {}
-            @Override public void start() { System.out.println("Controller: Start Game triggered"); }
-            @Override public void shop() { System.out.println("Controller: Shop triggered"); }
-            @Override public void inventory() { System.out.println("Controller: Inventory triggered"); }
-            @Override public void exit() { System.out.println("Controller: Exit triggered"); System.exit(0); }
-            @Override public int getHighScore() { return 12500; }
-            @Override
-            public void setView(MenuView view) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'setView'");
-            };
-        };
-
-        SwingUtilities.invokeLater(() -> {
-            JFrame testFrame = new JFrame("Test Menu Panel");
-            MenuViewImpl menuPanel = new MenuViewImpl(mockController);
-            
-            testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            testFrame.setSize(1000, 700);
-            testFrame.add(menuPanel);
-            testFrame.setLocationRelativeTo(null);
-            testFrame.setVisible(true);
-        });
-    }
 }
