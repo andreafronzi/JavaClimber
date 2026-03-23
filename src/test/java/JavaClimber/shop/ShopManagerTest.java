@@ -37,7 +37,7 @@ public class ShopManagerTest {
         inventory.addCoins(1000);
         ShopItem skin = itemFactory.getItemById("s_astro").get();
         assertTrue(shopManager.buyItem(skin));
-        assertEquals(500, shopManager.getCoins());
+        assertEquals(900, shopManager.getCoins());
         assertTrue(shopManager.isAlreadyOwned(skin));
         assertEquals("s_astro", shopManager.getInventory().getSelectedSkin());
     }

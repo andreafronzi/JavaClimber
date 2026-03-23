@@ -25,11 +25,11 @@ public class ShopItemTest {
      */
     @Test
     void testFactoryLists() {
-        assertEquals(5, itemFactory.getSkins().size());
+        assertEquals(12, itemFactory.getSkins().size());
         assertEquals(9, itemFactory.getPowerUpsTemporary().size());
         assertEquals(10, itemFactory.getPowerUpsPermanent().size());
         
-        assertEquals(24, itemFactory.getAllItems().size());
+        assertEquals(31, itemFactory.getAllItems().size());
     }
 
     /**
@@ -45,7 +45,7 @@ public class ShopItemTest {
         assertEquals("Astronaut alien", item.getName());
         assertEquals(ShopItemType.SKIN, item.getType());
         assertEquals("From the space with x1.5 Jump", item.getDescription());
-        assertEquals(500, item.getPrice());
+        assertEquals(100, item.getPrice());
         assertEquals(0, item.getInitialDuration());
         assertTrue(item.getStats().containsKey(ShopItemStat.JUMP_HEIGHT));
         assertEquals(1.5, item.getStats().get(ShopItemStat.JUMP_HEIGHT));
