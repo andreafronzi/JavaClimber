@@ -3,7 +3,8 @@ package it.unibo.model.shop.api;
 import java.util.List;
 
 /**
- * Interface representing the shop manager responsible for handling shop operations.
+ * Interface representing the shop manager responsible for handling shop
+ * operations.
  */
 public interface ShopManager {
 
@@ -54,18 +55,21 @@ public interface ShopManager {
 
     /**
      * Get all permanent power ups avaiable.
+     * 
      * @return a list of permanent power up
      */
     List<ShopItem> getPermanentUpgrades();
 
     /**
      * Get all temporary power ups avaiable.
+     * 
      * @return a list of temporary power up
      */
     List<ShopItem> getTemporaryUpgrades();
 
     /**
      * Get the total amount of coins of the player.
+     * 
      * @return the total amount of coins
      */
     int getCoins();

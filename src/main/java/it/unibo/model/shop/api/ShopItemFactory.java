@@ -30,6 +30,7 @@ public interface ShopItemFactory {
 
     /**
      * Return a specific item by its unique ID.
+     * 
      * @param itemId the ID of the item
      * @return an Optional containing the corresponding ShopItem if it exists
      */

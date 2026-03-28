@@ -50,7 +50,8 @@ public interface ShopItem {
     Map<ShopItemStat, Double> getStats();
 
     /**
-     * Get the initial duration of the item in matches
+     * Get the initial duration of the item in matches.
+     * 
      * @return the number of matches the effect lasts (0 for permanent items)
      */
     int getInitialDuration();

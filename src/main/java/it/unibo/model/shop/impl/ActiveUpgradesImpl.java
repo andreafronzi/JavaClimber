@@ -9,8 +9,8 @@ import it.unibo.model.shop.api.ShopItemFactory;
  */
 public class ActiveUpgradesImpl implements ActiveUpgrades {
 
-    private static String PREFIX_SPEED = "pp_speed_";
-    private static String PREFIX_JUMP = "pp_jump_";
+    private static final String PREFIX_SPEED = "pp_speed_";
+    private static final String PREFIX_JUMP = "pp_jump_";
     private final Inventory inventory;
     private final ShopItemFactory factory;
     private double currentSpeedMultiplier;
@@ -19,9 +19,10 @@ public class ActiveUpgradesImpl implements ActiveUpgrades {
 
     /**
      * Constructor for ActiveUpgradesImpl with required inventory.
+     * 
      * @param inventory the player's inventory
      */
-    public ActiveUpgradesImpl(Inventory inventory) {
+    public ActiveUpgradesImpl(final Inventory inventory) {
         this.inventory = inventory;
         this.factory = inventory.getFactory();
         this.updateValues();
@@ -31,35 +32,36 @@ public class ActiveUpgradesImpl implements ActiveUpgrades {
      * {@inheritDoc}
      */
     @Override
-    public void updateValues() {
+    public final void updateValues() {
         this.currentJumpMultiplier = 1.0;
         this.currentSpeedMultiplier = 1.0;
         this.currentCoinMultiplier = 1;
 
-        for (String itemId : inventory.getActiveConsumables()) {
+        for (final String itemId : inventory.getActiveConsumables()) {
             applyItemStats(itemId);
         }
-        
+
         applyItemStats(inventory.getSelectedSkin());
 
-        int speedLevel = inventory.getSelectedSpeedLevel();
+        final int speedLevel = inventory.getSelectedSpeedLevel();
         if (speedLevel > 0) {
-            String id = PREFIX_SPEED + speedLevel;
+            final String id = PREFIX_SPEED + speedLevel;
             applyItemStats(id);
         }
 
-        int jumpLevel = inventory.getSelectedJumpLevel();
+        final int jumpLevel = inventory.getSelectedJumpLevel();
         if (jumpLevel > 0) {
-            String id = PREFIX_JUMP + jumpLevel;
+            final String id = PREFIX_JUMP + jumpLevel;
             applyItemStats(id);
         }
     }
 
     /**
      * Extract stats from an itemId and apply max value for type logic.
+     * 
      * @param itemId the itemId to extract
      */
-    private void applyItemStats(String itemId) {
+    private void applyItemStats(final String itemId) {
         if (itemId == null || itemId.isEmpty()) {
             return;
         }
@@ -75,8 +77,6 @@ public class ActiveUpgradesImpl implements ActiveUpgrades {
                         break;
                     case COIN_MULTIPLIER:
                         this.currentCoinMultiplier = Math.max(this.currentCoinMultiplier, value.intValue());
-                        break;
-                    default:
                         break;
                 }
             });

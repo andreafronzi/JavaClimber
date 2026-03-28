@@ -12,14 +12,15 @@ public class SkinItemImpl extends AbstractShopItem {
 
     /**
      * Constructor for SkinItemImpl with all required fields.
-     * @param id the id of the shop item
-     * @param name the name of the shop item
+     * 
+     * @param id          the id of the shop item
+     * @param name        the name of the shop item
      * @param description the description of the shop item
-     * @param price the price of the shop item
-     * @param stats the stats boosted by the shop item
+     * @param price       the price of the shop item
+     * @param stats       the stats boosted by the shop item
      */
-    public SkinItemImpl(String id, String name, String description, int price,
-            Map<ShopItemStat, Double> stats) {
+    public SkinItemImpl(final String id, final String name, final String description, final int price,
+            final Map<ShopItemStat, Double> stats) {
         super(id, name, description, price, ShopItemType.SKIN, stats);
     }
 

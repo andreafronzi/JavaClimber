@@ -2,6 +2,7 @@ package it.unibo.model.shop.impl;
 
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.score.api.ScoreManager;
 import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.shop.api.ShopItem;
@@ -19,10 +20,12 @@ public class ShopManagerImpl implements ShopManager {
 
     /**
      * Constructor for ShopManagerImpl with required factory and inventory.
+     * 
      * @param itemFactory the factory for shop items
-     * @param inventory the inventory to manage purchases and ownership
+     * @param inventory   the inventory to manage purchases and ownership
      */
-    public ShopManagerImpl(ShopItemFactory itemFactory, Inventory inventory) {
+    @SuppressFBWarnings("EI_EXPOSE_REP2")
+    public ShopManagerImpl(final ShopItemFactory itemFactory, final Inventory inventory) {
         this.itemFactory = itemFactory;
         this.inventory = inventory;
     }
@@ -39,9 +42,9 @@ public class ShopManagerImpl implements ShopManager {
      * {@inheritDoc}
      */
     @Override
-    public boolean buyItem(ShopItem item) {
+    public boolean buyItem(final ShopItem item) {
         if (canBuyItem(item)) {
-            boolean transactionSuccess = inventory.spendCoins(item.getPrice());  
+            final boolean transactionSuccess = inventory.spendCoins(item.getPrice());
             if (!transactionSuccess) {
                 return false;
             }
@@ -57,8 +60,6 @@ public class ShopManagerImpl implements ShopManager {
                 case TEMPORARY_UPGRADE:
                     inventory.addConsumable(item.getId(), item.getInitialDuration());
                     break;
-                default:
-                    throw new IllegalStateException("Unknown item type: " + item.getType());
             }
             return true;
         }
@@ -69,7 +70,7 @@ public class ShopManagerImpl implements ShopManager {
      * {@inheritDoc}
      */
     @Override
-    public boolean isAlreadyOwned(ShopItem item) {
+    public boolean isAlreadyOwned(final ShopItem item) {
         return inventory.hasItem(item.getId());
     }
 
@@ -77,49 +78,48 @@ public class ShopManagerImpl implements ShopManager {
      * {@inheritDoc}
      */
     @Override
-    public boolean canBuyItem(ShopItem item) {
-        boolean hasEnough = inventory.getTotalCoins() >= item.getPrice();
+    public boolean canBuyItem(final ShopItem item) {
+        final boolean hasEnough = inventory.getTotalCoins() >= item.getPrice();
 
         if (item.getType() == ShopItemType.SKIN || item.getType() == ShopItemType.PERMANENT_UPGRADE) {
-            if (hasEnough && !isAlreadyOwned(item)) {
-                if (item.getType() == ShopItemType.PERMANENT_UPGRADE) {
-                    return checkSequentialPermanentUpgrade(item);
-                }
-                return true;
-            }
-            return false;
+            return hasEnough && !isAlreadyOwned(item)
+                    && (item.getType() != ShopItemType.PERMANENT_UPGRADE || checkSequentialPermanentUpgrade(item));
         }
+
         return hasEnough;
     }
 
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings("EI_EXPOSE_REP")
     @Override
     public Inventory getInventory() {
         return this.inventory;
     }
 
     /**
-     * Check if we're following the right sequence of purchasing of progressive Id for permanent power ups.
+     * Check if we're following the right sequence of purchasing of progressive Id
+     * for permanent power ups.
+     * 
      * @param item the object to check
      * @return true if the sequence is correct, false otherwise
      */
-    private boolean checkSequentialPermanentUpgrade(ShopItem item) {
-        String id = item.getId();
-        int lastUnderscore = id.lastIndexOf("_");
+    private boolean checkSequentialPermanentUpgrade(final ShopItem item) {
+        final String id = item.getId();
+        final int lastUnderscore = id.lastIndexOf('_');
         if (lastUnderscore == -1) {
             return true;
         }
         try {
-            String prefix = id.substring(0, lastUnderscore + 1);
-            String levelPart = id.substring(lastUnderscore + 1);
-            int level = Integer.parseInt(levelPart);
+            final String prefix = id.substring(0, lastUnderscore + 1);
+            final String levelPart = id.substring(lastUnderscore + 1);
+            final int level = Integer.parseInt(levelPart);
             if (level > 1) {
-                String prevLevel = prefix + (level - 1);
+                final String prevLevel = prefix + (level - 1);
                 return inventory.hasItem(prevLevel);
             }
-        } catch (NumberFormatException e) {
+        } catch (final NumberFormatException e) {
             return true;
         }
         return true;

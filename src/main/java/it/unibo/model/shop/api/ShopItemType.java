@@ -1,6 +1,5 @@
 package it.unibo.model.shop.api;
 
-
 /**
  * Enumeration of the types of items available in the shop.
  */
