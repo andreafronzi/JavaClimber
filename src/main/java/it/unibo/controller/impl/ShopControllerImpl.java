@@ -3,6 +3,7 @@ package it.unibo.controller.impl;
 import java.util.Comparator;
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.api.MainController;
 import it.unibo.controller.api.ShopController;
 import it.unibo.model.menu.api.Menu;
@@ -23,12 +24,15 @@ public class ShopControllerImpl implements ShopController {
     private final ShopManager shopManager;
     private final MainController mainController;
     private ShopView view;
-    
+
     /**
      * Construct new ShopControllerImpl with specified shop manager.
-     * @param mainController the main controller for managing view transitions and saving progress
-     * @param shopManager the model manager
+     * 
+     * @param mainController the main controller for managing view transitions and
+     *                       saving progress
+     * @param shopManager    the model manager
      */
+    @SuppressFBWarnings("EI_EXPOSE_REP2")
     public ShopControllerImpl(final MainController mainController, final ShopManager shopManager) {
         this.mainController = mainController;
         this.shopManager = shopManager;
@@ -64,10 +68,10 @@ public class ShopControllerImpl implements ShopController {
      * {@inheritDoc}
      */
     @Override
-    public void buyTemporaryItem(int index) {
-        List<ShopItem> tempItems = shopManager.getTemporaryUpgrades();
+    public void buyTemporaryItem(final int index) {
+        final List<ShopItem> tempItems = shopManager.getTemporaryUpgrades();
         if (index >= 0 && index < tempItems.size()) {
-            boolean success = shopManager.buyItem(tempItems.get(index));
+            final boolean success = shopManager.buyItem(tempItems.get(index));
             if (success) {
                 this.mainController.saveProgress();
                 refreshView();
@@ -81,10 +85,10 @@ public class ShopControllerImpl implements ShopController {
      * {@inheritDoc}
      */
     @Override
-    public void buySkin(int index) {
-        List<ShopItem> skins = shopManager.getSkins();
+    public void buySkin(final int index) {
+        final List<ShopItem> skins = shopManager.getSkins();
         if (index >= 0 && index < skins.size()) {
-            boolean success = shopManager.buyItem(skins.get(index));
+            final boolean success = shopManager.buyItem(skins.get(index));
             if (success) {
                 this.mainController.saveProgress();
                 refreshView();
@@ -130,7 +134,7 @@ public class ShopControllerImpl implements ShopController {
      * {@inheritDoc}
      */
     @Override
-    public boolean isOwned(ShopItem item) {
+    public boolean isOwned(final ShopItem item) {
         return shopManager.isAlreadyOwned(item);
     }
 
@@ -138,7 +142,7 @@ public class ShopControllerImpl implements ShopController {
      * {@inheritDoc}
      */
     @Override
-    public int getCurrentLevel(String prefix) {
+    public int getCurrentLevel(final String prefix) {
         return (int) shopManager.getPermanentUpgrades().stream()
                 .filter(item -> item.getId().startsWith(prefix))
                 .filter(shopManager::isAlreadyOwned)
@@ -180,24 +184,27 @@ public class ShopControllerImpl implements ShopController {
     }
 
     /**
-     * Identifies and attemps to purchase the next avaiable level for a specific type of permanent power ups.
+     * Identifies and attemps to purchase the next avaiable level for a specific
+     * type of permanent power ups.
+     * 
      * @param prefix the Id prefix for the power up type
      */
-    private void buyNextLevel(String prefix){
+    private void buyNextLevel(final String prefix) {
         shopManager.getPermanentUpgrades().stream()
                 .filter(item -> item.getId().startsWith(prefix))
                 .filter(item -> !shopManager.isAlreadyOwned(item))
                 .sorted(Comparator.comparing(ShopItem::getId))
                 .findFirst()
                 .ifPresent(item -> {
-                    boolean success = shopManager.buyItem(item);
+                    final boolean success = shopManager.buyItem(item);
                     if (success) {
                         this.mainController.saveProgress();
                         refreshView();
-                    }  else if (this.view != null) {
-                        this.view.showMessage("Non hai abbastanza monete per acquistare questo potenziamento permanente");
+                    } else if (this.view != null) {
+                        this.view.showMessage(
+                                "Non hai abbastanza monete per acquistare questo potenziamento permanente");
                     }
                 });
     }
-    
+
 }

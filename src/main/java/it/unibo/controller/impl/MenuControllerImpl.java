@@ -5,7 +5,6 @@ import it.unibo.controller.api.MenuController;
 import it.unibo.model.menu.api.Menu;
 import it.unibo.model.menu.impl.InventoryState;
 import it.unibo.model.menu.impl.LaunchedGameState;
-import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.menu.impl.ShoppingState;
 import it.unibo.model.score.api.ScoreManager;
 import it.unibo.view.menu.api.MenuView;
@@ -13,7 +12,7 @@ import it.unibo.view.menu.api.MenuView;
 /**
  * Implementation of {@link MenuController} interface.
  */
-public class MenuControllerImpl implements MenuController{
+public class MenuControllerImpl implements MenuController {
 
     private final Menu menu;
     private final MainController mainController;
@@ -22,8 +21,11 @@ public class MenuControllerImpl implements MenuController{
 
     /**
      * Construct a MenuControllerImpl with required model and manager.
-     * @param mainController the main controller for managing view transitions and saving progress
-     * @param scoreManager the model manager for scores
+     * 
+     * @param mainController the main controller for managing view transitions and
+     *                       saving progress
+     * @param scoreManager   the model manager for scores
+     * @param menu           the menu model
      */
     public MenuControllerImpl(final MainController mainController, final ScoreManager scoreManager, final Menu menu) {
         this.menu = menu;
@@ -35,7 +37,7 @@ public class MenuControllerImpl implements MenuController{
      * {@inheritDoc}
      */
     @Override
-    public void setView(MenuView view) {
+    public void setView(final MenuView view) {
         this.view = view;
         refreshView();
     }
