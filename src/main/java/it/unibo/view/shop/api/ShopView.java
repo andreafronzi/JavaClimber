@@ -16,13 +16,16 @@ public interface ShopView {
 
     /**
      * Update the displayed number of coins in the shop view.
+     * 
      * @param coins the current number of coins owned by the player
      */
     void updateCoins(int coins);
 
     /**
-     * Update the shop view with the current list of skins, permanent power ups and temporary power ups available in the shop.
-     * @param skins the list of available skins
+     * Update the shop view with the current list of skins, permanent power ups and
+     * temporary power ups available in the shop.
+     * 
+     * @param skins        the list of available skins
      * @param permUpgrades the list of available permanent power ups
      * @param tempUpgrades the list of available temporary power ups
      */
@@ -30,6 +33,7 @@ public interface ShopView {
 
     /**
      * Show a message to the user in the shop view.
+     * 
      * @param message the message to be displayed
      */
     void showMessage(String message);

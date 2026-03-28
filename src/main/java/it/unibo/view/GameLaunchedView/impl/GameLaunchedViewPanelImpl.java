@@ -115,34 +115,40 @@ public class GameLaunchedViewPanelImpl extends JPanel {
   protected void paintComponent(final Graphics g) {
     super.paintComponent(g);
     final Graphics2D g2d = (Graphics2D) g;
-    final int gameWidth = 600;
-    final int xOffset = (this.getWidth() - gameWidth) / 2;
+    
+    final double LOGICAL_WIDTH = 600.0;
+    final double LOGICAL_HEIGHT = 1000.0;
 
-    // Draw outer background
+    double scale = Math.min(this.getWidth() / LOGICAL_WIDTH, this.getHeight() / LOGICAL_HEIGHT);
+    int xOffset = (int) ((this.getWidth() - (LOGICAL_WIDTH * scale)) / 2.0);
+    int yOffset = (int) ((this.getHeight() - (LOGICAL_HEIGHT * scale)) / 2.0);
+
     g2d.setColor(Color.DARK_GRAY);
     g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-    // Draw game background
-    g2d.setColor(new Color(250, 250, 230)); // Cream color
-    g2d.fillRect(xOffset, 0, gameWidth, this.getHeight());
+    g2d.translate(xOffset, yOffset);
+    g2d.scale(scale, scale);
 
-    // Optional: Draw a light grid for the background
+    g2d.setColor(new Color(250, 250, 230));
+    g2d.fillRect(0, 0, (int) LOGICAL_WIDTH, (int) LOGICAL_HEIGHT);
+
     g2d.setColor(new Color(230, 230, 210));
-    for (int i = 0; i < gameWidth; i += 40) {
-      g2d.drawLine(xOffset + i, 0, xOffset + i, this.getHeight());
+    for (int i = 0; i < LOGICAL_WIDTH; i += 40) {
+        g2d.drawLine(i, 0, i, (int) LOGICAL_HEIGHT);
     }
-    for (int i = 0; i < this.getHeight(); i += 40) {
-      g2d.drawLine(xOffset, i, xOffset + gameWidth, i);
+    for (int i = 0; i < LOGICAL_HEIGHT; i += 40) {
+        g2d.drawLine(0, i, (int) LOGICAL_WIDTH, i);
     }
 
-    g2d.translate(xOffset, 0);
     this.renderAll(g2d);
 
     g2d.setColor(Color.BLACK);
     g2d.setFont(new Font("Arial", Font.BOLD, 24));
     g2d.drawString("Score: " + this.launchedController.getCurrentScore(), 15, 30);
     g2d.drawString("Coins: " + this.launchedController.getCollectedCoins(), 15, 60);
-    g2d.translate(-xOffset, 0);
+    
+    g2d.scale(1.0 / scale, 1.0 / scale);
+    g2d.translate(-xOffset, -yOffset);
   }
 
   /**

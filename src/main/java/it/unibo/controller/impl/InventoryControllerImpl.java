@@ -3,6 +3,7 @@ package it.unibo.controller.impl;
 import java.util.List;
 import java.util.Set;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.api.InventoryController;
 import it.unibo.controller.api.MainController;
 import it.unibo.model.menu.api.Menu;
@@ -28,11 +29,15 @@ public class InventoryControllerImpl implements InventoryController {
 
     /**
      * Construct a InventoryControllerImpl with required model and factory.
-     * @param mainController the main controller for managing view transitions and saving progress
-     * @param inventory the model inventory
-     * @param factory the factory for items
+     * 
+     * @param mainController the main controller for managing view transitions and
+     *                       saving progress
+     * @param inventory      the model inventory
+     * @param factory        the factory for items
      */
-    public InventoryControllerImpl(final MainController mainController, final Inventory inventory, final ShopItemFactory factory) {
+    @SuppressFBWarnings("EI_EXPOSE_REP2")
+    public InventoryControllerImpl(final MainController mainController, final Inventory inventory,
+            final ShopItemFactory factory) {
         this.mainController = mainController;
         this.inventory = inventory;
         this.factory = factory;
@@ -43,7 +48,7 @@ public class InventoryControllerImpl implements InventoryController {
      * {@inheritDoc}
      */
     @Override
-    public void setView(InventoryView view) {
+    public void setView(final InventoryView view) {
         this.view = view;
         refreshView();
     }
@@ -52,10 +57,10 @@ public class InventoryControllerImpl implements InventoryController {
      * {@inheritDoc}
      */
     @Override
-    public void selectSkin(int index) {
-        List<ShopItem> ownedSkin = this.getOwnedSkins();
+    public void selectSkin(final int index) {
+        final List<ShopItem> ownedSkin = this.getOwnedSkins();
         if (isValidIndex(index, ownedSkin)) {
-            String skinId = ownedSkin.get(index).getId();
+            final String skinId = ownedSkin.get(index).getId();
             inventory.equipSkin(skinId);
             this.mainController.saveProgress();
             refreshView();
@@ -67,7 +72,7 @@ public class InventoryControllerImpl implements InventoryController {
      */
     @Override
     public void plusJump() {
-        int current = inventory.getSelectedJumpLevel();
+        final int current = inventory.getSelectedJumpLevel();
         if (current < getMaxLevelOwned("pp_jump")) {
             inventory.setSelectedJumpLevel(current + 1);
             this.mainController.saveProgress();
@@ -80,7 +85,7 @@ public class InventoryControllerImpl implements InventoryController {
      */
     @Override
     public void minusJump() {
-        int current = inventory.getSelectedJumpLevel();
+        final int current = inventory.getSelectedJumpLevel();
         if (current > 0) {
             inventory.setSelectedJumpLevel(current - 1);
             this.mainController.saveProgress();
@@ -93,7 +98,7 @@ public class InventoryControllerImpl implements InventoryController {
      */
     @Override
     public void plusVelocity() {
-        int current = inventory.getSelectedSpeedLevel();
+        final int current = inventory.getSelectedSpeedLevel();
         if (current < getMaxLevelOwned("pp_speed")) {
             inventory.setSelectedSpeedLevel(current + 1);
             this.mainController.saveProgress();
@@ -106,7 +111,7 @@ public class InventoryControllerImpl implements InventoryController {
      */
     @Override
     public void minusVelocity() {
-        int current = inventory.getSelectedSpeedLevel();
+        final int current = inventory.getSelectedSpeedLevel();
         if (current > 0) {
             inventory.setSelectedSpeedLevel(current - 1);
             this.mainController.saveProgress();
@@ -118,8 +123,8 @@ public class InventoryControllerImpl implements InventoryController {
      * {@inheritDoc}
      */
     @Override
-    public void toggleTemporaryItem(int index) {
-        List<String> consumablesId = inventory.getConsumablesStatus().keySet().stream().sorted().toList();
+    public void toggleTemporaryItem(final int index) {
+        final List<String> consumablesId = inventory.getConsumablesStatus().keySet().stream().sorted().toList();
         if (isValidIndex(index, consumablesId)) {
             inventory.toggleConsumable(consumablesId.get(index), factory);
             refreshView();
@@ -192,7 +197,7 @@ public class InventoryControllerImpl implements InventoryController {
      */
     @Override
     public List<Boolean> getTempItemsStatus() {
-        Set<String> active = inventory.getActiveConsumables();
+        final Set<String> active = inventory.getActiveConsumables();
         return inventory.getConsumablesStatus().keySet().stream()
                 .sorted()
                 .map(id -> active.contains(id))
@@ -228,50 +233,53 @@ public class InventoryControllerImpl implements InventoryController {
      */
     @Override
     public List<Integer> getTempItemsDuration() {
-        var consumablesMap = inventory.getConsumablesStatus();        
+        final var consumablesMap = inventory.getConsumablesStatus();
         return consumablesMap.keySet().stream()
                 .sorted()
                 .map(id -> consumablesMap.get(id))
                 .toList();
     }
-    
+
     /**
      * Refresh the inventory view with current data from the model.
      */
     private void refreshView() {
         if (view != null) {
-            List<ShopItem> ownedSkin = getOwnedSkins();
-            String equippedSkin = getEquippedSkin();
-            List<ShopItem> allPermItems = factory.getPowerUpsPermanent();
-            int selectedJump = getSelectedJumpLevel();
-            int maxJump = getMaxJumpLevelOwned();
-            int selectedSpeed = getSelectedSpeedLevel();
-            int maxSpeed = getMaxSpeedLevelOwned();
-            List<ShopItem> ownedTempItems = getOwnedTempItems();
-            List<Boolean> tempItemsStatus = getTempItemsStatus();
-            List<Integer> tempItemsDuration = getTempItemsDuration();
-            this.view.updateInventory(ownedSkin, equippedSkin, allPermItems, selectedJump, maxJump, selectedSpeed, maxSpeed, ownedTempItems, tempItemsStatus, tempItemsDuration);
+            final List<ShopItem> ownedSkin = getOwnedSkins();
+            final String equippedSkin = getEquippedSkin();
+            final List<ShopItem> allPermItems = factory.getPowerUpsPermanent();
+            final int selectedJump = getSelectedJumpLevel();
+            final int maxJump = getMaxJumpLevelOwned();
+            final int selectedSpeed = getSelectedSpeedLevel();
+            final int maxSpeed = getMaxSpeedLevelOwned();
+            final List<ShopItem> ownedTempItems = getOwnedTempItems();
+            final List<Boolean> tempItemsStatus = getTempItemsStatus();
+            final List<Integer> tempItemsDuration = getTempItemsDuration();
+            this.view.updateInventory(ownedSkin, equippedSkin, allPermItems, selectedJump, maxJump, selectedSpeed,
+                    maxSpeed, ownedTempItems, tempItemsStatus, tempItemsDuration);
             this.view.updateCoins(inventory.getTotalCoins());
         }
     }
 
     /**
      * Validate if the index is within the bounds of a list.
+     * 
      * @param index the index to check
-     * @param list the list to check
+     * @param list  the list to check
      * @return true if index is valid, false otherwise
      */
-    private boolean isValidIndex(int index, List<?> list) {
+    private boolean isValidIndex(final int index, final List<?> list) {
         return index >= 0 && index < list.size();
     }
 
     /**
      * Calculate highest level currently owned for specific power ups.
      * Takes the level number from the item Id.
+     * 
      * @param prefix the Id prefix for a type
      * @return the maximum level find, or 0 if no items are owned
      */
-    private int getMaxLevelOwned(String prefix) {
+    private int getMaxLevelOwned(final String prefix) {
         return inventory.getOwnedItems().stream()
                 .filter(id -> id.startsWith(prefix))
                 .mapToInt(id -> Integer.parseInt(id.substring(id.lastIndexOf("_") + 1)))

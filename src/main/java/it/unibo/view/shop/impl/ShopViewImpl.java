@@ -3,16 +3,30 @@ package it.unibo.view.shop.impl;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import it.unibo.controller.api.ShopController;
 import it.unibo.model.shop.api.ShopItem;
-import it.unibo.model.shop.api.ShopItemFactory;
-import it.unibo.model.shop.impl.ShopItemFactoryImpl;
 import it.unibo.view.SpriteEnum;
 import it.unibo.view.SpriteManager;
 import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinRegistry;
@@ -23,8 +37,12 @@ import it.unibo.view.shop.api.ShopView;
 /**
  * Implementation of {@link ShopView} interface.
  */
-public class ShopViewImpl extends JPanel implements ShopView {
+public final class ShopViewImpl extends JPanel implements ShopView {
 
+    private static final String FONT_ARIAL = "Arial";
+    private static final int CARD_WIDTH = 340;
+    private static final int MARGIN = 20;
+    private static final long serialVersionUID = 1L;
     private final ShopController controller;
     private final SpriteManager spriteManager;
     private final SkinRegistry skinRegistry;
@@ -36,9 +54,11 @@ public class ShopViewImpl extends JPanel implements ShopView {
 
     /**
      * Construct a ShopViewImpl with specified controller.
-     * @param controller the controller for managing user interactions and updating the view
+     * 
+     * @param controller the controller for managing user interactions and updating
+     *                   the view
      */
-    public ShopViewImpl(ShopController controller) {
+    public ShopViewImpl(final ShopController controller) {
         super(new BorderLayout());
         this.controller = controller;
         this.spriteManager = new SpriteManager();
@@ -52,59 +72,61 @@ public class ShopViewImpl extends JPanel implements ShopView {
     private void initialize() {
         final JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        
-        JLabel titleLabel = new JLabel("SHOP");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+
+        final JLabel titleLabel = new JLabel("SHOP");
+        titleLabel.setFont(new Font(FONT_ARIAL, Font.BOLD, 24));
         titleLabel.setForeground(Color.BLUE);
         topPanel.add(titleLabel, BorderLayout.WEST);
 
         final JPanel coinsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 0));
         this.coinsLabel = new JLabel("Coins: 0");
-        this.coinsLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        this.coinsLabel.setFont(new Font(FONT_ARIAL, Font.BOLD, 18));
 
-        JLabel coinIconLabel = new JLabel();
-        BufferedImage coinImg = spriteManager.get(SpriteEnum.COIN);
+        final JLabel coinIconLabel = new JLabel();
+        final BufferedImage coinImg = spriteManager.get(SpriteEnum.COIN);
         if (coinImg != null) {
-            Image scaledCoin = coinImg.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            final Image scaledCoin = coinImg.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
             coinIconLabel.setIcon(new ImageIcon(scaledCoin));
         }
         coinsPanel.add(coinsLabel);
         coinsPanel.add(coinIconLabel);
-        
+
         final JButton inventoryButton = new JButton("INVENTORY");
         inventoryButton.addActionListener(e -> controller.openInventory());
 
         final JButton exitButton = new JButton("EXIT");
         exitButton.addActionListener(e -> controller.exit());
-        
-        final JPanel rightHeader = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 0));
+
+        final JPanel rightHeader = new JPanel(new FlowLayout(FlowLayout.RIGHT, MARGIN, 0));
         rightHeader.add(coinsPanel);
         rightHeader.add(inventoryButton);
         rightHeader.add(exitButton);
-        
+
         topPanel.add(rightHeader, BorderLayout.EAST);
         this.add(topPanel, BorderLayout.NORTH);
-        
+
         this.itemsPanel = new JPanel(new GridLayout(1, 3, 10, 0));
-        
+
         this.skinsPanel = createCategoryPanel("SKINS");
         this.permPanel = createCategoryPanel("PERMANENT POWER-UPS");
         this.tempPanel = createCategoryPanel("TEMPORARY POWER-UPS");
-        
-        JScrollPane scrollPane = new JScrollPane(itemsPanel);
+
+        final JScrollPane scrollPane = new JScrollPane(itemsPanel);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         this.add(scrollPane, BorderLayout.CENTER);
     }
 
     /**
-     * Helper method to create a category panel with a title and add it to the items panel.
+     * Helper method to create a category panel with a title and add it to the items
+     * panel.
+     * 
      * @param title the title of the category panel
      * @return the created category panel
      */
-    private JPanel createCategoryPanel(String title) {
-        JPanel panel = new JPanel(new BorderLayout());
+    private JPanel createCategoryPanel(final String title) {
+        final JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(BorderFactory.createTitledBorder(title));
-        JPanel content = new JPanel();
+        final JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
         panel.add(content, BorderLayout.CENTER);
         this.itemsPanel.add(panel);
@@ -113,41 +135,42 @@ public class ShopViewImpl extends JPanel implements ShopView {
 
     /**
      * Helper method to create a widget for a skin item.
-     * @param item the skin item to create the widget for
+     * 
+     * @param item  the skin item to create the widget for
      * @param index the index of the item in the skins list
      * @return a JPanel representing the skin widget
      */
-    private JPanel createSkinWidget(ShopItem item, int index) {
-        JPanel card = new JPanel();
+    private JPanel createSkinWidget(final ShopItem item, final int index) {
+        final JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.GRAY),
-            BorderFactory.createEmptyBorder(10, 10, 10, 10)
-        ));
+                BorderFactory.createLineBorder(Color.GRAY),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         card.setMaximumSize(new Dimension(280, 250));
-        card.setAlignmentX(Component.CENTER_ALIGNMENT);
+        card.setAlignmentX(CENTER_ALIGNMENT);
 
-        JLabel imgLabel;
-        SkinSet skinSet = skinRegistry.getSkinSet(item.getId());
-        BufferedImage img = spriteManager.get(skinSet.right());
+        final JLabel imgLabel;
+        final SkinSet skinSet = skinRegistry.getSkinSet(item.getId());
+        final BufferedImage img = spriteManager.get(skinSet.right());
         if (img != null) {
-            Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            final Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
             imgLabel = new JLabel(new ImageIcon(scaledImg));
         } else {
             imgLabel = new JLabel("Image not found");
             imgLabel.setPreferredSize(new Dimension(100, 100));
         }
-        imgLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        JLabel nameLabel = new JLabel(item.getName());
-        nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JLabel descLabel = new JLabel("<html><div style='text-align: center; width: 180px;'>" + item.getDescription() + "</div></html>");
-        descLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        descLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JLabel priceLabel = new JLabel(item.getPrice() + "$");
-        priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        imgLabel.setAlignmentX(CENTER_ALIGNMENT);
 
-        JButton buyButton = new JButton();
+        final JLabel nameLabel = new JLabel(item.getName());
+        nameLabel.setAlignmentX(CENTER_ALIGNMENT);
+        final JLabel descLabel = new JLabel(
+                "<html><div style='text-align: center; width: 180px;'>" + item.getDescription() + "</div></html>");
+        descLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        descLabel.setAlignmentX(CENTER_ALIGNMENT);
+        final JLabel priceLabel = new JLabel(item.getPrice() + "$");
+        priceLabel.setAlignmentX(CENTER_ALIGNMENT);
+
+        final JButton buyButton = new JButton();
         if (controller.isOwned(item)) {
             buyButton.setText("OWNED");
             buyButton.setEnabled(false);
@@ -155,7 +178,7 @@ public class ShopViewImpl extends JPanel implements ShopView {
             buyButton.setText("BUY");
             buyButton.addActionListener(e -> controller.buySkin(index));
         }
-        buyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buyButton.setAlignmentX(CENTER_ALIGNMENT);
 
         card.add(imgLabel);
         card.add(Box.createVerticalStrut(15));
@@ -165,65 +188,64 @@ public class ShopViewImpl extends JPanel implements ShopView {
         card.add(Box.createVerticalGlue());
         card.add(buyButton);
 
-        return card;  
+        return card;
     }
 
     /**
      * Helper method to create a widget for a permanent power up category.
-     * @param title the title of the widget
+     * 
+     * @param title  the title of the widget
      * @param prefix the prefix for filtering items
-     * @param items the list of shop items
+     * @param items  the list of shop items
      * @return the created permanent power-up widget
      */
-    private JPanel createPermanentWidget(String title, String prefix, List<ShopItem> items) {
-        JPanel container = new JPanel();
+    private JPanel createPermanentWidget(final String title, final String prefix, final List<ShopItem> items) {
+        final JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         container.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.GRAY),
-            BorderFactory.createEmptyBorder(10, 10, 10, 10)
-        ));
-    
+                BorderFactory.createLineBorder(Color.GRAY),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+
         container.setMaximumSize(new Dimension(300, 250));
-        container.setAlignmentX(Component.CENTER_ALIGNMENT);
+        container.setAlignmentX(CENTER_ALIGNMENT);
 
-        JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        final JLabel titleLabel = new JLabel(title);
+        titleLabel.setFont(new Font(FONT_ARIAL, Font.BOLD, 16));
+        titleLabel.setAlignmentX(CENTER_ALIGNMENT);
 
-        int currentLevel = controller.getCurrentLevel(prefix);
+        final int currentLevel = controller.getCurrentLevel(prefix);
 
-        List<ShopItem> categoryItems = items.stream()
+        final List<ShopItem> categoryItems = items.stream()
                 .filter(i -> i.getId().startsWith(prefix))
                 .sorted(Comparator.comparing(ShopItem::getId))
                 .toList();
-        int maxLevel = categoryItems.size();
+        final int maxLevel = categoryItems.size();
 
-        JProgressBar progressBar = new JProgressBar(0, maxLevel);
+        final JProgressBar progressBar = new JProgressBar(0, maxLevel);
         progressBar.setValue(currentLevel);
         progressBar.setStringPainted(true);
         progressBar.setString("Level " + currentLevel + "/" + maxLevel);
         progressBar.setMaximumSize(new Dimension(250, 25));
-        progressBar.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        
-        container.add(titleLabel);
-        container.add(Box.createVerticalStrut(20));
-        container.add(progressBar);
-        container.add(Box.createVerticalStrut(20));
+        progressBar.setAlignmentX(CENTER_ALIGNMENT);
 
-        ShopItem nextItem = categoryItems.stream()
+        container.add(titleLabel);
+        container.add(Box.createVerticalStrut(MARGIN));
+        container.add(progressBar);
+        container.add(Box.createVerticalStrut(MARGIN));
+
+        final ShopItem nextItem = categoryItems.stream()
                 .filter(i -> !controller.isOwned(i))
                 .findFirst()
                 .orElse(null);
 
         if (nextItem != null) {
-            JLabel nextname = new JLabel("Next: " + nextItem.getName());
-            nextname.setAlignmentX(Component.CENTER_ALIGNMENT);
-            JLabel nextDesc = new JLabel(nextItem.getDescription());
-            nextDesc.setAlignmentX(Component.CENTER_ALIGNMENT);
-            JLabel price = new JLabel("Cost: " + nextItem.getPrice() + "$");
-            price.setAlignmentX(Component.CENTER_ALIGNMENT);
-            JButton upgradeButton = new JButton("UPGRADE");
+            final JLabel nextname = new JLabel("Next: " + nextItem.getName());
+            nextname.setAlignmentX(CENTER_ALIGNMENT);
+            final JLabel nextDesc = new JLabel(nextItem.getDescription());
+            nextDesc.setAlignmentX(CENTER_ALIGNMENT);
+            final JLabel price = new JLabel("Cost: " + nextItem.getPrice() + "$");
+            price.setAlignmentX(CENTER_ALIGNMENT);
+            final JButton upgradeButton = new JButton("UPGRADE");
             upgradeButton.addActionListener(e -> {
                 if (prefix.contains("jump")) {
                     controller.upgradeJump();
@@ -231,7 +253,7 @@ public class ShopViewImpl extends JPanel implements ShopView {
                     controller.upgradeSpeed();
                 }
             });
-            upgradeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            upgradeButton.setAlignmentX(CENTER_ALIGNMENT);
 
             container.add(nextname);
             container.add(Box.createVerticalStrut(10));
@@ -241,8 +263,8 @@ public class ShopViewImpl extends JPanel implements ShopView {
             container.add(Box.createVerticalGlue());
             container.add(upgradeButton);
         } else {
-            JLabel maxReachedLabel = new JLabel("MAX LEVEL REACHED");
-            maxReachedLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            final JLabel maxReachedLabel = new JLabel("MAX LEVEL REACHED");
+            maxReachedLabel.setAlignmentX(CENTER_ALIGNMENT);
             container.add(maxReachedLabel);
         }
         return container;
@@ -250,28 +272,29 @@ public class ShopViewImpl extends JPanel implements ShopView {
 
     /**
      * Helper method to create a widget for a temporary power up item.
-     * @param item the shop item to create the widget for
+     * 
+     * @param item  the shop item to create the widget for
      * @param index the index of the item in the temporary items list
      * @return the created temporary power-up widget
      */
-    private JPanel createTemporaryWidget(ShopItem item, int index) {
+    private JPanel createTemporaryWidget(final ShopItem item, final int index) {
         final JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.LIGHT_GRAY), BorderFactory.createEmptyBorder(8, 8, 8, 8)));
+                BorderFactory.createLineBorder(Color.LIGHT_GRAY), BorderFactory.createEmptyBorder(8, 8, 8, 8)));
         card.setMaximumSize(new Dimension(280, 150));
-        card.setAlignmentX(Component.CENTER_ALIGNMENT);
+        card.setAlignmentX(CENTER_ALIGNMENT);
 
-        JLabel nameLabel = new JLabel(item.getName());
-        nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        final JLabel nameLabel = new JLabel(item.getName());
+        nameLabel.setAlignmentX(CENTER_ALIGNMENT);
 
-        JLabel descLabel = new JLabel(item.getDescription());
-        descLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        final JLabel descLabel = new JLabel(item.getDescription());
+        descLabel.setAlignmentX(CENTER_ALIGNMENT);
 
-        JLabel priceLabel = new JLabel(item.getPrice() + "$");
-        priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        final JLabel priceLabel = new JLabel(item.getPrice() + "$");
+        priceLabel.setAlignmentX(CENTER_ALIGNMENT);
 
-        JButton buyButton = new JButton();
+        final JButton buyButton = new JButton();
         if (controller.isOwned(item)) {
             buyButton.setText("OWNED");
             buyButton.setEnabled(false);
@@ -279,7 +302,7 @@ public class ShopViewImpl extends JPanel implements ShopView {
             buyButton.setText("BUY");
             buyButton.addActionListener(e -> controller.buyTemporaryItem(index));
         }
-        buyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buyButton.setAlignmentX(CENTER_ALIGNMENT);
 
         card.add(nameLabel);
         card.add(Box.createVerticalStrut(5));
@@ -294,45 +317,46 @@ public class ShopViewImpl extends JPanel implements ShopView {
 
     /**
      * Helper method to create a subheader label for category sections.
+     * 
      * @param text the text for the subheader
      * @return the created subheader label
      */
-    private JLabel createSubHeader(String text) {
-        JLabel label = new JLabel(text);
-        label.setFont(new Font("Arial", Font.BOLD, 16));
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+    private JLabel createSubHeader(final String text) {
+        final JLabel label = new JLabel(text);
+        label.setFont(new Font(FONT_ARIAL, Font.BOLD, 16));
+        label.setAlignmentX(CENTER_ALIGNMENT);
         label.setBorder(new EmptyBorder(10, 0, 5, 0));
         return label;
     }
 
     /**
      * Helper method to create a temporary power-up category section.
-     * @param title the title of the category
+     * 
+     * @param title  the title of the category
      * @param prefix the prefix for filtering items
-     * @param items the list of items in the category
+     * @param items  the list of items in the category
      */
-    private void addTempCategory(String title, String prefix, List<ShopItem> items) {
-        JPanel categoryContainer = new JPanel();
+    private void addTempCategory(final String title, final String prefix, final List<ShopItem> items) {
+        final JPanel categoryContainer = new JPanel();
         categoryContainer.setLayout(new BoxLayout(categoryContainer, BoxLayout.Y_AXIS));
         categoryContainer.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.BLACK, 1), 
+                BorderFactory.createLineBorder(Color.BLACK, 1),
                 BorderFactory.createEmptyBorder(10, 20, 10, 20)));
-        categoryContainer.setAlignmentX(Component.CENTER_ALIGNMENT);
+        categoryContainer.setAlignmentX(CENTER_ALIGNMENT);
         categoryContainer.add(createSubHeader(title));
         categoryContainer.add(Box.createVerticalStrut(10));
-        
         for (int i = 0; i < items.size(); i++) {
-            ShopItem item = items.get(i);
+            final ShopItem item = items.get(i);
             if (item.getId().startsWith(prefix)) {
                 categoryContainer.add(createTemporaryWidget(item, i));
                 categoryContainer.add(Box.createVerticalStrut(10));
             }
         }
 
-        Dimension maxSize = categoryContainer.getPreferredSize();
-        categoryContainer.setMaximumSize(new Dimension(340, maxSize.height));
+        final Dimension maxSize = categoryContainer.getPreferredSize();
+        categoryContainer.setMaximumSize(new Dimension(CARD_WIDTH, maxSize.height));
         tempPanel.add(categoryContainer);
-        tempPanel.add(Box.createVerticalStrut(20));
+        tempPanel.add(Box.createVerticalStrut(MARGIN));
     }
 
     /**
@@ -349,7 +373,7 @@ public class ShopViewImpl extends JPanel implements ShopView {
      * {@inheritDoc}
      */
     @Override
-    public void updateCoins(int coins) {
+    public void updateCoins(final int coins) {
         this.coinsLabel.setText("Coins: " + coins);
     }
 
@@ -357,7 +381,8 @@ public class ShopViewImpl extends JPanel implements ShopView {
      * {@inheritDoc}
      */
     @Override
-    public void updateItems(List<ShopItem> skins, List<ShopItem> permUpgrades, List<ShopItem> tempUpgrades) {
+    public void updateItems(final List<ShopItem> skins, final List<ShopItem> permUpgrades,
+            final List<ShopItem> tempUpgrades) {
         skinsPanel.removeAll();
         permPanel.removeAll();
         tempPanel.removeAll();
@@ -384,7 +409,7 @@ public class ShopViewImpl extends JPanel implements ShopView {
      * {@inheritDoc}
      */
     @Override
-    public void showMessage(String message) {
+    public void showMessage(final String message) {
         JOptionPane.showMessageDialog(this, message);
     }
 
@@ -394,77 +419,6 @@ public class ShopViewImpl extends JPanel implements ShopView {
     @Override
     public void close() {
         this.setVisible(false);
-    }
-
-    public static void main(String[] args) {
-        ShopItemFactory factory = new ShopItemFactoryImpl();
-
-        //Mock del controller
-        ShopController mockController = new ShopController() {
-            @Override public void upgradeJump() {}
-            @Override public void upgradeSpeed() {}
-            @Override public void buyTemporaryItem(int i) {}
-            @Override public void buySkin(int i) {}
-            @Override public void openShop() { System.out.println("Opening shop view");}
-            @Override public void openInventory() { System.out.println("Opening inventory view");}
-            @Override public void exit() { System.exit(0); }
-            @Override public int getCoins() { return 150; }
-            @Override public List<ShopItem> getPermanetUpgrades( ) { return factory.getPowerUpsPermanent(); }
-            @Override public List<ShopItem> getSkins() { return factory.getSkins(); }
-            @Override public List<ShopItem> getTemporaryUpgrades() { return factory.getPowerUpsTemporary(); }
-
-            @Override
-            public boolean isOwned(ShopItem item) {
-                String itemId = item.getId();
-                //TEST: per jump simuliamo di averli tutti
-                if (itemId.startsWith("pp_jump")) {
-                    return true; 
-                }
-
-                //per la velocità posseduti solo livello 1 e 2
-                if (itemId.startsWith("pp_speed")) {
-                    return itemId.endsWith("_1") || itemId.endsWith("_2");
-                }
-
-                //per temp jump 1 posseduto
-                if (itemId.equals("pt_jump1")) return true;
-                
-                //Per le skin contenuta solo quella sportive
-                return item.getName().contains("Sportive");
-            }
-
-            @Override
-            public int getCurrentLevel(String prefix) {
-            // TEST: Se è salto, restituiamo 5(massimo); se è speed restituiamo 2 altrimenti 0
-                if (prefix.equals("pp_jump")) {
-                    return 5; 
-                }
-                if (prefix.equals("pp_speed")) {
-                    return 2; 
-                }
-                return 0;
-            }
-            @Override
-            public void setView(ShopView view) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'setView'");
-            }
-        
-        };
-
-       SwingUtilities.invokeLater(() -> {
-            JFrame testFrame = new JFrame("Shop Panel");
-            testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            testFrame.setSize(1000, 700);
-            
-            ShopViewImpl shopPanel = new ShopViewImpl(mockController); 
-            shopPanel.updateCoins(mockController.getCoins());
-            shopPanel.updateItems(mockController.getSkins(), mockController.getPermanetUpgrades(), mockController.getTemporaryUpgrades());
-
-            testFrame.add(shopPanel);
-            testFrame.setLocationRelativeTo(null);
-            testFrame.setVisible(true);
-        });
     }
 
 }

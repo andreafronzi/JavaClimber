@@ -20,26 +20,21 @@ public class CameraImpl implements Camera, AltitudeObserver {
 
     private final double width;
     private final double height;
-    private double totAbbass;
     private final World world;
-    private WorldConstructor worldConstructor;
-    private final double distanceForGeneration;
+    private final WorldConstructor worldConstructor;
     private final double y;
 
     /**
-     * 
-     * @param width width of the viewport
+     * @param width  width of the viewport
      * @param height height of the viewport
-     * @param world the world containing Real and Upper worlds
-     * @param wc the world constructor used to generate new upper world
+     * @param world  the world containing Real and Upper worlds
+     * @param wc     the world constructor used to generate new upper world
      */
-    public CameraImpl(double width, double height, World world, WorldConstructor wc) {
+    public CameraImpl(final double width, final double height, final World world, final WorldConstructor wc) {
         this.worldConstructor = wc;
         this.width = width;
         this.height = height;
         this.world = world;
-        this.totAbbass = 0;
-        this.distanceForGeneration = height / 2.0;
         this.y = 0;
     }
 
@@ -52,107 +47,103 @@ public class CameraImpl implements Camera, AltitudeObserver {
      * trigger new world generation if the camera moved enough distance.
      */
     @Override
-    public void update(double delta) {
-        this.totAbbass += delta;
-
-        Alien alien = world.getRealWorld().getAlien();
+    public void update(final double delta) {
+        final Alien alien = world.getRealWorld().getAlien();
         alien.setPosition(new Vector2dImpl(alien.getPosX(), alien.getPosY() + delta));
-        
+
         List.of(
-            world.getRealWorld().getStaticPlatforms(),
-            world.getRealWorld().getOnTouchPlatforms(),
-            world.getRealWorld().getMovingPlatforms(),
-            world.getRealWorld().getMoneys(),
-            world.getRealWorld().getGadgets(),
-            world.getRealWorld().getMonsters(),
-            world.getUpperWorld().getStaticPlatforms(),
-            world.getUpperWorld().getOnTouchPlatforms(),
-            world.getUpperWorld().getMovingPlatforms(),
-            world.getUpperWorld().getMoneys(),
-            world.getUpperWorld().getGadgets(),
-            world.getUpperWorld().getMonsters()
-        ).forEach(list -> moveWorldList(list, delta));
+                world.getRealWorld().getStaticPlatforms(),
+                world.getRealWorld().getOnTouchPlatforms(),
+                world.getRealWorld().getMovingPlatforms(),
+                world.getRealWorld().getMoneys(),
+                world.getRealWorld().getGadgets(),
+                world.getRealWorld().getMonsters(),
+                world.getUpperWorld().getStaticPlatforms(),
+                world.getUpperWorld().getOnTouchPlatforms(),
+                world.getUpperWorld().getMovingPlatforms(),
+                world.getUpperWorld().getMoneys(),
+                world.getUpperWorld().getGadgets(),
+                world.getUpperWorld().getMonsters()).forEach(list -> moveWorldList(list, delta));
 
         transferGameObj();
         cleanRealWorld();
 
         worldConstructor.fillWorld();
-        //checkAndGenerateUpperWorld();
     }
 
     /**
      * Shift a list of game objects vertically.
+     * 
      * @param objects the list of objects to move
-     * @param delta the delta to move them on the y
+     * @param delta   the delta to move them on the y
      */
-    private void moveWorldList(List<? extends GameObject> objects, double delta) {
-        for (GameObject obj : objects) {
-            double newY = obj.getPosY() + delta;
+    private void moveWorldList(final List<? extends GameObject> objects, final double delta) {
+        for (final GameObject obj : objects) {
+            final double newY = obj.getPosY() + delta;
             obj.setPosition(new Vector2dImpl(obj.getPosX(), newY));
         }
     }
 
     /**
-     * Transfers objects from the UpperWorld to the RealWorld when objects y positions crosses a specified limit.
+     * Transfers objects from the UpperWorld to the RealWorld when objects y
+     * positions crosses a specified limit.
      */
     private void transferGameObj() {
-        double dynamicMargin = this.height / 6.0; 
-        double viewLimit = this.y - dynamicMargin;
+        final double dynamicMargin = this.height / 6.0;
+        final double viewLimit = this.y - dynamicMargin;
 
-        var upper = world.getUpperWorld();
-        var real = world.getRealWorld();
+        final var upper = world.getUpperWorld();
+        final var real = world.getRealWorld();
 
-        transferCategory(upper::getStaticPlatforms, upper::removeFirstStaticPlatform, real::addStaticPlatform, viewLimit);
-        transferCategory(upper::getMovingPlatforms, upper::removeFirstMovingPlatform, real::addMovingPlatform, viewLimit);
-        transferCategory(upper::getOnTouchPlatforms, upper::removeFirstOnTouchPlatform, real::addOnTouchPlatform, viewLimit);
-        transferCategory(upper::getGadgets,   upper::removeFirstGadget,   real::addGadget,   viewLimit);
-        transferCategory(upper::getMoneys,    upper::removeFirstMoney,    real::addMoney,    viewLimit);
-        transferCategory(upper::getMonsters,  upper::removeFirstMonster,  real::addMonster,  viewLimit);
+        transferCategory(upper::getStaticPlatforms, upper::removeFirstStaticPlatform, real::addStaticPlatform,
+                viewLimit);
+        transferCategory(upper::getMovingPlatforms, upper::removeFirstMovingPlatform, real::addMovingPlatform,
+                viewLimit);
+        transferCategory(upper::getOnTouchPlatforms, upper::removeFirstOnTouchPlatform, real::addOnTouchPlatform,
+                viewLimit);
+        transferCategory(upper::getGadgets, upper::removeFirstGadget, real::addGadget, viewLimit);
+        transferCategory(upper::getMoneys, upper::removeFirstMoney, real::addMoney, viewLimit);
+        transferCategory(upper::getMonsters, upper::removeFirstMonster, real::addMonster, viewLimit);
     }
 
     /**
-     * Support method for transferGameObj that abstracts the logic of transferring objects from upper to real world for a specific category of game objects.
-     * @param <T> the type of the game object category to transfer
-     * @param getList a supplier for the list of the category in the upper world
-     * @param removeFirst a supplier for removing the first element of the category in the upper world
-     * @param addToReal a consumer for adding an element to the real world
-     * @param viewLimit the y position limit that determines when to transfer objects from upper to real world
+     * Support method for transferGameObj that abstracts the logic of transferring
+     * objects from upper to real world for a specific category of game objects.
+     * 
+     * @param <T>         the type of the game object category to transfer
+     * @param getList     a supplier for the list of the category in the upper world
+     * @param removeFirst a supplier for removing the first element of the category
+     *                    in the upper world
+     * @param addToReal   a consumer for adding an element to the real world
+     * @param viewLimit   the y position limit that determines when to transfer
+     *                    objects from upper to real world
      */
     private <T extends GameObject> void transferCategory(
-            Supplier<List<T>> getList, 
-            Supplier<Optional<T>> removeFirst, 
-            Consumer<T> addToReal, 
-            double viewLimit) {
-        
+            final Supplier<List<T>> getList,
+            final Supplier<Optional<T>> removeFirst,
+            final Consumer<T> addToReal,
+            final double viewLimit) {
+
         while (!getList.get().isEmpty() && getList.get().get(0).getPosY() > viewLimit) {
             removeFirst.get().ifPresent(addToReal);
         }
     }
 
     /**
-     * Removes objects from the RealWorld that are no longer visible, so when objects y position is greater than the viewport height and that therefore have fallen under the screen.
+     * Removes objects from the RealWorld that are no longer visible, so when
+     * objects y position is greater than the viewport height and that therefore
+     * have fallen under the screen.
      */
     private void cleanRealWorld() {
-        double limit = this.height;
+        final double limit = this.height;
 
         List.of(
-            world.getRealWorld().getStaticPlatforms(),
-            world.getRealWorld().getOnTouchPlatforms(),
-            world.getRealWorld().getMovingPlatforms(),
-            world.getRealWorld().getGadgets(),
-            world.getRealWorld().getMonsters(),
-            world.getRealWorld().getMoneys()
-        ).forEach(list -> list.removeIf(obj -> obj.getPosY() > limit));
-    }
-
-    /**
-     * Checks if the camera has traveled enough distance to trigger new content generation.
-     */
-    private void checkAndGenerateUpperWorld() {
-        if (this.totAbbass >= this.distanceForGeneration) {
-            worldConstructor.fillWorld();
-            this.totAbbass -= this.distanceForGeneration;
-        }
+                world.getRealWorld().getStaticPlatforms(),
+                world.getRealWorld().getOnTouchPlatforms(),
+                world.getRealWorld().getMovingPlatforms(),
+                world.getRealWorld().getGadgets(),
+                world.getRealWorld().getMonsters(),
+                world.getRealWorld().getMoneys()).forEach(list -> list.removeIf(obj -> obj.getPosY() > limit));
     }
 
     /**

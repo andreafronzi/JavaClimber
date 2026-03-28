@@ -6,7 +6,8 @@ public interface MainView {
 
     void setMenuView(MenuController menuController);
 
-    void setGameLaunchedView(GameLaunchedController gameLaunchedController, GameLaunchedInputController gameLaunchedInputController);
+    void setGameLaunchedView(GameLaunchedController gameLaunchedController,
+            GameLaunchedInputController gameLaunchedInputController);
 
     void setInventoryView(InventoryController inventoryController);
 
@@ -15,4 +16,5 @@ public interface MainView {
     void setEndView(EndController endController);
 
     void setPauseView(PauseController pauseController);
+
 }

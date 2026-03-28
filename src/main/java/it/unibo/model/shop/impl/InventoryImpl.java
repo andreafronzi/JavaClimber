@@ -13,30 +13,27 @@ import it.unibo.model.shop.api.ShopItemFactory;
 import it.unibo.model.shop.api.ShopItemStat;
 
 /**
- * Implementation of {@link Inventory} interface
+ * Implementation of {@link Inventory} interface.
  */
 public class InventoryImpl implements Inventory {
 
     private static final String DEFAULT_SKIN = "s_basic";
     private final ShopItemFactory factory;
     private final Set<String> ownedItems;
-    private final Map<String,Integer> consumables;
+    private final Map<String, Integer> consumables;
     private String selectedSkin;
-    private int selectedJumpLevel = 0;
-    private int selectedSpeedLevel = 0;
-    private Set<String> activeConsumables;
+    private int selectedJumpLevel;
+    private int selectedSpeedLevel;
+    private final Set<String> activeConsumables;
     private int totalCoins;
 
     /**
-     * Initializes internal collections for tracking owned items, active consumables, and sets the default skin selection to none.
-     
-    */
-
-    /**
-     * Initializes internal collections for tracking owned items, active consumables, and sets the default skin.
+     * Initializes internal collections for tracking owned items, active
+     * consumables, and sets the default skin.
+     * 
      * @param factory the factory for items
      */
-    public InventoryImpl(ShopItemFactory factory) {
+    public InventoryImpl(final ShopItemFactory factory) {
         this.factory = factory;
         this.ownedItems = new HashSet<>();
         this.consumables = new HashMap<>();
@@ -50,7 +47,7 @@ public class InventoryImpl implements Inventory {
      * {@inheritDoc}
      */
     @Override
-    public void addItem(String itemId) {
+    public void addItem(final String itemId) {
         this.ownedItems.add(itemId);
 
         factory.getItemById(itemId).ifPresent(item -> {
@@ -59,7 +56,7 @@ public class InventoryImpl implements Inventory {
                     this.selectedSkin = itemId;
                     break;
                 case PERMANENT_UPGRADE:
-                    int level = extractLevel(itemId);
+                    final int level = extractLevel(itemId);
                     if (itemId.startsWith("pp_jump")) {
                         this.selectedJumpLevel = level;
                     } else if (itemId.startsWith("pp_speed")) {
@@ -76,7 +73,7 @@ public class InventoryImpl implements Inventory {
      * {@inheritDoc}
      */
     @Override
-    public boolean hasItem(String itemId) {
+    public boolean hasItem(final String itemId) {
         return this.ownedItems.contains(itemId) || this.consumables.containsKey(itemId);
     }
 
@@ -92,7 +89,7 @@ public class InventoryImpl implements Inventory {
      * {@inheritDoc}
      */
     @Override
-    public void equipSkin(String itemId) {
+    public void equipSkin(final String itemId) {
         if (this.ownedItems.contains(itemId)) {
             this.selectedSkin = itemId;
         }
@@ -118,7 +115,7 @@ public class InventoryImpl implements Inventory {
      * {@inheritDoc}
      */
     @Override
-    public void addConsumable(String itemId, int matchesDuration) {
+    public void addConsumable(final String itemId, final int matchesDuration) {
         this.consumables.put(itemId, matchesDuration);
         toggleConsumable(itemId, this.factory);
     }
@@ -156,7 +153,7 @@ public class InventoryImpl implements Inventory {
      * {@inheritDoc}
      */
     @Override
-    public void loadState(SaveState state) {
+    public void loadState(final SaveState state) {
         this.activeConsumables.clear();
         this.ownedItems.clear();
         this.consumables.clear();
@@ -187,7 +184,7 @@ public class InventoryImpl implements Inventory {
      * {@inheritDoc}
      */
     @Override
-    public void setSelectedJumpLevel(int level) {
+    public void setSelectedJumpLevel(final int level) {
         this.selectedJumpLevel = level;
     }
 
@@ -203,7 +200,7 @@ public class InventoryImpl implements Inventory {
      * {@inheritDoc}
      */
     @Override
-    public void setSelectedSpeedLevel(int level) {
+    public void setSelectedSpeedLevel(final int level) {
         this.selectedSpeedLevel = level;
     }
 
@@ -211,16 +208,16 @@ public class InventoryImpl implements Inventory {
      * {@inheritDoc}
      */
     @Override
-    public void toggleConsumable(String itemId, ShopItemFactory factory) {
+    public void toggleConsumable(final String itemId, final ShopItemFactory itemfactory) {
         if (activeConsumables.contains(itemId)) {
             activeConsumables.remove(itemId);
             return;
         }
-        ShopItem item = factory.getItemById(itemId).orElseThrow();
-        ShopItemStat stat_category = item.getStats().keySet().iterator().next();
+        final ShopItem item = itemfactory.getItemById(itemId).orElseThrow();
+        final ShopItemStat statCategory = item.getStats().keySet().iterator().next();
         activeConsumables.removeIf(id -> {
-            ShopItem activeItem = factory.getItemById(id).orElse(null);
-            return activeItem != null && activeItem.getStats().containsKey(stat_category);
+            final ShopItem activeItem = itemfactory.getItemById(id).orElse(null);
+            return activeItem != null && activeItem.getStats().containsKey(statCategory);
         });
         activeConsumables.add(itemId);
     }
@@ -235,15 +232,12 @@ public class InventoryImpl implements Inventory {
 
     /**
      * Private method to extract the number of the power up from the id of the item.
+     * 
      * @param itemId id of the item
      * @return number of current level
      */
-    private int extractLevel(String itemId) {
-        try {
-            return Integer.parseInt(itemId.substring(itemId.lastIndexOf("_") + 1));
-        } catch (Exception e) {
-            return 0;
-        }
+    private int extractLevel(final String itemId) {
+        return Integer.parseInt(itemId.substring(itemId.lastIndexOf('_') + 1));
     }
 
     /**
@@ -258,7 +252,7 @@ public class InventoryImpl implements Inventory {
      * {@inheritDoc}
      */
     @Override
-    public void addCoins(int amount) {
+    public void addCoins(final int amount) {
         if (amount > 0) {
             this.totalCoins += amount;
         }
@@ -268,7 +262,7 @@ public class InventoryImpl implements Inventory {
      * {@inheritDoc}
      */
     @Override
-    public boolean spendCoins(int amount) {
+    public boolean spendCoins(final int amount) {
         if (amount > 0 && this.totalCoins >= amount) {
             this.totalCoins -= amount;
             return true;
@@ -280,7 +274,7 @@ public class InventoryImpl implements Inventory {
      * {@inheritDoc}
      */
     @Override
-    public void setTotalCoins(int coins) {
+    public void setTotalCoins(final int coins) {
         this.totalCoins = coins;
     }
 
@@ -288,7 +282,7 @@ public class InventoryImpl implements Inventory {
      * {@inheritDoc}
      */
     @Override
-    public ShopItemFactory getFactory(){
+    public ShopItemFactory getFactory() {
         return this.factory;
     }
 

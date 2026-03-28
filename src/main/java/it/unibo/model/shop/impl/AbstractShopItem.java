@@ -10,7 +10,8 @@ import it.unibo.model.shop.api.ShopItemType;
 /**
  * Abstract implementation of {@link ShopItem} interface.
  */
-public abstract class AbstractShopItem implements ShopItem{
+public abstract class AbstractShopItem implements ShopItem {
+
     private final String id;
     private final String name;
     private final String description;
@@ -20,6 +21,7 @@ public abstract class AbstractShopItem implements ShopItem{
 
     /**
      * Constructor for AbstractShopItem with all required fields.
+     * 
      * @param id          the unique identifier of the shop item
      * @param name        the name of the shop item
      * @param description the description of the shop item
@@ -27,8 +29,9 @@ public abstract class AbstractShopItem implements ShopItem{
      * @param type        the type of the shop item
      * @param stats       the statistics boosted by the shop item
      */
-    public AbstractShopItem(String id, String name, String description, int price, ShopItemType type,
-            Map<ShopItemStat, Double> stats) {
+    public AbstractShopItem(final String id, final String name, final String description, final int price,
+            final ShopItemType type,
+            final Map<ShopItemStat, Double> stats) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -92,6 +95,3 @@ public abstract class AbstractShopItem implements ShopItem{
     public abstract int getInitialDuration();
 
 }
-    
-
-    

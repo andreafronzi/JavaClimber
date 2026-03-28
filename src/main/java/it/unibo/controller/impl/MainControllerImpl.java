@@ -2,13 +2,9 @@ package it.unibo.controller.impl;
 
 import java.util.Optional;
 
-import it.unibo.controller.api.GameLaunchedController;
 import it.unibo.controller.api.MainController;
-import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.LaunchedGame.api.StateOfLaunchedGame;
-import it.unibo.model.LaunchedGame.impl.RunningState;
 import it.unibo.model.menu.api.Menu;
-import it.unibo.model.menu.impl.LaunchedGameState;
 import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.menu.impl.MenuState;
 import it.unibo.model.persistence.api.SaveManager;
@@ -23,7 +19,6 @@ public class MainControllerImpl implements MainController {
     private final Menu menu;
     private final SaveManager saveManager;
     private StateOfLaunchedGame runningState;
-    private boolean isGameRunning = false;
 
     public MainControllerImpl(final MainView mainView) {
         this.mainView = mainView;
