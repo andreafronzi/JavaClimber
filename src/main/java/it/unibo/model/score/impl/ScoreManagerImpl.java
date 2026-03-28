@@ -29,10 +29,12 @@ public class ScoreManagerImpl implements ScoreManager, AltitudeObserver {
 
     /**
      * {@inheritDoc}
-     * Also updates the total camera delta to keep track of the vertical distance the camera has moved, which is used to calculate the real altitude of the player for scoring purposes.
+     * Also updates the total camera delta to keep track of the vertical distance
+     * the camera has moved, which is used to calculate the real altitude of the
+     * player for scoring purposes.
      */
     @Override
-    public void update(double delta) {
+    public void update(final double delta) {
         this.totalCameraDelta += delta;
     }
 
@@ -40,9 +42,9 @@ public class ScoreManagerImpl implements ScoreManager, AltitudeObserver {
      * {@inheritDoc}
      */
     @Override
-    public void updateScore(double playerY) {
-        double totalRealY = playerY - this.totalCameraDelta;
-        int score = (int) Math.max(0, startY - totalRealY);
+    public void updateScore(final double playerY) {
+        final double totalRealY = playerY - this.totalCameraDelta;
+        final int score = (int) Math.max(0, startY - totalRealY);
         if (score > this.currentScore) {
             this.currentScore = score;
             if (this.currentScore > this.highScore) {
@@ -56,9 +58,9 @@ public class ScoreManagerImpl implements ScoreManager, AltitudeObserver {
      * {@inheritDoc}
      */
     @Override
-    public void addCoins(int coins) {
-        if (coins > 0) {
-            this.coins += coins;
+    public void addCoins(final int addedCoins) {
+        if (addedCoins > 0) {
+            this.coins += addedCoins;
         }
     }
 
@@ -90,7 +92,7 @@ public class ScoreManagerImpl implements ScoreManager, AltitudeObserver {
      * {@inheritDoc}
      */
     @Override
-    public void loadState(SaveState state) {
+    public void loadState(final SaveState state) {
         this.highScore = state.getHighestScore();
     }
 
@@ -98,7 +100,7 @@ public class ScoreManagerImpl implements ScoreManager, AltitudeObserver {
      * {@inheritDoc}
      */
     @Override
-    public void setStartY(double y) {
+    public void setStartY(final double y) {
         this.startY = y;
     }
 
