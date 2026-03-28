@@ -7,6 +7,7 @@ public interface AltitudeObserver {
 
     /**
      * Update the observer with the vertical displacement.
+     * 
      * @param delta the delta of vertical distance that the player has climbed
      */
     void update(double delta);
