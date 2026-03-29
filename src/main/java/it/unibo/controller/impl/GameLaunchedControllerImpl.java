@@ -18,7 +18,6 @@ import it.unibo.model.world.api.BaseWorld;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.World;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +30,8 @@ import javax.swing.JPanel;
  * </p>
  */
 public class GameLaunchedControllerImpl implements GameLaunchedController, GameLaunchedInputController {
+
+  private static final long FRAME_TIME_MS = 16;
 
   /**
    * The {@link Inventory} which provide the active skin and receive the command
@@ -167,13 +168,11 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
     this.launchedGame.addCommand(new StopAlienMovement());
   }
 
-  private static final long FRAME_TIME_MS = 16;
-
   @Override
   public void runGame() {
     new Thread(() -> {
       long previousCycleStartTime = System.nanoTime();
-      
+
       while (launchedGame.isRunning()) {
         long currentCycleStartTime = System.nanoTime();
         long elapsedNanos = currentCycleStartTime - previousCycleStartTime;
