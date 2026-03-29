@@ -19,7 +19,7 @@ import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.physics.alienphysic.api.AlienPhysic;
 import it.unibo.model.physics.alienphysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
-import it.unibo.model.physics.platformPhysic.impl.OnTouchDestroyBehavior;
+import it.unibo.model.physics.platformphysic.impl.OnTouchDestroyBehavior;
 import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.shop.impl.ActiveUpgradesImpl;
 import it.unibo.model.shop.impl.InventoryImpl;

@@ -1,7 +1,7 @@
-package it.unibo.model.physics.platformPhysic.impl;
+package it.unibo.model.physics.platformphysic.impl;
 
 import it.unibo.model.physics.api.Vector2d;
-import it.unibo.model.physics.platformPhysic.api.MovementBehaviour;
+import it.unibo.model.physics.platformphysic.api.MovementBehaviour;
 import it.unibo.model.world.impl.Boundary;
 
 /**

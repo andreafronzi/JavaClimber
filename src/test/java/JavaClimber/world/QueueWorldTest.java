@@ -19,8 +19,8 @@ import it.unibo.model.gameobj.impl.EnemyImpl;
 import it.unibo.model.gameobj.platformbuilder.impl.PlatformBuilderImpl;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
-import it.unibo.model.physics.platformPhysic.impl.HorizontalMovementBehavior;
-import it.unibo.model.physics.platformPhysic.impl.OnTouchDestroyBehavior;
+import it.unibo.model.physics.platformphysic.impl.HorizontalMovementBehavior;
+import it.unibo.model.physics.platformphysic.impl.OnTouchDestroyBehavior;
 
 public class QueueWorldTest {
 

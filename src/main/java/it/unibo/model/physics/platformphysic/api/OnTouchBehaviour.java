@@ -1,4 +1,4 @@
-package it.unibo.model.physics.platformPhysic.api;
+package it.unibo.model.physics.platformphysic.api;
 
 import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.world.api.GameWorld;

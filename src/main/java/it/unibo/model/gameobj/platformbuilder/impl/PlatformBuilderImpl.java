@@ -4,8 +4,8 @@ import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.gameobj.impl.PlatformImpl;
 import it.unibo.model.gameobj.platformbuilder.api.PlatformBuilder;
 import it.unibo.model.physics.api.Vector2d;
-import it.unibo.model.physics.platformPhysic.api.MovementBehaviour;
-import it.unibo.model.physics.platformPhysic.api.OnTouchBehaviour;
+import it.unibo.model.physics.platformphysic.api.MovementBehaviour;
+import it.unibo.model.physics.platformphysic.api.OnTouchBehaviour;
 
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package it.unibo.model.physics.platformPhysic.api;
+package it.unibo.model.physics.platformphysic.api;
 
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.world.impl.Boundary;

@@ -1,7 +1,7 @@
-package it.unibo.model.physics.platformPhysic.impl;
+package it.unibo.model.physics.platformphysic.impl;
 
 import it.unibo.model.gameobj.api.Platform;
-import it.unibo.model.physics.platformPhysic.api.OnTouchBehaviour;
+import it.unibo.model.physics.platformphysic.api.OnTouchBehaviour;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.Boundary;
 
