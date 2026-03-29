@@ -4,7 +4,7 @@ import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.gameobj.api.GameObj;
 import it.unibo.model.gameobj.api.Platform;
-import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
+import it.unibo.model.physics.alienphysic.api.AlienPhysic;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.platformPhysic.api.MovementBehaviour;
 import it.unibo.model.physics.platformPhysic.api.OnTouchBehaviour;

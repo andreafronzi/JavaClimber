@@ -1,7 +1,7 @@
 package it.unibo.model.gameobj.api;
 
 import it.unibo.model.LaunchedGame.api.LaunchedGame;
-import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
+import it.unibo.model.physics.alienphysic.api.AlienPhysic;
 import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.Boundary;
