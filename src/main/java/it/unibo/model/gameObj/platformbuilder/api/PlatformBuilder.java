@@ -1,4 +1,4 @@
-package it.unibo.model.gameObj.PlatformBuilder.api;
+package it.unibo.model.gameObj.platformbuilder.api;
 
 import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.physics.api.Vector2d;
