@@ -9,7 +9,6 @@ import it.unibo.model.world.impl.BoundWorldImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.UpperWorld;
-import it.unibo.model.gameObj.PlatformBuilder.impl.PlatformBuilderImpl;
 import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
 import it.unibo.model.gameObj.api.Gadget;
@@ -21,6 +20,7 @@ import it.unibo.model.physics.platformPhysic.impl.OnTouchDestroyBehavior;
 import it.unibo.model.gameObj.impl.CoinImpl;
 import it.unibo.model.gameObj.impl.EliCap;
 import it.unibo.model.gameObj.impl.EnemyImpl;
+import it.unibo.model.gameObj.platformbuilder.impl.PlatformBuilderImpl;
 
 public class QueueWorldTest {
 

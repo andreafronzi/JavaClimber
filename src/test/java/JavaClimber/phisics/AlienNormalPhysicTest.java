@@ -7,7 +7,6 @@ import it.unibo.controller.impl.MainControllerImpl;
 import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.LaunchedGame.impl.EndState;
 import it.unibo.model.LaunchedGame.impl.LaunchedGameImpl;
-import it.unibo.model.gameObj.PlatformBuilder.impl.PlatformBuilderImpl;
 import it.unibo.model.gameObj.api.Alien;
 import it.unibo.model.gameObj.api.Coin;
 import it.unibo.model.gameObj.api.Enemy;
@@ -17,6 +16,7 @@ import it.unibo.model.gameObj.impl.AlienImpl;
 import it.unibo.model.gameObj.impl.CoinImpl;
 import it.unibo.model.gameObj.impl.EliCap;
 import it.unibo.model.gameObj.impl.EnemyImpl;
+import it.unibo.model.gameObj.platformbuilder.impl.PlatformBuilderImpl;
 import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienNormalPhysic;
@@ -33,6 +33,7 @@ import it.unibo.model.world.impl.BoundWorldImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.GameObjDimension;
 import it.unibo.view.MainViewImpl;
 
 import org.junit.jupiter.api.Test;
@@ -47,7 +48,7 @@ public class AlienNormalPhysicTest {
   private static final double EPSILON = 0.001;
 
   private static final double X = 10;
-  private static final double Y = 100;
+  private static final double Y = 0;
 
   private static final double X1 = 90;
 
@@ -57,12 +58,13 @@ public class AlienNormalPhysicTest {
   private static final double SPEEDY_WITH_ELICAP = -10;
   private static final double SPEED_AFTER_JUMP = -10;
   private static final double SPEED1_Y = 50;
-  private static final double SPEED1_X = 50;
+  private static final double SPEED1_X = 13000;
   private static final double SPEED2_X = -200;
   private static final double SPEED2_Y = -50;
 
   private static final double WIDTH = 50;
   private static final double HEIGHT = 50;
+  private static final double WIDTH1 = 10;
 
   private static final double LEFT_BOUNDARY = 0;
   private static final double RIGHT_BOUNDARY = 100;
@@ -70,10 +72,9 @@ public class AlienNormalPhysicTest {
   private static final double UPPER_WORLD = 0;
   private static final double LOWER_WORLD = 100;
 
-  private static final double DT = 0.40;
+  private static final double DT = 0.1;
+  private static final double DT2 = 0.4;
 
-  private static final double NEW_SPEED_Y = 20;
-  private static final double NEW_Y = 108;
   private static final double Y_AFTER_HIT_ENEMY = 104;
 
   private static final int COINS_NUMBER = 1;
@@ -96,8 +97,8 @@ public class AlienNormalPhysicTest {
         new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
     physic.update(alien, DT, boundary, activeUpgrades, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()),
         new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
-    assertEquals(NEW_SPEED_Y, alien.getSpeedY(), EPSILON);
-    assertEquals(NEW_Y, alien.getPosY(), EPSILON);
+    assertEquals(GameObjDimension.GRAVITY * DT, alien.getSpeedY(), EPSILON);
+    assertEquals(GameObjDimension.GRAVITY * DT * DT, alien.getPosY(), EPSILON);
   }
 
   /**
@@ -113,8 +114,9 @@ public class AlienNormalPhysicTest {
   public void testRightToLeftPacmanEffect() {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
-    final Alien alien = new AlienImpl(new Vector2dImpl(X1, Y), new Vector2dImpl(SPEED1_X, SPEED_Y), WIDTH, HEIGHT,
+    final Alien alien = new AlienImpl(new Vector2dImpl(X1, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT,
         activeUpgrades);
+    alien.moveRight();
     final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD),
         new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
     physic.update(alien, DT, boundary, activeUpgrades, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()),
@@ -135,12 +137,14 @@ public class AlienNormalPhysicTest {
   public void testLeftToRightPacmanEffect() {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
-    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED2_X, SPEED_Y), WIDTH, HEIGHT,
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED2_X, SPEED_Y), WIDTH1, HEIGHT,
         activeUpgrades);
+    alien.moveLeft();
     final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD),
         new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
     physic.update(alien, DT, boundary, activeUpgrades, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()),
         new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+    System.out.println(alien.getPosX());
     assertEquals(RIGHT_BOUNDARY - WIDTH, alien.getPosX(), EPSILON);
   }
 
