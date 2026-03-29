@@ -5,8 +5,6 @@ import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import it.unibo.controller.api.MainController;
-import it.unibo.controller.api.MenuController;
-import it.unibo.controller.impl.MainControllerImpl;
 import it.unibo.model.LaunchedGame.api.BaseLaunchedState;
 import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.LaunchedGame.api.StateOfLaunchedGame;
