@@ -1,8 +1,8 @@
-package it.unibo.model.gameObj.platformbuilder.impl;
+package it.unibo.model.gameobj.platformbuilder.impl;
 
-import it.unibo.model.gameObj.api.Platform;
-import it.unibo.model.gameObj.impl.PlatformImpl;
-import it.unibo.model.gameObj.platformbuilder.api.PlatformBuilder;
+import it.unibo.model.gameobj.api.Platform;
+import it.unibo.model.gameobj.impl.PlatformImpl;
+import it.unibo.model.gameobj.platformbuilder.api.PlatformBuilder;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.platformPhysic.api.MovementBehaviour;
 import it.unibo.model.physics.platformPhysic.api.OnTouchBehaviour;

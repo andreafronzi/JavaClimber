@@ -1,4 +1,4 @@
-package it.unibo.model.gameObj.api;
+package it.unibo.model.gameobj.api;
 
 import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;

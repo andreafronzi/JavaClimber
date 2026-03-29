@@ -1,4 +1,4 @@
-package it.unibo.model.gameObj.api;
+package it.unibo.model.gameobj.api;
 
 import it.unibo.model.world.api.GameWorld;
 
