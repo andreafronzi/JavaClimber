@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.BiConsumer;
 
-import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.AddOnCreator;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.AddOnPool;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Pair;

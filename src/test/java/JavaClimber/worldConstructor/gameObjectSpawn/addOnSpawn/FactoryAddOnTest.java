@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.model.gameObj.api.Coin;
-import it.unibo.model.gameObj.api.Enemy;
-import it.unibo.model.gameObj.api.Gadget;
+import it.unibo.model.gameobj.api.Coin;
+import it.unibo.model.gameobj.api.Enemy;
+import it.unibo.model.gameobj.api.Gadget;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.score.impl.ScoreManagerImpl;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.FactoryAddOn;

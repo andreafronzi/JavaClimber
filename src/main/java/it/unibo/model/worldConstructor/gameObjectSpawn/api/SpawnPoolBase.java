@@ -4,10 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
-import it.unibo.model.gameObj.api.Coin;
-import it.unibo.model.gameObj.api.Enemy;
-import it.unibo.model.gameObj.api.Gadget;
-import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.gameobj.api.Coin;
+import it.unibo.model.gameobj.api.Enemy;
+import it.unibo.model.gameobj.api.Gadget;
+import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.score.api.ScoreManager;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.FactoryAddOn;

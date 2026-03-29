@@ -1,6 +1,6 @@
 package it.unibo.model.physics.platformPhysic.api;
 
-import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.Boundary;
 

@@ -2,7 +2,7 @@ package it.unibo.model.physics.alienPhysic.api;
 
 import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.LaunchedGame.impl.EndState;
-import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.world.api.BoundWorld;

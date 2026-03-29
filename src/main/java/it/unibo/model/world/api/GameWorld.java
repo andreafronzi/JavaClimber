@@ -1,10 +1,10 @@
 package it.unibo.model.world.api;
 
-import it.unibo.model.gameObj.api.Alien;
-import it.unibo.model.gameObj.api.Coin;
-import it.unibo.model.gameObj.api.Enemy;
-import it.unibo.model.gameObj.api.Gadget;
-import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.gameobj.api.Alien;
+import it.unibo.model.gameobj.api.Coin;
+import it.unibo.model.gameobj.api.Enemy;
+import it.unibo.model.gameobj.api.Gadget;
+import it.unibo.model.gameobj.api.Platform;
 /**
  * Interface for a world where specific entities can be removed.
  * This interface extends {@link BaseWorld} and adds capabilities to remove

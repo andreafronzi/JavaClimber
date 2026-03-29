@@ -7,8 +7,8 @@ import java.util.function.Supplier;
 
 import it.unibo.model.camera.api.AltitudeObserver;
 import it.unibo.model.camera.api.Camera;
-import it.unibo.model.gameObj.api.Alien;
-import it.unibo.model.gameObj.api.GameObject;
+import it.unibo.model.gameobj.api.Alien;
+import it.unibo.model.gameobj.api.GameObject;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.world.impl.World;
 import it.unibo.model.worldConstructor.worldGenerator.api.WorldConstructor;

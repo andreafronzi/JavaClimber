@@ -1,6 +1,6 @@
 package it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api;
 
-import it.unibo.model.gameObj.api.GameObject;
+import it.unibo.model.gameobj.api.GameObject;
 
 /**
  * Interface for generating positions for add-ons (coins, enemies, gadgets).

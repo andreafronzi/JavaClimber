@@ -9,18 +9,18 @@ import it.unibo.model.world.impl.BoundWorldImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.UpperWorld;
-import it.unibo.model.gameObj.api.Coin;
-import it.unibo.model.gameObj.api.Enemy;
-import it.unibo.model.gameObj.api.Gadget;
-import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.gameobj.api.Coin;
+import it.unibo.model.gameobj.api.Enemy;
+import it.unibo.model.gameobj.api.Gadget;
+import it.unibo.model.gameobj.api.Platform;
+import it.unibo.model.gameobj.impl.CoinImpl;
+import it.unibo.model.gameobj.impl.EliCap;
+import it.unibo.model.gameobj.impl.EnemyImpl;
+import it.unibo.model.gameobj.platformbuilder.impl.PlatformBuilderImpl;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.physics.platformPhysic.impl.HorizontalMovementBehavior;
 import it.unibo.model.physics.platformPhysic.impl.OnTouchDestroyBehavior;
-import it.unibo.model.gameObj.impl.CoinImpl;
-import it.unibo.model.gameObj.impl.EliCap;
-import it.unibo.model.gameObj.impl.EnemyImpl;
-import it.unibo.model.gameObj.platformbuilder.impl.PlatformBuilderImpl;
 
 public class QueueWorldTest {
 

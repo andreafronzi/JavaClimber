@@ -39,12 +39,12 @@ public class AlienImpl extends GameObj implements Alien {
   /**
    * {@code true} if the Alien is moving left, {@code false} otherwise.
    */
-  private boolean movingLeft = false;
+  private boolean movingLeft;
 
   /**
    * {@code true} if the Alien is moving right, {@code false} otherwise.
    */
-  private boolean movingRight = false;
+  private boolean movingRight;
 
   /**
    * <p>
@@ -64,6 +64,8 @@ public class AlienImpl extends GameObj implements Alien {
     this.speed = speed;
     this.physic = new AlienNormalPhysic();
     this.activeUpgrades = activeUpgrades;
+    this.movingLeft = false;
+    this.movingRight = false;
   }
 
   /**

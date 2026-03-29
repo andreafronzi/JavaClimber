@@ -5,7 +5,7 @@ import java.util.List;
 
 import it.unibo.model.camera.api.AltitudeObserver;
 import it.unibo.model.camera.api.AltitudeSubject;
-import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameobj.api.Alien;
 
 /**
  * Manages the calculation of the player's altitude. Implements

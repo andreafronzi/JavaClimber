@@ -2,14 +2,14 @@ package JavaClimber.GameObj;
 
 import org.junit.jupiter.api.Test;
 
+import it.unibo.model.gameobj.api.Platform;
+import it.unibo.model.gameobj.platformbuilder.api.PlatformBuilder;
+import it.unibo.model.gameobj.platformbuilder.impl.PlatformBuilderImpl;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.physics.platformPhysic.api.MovementBehaviour;
 import it.unibo.model.physics.platformPhysic.impl.HorizontalMovementBehavior;
 import it.unibo.model.world.impl.Boundary;
-import it.unibo.model.gameObj.api.Platform;
-import it.unibo.model.gameObj.platformbuilder.api.PlatformBuilder;
-import it.unibo.model.gameObj.platformbuilder.impl.PlatformBuilderImpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

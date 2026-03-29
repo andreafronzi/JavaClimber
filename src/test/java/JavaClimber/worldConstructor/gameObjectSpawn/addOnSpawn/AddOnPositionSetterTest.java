@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.model.gameObj.api.Gadget;
-import it.unibo.model.gameObj.impl.EliCap;
+import it.unibo.model.gameobj.api.Gadget;
+import it.unibo.model.gameobj.impl.EliCap;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPositionSetterImpl;

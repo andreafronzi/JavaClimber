@@ -1,6 +1,6 @@
 package it.unibo.view.GameLaunchedView.renderers.impl;
 
-import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.GameObjDimension;
 import it.unibo.view.GameLaunchedView.renderers.api.EntityRenderer;
 import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinRegistry;

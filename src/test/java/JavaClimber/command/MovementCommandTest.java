@@ -10,7 +10,7 @@ import it.unibo.model.command.api.RunningCommand;
 import it.unibo.model.command.impl.MoveAlienLeft;
 import it.unibo.model.command.impl.MoveAlienRight;
 import it.unibo.model.command.impl.StopAlienMovement;
-import it.unibo.model.gameObj.impl.AlienImpl;
+import it.unibo.model.gameobj.impl.AlienImpl;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.impl.ActiveUpgradesImpl;
 import it.unibo.model.shop.impl.InventoryImpl;

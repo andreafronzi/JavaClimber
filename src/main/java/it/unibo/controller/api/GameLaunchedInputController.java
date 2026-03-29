@@ -1,6 +1,6 @@
 package it.unibo.controller.api;
 
-import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameobj.api.Alien;
 
 /**
  * <p>Rapresent the controller which handle input from user and give to the model the command to execute.</p>

@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPoolCreator;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Pair;
 

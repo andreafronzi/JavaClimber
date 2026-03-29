@@ -10,8 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.model.camera.impl.CameraImpl;
-import it.unibo.model.gameObj.impl.AlienImpl;
-import it.unibo.model.gameObj.impl.PlatformImpl;
+import it.unibo.model.gameobj.impl.AlienImpl;
+import it.unibo.model.gameobj.impl.PlatformImpl;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.score.api.ScoreManager;
 import it.unibo.model.score.impl.ScoreManagerImpl;

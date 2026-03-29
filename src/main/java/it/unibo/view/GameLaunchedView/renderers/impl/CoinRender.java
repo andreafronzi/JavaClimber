@@ -5,8 +5,8 @@ import java.awt.Image;
 import java.util.List;
 import java.util.Objects;
 
-import it.unibo.model.gameObj.api.Coin;
 import it.unibo.view.GameLaunchedView.renderers.api.EntityRenderer;
+import it.unibo.model.gameobj.api.Coin;
 import it.unibo.view.SpriteEnum;
 import it.unibo.view.SpriteManager;
 

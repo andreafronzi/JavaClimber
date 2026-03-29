@@ -6,8 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.model.camera.impl.AltitudeManager;
-import it.unibo.model.gameObj.api.Alien;
-import it.unibo.model.gameObj.impl.AlienImpl;
+import it.unibo.model.gameobj.api.Alien;
+import it.unibo.model.gameobj.impl.AlienImpl;
 import it.unibo.model.physics.impl.Vector2dImpl;
 
 /**

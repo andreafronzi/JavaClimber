@@ -1,9 +1,9 @@
 package it.unibo.view.GameLaunchedView.renderers.api;
 
-import it.unibo.model.gameObj.api.GameObject;
-
 import java.awt.*;
 import java.util.List;
+
+import it.unibo.model.gameobj.api.GameObject;
 
 /**
  * Interface for rendering game entities.

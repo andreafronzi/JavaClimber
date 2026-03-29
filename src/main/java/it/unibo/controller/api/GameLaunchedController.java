@@ -1,7 +1,7 @@
 package it.unibo.controller.api;
 
 import it.unibo.model.LaunchedGame.api.LaunchedGame;
-import it.unibo.model.gameObj.api.*;
+import it.unibo.model.gameobj.api.*;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,8 +1,8 @@
 package it.unibo.model.world.impl;
 
+import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.world.api.AbstractGameWorld;
 import it.unibo.model.world.api.BoundWorld;
-import it.unibo.model.gameObj.api.Alien;
 
 /**
  * Concrete implementation of the active game world.

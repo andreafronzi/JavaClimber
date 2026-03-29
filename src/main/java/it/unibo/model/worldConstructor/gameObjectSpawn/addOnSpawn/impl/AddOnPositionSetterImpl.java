@@ -1,6 +1,6 @@
 package it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl;
 
-import it.unibo.model.gameObj.api.GameObject;
+import it.unibo.model.gameobj.api.GameObject;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.AddOnPositionSetter;
 

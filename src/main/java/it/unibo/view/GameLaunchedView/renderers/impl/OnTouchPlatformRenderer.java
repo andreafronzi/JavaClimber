@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.util.List;
 import java.util.Objects;
 
-import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.gameobj.api.Platform;
 import it.unibo.view.SpriteEnum;
 import it.unibo.view.SpriteManager;
 import it.unibo.view.GameLaunchedView.renderers.api.EntityRenderer;

@@ -3,10 +3,10 @@ package it.unibo.model.world.api;
 import java.util.LinkedList;
 import java.util.List;
 
-import it.unibo.model.gameObj.api.Coin;
-import it.unibo.model.gameObj.api.Enemy;
-import it.unibo.model.gameObj.api.Gadget;
-import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.gameobj.api.Coin;
+import it.unibo.model.gameobj.api.Enemy;
+import it.unibo.model.gameobj.api.Gadget;
+import it.unibo.model.gameobj.api.Platform;
 
 /**
  * Abstract implementation of {@link BaseWorld}.

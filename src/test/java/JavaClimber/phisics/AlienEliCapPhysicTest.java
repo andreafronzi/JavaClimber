@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.controller.impl.MainControllerImpl;
 import it.unibo.model.LaunchedGame.impl.LaunchedGameImpl;
-import it.unibo.model.gameObj.api.Alien;
-import it.unibo.model.gameObj.api.Coin;
-import it.unibo.model.gameObj.api.Gadget;
-import it.unibo.model.gameObj.impl.AlienImpl;
-import it.unibo.model.gameObj.impl.CoinImpl;
-import it.unibo.model.gameObj.impl.EliCap;
+import it.unibo.model.gameobj.api.Alien;
+import it.unibo.model.gameobj.api.Coin;
+import it.unibo.model.gameobj.api.Gadget;
+import it.unibo.model.gameobj.impl.AlienImpl;
+import it.unibo.model.gameobj.impl.CoinImpl;
+import it.unibo.model.gameobj.impl.EliCap;
 import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.physics.alienPhysic.api.AlienPhysic;
 import it.unibo.model.physics.alienPhysic.impl.AlienEliCapPhysic;

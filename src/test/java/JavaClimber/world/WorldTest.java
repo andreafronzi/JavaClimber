@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import it.unibo.model.gameobj.impl.AlienImpl;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.impl.ActiveUpgradesImpl;
 import it.unibo.model.shop.impl.InventoryImpl;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
-import it.unibo.model.gameObj.impl.AlienImpl;
 import it.unibo.model.world.api.BoundWorld;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.api.QueueWorld;

@@ -1,6 +1,6 @@
 package it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api;
 
-import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.physics.api.Vector2d;
 
 

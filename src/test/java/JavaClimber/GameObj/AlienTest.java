@@ -1,7 +1,7 @@
 package JavaClimber.GameObj;
 
-import it.unibo.model.gameObj.api.Alien;
-import it.unibo.model.gameObj.impl.AlienImpl;
+import it.unibo.model.gameobj.api.Alien;
+import it.unibo.model.gameobj.impl.AlienImpl;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.impl.ActiveUpgradesImpl;

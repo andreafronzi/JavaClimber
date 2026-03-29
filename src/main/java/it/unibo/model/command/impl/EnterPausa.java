@@ -3,7 +3,7 @@ package it.unibo.model.command.impl;
 import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.LaunchedGame.impl.PauseState;
 import it.unibo.model.command.api.RunningCommand;
-import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameobj.api.Alien;
 
 public class EnterPausa implements RunningCommand{
 

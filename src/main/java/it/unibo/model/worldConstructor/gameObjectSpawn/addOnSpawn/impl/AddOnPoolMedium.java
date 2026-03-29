@@ -2,7 +2,7 @@ package it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl;
 
 import java.util.function.BiConsumer;
 
-import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.AddOnPoolBase;
 import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPoolCreator;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PairImpl;

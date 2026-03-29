@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import it.unibo.model.camera.api.AltitudeObserver;
-import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.worldConstructor.data.Difficult;
 import it.unibo.model.worldConstructor.worldGenerator.api.Observer;
 import it.unibo.model.worldConstructor.worldGenerator.api.Subject;

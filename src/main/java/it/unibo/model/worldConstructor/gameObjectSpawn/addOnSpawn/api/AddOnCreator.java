@@ -1,6 +1,6 @@
 package it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api;
 
-import it.unibo.model.gameObj.api.Platform;
+import it.unibo.model.gameobj.api.Platform;
 
 public interface AddOnCreator {
 

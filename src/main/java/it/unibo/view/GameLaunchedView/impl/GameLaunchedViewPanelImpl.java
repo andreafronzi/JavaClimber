@@ -32,44 +32,44 @@ public class GameLaunchedViewPanelImpl extends JPanel {
   private final GameLaunchedController launchedController;
 
   /**
-   * Renders the {@link it.unibo.model.gameObj.api.Alien} entity within the game
+   * Renders the {@link it.unibo.model.gameobj.api.Alien} entity within the game
    * view panel.
    */
   private final AlienRenderer alienRenderer;
 
   /**
-   * Renders the {@link it.unibo.model.gameObj.api.Platform} entities within the
+   * Renders the {@link it.unibo.model.gameobj.api.Platform} entities within the
    * game view panel.
    */
   private final PlatformRenderer platformRenderer;
 
   /**
-   * Renders the {@link it.unibo.model.gameObj.api.Enemy} entities within the game
+   * Renders the {@link it.unibo.model.gameobj.api.Enemy} entities within the game
    * view panel.
    */
   private final EnemyRenderer enemyRenderer;
 
   /**
-   * Renders the {@link it.unibo.model.gameObj.api.Coin} entities within the game
+   * Renders the {@link it.unibo.model.gameobj.api.Coin} entities within the game
    * view panel.
    */
   private final CoinRender coinRenderer;
 
   /**
-   * Renders the {@link it.unibo.model.gameObj.api.Gadget} entities within the
+   * Renders the {@link it.unibo.model.gameobj.api.Gadget} entities within the
    * game view panel.
    */
   private final GadgetRenderer gadgetRenderer;
 
   /**
-   * Renders the moving {@link it.unibo.model.gameObj.api.Platform} entities
+   * Renders the moving {@link it.unibo.model.gameobj.api.Platform} entities
    * within the
    * game view panel.
    */
   private final MovingPlatformRenderer movingPlatformRenderer;
 
   /**
-   * Renders the moving {@link it.unibo.model.gameObj.api.Platform} entities which
+   * Renders the moving {@link it.unibo.model.gameobj.api.Platform} entities which
    * have onTouch behaviour within the
    * game view panel.
    */

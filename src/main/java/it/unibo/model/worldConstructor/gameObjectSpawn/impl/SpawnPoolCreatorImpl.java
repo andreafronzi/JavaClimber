@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+import it.unibo.model.gameobj.api.GameObject;
+import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.world.api.BaseWorld;
@@ -12,8 +14,6 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPosi
 import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPool;
 import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPoolCreator;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Pair;
-import it.unibo.model.gameObj.api.GameObject;
-import it.unibo.model.gameObj.api.Platform;
 
 /**
  * Implementation of PlatformPoolCreator.

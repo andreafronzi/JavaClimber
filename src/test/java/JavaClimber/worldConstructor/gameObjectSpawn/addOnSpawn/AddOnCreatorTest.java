@@ -8,8 +8,8 @@ import java.util.Random;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.model.gameObj.api.Platform;
-import it.unibo.model.gameObj.impl.PlatformImpl;
+import it.unibo.model.gameobj.api.Platform;
+import it.unibo.model.gameobj.impl.PlatformImpl;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.score.impl.ScoreManagerImpl;
 import it.unibo.model.world.api.QueueWorld;
