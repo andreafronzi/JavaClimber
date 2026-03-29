@@ -26,14 +26,6 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.GameObjDi
 public class AlienNormalPhysic extends TemplatePhysic {
 
   /**
-   * <p>
-   * Constructs an instance of {@code AlienNormalPhysic}.
-   * </p>
-   */
-  public AlienNormalPhysic() {
-  }
-
-  /**
    * Update alien position and speed applying gravity.
    *
    * @param alien          the alien to update
