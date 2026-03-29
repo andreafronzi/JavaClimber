@@ -73,7 +73,7 @@ public class PlatformBuilderImpl implements PlatformBuilder {
    * {@inheritDoc}
    */
   @Override
-  public PlatformBuilder addJumpBehaviour(OnTouchBehaviour onTouchBehaviour) {
+  public PlatformBuilder addJumpBehaviour(final OnTouchBehaviour onTouchBehaviour) {
     this.onTouchBehaviour = Optional.of(onTouchBehaviour);
     return this;
   }
