@@ -16,6 +16,7 @@ import it.unibo.model.world.api.GameWorld;
  * resulting behavior.
  * </p>
  */
+@FunctionalInterface
 public interface CollisionManager {
 
   /**
