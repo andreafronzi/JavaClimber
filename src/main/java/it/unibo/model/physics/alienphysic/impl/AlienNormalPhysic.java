@@ -62,8 +62,8 @@ public class AlienNormalPhysic extends TemplatePhysic {
     final boolean above = (alien.getPosY() + alien.getHeight()) >= (p.getPosY() + p.getHeight() + pTollerance);
 
     if (falling && !above) {
-      final double vx = 0;
-      final double vy = -1000 * activeUpgrades.getJumpMultiplier();
+      final double vx = GameObjDimension.NULL_ALIEN_SPEED;
+      final double vy = GameObjDimension.JUMP_ALIEN_SPEED_Y * activeUpgrades.getJumpMultiplier();
       p.onTouch(boundary, gameWorld);
       alien.setPosition(new Vector2dImpl(alien.getPosX(), p.getPosY() - alien.getHeight()));
       alien.setSpeed(new Vector2dImpl(vx, vy));
@@ -81,8 +81,8 @@ public class AlienNormalPhysic extends TemplatePhysic {
     final boolean above = (alien.getPosY() + alien.getHeight()) >= (e.getPosY() + e.getHeight() + eTollerance);
 
     if (falling && !above) {
-      final double vx = 0;
-      final double vy = -1000 * activeUpgrades.getJumpMultiplier();
+      final double vx = GameObjDimension.NULL_ALIEN_SPEED;
+      final double vy = GameObjDimension.JUMP_ALIEN_SPEED_Y * activeUpgrades.getJumpMultiplier();
       e.die(gameWorld);
       alien.setSpeed(new Vector2dImpl(vx, vy));
     } else {
