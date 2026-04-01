@@ -58,7 +58,6 @@ public class AlienNormalPhysicTest {
   private static final double SPEEDY_WITH_ELICAP = -10;
   private static final double SPEED_AFTER_JUMP = -10;
   private static final double SPEED1_Y = 50;
-  private static final double SPEED1_X = 13000;
   private static final double SPEED2_X = -200;
   private static final double SPEED2_Y = -50;
 
@@ -73,9 +72,6 @@ public class AlienNormalPhysicTest {
   private static final double LOWER_WORLD = 100;
 
   private static final double DT = 0.1;
-  private static final double DT2 = 0.4;
-
-  private static final double Y_AFTER_HIT_ENEMY = 104;
 
   private static final int COINS_NUMBER = 1;
 
@@ -145,7 +141,7 @@ public class AlienNormalPhysicTest {
     physic.update(alien, DT, boundary, activeUpgrades, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()),
         new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
     System.out.println(alien.getPosX());
-    assertEquals(RIGHT_BOUNDARY - WIDTH, alien.getPosX(), EPSILON);
+    assertEquals(RIGHT_BOUNDARY - WIDTH1, alien.getPosX(), EPSILON);
   }
 
   /**
@@ -172,12 +168,12 @@ public class AlienNormalPhysicTest {
             new MenuImpl(new MainControllerImpl(new MainViewImpl()))),
         activeUpgrades);
     assertEquals(alien.getPosY(), enemy.getPosY() - alien.getHeight(), EPSILON);
-    assertEquals(SPEED_AFTER_JUMP, alien.getSpeedY(), EPSILON);
+    assertEquals(GameObjDimension.JUMP_ALIEN_SPEED_Y, alien.getSpeedY(), EPSILON);
 
     // after updating position
     alien.updatePosition(DT, boundary, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()),
         new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
-    assertEquals(Y_AFTER_HIT_ENEMY, alien.getPosY(), EPSILON);
+    assertEquals((GameObjDimension.JUMP_ALIEN_SPEED_Y + GameObjDimension.GRAVITY * DT) * DT + Y, alien.getPosY(), EPSILON);
   }
 
   /**
