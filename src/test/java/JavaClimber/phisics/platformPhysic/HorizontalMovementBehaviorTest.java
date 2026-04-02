@@ -15,7 +15,7 @@ import it.unibo.model.world.impl.Boundary;
  * This class ensures that the {@link HorizontalMovementBehavior} functions correctly
  * by simulating various scenarios, including movement across boundaries, and verifying results.</p>
  */
-public class HorizontalMovementBehaviorTest {
+class HorizontalMovementBehaviorTest {
 
   private static final double EPSILON = 0.001;
 

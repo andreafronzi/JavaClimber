@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 /**
  * <p>Test the functionality of the {@link Vector2d} implementation {@link Vector2dImpl}.</p>
  */
-public class Vector2dTest {
+class Vector2dTest {
 
   private static final double EPSILON = 0.001;
 

@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Test class for the {@link AlienImpl} game object.
  */
-public class AlienTest {
+class AlienTest {
 
   private static final double EPSILON = 0.001;
   private static final double X = 10;

@@ -19,7 +19,7 @@ import it.unibo.model.shop.impl.ShopItemFactoryImpl;
 /**
  * <p>Test class for the {@link RunningCommand} implementations.</p>
  */
-public class MovementCommandTest {
+class MovementCommandTest {
     
     private static final double X = 10;
     private static final double Y = 20;

@@ -34,7 +34,7 @@ import it.unibo.view.MainViewImpl;
  * This class contains unit tests to verify the correct behavior of the collision detection mechanism: 
  * verify that the collision logic correctly work and that when a collision occurs the collided element is removed from the world.</p> 
  */
-public class CollisionManagerTest {
+class CollisionManagerTest {
 
     private static final double X = 10;
     private static final double Y = 100;

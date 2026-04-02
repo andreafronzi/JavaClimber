@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Test class for the {@link Platform} game object.
  */
-public class PlatformsTest {
+class PlatformsTest {
 
     private static final double EPSILON = 0.001;
 

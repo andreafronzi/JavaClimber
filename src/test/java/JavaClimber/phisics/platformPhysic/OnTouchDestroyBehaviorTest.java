@@ -33,7 +33,7 @@ import it.unibo.view.MainViewImpl;
 /**
  * Test class for {@link OnTouchDestroyBehavior}.
  */
-public class OnTouchDestroyBehaviorTest {
+class OnTouchDestroyBehaviorTest {
 
     private static final double WIDTH = 10;
     private static final double HEIGHT = 10;
