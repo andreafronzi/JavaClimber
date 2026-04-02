@@ -29,12 +29,13 @@ import it.unibo.model.world.impl.BoundWorldImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.GameObjDimension;
 import it.unibo.view.MainViewImpl;
 
 /**
  * <p>Test class for {@link AlienEliCapPhysic}.</p>
  */
-public class AlienEliCapPhysicTest {
+class AlienEliCapPhysicTest {
 
     private static final double EPSILON = 0.001;
 
@@ -42,13 +43,11 @@ public class AlienEliCapPhysicTest {
     private static final double Y = 100;
 
     private static final double X1 = 10;
-    private static final double Y1 = 90;
+    private static final double Y1 = -400;
 
     private static final double X2 = 10;
-    private static final double Y2 = 80;
 
     private static final double X3 = 10;
-    private static final double Y3 = 120;
     
     private static final double WIDTH = 0;
     private static final double HEIGHT = 0;
@@ -57,10 +56,9 @@ public class AlienEliCapPhysicTest {
     private static final double SPEED_Y = 0;
 
     private static final double ELICAP_SPEED_X = 0;
-    private static final double ELICAP_SPEED_Y = -10;
+    private static final double ELICAP_SPEED_Y = -500;
 
     private static final double SPEED_AFTER_ELICAP_AND_GRAVITY_X = 0;
-    private static final double SPEED_AFTER_ELICAP_AND_GRAVITY_Y = 40;
 
     private static final double LEFT_SIDE = 0;
     private static final double RIGHT_SIDE = 100;
@@ -70,8 +68,8 @@ public class AlienEliCapPhysicTest {
 
 
     private static final double DT = 1;
-    private static final double DT2 = 2;
-    private static final double DT3 = 3;
+    private static final double DT2 = 3;
+    private static final double DT3 = 4;
 
     private static final int COINS_NUMBER = 1;
 
@@ -107,12 +105,15 @@ public class AlienEliCapPhysicTest {
         final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
         eliCap.onCollect(alien, new RealWorld(alien, boundary));
 
+        //before updating position the physic shouldn't apply modifications on the alien speed and position
         assertEquals(SPEED_Y, alien.getSpeedY(), EPSILON);  
         assertEquals(SPEED_X, alien.getSpeedX(), EPSILON);
 
         alien.updatePosition(DT2, boundary, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()), new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+        
+        //after updating position
         assertEquals(X2, alien.getPosX(), EPSILON);
-        assertEquals(Y2, alien.getPosY(), EPSILON);
+        assertEquals((Y +ELICAP_SPEED_Y*DT2), alien.getPosY(), EPSILON);
         assertEquals(ELICAP_SPEED_X, alien.getSpeedX(), EPSILON);
         assertEquals(ELICAP_SPEED_Y, alien.getSpeedY(), EPSILON);
     }
@@ -125,13 +126,14 @@ public class AlienEliCapPhysicTest {
         final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_SIDE, RIGHT_SIDE));
         final Gadget eliCap = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y));
         final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
+        
         eliCap.onCollect(alien, new RealWorld(alien, boundary));
         alien.updatePosition(DT3, boundary, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()), new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
 
         assertEquals(X3, alien.getPosX(), EPSILON);
-        assertEquals(Y3, alien.getPosY(), EPSILON);
+        assertEquals((Y + ELICAP_SPEED_Y*DT2) + ((ELICAP_SPEED_Y + (GameObjDimension.GRAVITY * (DT3 - DT2))) * (DT3 - DT2)), alien.getPosY(), EPSILON);
         assertEquals(SPEED_AFTER_ELICAP_AND_GRAVITY_X, alien.getSpeedX(), EPSILON);
-        assertEquals(SPEED_AFTER_ELICAP_AND_GRAVITY_Y, alien.getSpeedY(), EPSILON);
+        assertEquals(ELICAP_SPEED_Y + GameObjDimension.GRAVITY * (DT3 - DT2), alien.getSpeedY(), EPSILON);
     }
 
     /**
