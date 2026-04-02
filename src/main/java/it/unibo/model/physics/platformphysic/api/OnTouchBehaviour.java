@@ -9,6 +9,7 @@ import it.unibo.model.world.impl.Boundary;
  * Interface representing Platform's touch reaction.
  * </p>
  */
+@FunctionalInterface
 public interface OnTouchBehaviour {
 
   /**

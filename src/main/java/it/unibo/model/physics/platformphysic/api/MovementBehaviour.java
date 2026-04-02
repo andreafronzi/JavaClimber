@@ -8,6 +8,7 @@ import it.unibo.model.world.impl.Boundary;
  * Interface representing game obgect's movement behavior.
  * </p>
  */
+@FunctionalInterface
 public interface MovementBehaviour {
 
   /**
