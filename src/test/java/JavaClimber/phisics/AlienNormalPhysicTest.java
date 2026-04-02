@@ -43,7 +43,7 @@ import org.junit.jupiter.api.Test;
  * Test class for {@link AlienNormalPhysic}.
  * </p>
  */
-public class AlienNormalPhysicTest {
+class AlienNormalPhysicTest {
 
   private static final double EPSILON = 0.001;
 
@@ -262,15 +262,42 @@ public class AlienNormalPhysicTest {
   public void testAlienDeadOnEnemyCollision() {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
-    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED2_Y), WIDTH, HEIGHT,
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, -SPEED1_Y), WIDTH, HEIGHT,
         activeUpgrades);
     final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD),
         new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
-    final Enemy enemy = new EnemyImpl(HEIGHT, WIDTH, new Vector2dImpl(X, Y));
+    final Enemy enemy = new EnemyImpl(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT));
+    // create a lightweight dummy MainController to avoid UI interactions during onEnter
+    final it.unibo.controller.api.MainController dummyController = new it.unibo.controller.api.MainController() {
+      @Override
+      public void setView(it.unibo.view.MainView view) {}
 
-    final LaunchedGame game = new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()),
-        new MenuImpl(new MainControllerImpl(new MainViewImpl())));
+      @Override
+      public void openMenuView() {}
 
+      @Override
+      public void launchGame() {}
+
+      @Override
+      public void openInventoryView() {}
+
+      @Override
+      public void openShopView() {}
+
+      @Override
+      public void openEndView() {}
+
+      @Override
+      public void openPauseView() {}
+
+      @Override
+      public void saveProgress() {}
+    };
+
+    final MenuImpl menu = new MenuImpl(dummyController);
+    final LaunchedGame game = new LaunchedGameImpl(dummyController, menu);
+
+    // before updating position: this collision should end the game
     physic.hitEnemy(alien, enemy, new RealWorld(alien, boundary), game, activeUpgrades);
     assertTrue(game.getState() instanceof EndState);
   }
