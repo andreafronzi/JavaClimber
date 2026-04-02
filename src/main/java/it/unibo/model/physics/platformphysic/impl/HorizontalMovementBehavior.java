@@ -42,7 +42,7 @@ public class HorizontalMovementBehavior implements MovementBehaviour {
     if (position.getX() + (ds * dt) < boundary.x0()) {
       x = boundary.x0();
       this.ds = -this.ds;
-    } else if ((position.getX() + width) + (ds * dt) > boundary.x1()) {
+    } else if (position.getX() + width + ds*dt > boundary.x1()) {
       x = boundary.x1() - width;
       this.ds = -this.ds;
     }
