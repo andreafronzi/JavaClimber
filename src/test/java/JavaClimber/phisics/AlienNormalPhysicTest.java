@@ -55,8 +55,7 @@ public class AlienNormalPhysicTest {
   private static final double SPEED_X = 0;
   private static final double SPEED_Y = 0;
 
-  private static final double SPEEDY_WITH_ELICAP = -10;
-  private static final double SPEED_AFTER_JUMP = -10;
+  private static final double SPEEDY_WITH_ELICAP = -500;
   private static final double SPEED1_Y = 50;
   private static final double SPEED2_X = -200;
   private static final double SPEED2_Y = -50;
@@ -248,7 +247,7 @@ public class AlienNormalPhysicTest {
 
     physic.hitPlatform(alien, platform, boundary.getBoundX(), new RealWorld(alien, boundary), activeUpgrades);
     assertEquals(alien.getPosY(), platform.getPosY() - alien.getHeight(), EPSILON);
-    assertEquals(SPEED_AFTER_JUMP, alien.getSpeedY(), EPSILON);
+    assertEquals(GameObjDimension.JUMP_ALIEN_SPEED_Y, alien.getSpeedY(), EPSILON);
   }
 
   /**
