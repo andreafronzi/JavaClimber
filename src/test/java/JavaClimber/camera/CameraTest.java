@@ -1,4 +1,4 @@
-package JavaClimber.camera;
+package javaclimber.camera;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -37,57 +37,68 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.Distan
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPoolEasy;
 import it.unibo.model.worldConstructor.worldGenerator.api.WorldConstructor;
 import it.unibo.model.worldConstructor.worldGenerator.impl.WorldConstructorImpl;
-
+import javaclimber.TestCostants;
 
 /**
- * Tests for {@link CameraImpl}
+ * Tests for {@link CameraImpl}.
  */
-public class CameraTest {
+class CameraTest {
 
     private static final double VIEW_WIDTH = 800.0;
     private static final double VIEW_HEIGHT = 600.0;
     private static final double PLAT_W = 100.0;
     private static final double PLAT_H = 20.0;
-
+    private static final double PLAT_X_Y_100 = 100.0;
+    private static final double PLAT_X_200 = 200.0;
+    private static final double PLAT_Y_101 = -101.0;
+    private static final double PLAT_Y_OUT_OF_BOUNDS = 2000.0;
+    private static final double ALIEN_X = 10.0;
+    private static final double ALIEN_Y = 10.0;
+    private static final double ALIEN_WIDTH = 50.0;
+    private static final double ALIEN_HEIGHT = 50.0;
+    private static final double MIN_Y_BOUND = -2000.0;
+    private static final double MAX_Y_DISTANCE = 200.0;
+    private static final double MIN_Y_DISTANCE = 100.0;
+    private static final double MAX_X_DISTANCE = 300.0;
+    private static final double DELTA_20 = 20.0;
     private World world;
-    private WorldConstructor wc;
     private CameraImpl camera;
-    private ScoreManager scoreManager;
-
 
     /**
-     * Set up all to simulate the camera behaviour. 
+     * Set up all to simulate the camera behaviour.
      */
     @BeforeEach
     void setUp() {
-        ShopItemFactory factory = new ShopItemFactoryImpl();
-        Inventory inventory = new InventoryImpl(factory);
-        ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(inventory);
-        AlienImpl alien = new AlienImpl(new Vector2dImpl(0, 0), new Vector2dImpl(10, 10), 50, 50, activeUpgrades);
-        
-        Boundary boundX = new Boundary(0, VIEW_WIDTH);
-        BoundY boundY = new BoundY(-2000, VIEW_HEIGHT);
-        BoundWorld boundWorld = new BoundWorldImpl(boundY, boundX);
-        RealWorld realWorld = new RealWorld(alien, boundWorld);
-        UpperWorld upperWorld = new UpperWorld(boundWorld);
-        world = new World(upperWorld, realWorld);
-        this.scoreManager = new ScoreManagerImpl();
+        final ShopItemFactory factory = new ShopItemFactoryImpl();
+        final Inventory inventory = new InventoryImpl(factory);
+        final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(inventory);
+        final AlienImpl alien = new AlienImpl(new Vector2dImpl(0, 0), new Vector2dImpl(ALIEN_X, ALIEN_Y), ALIEN_WIDTH,
+                ALIEN_HEIGHT, activeUpgrades);
 
-        
-        var distanceEasy = new Distance(200, 100, 300);
-        var spawnPoolCreator = new SpawnPoolCreatorImpl(upperWorld);
-        var spawnPoolEasy = new SpawnPoolEasy(GameObjDimension.EASY_PLATFORM_WIDTH,
+        final Boundary boundX = new Boundary(0, VIEW_WIDTH);
+        final BoundY boundY = new BoundY(MIN_Y_BOUND, VIEW_HEIGHT);
+        final BoundWorld boundWorld = new BoundWorldImpl(boundY, boundX);
+        final RealWorld realWorld = new RealWorld(alien, boundWorld);
+        final UpperWorld upperWorld = new UpperWorld(boundWorld);
+        world = new World(upperWorld, realWorld);
+        final ScoreManager scoreManager = new ScoreManagerImpl();
+
+        final var distanceEasy = new Distance(MAX_Y_DISTANCE, MIN_Y_DISTANCE, MAX_X_DISTANCE);
+        final var spawnPoolCreator = new SpawnPoolCreatorImpl(upperWorld);
+        final var spawnPoolEasy = new SpawnPoolEasy(GameObjDimension.EASY_PLATFORM_WIDTH,
                 GameObjDimension.EASY_PLATFORM_HEIGHT, scoreManager);
-        var platformPoolEasy = new PlatformPoolEasy(spawnPoolCreator, GameObjDimension.EASY_PLATFORM_WIDTH,
+        final var platformPoolEasy = new PlatformPoolEasy(spawnPoolCreator, GameObjDimension.EASY_PLATFORM_WIDTH,
                 GameObjDimension.EASY_PLATFORM_HEIGHT);
-        var addOnPoolEasy = new AddOnPoolEasy(spawnPoolCreator, 0.5);
-        var difficultList = List.of(new Difficult(0, distanceEasy, spawnPoolEasy, addOnPoolEasy, platformPoolEasy));
+        final var addOnPoolEasy = new AddOnPoolEasy(spawnPoolCreator, 0.5);
+        final var difficultList = List
+                .of(new Difficult(0, distanceEasy, spawnPoolEasy, addOnPoolEasy, platformPoolEasy));
         spawnPoolCreator.setSpawnPool(spawnPoolEasy);
-        
-        this.wc = new WorldConstructorImpl(upperWorld, difficultList.getFirst(), spawnPoolCreator);
+
+        final WorldConstructor wc = new WorldConstructorImpl(upperWorld, difficultList.getFirst(), spawnPoolCreator);
 
         this.camera = new CameraImpl(VIEW_WIDTH, VIEW_HEIGHT, world, wc);
     }
+
     /**
      * Tests that the camera is initialized with the correct dimensions.
      */
@@ -98,23 +109,29 @@ public class CameraTest {
     }
 
     /**
-     * Verifies that the game objects(in this case platform) move downwards when the camera moves up.
+     * Verifies that the game objects(in this case platform) move downwards when the
+     * camera moves up.
      */
     @Test
     void testMovement() {
-        PlatformImpl platform = new PlatformImpl(new Vector2dImpl(100, 100), PLAT_W, PLAT_H, Optional.empty(), Optional.empty());
+        final PlatformImpl platform = new PlatformImpl(new Vector2dImpl(PLAT_X_Y_100, PLAT_X_Y_100), PLAT_W, PLAT_H,
+                Optional.empty(),
+                Optional.empty());
         world.getRealWorld().addStaticPlatform(platform);
-        camera.update(50.0);
-        assertEquals(150.0, platform.getPosY());
-        assertEquals(50.0, world.getRealWorld().getAlien().getPosY());
+        camera.update(TestCostants.TOTAL_DELTA_50);
+        assertEquals(PLAT_X_Y_100 + TestCostants.TOTAL_DELTA_50, platform.getPosY());
+        assertEquals(TestCostants.TOTAL_DELTA_50, world.getRealWorld().getAlien().getPosY());
     }
 
     /**
-     * Verifies the promotion logic from the UpperWorld to RealWorld when a object enter in a specific limit.
+     * Verifies the promotion logic from the UpperWorld to RealWorld when a object
+     * enter in a specific limit.
      */
     @Test
     void testTransferFromUpperToReal() {
-        PlatformImpl platform = new PlatformImpl(new Vector2dImpl(200, -101), PLAT_W, PLAT_H, Optional.empty(), Optional.empty());
+        final PlatformImpl platform = new PlatformImpl(new Vector2dImpl(PLAT_X_200, PLAT_Y_101), PLAT_W, PLAT_H,
+                Optional.empty(),
+                Optional.empty());
         world.getUpperWorld().addStaticPlatform(platform);
         camera.update(0.5);
         assertFalse(world.getUpperWorld().getStaticPlatforms().isEmpty());
@@ -128,9 +145,11 @@ public class CameraTest {
      */
     @Test
     void testCleanRealWorld() {
-        PlatformImpl platform = new PlatformImpl(new Vector2dImpl(100, 590), PLAT_W, PLAT_H, Optional.empty(), Optional.empty());
+        final PlatformImpl platform = new PlatformImpl(new Vector2dImpl(PLAT_X_Y_100, PLAT_Y_OUT_OF_BOUNDS), PLAT_W, PLAT_H,
+                Optional.empty(),
+                Optional.empty());
         world.getRealWorld().addStaticPlatform(platform);
-        camera.update(20.0);
+        camera.update(DELTA_20);
         assertFalse(world.getRealWorld().getStaticPlatforms().contains(platform));
     }
 
