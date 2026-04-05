@@ -1,9 +1,9 @@
 package it.unibo.model.persistence.api;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * The entire game state to be saved.
@@ -32,14 +32,13 @@ public class SaveState {
      * @param selectedSpeedLevel a int containing the selected level of speed
      *                           power-up level.
      */
-    @SuppressFBWarnings({ "EI_EXPOSE_REP", "EI_EXPOSE_REP2" })
     public SaveState(final int coins, final int highestScore, final Set<String> ownedItems,
             final Map<String, Integer> consumables, final String selectedSkin, final int selectedJumpLevel,
             final int selectedSpeedLevel) {
         this.coins = coins;
         this.highestScore = highestScore;
-        this.ownedItems = ownedItems;
-        this.consumables = consumables;
+        this.ownedItems = new HashSet<>(ownedItems);
+        this.consumables = new HashMap<>(consumables);
         this.selectedSkin = selectedSkin;
         this.selectedJumpLevel = selectedJumpLevel;
         this.selectedSpeedLevel = selectedSpeedLevel;
@@ -62,17 +61,15 @@ public class SaveState {
     /**
      * @return a set of owned item IDs
      */
-    @SuppressFBWarnings({ "EI_EXPOSE_REP", "EI_EXPOSE_REP2" })
     public Set<String> getOwnedItems() {
-        return this.ownedItems;
+        return Set.copyOf(this.ownedItems);
     }
 
     /**
      * @return a map of consumable item IDs to their remaining matches
      */
-    @SuppressFBWarnings({ "EI_EXPOSE_REP", "EI_EXPOSE_REP2" })
     public Map<String, Integer> getConsumables() {
-        return this.consumables;
+        return Map.copyOf(this.consumables);
     }
 
     /**
