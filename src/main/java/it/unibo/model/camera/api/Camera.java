@@ -10,7 +10,7 @@ public interface Camera {
      */
     double getViewportWidth();
 
-    /** 
+    /**
      * @return the height of visible game area.
      */
     double getViewportHeight();

@@ -3,6 +3,7 @@ package it.unibo.model.camera.api;
 /**
  * Interface for objects that need to be notified about altitude changes.
  */
+@FunctionalInterface
 public interface AltitudeObserver {
 
     /**

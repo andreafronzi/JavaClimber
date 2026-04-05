@@ -3,6 +3,7 @@ package it.unibo.model.camera.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.camera.api.AltitudeObserver;
 import it.unibo.model.camera.api.AltitudeSubject;
 import it.unibo.model.gameobj.api.Alien;
@@ -11,6 +12,7 @@ import it.unibo.model.gameobj.api.Alien;
  * Manages the calculation of the player's altitude. Implements
  * {@link AltitudeSubject}.
  */
+@SuppressFBWarnings("EI_EXPOSE_REP")
 public class AltitudeManager implements AltitudeSubject {
 
     private final List<AltitudeObserver> observerList = new ArrayList<>();
