@@ -1,4 +1,4 @@
-package JavaClimber.shop;
+package javaclimber.shop;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -16,22 +16,24 @@ import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.shop.api.ShopItemFactory;
 import it.unibo.model.shop.impl.InventoryImpl;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
+import javaclimber.TestCostants;
 
 /**
  * Tests for {@link Inventory} interface.
  */
-public class InventoryTest {
-
-    private static final String DEFAULT_SKIN = "s_basic";
+class InventoryTest {
+    private static final int UNO = 1;
+    private static final int DUE = 2;
+    private static final int TRE = 3;
+    private static final int QUATTRO = 4;
     private Inventory inventory;
-    private ShopItemFactory factory;
 
     /**
      * Initializes inventory.
      */
     @BeforeEach
     void setUp() {
-        factory = new ShopItemFactoryImpl();
+        final ShopItemFactory factory = new ShopItemFactoryImpl();
         inventory = new InventoryImpl(factory);
     }
 
@@ -40,8 +42,8 @@ public class InventoryTest {
      */
     @Test
     void testInitialization() {
-        assertTrue(inventory.hasItem(DEFAULT_SKIN));
-        assertEquals(DEFAULT_SKIN, inventory.getSelectedSkin());
+        assertTrue(inventory.hasItem(TestCostants.ID_DEFAULT_SKIN));
+        assertEquals(TestCostants.ID_DEFAULT_SKIN, inventory.getSelectedSkin());
     }
 
     /**
@@ -49,27 +51,28 @@ public class InventoryTest {
      */
     @Test
     void testAddAndHasItems() {
-        inventory.addItem("s_astro");
-        assertTrue(inventory.hasItem("s_astro"));
-        assertFalse(inventory.hasItem("s_primitive"));
-        assertEquals(2, inventory.getOwnedItems().size());
+        inventory.addItem(TestCostants.ID_ASTRO_SKIN);
+        assertTrue(inventory.hasItem(TestCostants.ID_ASTRO_SKIN));
+        assertFalse(inventory.hasItem(TestCostants.ID_PRIMITIVE_SKIN));
+        assertEquals(DUE, inventory.getOwnedItems().size());
     }
 
     /**
-     * Tests equipment and deselection logic for skin item (manually and automatically).
+     * Tests equipment and deselection logic for skin item (manually and
+     * automatically).
      */
     @Test
     void testSkinEquipment() {
-        inventory.addItem("s_astro");
-        inventory.equipSkin("s_astro");
+        inventory.addItem(TestCostants.ID_ASTRO_SKIN);
+        inventory.equipSkin(TestCostants.ID_ASTRO_SKIN);
 
-        assertEquals("s_astro", inventory.getSelectedSkin());
+        assertEquals(TestCostants.ID_ASTRO_SKIN, inventory.getSelectedSkin());
 
         inventory.deselectSkin();
-        assertEquals(DEFAULT_SKIN, inventory.getSelectedSkin());
+        assertEquals(TestCostants.ID_DEFAULT_SKIN, inventory.getSelectedSkin());
 
-        inventory.addItem("s_sub");
-        assertEquals("s_sub", inventory.getSelectedSkin());
+        inventory.addItem(TestCostants.ID_SUB_SKIN);
+        assertEquals(TestCostants.ID_SUB_SKIN, inventory.getSelectedSkin());
     }
 
     /**
@@ -77,16 +80,17 @@ public class InventoryTest {
      */
     @Test
     void testConsumableAndDuration() {
-        inventory.addConsumable("pt_jump1", 2);
-        assertTrue(inventory.hasItem("pt_jump1"));
-        assertTrue(inventory.getActiveConsumables().contains("pt_jump1"));
-        
-        inventory.updateConsumables();
-        assertTrue(inventory.hasItem("pt_jump1"));
+        inventory.addConsumable(TestCostants.ID_JUMP_PT_1, TestCostants.DURATION_3);
+        assertTrue(inventory.hasItem(TestCostants.ID_JUMP_PT_1));
+        assertTrue(inventory.getActiveConsumables().contains(TestCostants.ID_JUMP_PT_1));
 
         inventory.updateConsumables();
-        assertFalse(inventory.hasItem("pt_jump1"));
-        assertFalse(inventory.getActiveConsumables().contains("pt_jump1"));
+        assertTrue(inventory.hasItem(TestCostants.ID_JUMP_PT_1));
+
+        inventory.updateConsumables();
+        inventory.updateConsumables();
+        assertFalse(inventory.hasItem(TestCostants.ID_JUMP_PT_1));
+        assertFalse(inventory.getActiveConsumables().contains(TestCostants.ID_JUMP_PT_1));
     }
 
     /**
@@ -94,21 +98,21 @@ public class InventoryTest {
      */
     @Test
     void testConsumableStatus() {
-        inventory.addConsumable("pt_jump1", 3);
-        inventory.addConsumable("pt_speed1", 5);
+        inventory.addConsumable(TestCostants.ID_JUMP_PT_1, TestCostants.DURATION_3);
+        inventory.addConsumable(TestCostants.ID_SPEED_PT_1, TestCostants.DURATION_5);
 
-        Map<String, Integer> status = inventory.getConsumablesStatus();
-        assertEquals(2, status.size());
-        assertEquals(3, status.get("pt_jump1"));
-        assertEquals(5, status.get("pt_speed1"));
+        final Map<String, Integer> status = inventory.getConsumablesStatus();
+        assertEquals(DUE, status.size());
+        assertEquals(TestCostants.DURATION_3, status.get(TestCostants.ID_JUMP_PT_1));
+        assertEquals(TestCostants.DURATION_5, status.get(TestCostants.ID_SPEED_PT_1));
 
         inventory.updateConsumables();
-        Map<String, Integer> updatedStatus = inventory.getConsumablesStatus();
-        assertEquals(2, updatedStatus.get("pt_jump1"));
-        assertEquals(4, updatedStatus.get("pt_speed1"));
+        final Map<String, Integer> updatedStatus = inventory.getConsumablesStatus();
+        assertEquals(TestCostants.DURATION_3 - UNO, updatedStatus.get(TestCostants.ID_JUMP_PT_1));
+        assertEquals(TestCostants.DURATION_5 - UNO, updatedStatus.get(TestCostants.ID_SPEED_PT_1));
 
         assertThrows(UnsupportedOperationException.class, () -> {
-            status.put("hacker_item", 999);
+            status.put("hacker_item", TestCostants.PRICE_300);
         }, "The map cannot be modified from outside");
     }
 
@@ -117,9 +121,9 @@ public class InventoryTest {
      */
     @Test
     void testPermanentPowerUp() {
-        String permUpgradeId = "pp_speed_1";
+        final String permUpgradeId = TestCostants.ID_SPEED_PP_1;
         inventory.addItem(permUpgradeId);
-        assertEquals(1, inventory.getSelectedSpeedLevel());
+        assertEquals(UNO, inventory.getSelectedSpeedLevel());
 
         for (int i = 0; i < 10; i++) {
             inventory.updateConsumables();
@@ -131,56 +135,57 @@ public class InventoryTest {
     /**
      * Tests that only one temporary power up for type can be active at same time.
      */
-    @Test 
+    @Test
     void testExclusiveTempPowerUp() {
-        inventory.addConsumable("pt_jump1", 3);
-        inventory.addConsumable("pt_speed1", 5);
-        inventory.addConsumable("pt_coin_1", 3);
+        inventory.addConsumable(TestCostants.ID_JUMP_PT_1, TestCostants.DURATION_3);
+        inventory.addConsumable(TestCostants.ID_SPEED_PT_1, TestCostants.DURATION_5);
+        inventory.addConsumable(TestCostants.ID_COIN_1, TestCostants.DURATION_5);
 
-        Set<String> active = inventory.getActiveConsumables();
-        assertEquals(3, active.size());
-        assertTrue(active.contains("pt_jump1"));
-        assertTrue(active.contains("pt_speed1"));
-        assertTrue(active.contains("pt_coin_1"));
+        final Set<String> active = inventory.getActiveConsumables();
+        assertEquals(TRE, active.size());
+        assertTrue(active.contains(TestCostants.ID_JUMP_PT_1));
+        assertTrue(active.contains(TestCostants.ID_SPEED_PT_1));
+        assertTrue(active.contains(TestCostants.ID_COIN_1));
 
-        inventory.addConsumable("pt_jump2", 5);
-        Set<String> newActive = inventory.getActiveConsumables();
-        assertTrue(newActive.contains("pt_jump2"));
-        assertFalse(newActive.contains("pt_jump1"));
-        assertTrue(active.contains("pt_speed1"));
-        assertTrue(active.contains("pt_coin_1"));
+        inventory.addConsumable(TestCostants.ID_JUMP_PT_2, TestCostants.DURATION_5);
+        final Set<String> newActive = inventory.getActiveConsumables();
+        assertTrue(newActive.contains(TestCostants.ID_JUMP_PT_2));
+        assertFalse(newActive.contains(TestCostants.ID_JUMP_PT_1));
+        assertTrue(active.contains(TestCostants.ID_SPEED_PT_1));
+        assertTrue(active.contains(TestCostants.ID_COIN_1));
     }
 
     /**
      * Tests the wallet operations of inventory: add, spend and set total coins.
      */
     @Test
-    void testWalletOperations(){
-        assertEquals(0, inventory.getTotalCoins());
-        inventory.addCoins(500);
-        assertEquals(500, inventory.getTotalCoins());
-        assertTrue(inventory.spendCoins(200));
-        assertEquals(300, inventory.getTotalCoins());
-        assertFalse(inventory.spendCoins(400));
-        assertEquals(300, inventory.getTotalCoins());
-        assertFalse(inventory.spendCoins(-50));
-        assertEquals(300, inventory.getTotalCoins());
-        inventory.setTotalCoins(1000);
-        assertEquals(1000, inventory.getTotalCoins());
+    void testWalletOperations() {
+        assertEquals(TestCostants.ZERO, inventory.getTotalCoins());
+        inventory.addCoins(TestCostants.PRICE_300);
+        assertEquals(TestCostants.PRICE_300, inventory.getTotalCoins());
+        assertTrue(inventory.spendCoins(TestCostants.PRICE_100));
+        assertEquals(TestCostants.PRICE_200, inventory.getTotalCoins());
+        assertFalse(inventory.spendCoins(TestCostants.PRICE_300));
+        assertEquals(TestCostants.PRICE_200, inventory.getTotalCoins());
+        assertFalse(inventory.spendCoins(TestCostants.MINUS_PRICE_50));
+        assertEquals(TestCostants.PRICE_200, inventory.getTotalCoins());
+        inventory.setTotalCoins(TestCostants.PRICE_300);
+        assertEquals(TestCostants.PRICE_300, inventory.getTotalCoins());
     }
 
     @Test
     void testLoadSave() {
-        SaveState state = new SaveState(500, 0, Set.of("s_astro"), Map.of("pp_speed1", 0), "s_astro", 4, 2);
+        final SaveState state = new SaveState(TestCostants.PRICE_300, TestCostants.ZERO, Set.of(TestCostants.ID_ASTRO_SKIN),
+                Map.of(TestCostants.ID_SPEED_PP_1, TestCostants.ZERO), TestCostants.ID_ASTRO_SKIN, 4, 2);
         inventory.loadState(state);
 
-        assertEquals(500, inventory.getTotalCoins());
-        assertTrue(inventory.hasItem("s_astro"));
-        assertTrue(inventory.hasItem(DEFAULT_SKIN));
-        assertEquals("s_astro", inventory.getSelectedSkin());
-        assertTrue(inventory.getConsumablesStatus().containsKey("pp_speed1"));
-        assertEquals(4, inventory.getSelectedJumpLevel());
-        assertEquals(2, inventory.getSelectedSpeedLevel());
+        assertEquals(TestCostants.PRICE_300, inventory.getTotalCoins());
+        assertTrue(inventory.hasItem(TestCostants.ID_ASTRO_SKIN));
+        assertTrue(inventory.hasItem(TestCostants.ID_DEFAULT_SKIN));
+        assertEquals(TestCostants.ID_ASTRO_SKIN, inventory.getSelectedSkin());
+        assertTrue(inventory.getConsumablesStatus().containsKey(TestCostants.ID_SPEED_PP_1));
+        assertEquals(QUATTRO, inventory.getSelectedJumpLevel());
+        assertEquals(DUE, inventory.getSelectedSpeedLevel());
         assertTrue(inventory.getActiveConsumables().isEmpty());
     }
 

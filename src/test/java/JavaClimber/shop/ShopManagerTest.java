@@ -1,4 +1,4 @@
-package JavaClimber.shop;
+package javaclimber.shop;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,15 +15,17 @@ import it.unibo.model.shop.api.ShopManager;
 import it.unibo.model.shop.impl.InventoryImpl;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
 import it.unibo.model.shop.impl.ShopManagerImpl;
+import javaclimber.TestCostants;
 
 /**
  * Tests for {@link ScoreManager}.
  */
-public class ShopManagerTest {
-
-    private ShopItemFactory itemFactory = new ShopItemFactoryImpl();
-    private Inventory inventory = new InventoryImpl(itemFactory);
-    private ShopManager shopManager = new ShopManagerImpl(itemFactory, inventory);
+class ShopManagerTest {
+    private static final int PRICE_270 = 270;
+    private static final int PRICE_220 = 220;
+    private final ShopItemFactory itemFactory = new ShopItemFactoryImpl();
+    private final Inventory inventory = new InventoryImpl(itemFactory);
+    private final ShopManager shopManager = new ShopManagerImpl(itemFactory, inventory);
 
     /**
      * Tests a successfull skin purchase.
@@ -34,12 +36,12 @@ public class ShopManagerTest {
      */
     @Test
     void testSuccessfulSkinPurchase() {
-        inventory.addCoins(1000);
-        ShopItem skin = itemFactory.getItemById("s_astro").get();
+        inventory.addCoins(TestCostants.PRICE_300);
+        final ShopItem skin = itemFactory.getItemById(TestCostants.ID_ASTRO_SKIN).get();
         assertTrue(shopManager.buyItem(skin));
-        assertEquals(900, shopManager.getCoins());
+        assertEquals(TestCostants.PRICE_200, shopManager.getCoins());
         assertTrue(shopManager.isAlreadyOwned(skin));
-        assertEquals("s_astro", shopManager.getInventory().getSelectedSkin());
+        assertEquals(TestCostants.ID_ASTRO_SKIN, shopManager.getInventory().getSelectedSkin());
     }
 
     /**
@@ -48,13 +50,13 @@ public class ShopManagerTest {
      */
     @Test
     void testSuccessfulTemporaryPWRPurchase() {
-        inventory.addCoins(500);
-        ShopItem temp_pwr = itemFactory.getItemById("pt_jump1").get();
-        assertTrue(shopManager.buyItem(temp_pwr));
-        assertEquals(450, shopManager.getCoins());
-        Integer duration = shopManager.getInventory().getConsumablesStatus().get("pt_jump1");
+        inventory.addCoins(TestCostants.PRICE_300);
+        final ShopItem tempPwr = itemFactory.getItemById(TestCostants.ID_JUMP_PT_3).get();
+        assertTrue(shopManager.buyItem(tempPwr));
+        assertEquals(TestCostants.PRICE_200, shopManager.getCoins());
+        final Integer duration = shopManager.getInventory().getConsumablesStatus().get(TestCostants.ID_JUMP_PT_3);
         assertNotNull(duration);
-        assertEquals(3, duration);
+        assertEquals(TestCostants.DURATION_7, duration);
     }
 
     /**
@@ -67,33 +69,34 @@ public class ShopManagerTest {
      */
     @Test
     void testSuccessfulPermanentPWRPurchase() {
-        inventory.addCoins(1000);
-        ShopItem perm_pwr = itemFactory.getItemById("pp_speed_1").get();
-        assertTrue(shopManager.buyItem(perm_pwr));
-        assertEquals(700, shopManager.getCoins());
-        assertTrue(shopManager.isAlreadyOwned(perm_pwr));
-        assertTrue(shopManager.getInventory().getOwnedItems().contains("pp_speed_1"));
-        assertFalse(shopManager.getInventory().getConsumablesStatus().containsKey("pp_speed_1"));
+        inventory.addCoins(TestCostants.PRICE_300);
+        final ShopItem permPwr = itemFactory.getItemById(TestCostants.ID_SPEED_PP_1).get();
+        assertTrue(shopManager.buyItem(permPwr));
+        assertEquals(PRICE_270, shopManager.getCoins());
+        assertTrue(shopManager.isAlreadyOwned(permPwr));
+        assertTrue(shopManager.getInventory().getOwnedItems().contains(TestCostants.ID_SPEED_PP_1));
+        assertFalse(shopManager.getInventory().getConsumablesStatus().containsKey(TestCostants.ID_SPEED_PP_1));
     }
 
     /**
      * Tests the correct sequential for permanent power up.
-     * Verifies that an higher level upgrade can't be purchased if the previus level isn't owned
+     * Verifies that an higher level upgrade can't be purchased if the previus level
+     * isn't owned
      */
     @Test
     void testSequentialPermanentUpgrade() {
-        inventory.addCoins(1000);
-        ShopItem speedLevel1 = itemFactory.getItemById("pp_speed_1").get();
-        ShopItem speedLevel2 = itemFactory.getItemById("pp_speed_2").get();
+        inventory.addCoins(TestCostants.PRICE_300);
+        final ShopItem speedLevel1 = itemFactory.getItemById(TestCostants.ID_SPEED_PP_1).get();
+        final ShopItem speedLevel2 = itemFactory.getItemById(TestCostants.ID_SPEED_PP_2).get();
 
         assertFalse(shopManager.canBuyItem(speedLevel2));
         assertFalse(shopManager.buyItem(speedLevel2));
 
         assertTrue(shopManager.buyItem(speedLevel1));
-        
+
         assertTrue(shopManager.canBuyItem(speedLevel2));
         assertTrue(shopManager.buyItem(speedLevel2));
-        assertEquals(200, shopManager.getCoins());
+        assertEquals(PRICE_220, shopManager.getCoins());
     }
 
     /**
@@ -102,10 +105,10 @@ public class ShopManagerTest {
      */
     @Test
     void testFailedPurchaseInsufficientCoins() {
-        inventory.addCoins(10);
-        ShopItem item = itemFactory.getItemById("s_astro").get();
+        inventory.addCoins(TestCostants.PRICE_30);
+        final ShopItem item = itemFactory.getItemById(TestCostants.ID_ASTRO_SKIN).get();
         assertFalse(shopManager.buyItem(item));
-        assertEquals(10, shopManager.getCoins());
+        assertEquals(TestCostants.PRICE_30, shopManager.getCoins());
         assertFalse(shopManager.isAlreadyOwned(item));
     }
 
@@ -115,10 +118,10 @@ public class ShopManagerTest {
      */
     @Test
     void testCannotBuySkinTwice() {
-        inventory.addCoins(100);
-        ShopItem item = itemFactory.getItemById("s_sub").get();
+        inventory.addCoins(TestCostants.PRICE_100);
+        final ShopItem item = itemFactory.getItemById(TestCostants.ID_SUB_SKIN).get();
         assertTrue(shopManager.buyItem(item));
-        
+
         assertFalse(shopManager.canBuyItem(item));
         assertFalse(shopManager.buyItem(item));
     }
