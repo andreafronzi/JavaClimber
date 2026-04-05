@@ -1,4 +1,4 @@
-package JavaClimber.persistence;
+package javaclimber.persistence;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -14,23 +14,27 @@ import org.junit.jupiter.api.Test;
 import it.unibo.model.persistence.api.SaveManager;
 import it.unibo.model.persistence.api.SaveState;
 import it.unibo.model.persistence.impl.SaveManagerImpl;
+import javaclimber.TestCostants;
 
 /**
  * Tests for {@link SaveManager}.
  */
-public class SaveManagerTest {
+class SaveManagerTest {
 
     private static final String TEST_FILE = "test_save.json";
-    private SaveManager saveManager = new SaveManagerImpl(TEST_FILE);
+    private final SaveManager saveManager = new SaveManagerImpl(TEST_FILE);
 
     /**
      * After tests delete the file if exist.
      */
     @AfterEach
     void tearDown() {
-        File file = new File(TEST_FILE);
+        final File file = new File(TEST_FILE);
         if (file.exists()) {
-            file.delete();
+            final boolean isDeleted = file.delete();
+            if (!isDeleted) {
+                file.deleteOnExit();
+            }
         }
     }
 
@@ -38,8 +42,10 @@ public class SaveManagerTest {
      * Tests for saving, loading and check the correction of data.
      */
     @Test
-    void testSaveAndLoad(){
-        final SaveState originalState = new SaveState(1500, 5000, Set.of("s_basic", "s_astro"), Map.of("pt_jump1",3), "s_atro", 2, 1);
+    void testSaveAndLoad() {
+        final SaveState originalState = new SaveState(TestCostants.COINS_1500, TestCostants.HIGHEST_SCORE_5000,
+                Set.of("s_basic", "s_astro"), Map.of("pt_jump1", 3),
+                "s_atro", 2, 1);
         saveManager.save(originalState);
 
         final Optional<SaveState> loadedState = saveManager.load();
