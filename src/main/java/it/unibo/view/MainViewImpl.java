@@ -6,28 +6,46 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import it.unibo.controller.api.*;
+import it.unibo.controller.api.EndController;
+import it.unibo.controller.api.GameLaunchedController;
+import it.unibo.controller.api.GameLaunchedInputController;
+import it.unibo.controller.api.InventoryController;
+import it.unibo.controller.api.MenuController;
+import it.unibo.controller.api.PauseController;
+import it.unibo.controller.api.ShopController;
 import it.unibo.view.GameLaunchedView.impl.GameLaunchedViewPanelImpl;
 import it.unibo.view.inventory.impl.InventoryViewImpl;
 import it.unibo.view.menu.impl.MenuViewImpl;
 import it.unibo.view.shop.impl.ShopViewImpl;
 
+/**
+ * Implementation of {@link MainView} interface.
+ */
 public class MainViewImpl implements MainView {
 
     public static final int DECREASE_SCREEN_SIZE = 2;
+    private static final int DEFAULT_WIDTH = 800;
+    private static final int DEFAULT_HEIGHT = 800;
 
     private final JFrame frame;
     private JPanel currentPanel;
 
+    /**
+     * Construct a MainViewImpl.
+     */
     public MainViewImpl() {
         this.frame = new JFrame("Java Climber");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(600, 800);
+        this.frame.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         // this.setWindowSize();
         this.frame.setLocationRelativeTo(null);
         this.frame.setVisible(true);
     }
 
+    /**
+     * Switch the current panel to the new panel.
+     * @param newPanel the new panel to be displayed
+     */
     private void switchPanel(final JPanel newPanel) {
         if (currentPanel != null) {
             frame.remove(currentPanel);
@@ -46,6 +64,9 @@ public class MainViewImpl implements MainView {
         this.frame.setSize(width, height);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setMenuView(final MenuController menuController) {
         final MenuViewImpl menuView = new MenuViewImpl(menuController);
@@ -53,6 +74,9 @@ public class MainViewImpl implements MainView {
         switchPanel(menuView);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setGameLaunchedView(final GameLaunchedController gameLaunchedController,
             final GameLaunchedInputController gameLaunchedInputController) {
@@ -66,6 +90,9 @@ public class MainViewImpl implements MainView {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setInventoryView(final InventoryController inventoryController) {
         final InventoryViewImpl inventoryView = new InventoryViewImpl(inventoryController);
@@ -73,6 +100,9 @@ public class MainViewImpl implements MainView {
         switchPanel(inventoryView);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setShopView(final ShopController shopController) {
         final ShopViewImpl shopView = new ShopViewImpl(shopController);
@@ -80,12 +110,18 @@ public class MainViewImpl implements MainView {
         switchPanel(shopView);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setEndView(final EndController endController) {
         final EndViewImpl endView = new EndViewImpl(endController);
         switchPanel(endView);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPauseView(final PauseController pauseController) {
         final PauseViewImpl pauseView = new PauseViewImpl(pauseController);

@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,24 +22,27 @@ import java.awt.image.BufferedImage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import it.unibo.controller.api.MenuController;
-import it.unibo.model.persistence.impl.SaveManagerImpl;
+import it.unibo.view.ViewConstants;
 import it.unibo.view.menu.api.MenuView;
 
 /**
  * Implementation of {@link MenuView} interface.
  */
+@SuppressFBWarnings("EI_EXPOSE_REP")
 public final class MenuViewImpl extends JPanel implements MenuView {
 
-    private static final Logger LOGGER = Logger.getLogger(SaveManagerImpl.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(MenuViewImpl.class.getName());
     private static final long serialVersionUID = 1L;
     private static final int BUTTON_WIDTH = 300;
     private static final int BUTTON_HEIGHT = 60;
-    private static final int SPACING = 20;
-    private final MenuController controller;
-    private BufferedImage backgroundImage;
+    private static final int TITLE_SIZE = 70;
+    private static final int HIGHSCORE_LABEL_SIZE = 22;
+    private final transient MenuController controller;
+    private transient BufferedImage backgroundImage;
     private JButton highScoreLabel;
 
     /**
@@ -77,7 +82,7 @@ public final class MenuViewImpl extends JPanel implements MenuView {
         buttonPanel.setOpaque(false);
 
         final JLabel titleLabel = new JLabel("JAVA CLIMBER", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Ink Free", Font.BOLD, 70));
+        titleLabel.setFont(new Font("Ink Free", Font.BOLD, TITLE_SIZE));
         titleLabel.setForeground(Color.RED);
         titleLabel.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -94,7 +99,7 @@ public final class MenuViewImpl extends JPanel implements MenuView {
         this.highScoreLabel.setAlignmentX(CENTER_ALIGNMENT);
         this.highScoreLabel.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         this.highScoreLabel.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
-        this.highScoreLabel.setFont(new Font("Arial", Font.PLAIN, 22));
+        this.highScoreLabel.setFont(new Font("Arial", Font.PLAIN, HIGHSCORE_LABEL_SIZE));
         this.highScoreLabel.setBackground(Color.WHITE);
         this.highScoreLabel.setFocusable(false);
         this.highScoreLabel.setRolloverEnabled(false);
@@ -108,16 +113,16 @@ public final class MenuViewImpl extends JPanel implements MenuView {
 
         buttonPanel.add(Box.createVerticalGlue());
         buttonPanel.add(titleLabel);
-        buttonPanel.add(Box.createVerticalStrut(30));
+        buttonPanel.add(Box.createVerticalStrut(ViewConstants.SPACING_30));
 
         buttonPanel.add(btnStart);
-        buttonPanel.add(Box.createVerticalStrut(SPACING));
+        buttonPanel.add(Box.createVerticalStrut(ViewConstants.SPACING_20));
         buttonPanel.add(this.highScoreLabel);
-        buttonPanel.add(Box.createVerticalStrut(SPACING));
+        buttonPanel.add(Box.createVerticalStrut(ViewConstants.SPACING_20));
         buttonPanel.add(btnShop);
-        buttonPanel.add(Box.createVerticalStrut(SPACING));
+        buttonPanel.add(Box.createVerticalStrut(ViewConstants.SPACING_20));
         buttonPanel.add(btnInventory);
-        buttonPanel.add(Box.createVerticalStrut(SPACING));
+        buttonPanel.add(Box.createVerticalStrut(ViewConstants.SPACING_20));
         buttonPanel.add(btnExit);
         buttonPanel.add(Box.createVerticalGlue());
 
@@ -142,7 +147,7 @@ public final class MenuViewImpl extends JPanel implements MenuView {
         button.setAlignmentX(CENTER_ALIGNMENT);
         button.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         button.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
-        button.setFont(new Font("Arial", Font.PLAIN, 24));
+        button.setFont(new Font("Arial", Font.PLAIN, ViewConstants.FONT_TITLE_SIZE));
         button.setFocusPainted(false);
         return button;
     }
