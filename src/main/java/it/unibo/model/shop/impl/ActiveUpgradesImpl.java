@@ -1,5 +1,6 @@
 package it.unibo.model.shop.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.shop.api.ShopItemFactory;
@@ -7,6 +8,7 @@ import it.unibo.model.shop.api.ShopItemFactory;
 /**
  * Implementation of {@link ActiveUpgrades}.
  */
+@SuppressFBWarnings("EI_EXPOSE_REP")
 public class ActiveUpgradesImpl implements ActiveUpgrades {
 
     private static final String PREFIX_SPEED = "pp_speed_";
