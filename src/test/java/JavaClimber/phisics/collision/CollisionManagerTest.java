@@ -1,4 +1,4 @@
-package JavaClimber.phisics.collision;
+package javaclimber.phisics.collision;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 

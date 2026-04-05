@@ -1,4 +1,4 @@
-package JavaClimber.state;
+package javaclimber.state;
 
 public class launchedGameTest {
     

@@ -1,4 +1,4 @@
-package JavaClimber.worldConstructor.worldGenerator;
+package javaclimber.worldConstructor.worldGenerator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
