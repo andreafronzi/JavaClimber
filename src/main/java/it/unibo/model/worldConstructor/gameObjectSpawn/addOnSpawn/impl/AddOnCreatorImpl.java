@@ -9,19 +9,40 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.AddOnCreat
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.AddOnPool;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Pair;
 
+/**
+ * Implementation of the {@link AddOnCreator} interface.
+ */
 public class AddOnCreatorImpl implements AddOnCreator {
 
+    /**
+     * The add-on pool is a list of pairs, where the first element is a double
+     * representing the chance of spawning an add-on, and the second element is a
+     * BiConsumer.
+     */
     private List<Pair<Double, BiConsumer<Double, Platform>>> addOnPool;
+
+    /**
+     * Random number generator to determine which add-on to spawn based on the
+     * given chance.
+     */
     private final Random random;
 
+    /**
+     * Constructs an AddOnCreatorImpl with the given add-on pool.
+     *
+     * @param addOnPool the add-on pool to use for creating add-ons.
+     */
     public AddOnCreatorImpl(final AddOnPool addOnPool) {
         this.addOnPool = addOnPool.getAddOnPool();
         this.random = new Random();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void selectAddOn(final Double chance, final Platform platform) {
-        for (var addOn : addOnPool) {
+        for (final var addOn : addOnPool) {
             if (chance <= addOn.getX()) {
                 addOn.getY().accept(random.nextDouble(1.0), platform);
                 break;
@@ -29,9 +50,12 @@ public class AddOnCreatorImpl implements AddOnCreator {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setAddOnPool(final AddOnPool addOnPool) {
         this.addOnPool = addOnPool.getAddOnPool();
     }
-   
+
 }
