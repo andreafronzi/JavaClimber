@@ -1,6 +1,10 @@
 package it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl;
 
-public class GameObjDimension {
+/**
+ * This class contains the dimensions of the game objects.
+ */
+public final class GameObjDimension {
+
     public static final double ALIEN_WIDTH = 100;
     public static final double ALIEN_HEIGHT = 100;
 
@@ -9,7 +13,7 @@ public class GameObjDimension {
 
     public static final double ENEMY_WIDTH = 30;
     public static final double ENEMY_HEIGHT = 30;
-    
+
     public static final double ELYCAP_WIDTH = 30;
     public static final double ELYCAP_HEIGHT = 30;
 
@@ -26,4 +30,8 @@ public class GameObjDimension {
 
     public static final double HARD_PLATFORM_WIDTH = 30;
     public static final double HARD_PLATFORM_HEIGHT = 10;
+
+
+    private GameObjDimension() {
+    }
 }
