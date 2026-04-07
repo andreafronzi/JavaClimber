@@ -11,12 +11,11 @@ public interface AddOnPositionSetter {
     /**
      * Generates a position for an add-on.
      * 
-     * @param platformPosX  the X position of the platform
-     * @param platformPosY  the Y position of the platform
-     * @param platformWidth the width of the platform
-     * @param addOnHeight   the height of the add-on
-     * @param addOnWidth    the width of the add-on
-     * @return the calculated position for the add-on
+     * @param addOn The add-on for which to generate the position.
+     * @param platformWidth The width of the platform on which the add-on will be placed
+     * @param <X> The type of the add-on.
+     * 
+     * @return The add-on with its position set according to the platform width.
      */
-    public <X extends GameObject> X generatePosition(X addOn, double platformWidth);
+    <X extends GameObject> X generatePosition(X addOn, double platformWidth);
 }
