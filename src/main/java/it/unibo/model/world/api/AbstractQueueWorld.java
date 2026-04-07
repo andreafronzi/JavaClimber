@@ -12,7 +12,12 @@ import it.unibo.model.gameObj.api.Platform;
  */
 public abstract class AbstractQueueWorld extends AbstractWorldContainer implements QueueWorld {
 
-    public AbstractQueueWorld(BoundWorld boundWorld) {
+    /**
+     * Constructs an AbstractQueueWorld.
+     *
+     * @param boundWorld the BoundWorld to be used for this world
+     */
+    public AbstractQueueWorld(final BoundWorld boundWorld) {
         super(boundWorld);
     }
 
