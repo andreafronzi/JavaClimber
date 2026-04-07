@@ -14,15 +14,27 @@ import it.unibo.model.gameObj.api.Platform;
 public interface QueueWorld extends BaseWorld {
 
     /**
-     * Removes and returns the first platform available in the queue.
+     * Removes and returns the first static platform available in the queue.
      *
      * @return an {@link Optional} containing the removed platform if present,
      *         or an empty Optional if the queue is empty.
      */
     Optional<Platform> removeFirstStaticPlatform();
 
+    /**
+     * Removes and returns the first moving platform available in the queue.
+     *
+     * @return an {@link Optional} containing the removed platform if present,
+     *         or an empty Optional if the queue is empty.
+     */
     Optional<Platform> removeFirstMovingPlatform();
 
+    /**
+     * Removes and returns the first on-touch platform available in the queue.
+     *
+     * @return an {@link Optional} containing the removed platform if present,
+     *         or an empty Optional if the queue is empty.
+     */
     Optional<Platform> removeFirstOnTouchPlatform();
 
     /**
