@@ -7,21 +7,21 @@ import it.unibo.model.worldConstructor.data.Difficult;
  * Manages observers and notifies them of changes.
  */
 public interface Subject {
-    
+
     /**
      * Registers an observer to receive updates.
      * 
      * @param o the observer to register
      */
     void registerObserver(Observer o);
-    
+
     /**
      * Removes an observer from the notification list.
      * 
      * @param o the observer to remove
      */
     void removeObserver(Observer o);
-    
+
     /**
      * Notifies all registered observers of a difficulty change.
      * 
