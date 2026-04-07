@@ -26,6 +26,7 @@ public class RealWorld extends AbstractGameWorld {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Alien getAlien() {
         return this.alien;
     }
