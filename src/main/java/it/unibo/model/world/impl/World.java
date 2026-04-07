@@ -8,8 +8,15 @@ import it.unibo.model.world.api.QueueWorld;
  * It combines an "upper world" (queue of upcoming entities) and a "real world" (active entities).
  */
 public class World {
-    
+
+    /**
+     * The queue-based world for upcoming entities.
+     */
     private final QueueWorld upperWorld;
+
+    /**
+     * The active game world.
+     */
     private final GameWorld realWorld;
 
     /**
@@ -22,7 +29,7 @@ public class World {
         this.upperWorld = upperWorld;
         this.realWorld = realWorld;
     }
-    
+
     /**
      * Returns the upper world.
      * 
