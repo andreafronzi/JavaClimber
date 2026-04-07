@@ -8,7 +8,7 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.AddOnPosit
  * Implementation of AddOnPositionGenerator.
  * Calculates position for add-ons relative to their host platform.
  */
-public class AddOnPositionSetterImpl implements AddOnPositionSetter{
+public class AddOnPositionSetterImpl implements AddOnPositionSetter {
 
     /**
      * {@inheritDoc}
@@ -22,7 +22,9 @@ public class AddOnPositionSetterImpl implements AddOnPositionSetter{
     }
 
     private <X extends GameObject> double generatePosX(final X addOn, final double platformWidth) {
-        return addOn.getPosX() + (platformWidth / 2) - (addOn.getWidth() / 2); // posizione iniziale della piattaforma + meta larghezza della piattaforma - meta larghezza dell'add-on
+        return addOn.getPosX() + (platformWidth / 2) - (addOn.getWidth() / 2);
+        // posizione iniziale della piattaforma + meta larghezza della piattaforma -
+        // meta larghezza dell'add-on
     }
 
     private <X extends GameObject> double generatePosY(final X addOn, final double platformPosY) {
