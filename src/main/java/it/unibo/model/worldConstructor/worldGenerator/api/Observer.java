@@ -7,7 +7,7 @@ import it.unibo.model.worldConstructor.data.Difficult;
  * Implementing classes can receive updates about changes in difficulty.
  */
 public interface Observer {
-    
+
     /**
      * Called when the subject updates the difficulty.
      * 
