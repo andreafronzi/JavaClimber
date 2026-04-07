@@ -1,12 +1,13 @@
 package it.unibo.model.LaunchedGame.impl;
 
-import it.unibo.model.LaunchedGame.api.*;
+import it.unibo.model.LaunchedGame.api.AbstractLaunchedState;
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 
 /**
  * Represents the final state of a game session.
  * Handles end-game logic like saving scores or returning to menu.
  */
-public class EndState extends BaseLaunchedState {
+public class EndState extends AbstractLaunchedState {
 
     /**
      * Constructs a new EndState.
@@ -19,12 +20,11 @@ public class EndState extends BaseLaunchedState {
 
     /**
      * {@inheritDoc}
-     * Performs end-game operations.
      */
     @Override
     public void onEnter() {
         this.launchedGame.setRunning(false);
-        int collectedCoins = this.launchedGame.getMenu().getScoreManager().getCoins();
+        final int collectedCoins = this.launchedGame.getMenu().getScoreManager().getCoins();
         this.launchedGame.getMenu().getInventory().addCoins(collectedCoins);
         this.launchedGame.getMenu().getInventory().updateConsumables();
         this.launchedGame.getMenu().getMainController().openEndView();
