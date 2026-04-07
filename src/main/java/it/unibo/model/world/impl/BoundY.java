@@ -7,5 +7,4 @@ package it.unibo.model.world.impl;
  * @param maxY the maximum Y coordinate
  */
 public record BoundY(double minY, double maxY) {
-    
 }
