@@ -97,9 +97,24 @@ public interface GameLaunchedController {
    */
   void runGame();
 
+  /**
+   * Set the panel for the game.
+   * 
+   * @param panel the panel for the game
+   */
   void setPanel(JPanel panel);
 
+  /**
+   * Return the current score of the player.
+   * 
+   * @return the current score of the player
+   */
   int getCurrentScore();
 
+  /**
+   * Return the number of coins collected by the player.
+   * 
+   * @return the number of coins collected by the player
+   */
   int getCollectedCoins();
 }
