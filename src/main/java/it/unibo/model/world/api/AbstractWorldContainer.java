@@ -14,16 +14,46 @@ import it.unibo.model.gameObj.api.Platform;
  */
 public abstract class AbstractWorldContainer implements BaseWorld {
 
+    /**
+     * Represents the list of static platforms in the world.
+     */
     protected final List<Platform> staticPlatforms;
+
+    /**
+     * Represents the list of moving platforms in the world.
+     */
     protected final List<Platform> movingPlatforms;
+
+    /**
+     * Represents the list of on-touch platforms in the world.
+     */
     protected final List<Platform> onTouchPlatforms;
+
+    /**
+     * Represents the list of coins in the world.
+     */
     protected final List<Coin> moneys;
+
+    /**
+     * Represents the list of enemies in the world.
+     */
     protected final List<Enemy> monsters;
+
+    /**
+     * Represents the list of static platforms in the world.
+     */
     protected final List<Gadget> gadgets;
+
+    /**
+     * Represents the list of static platforms in the world.
+     */
     protected final BoundWorld boundWorld;
 
     /**
-     * Constructs a new AbstractWorldContainer with empty entity lists.
+     * Constructs a new AbstractWorldContainer.
+     * 
+     * @param boundWorld the BoundWorld instance associated with this world
+     *                   container
      */
     public AbstractWorldContainer(final BoundWorld boundWorld) {
         this.staticPlatforms = new LinkedList<>();
@@ -67,13 +97,19 @@ public abstract class AbstractWorldContainer implements BaseWorld {
         return this.staticPlatforms.add(platform);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean addMovingPlatform(Platform platform) {
+    public boolean addMovingPlatform(final Platform platform) {
         return this.movingPlatforms.add(platform);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean addOnTouchPlatform(Platform platform) {
+    public boolean addOnTouchPlatform(final Platform platform) {
         return this.onTouchPlatforms.add(platform);
     }
 
@@ -101,21 +137,34 @@ public abstract class AbstractWorldContainer implements BaseWorld {
         return this.monsters;
     }
 
-        @Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<Platform> getStaticPlatforms() {
         return this.staticPlatforms;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Platform> getMovingPlatforms() {
         return this.movingPlatforms;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Platform> getOnTouchPlatforms() {
         return this.onTouchPlatforms;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public BoundWorld getBoundWorld() {
         return this.boundWorld;
     }
