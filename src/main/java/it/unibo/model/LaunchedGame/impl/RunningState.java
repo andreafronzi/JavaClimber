@@ -1,6 +1,7 @@
 package it.unibo.model.LaunchedGame.impl;
 
-import it.unibo.model.LaunchedGame.api.*;
+import it.unibo.model.LaunchedGame.api.AbstractLaunchedState;
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.camera.impl.AltitudeManager;
 import it.unibo.model.physics.collision.api.CollisionManager;
 import it.unibo.model.score.api.ScoreManager;
@@ -10,17 +11,37 @@ import it.unibo.model.world.impl.World;
  * Represents the state where the game is actively being played.
  * Handles the core gameplay logic.
  */
-public class RunningState extends BaseLaunchedState {
+public class RunningState extends AbstractLaunchedState {
 
+    /**
+     * The world instance representing the game environment.
+     */
     private final World world;
+
+    /**
+     * The collision manager responsible for handling collisions in the game.
+     */
     private final CollisionManager collisionManager;
+
+    /**
+     * The altitude manager responsible for tracking the player's altitude.
+     */
     private final AltitudeManager altitudeManager;
-    private final ScoreManager scoreManager;   
+
+    /**
+     * The score manager responsible for tracking and updating the player's score.
+     */
+    private final ScoreManager scoreManager;
 
     /**
      * Constructs a new RunningState.
      * 
-     * @param launchedGame the game context
+     * @param launchedGame     the game context.
+     * @param world            the world instance for the game.
+     * @param collisionManager the collision manager for handling collisions.
+     * @param altitudeManager  the altitude manager for tracking altitude.
+     * @param scoreManager     the score manager for tracking and updating the
+     *                         score.
      */
     public RunningState(final LaunchedGame launchedGame, final World world, final CollisionManager collisionManager,
             final AltitudeManager altitudeManager, final ScoreManager scoreManager) {
@@ -31,6 +52,9 @@ public class RunningState extends BaseLaunchedState {
         this.scoreManager = scoreManager;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onEnter() {
         this.launchedGame.setRunning(true);
@@ -38,12 +62,12 @@ public class RunningState extends BaseLaunchedState {
 
     /**
      * {@inheritDoc}
-     * Executes the gameplay logic.
      */
     @Override
     public void execute(final double dt) {
         world.getRealWorld().getAlien().updatePosition(dt, world.getRealWorld().getBoundWorld(), this.launchedGame);
-        world.getRealWorld().getMovingPlatforms().forEach(p -> p.updatePosition(dt, world.getRealWorld().getBoundWorld().getBoundX()));
+        world.getRealWorld().getMovingPlatforms()
+                .forEach(p -> p.updatePosition(dt, world.getRealWorld().getBoundWorld().getBoundX()));
         collisionManager.detectCollisions(world.getRealWorld(), this.launchedGame);
         scoreManager.updateScore(world.getRealWorld().getAlien().getPosY());
         altitudeManager.verifiedAltitude();
