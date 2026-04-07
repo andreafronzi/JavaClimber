@@ -1,9 +1,18 @@
 package it.unibo.view;
 
+/**
+ * Interface representing the pause screen of the game.
+ */
 public interface PauseView {
-    
-    public void resume();
 
-    public void menu();
-    
+    /**
+     * Return on the game.
+     */
+    void resume();
+
+    /**
+     * Return to the menu.
+     */
+    void menu();
+
 }
