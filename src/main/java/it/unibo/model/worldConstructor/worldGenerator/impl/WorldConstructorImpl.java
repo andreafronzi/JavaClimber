@@ -14,9 +14,7 @@ import it.unibo.model.world.api.QueueWorld;
 import it.unibo.model.worldConstructor.data.Difficult;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.AddOnCreator;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnCreatorImpl;
-import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPool;
 import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPoolCreator;
-import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolCreatorImpl;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.PlatformCreator;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.PlatformPositionGenerator;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformCreatorImpl;
@@ -30,23 +28,64 @@ import it.unibo.model.worldConstructor.worldGenerator.api.WorldConstructor;
  * gadgets)
  * based on the current difficulty.
  */
-public class WorldConstructorImpl implements WorldConstructor, Observer{
+public class WorldConstructorImpl implements WorldConstructor, Observer {
 
+  /**
+   * The current difficulty configuration.
+   */
   private Difficult difficult;
+
+  /**
+   * Generators and creators for platforms positions.
+   */
   private final PlatformPositionGenerator platformPositionGenerator;
+
+  /**
+   * Creators for platforms.
+   */
   private final PlatformCreator platformCreator;
+
+  /**
+   * Creator for add-ons.
+   */
   private final AddOnCreator addOnCreator;
+
+  /**
+   * Random number generator for generating random values.
+   */
   private final Random random;
+
+  /**
+   * The boundary of the game world.
+   */
   private final BoundWorld bound;
+
+  /**
+   * The position of the last created platform.
+   */
   private Vector2d lastPlatformPos;
+
+  /**
+   * The last static platform created, used to determine where to place add-ons.
+   */
   private Optional<Platform> lastStaticPlatform;
+
+  /**
+   * The creator for spawn pools, used to generate game objects.
+   */
   private final SpawnPoolCreator spawnPoolCreator;
+
+  /**
+   * The game world to be filled with platforms and add-ons.
+   */
   private final QueueWorld world;
 
   /**
    * Constructs a new WorldConstructorImpl.
    *
-   * @param difficult the initial difficulty configuration
+   * @param world the game world to be filled with platforms and add-ons.
+   * @param difficult the initial difficulty configuration.
+   * @param spawnPoolCreator the creator for spawn pools, used to generate game objects.
    */
   public WorldConstructorImpl(final QueueWorld world, final Difficult difficult,
       final SpawnPoolCreator spawnPoolCreator) {
@@ -55,8 +94,8 @@ public class WorldConstructorImpl implements WorldConstructor, Observer{
     this.difficult = difficult;
     this.random = new Random();
     this.bound = world.getBoundWorld();
-    var pos = new Vector2dImpl(bound.getBoundX().x1() / 2, bound.getBoundY().maxY() - 100);
-    var firstPlatform = new PlatformImpl(pos, difficult.platformPool().getWidth(),
+    final var pos = new Vector2dImpl(bound.getBoundX().x1() / 2, bound.getBoundY().maxY() - 100);
+    final var firstPlatform = new PlatformImpl(pos, difficult.platformPool().getWidth(),
         difficult.platformPool().getHeight(), Optional.empty(), Optional.empty());
     world.addStaticPlatform(firstPlatform);
     this.lastPlatformPos = pos;
@@ -78,13 +117,13 @@ public class WorldConstructorImpl implements WorldConstructor, Observer{
   }
 
   private void createPlatform() {
-    double chance = random.nextDouble(1.0);
-    double chanceAddOn = random.nextDouble(1.0);
-    Vector2d pos = platformPositionGenerator.generatePosition(difficult.platformPool().getWidth(),
+    final double chance = random.nextDouble(1.0);
+    final double chanceAddOn = random.nextDouble(1.0);
+    final Vector2d pos = platformPositionGenerator.generatePosition(difficult.platformPool().getWidth(),
         difficult.platformPool().getHeight(), lastPlatformPos);
     this.platformCreator.createPlatform(chance, pos);
     this.lastPlatformPos = pos;
-    if(!world.getStaticPlatforms().isEmpty()) {
+    if (!world.getStaticPlatforms().isEmpty()) {
       this.lastStaticPlatform = Optional.of(world.getStaticPlatforms().getLast());
     } else {
       this.lastStaticPlatform = Optional.empty();
@@ -97,7 +136,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer{
   }
 
   private void createAddOn() {
-    double chance = random.nextDouble(1.0);
+    final double chance = random.nextDouble(1.0);
     addOnCreator.selectAddOn(chance, lastStaticPlatform.get());
   }
 
@@ -105,16 +144,16 @@ public class WorldConstructorImpl implements WorldConstructor, Observer{
    * {@inheritDoc}
    */
   @Override
-  public void update(Difficult difficult) {
-    this.platformPositionGenerator.setDistance(difficult.distance());
-    this.spawnPoolCreator.setSpawnPool(difficult.spawnPool());
-    this.platformCreator.setPlatformPool(difficult.platformPool());
-    this.addOnCreator.setAddOnPool(difficult.addOnPool());
-    this.difficult = difficult;
+  public void update(final Difficult dif) {
+    this.platformPositionGenerator.setDistance(dif.distance());
+    this.spawnPoolCreator.setSpawnPool(dif.spawnPool());
+    this.platformCreator.setPlatformPool(dif.platformPool());
+    this.addOnCreator.setAddOnPool(dif.addOnPool());
+    this.difficult = dif;
   }
 
-  Vector2d getLastPlatformPos() {
-    List<Platform> platforms = new LinkedList<>();
+  private Vector2d getLastPlatformPos() {
+    final List<Platform> platforms = new LinkedList<>();
     Vector2d pos = new Vector2dImpl(0, 0);
     if (!world.getStaticPlatforms().isEmpty()) {
       platforms.add(world.getStaticPlatforms().getLast());
@@ -130,7 +169,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer{
       return new Vector2dImpl(bound.getBoundX().x1() / 2, bound.getBoundY().maxY());
     }
     pos = new Vector2dImpl(platforms.getFirst().getPosX(), platforms.getFirst().getPosY());
-    for (Platform p : platforms) {
+    for (final Platform p : platforms) {
       if (p.getPosY() < pos.getY()) {
         pos = new Vector2dImpl(p.getPosX(), p.getPosY());
       }
