@@ -33,6 +33,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
 
   private static final long FRAME_TIME_MS = 16;
   private static final long DIVIDER = 1_000_000_000;
+  private static final long DIVIDER_MS = 1_000_000;
 
   /**
    * The {@link Inventory} which provide the active skin and receive the command
@@ -181,7 +182,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
         final long currentCycleStartTime = System.nanoTime();
         final long elapsedNanos = currentCycleStartTime - previousCycleStartTime;
 
-        final double dt = elapsedNanos / DIVIDER;
+        final double dt = (double) elapsedNanos / DIVIDER;
 
         previousCycleStartTime = currentCycleStartTime;
 
@@ -202,7 +203,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
   }
 
   private void waitForNextFrame(final long currentCycleStartTimeNano) {
-    final long elapsedTimeMs = (System.nanoTime() - currentCycleStartTimeNano) / DIVIDER;
+    final long elapsedTimeMs = (System.nanoTime() - currentCycleStartTimeNano) / DIVIDER_MS;
 
     final long sleepTime = FRAME_TIME_MS - elapsedTimeMs;
 
