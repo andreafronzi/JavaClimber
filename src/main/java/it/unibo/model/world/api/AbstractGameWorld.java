@@ -11,7 +11,12 @@ import it.unibo.model.gameobj.api.Platform;
  */
 public abstract class AbstractGameWorld extends AbstractQueueWorld implements GameWorld {
 
-    public AbstractGameWorld(BoundWorld boundWorld) {
+    /**
+     * Constructs a new AbstractGameWorld.
+     * 
+     * @param boundWorld the BoundWorld instance associated with this game world
+     */
+    public AbstractGameWorld(final BoundWorld boundWorld) {
         super(boundWorld);
     }
 

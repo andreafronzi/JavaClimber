@@ -8,19 +8,23 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.Distan
  * Calculates valid coordinates based on difficulty parameters and previous platform positions.
  */
 public interface PlatformPositionGenerator {
-    
+
     /**
      * Generates a new position for a platform.
      * 
-     * @return a Vector2d representing the new coordinates
+     * @param width the width of the new platform.
+     * @param height the height of the new platform.
+     * @param previousPlatformPosition the position of the previous platform to ensure valid spacing.
+     * 
+     * @return a Vector2d representing the new coordinates.
      */
-    public Vector2d generatePosition(double width, double height, Vector2d previousPlatformPosition);
+    Vector2d generatePosition(double width, double height, Vector2d previousPlatformPosition);
 
     /**
      * Sets the difficulty context, which influences position generation parameters (e.g., distance).
      * 
      * @param distance the current distance settings
      */
-    public void setDistance(Distance distance);
+    void setDistance(Distance distance);
 
 }

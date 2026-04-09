@@ -10,6 +10,6 @@ public interface WorldConstructor {
      * Fills the world with platforms and other entities up to a certain point.
      * This method ensures the world is populated.
      */
-    public void fillWorld();
+    void fillWorld();
 
 }

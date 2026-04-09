@@ -2,7 +2,6 @@ package it.unibo.model.LaunchedGame.api;
 
 import java.util.Optional;
 
-import it.unibo.controller.api.MainController;
 import it.unibo.model.command.api.RunningCommand;
 import it.unibo.model.menu.api.Menu;
 import it.unibo.model.world.impl.World;
@@ -12,28 +11,53 @@ import it.unibo.model.world.impl.World;
  * It manages the lifecycle and states (running, paused, ended) of an active game.
  */
 public interface LaunchedGame extends CommandState<RunningCommand> {
-    
+
     /**
      * Sets the current state of the launched game.
      * 
      * @param state the new state to set
      */
-    public void setState(final StateOfLaunchedGame state);
-    
+    void setState(StateOfLaunchedGame state);
+
     /**
      * Gets the current state of the launched game.
      * 
      * @return the current state
      */
-    public StateOfLaunchedGame getState();
+    StateOfLaunchedGame getState();
 
-    public Optional<World> getWorld();
+    /**
+     * Gets the current world of the launched game.
+     * 
+     * @return an Optional containing the current world if available, or an empty Optional if no world is set
+     */
+    Optional<World> getWorld();
 
-    public void setWorld(final World world);
+    /**
+     * Sets the world for the launched game.
+     * 
+     * @param world the world to set
+     */
+    void setWorld(World world);
 
-    public boolean isRunning();
+    /**
+     * Checks if the game is currently running.
+     * 
+     * @return true if the game is running, false otherwise
+     */
+    boolean isRunning();
 
-    public void setRunning(final boolean running);
+    /**
+     * Sets the running state of the game.
+     * 
+     * @param running true to set the game as running, false to set it as not running
+     */
+    void setRunning(boolean running);
 
-    public Menu getMenu();
+    /**
+     * Gets the menu associated with the launched game.
+     * 
+     * @return the menu of the launched game
+     */
+    Menu getMenu();
 }

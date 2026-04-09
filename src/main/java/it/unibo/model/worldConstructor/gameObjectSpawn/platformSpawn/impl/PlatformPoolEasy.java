@@ -1,28 +1,34 @@
 package it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl;
 
-import java.util.List;
 import java.util.function.BiConsumer;
 
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPoolCreator;
-import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Pair;
-import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.PlatformPoolBase;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.AbstractPlatformPool;
 
-public class PlatformPoolEasy extends PlatformPoolBase {
+/**
+ * Implementation of {@link AbstractPlatformPool} for the easy level.
+ */
+public class PlatformPoolEasy extends AbstractPlatformPool {
 
-    public PlatformPoolEasy(SpawnPoolCreator spawnPoolCreator, double width, double height) {
+    private static final double STATIC_PLATFORM_CHANCE = 1.0;
+
+    /**
+     * Constructor for PlatformPoolEasy.
+     *
+     * @param spawnPoolCreator the SpawnPoolCreator to create platforms
+     * @param width            the width of the game world
+     * @param height           the height of the game world
+     */
+    public PlatformPoolEasy(final SpawnPoolCreator spawnPoolCreator, final double width, final double height) {
         super(spawnPoolCreator, width, height);
         this.createPlatform();
     }
 
-    @Override
-    public List<Pair<Double, BiConsumer<Double, Vector2d>>> getPlatformPool() {
-        return this.platformPool;
-    }
-
     private void createPlatform() {
         this.platformPool.add(
-                new PairImpl<Double, BiConsumer<Double, Vector2d>>(1.0, this.spawnPoolCreator::createStaticPlatform));
+                new PairImpl<Double, BiConsumer<Double, Vector2d>>(STATIC_PLATFORM_CHANCE,
+                        this.spawnPoolCreator::createStaticPlatform));
     }
 
 }

@@ -1,10 +1,11 @@
 package it.unibo.model.world.api;
 
-import it.unibo.model.gameobj.api.Alien;
-import it.unibo.model.gameobj.api.Coin;
-import it.unibo.model.gameobj.api.Enemy;
-import it.unibo.model.gameobj.api.Gadget;
-import it.unibo.model.gameobj.api.Platform;
+import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameObj.api.Coin;
+import it.unibo.model.gameObj.api.Enemy;
+import it.unibo.model.gameObj.api.Gadget;
+import it.unibo.model.gameObj.api.Platform;
+
 /**
  * Interface for a world where specific entities can be removed.
  * This interface extends {@link BaseWorld} and adds capabilities to remove
@@ -13,15 +14,27 @@ import it.unibo.model.gameobj.api.Platform;
 public interface GameWorld extends BaseWorld {
 
     /**
-     * Removes a specific platform from the world.
+     * Removes a specific static platform from the world.
      *
      * @param platform the platform to be removed.
      * @return true if the platform was found and removed, false otherwise.
      */
     boolean removeStaticPlatform(Platform platform);
 
+    /**
+     * Removes a specific moving platform from the world.
+     *
+     * @param platform the platform to be removed.
+     * @return true if the platform was found and removed, false otherwise.
+     */
     boolean removeMovingPlatform(Platform platform);
 
+    /**
+     * Removes a specific on-touch platform from the world.
+     *
+     * @param platform the platform to be removed.
+     * @return true if the platform was found and removed, false otherwise.
+     */
     boolean removeOnTouchPlatform(Platform platform);
 
     /**

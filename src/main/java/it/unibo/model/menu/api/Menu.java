@@ -19,24 +19,54 @@ public interface Menu {
      * 
      * @param state the new state to be set
      */
-    public void setState(StateOfMenu state);
-    
+    void setState(StateOfMenu state);
+
     /**
      * Retrieves the current state of the menu.
      * 
      * @return the currently active StateOfMenu
      */
-    public StateOfMenu getState();
+    StateOfMenu getState();
 
-    public Optional<LaunchedGame> getLaunchedGame();
-    
-    public void setLaunchedGame(LaunchedGame launchedGame);
+    /**
+     * Retrieves the currently launched game.
+     * 
+     * @return an Optional containing the LaunchedGame if it exists, or an empty Optional if no game is launched
+     */
+    Optional<LaunchedGame> getLaunchedGame();
 
-    public MainController getMainController();
+    /**
+     * Sets the currently launched game.
+     * 
+     * @param launchedGame the LaunchedGame to be set as the current game
+     */
+    void setLaunchedGame(LaunchedGame launchedGame);
 
-    public Inventory getInventory();
+    /**
+     * Retrieves the main controller associated with the menu.
+     * 
+     * @return the MainController instance
+     */
+    MainController getMainController();
 
-    public ShopManager getShopManager();
+    /**
+     * Retrieves the inventory associated with the menu.
+     * 
+     * @return the Inventory instance
+     */
+    Inventory getInventory();
 
-    public ScoreManager getScoreManager();
+    /**
+     * Retrieves the shop manager associated with the menu.
+     * 
+     * @return the ShopManager instance
+     */
+    ShopManager getShopManager();
+
+    /**
+     * Retrieves the score manager associated with the menu.
+     * 
+     * @return the ScoreManager instance
+     */
+    ScoreManager getScoreManager();
 }

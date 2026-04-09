@@ -10,20 +10,40 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Pair;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.PlatformCreator;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.PlatformPool;
 
+/**
+ * Implementation of the {@link PlatformCreator} interface.
+ */
 public class PlatformCreatorImpl implements PlatformCreator {
 
+    /**
+     * The platform pool is a list of pairs, where the first element is a double
+     * representing the chance of spawning a platform, and the second element is a
+     * BiConsumer.
+     */
     private List<Pair<Double, BiConsumer<Double, Vector2d>>> platformPool;
+
+    /**
+     * Random number generator to determine which platform to spawn based on the
+     * given chance.
+     */
     private final Random random;
 
+    /**
+     * Constructs a PlatformCreatorImpl with the given platform pool.
+     *
+     * @param platformPool the platform pool to use for creating platforms
+     */
     public PlatformCreatorImpl(final PlatformPool platformPool) {
         this.platformPool = platformPool.getPlatformPool();
         this.random = new Random();
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void createPlatform(double chance, Vector2d pos) {
-        for (var platform : platformPool) {
+    public void createPlatform(final double chance, final Vector2d pos) {
+        for (final var platform : platformPool) {
             if (chance <= platform.getX()) {
                 platform.getY().accept(random.nextDouble(1.0), new Vector2dImpl(pos.getX(), pos.getY()));
                 break;
@@ -31,10 +51,12 @@ public class PlatformCreatorImpl implements PlatformCreator {
         }
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setPlatformPool(PlatformPool platformPool) {
+    public void setPlatformPool(final PlatformPool platformPool) {
         this.platformPool = platformPool.getPlatformPool();
     }
-    
+
 }

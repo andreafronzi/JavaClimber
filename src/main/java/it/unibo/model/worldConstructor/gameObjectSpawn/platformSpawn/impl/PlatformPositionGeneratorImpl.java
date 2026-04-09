@@ -9,23 +9,44 @@ import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.PlatformPositionGenerator;
 
 /**
- * Implementation of PlatformPositionGenerator.
- * Generates random positions for new platforms within a specified range
- * (defined by difficulty)
- * relative to the previous platform.
+ * Implementation of {@link PlatformPositionGenerator}.
  */
 public class PlatformPositionGeneratorImpl implements PlatformPositionGenerator {
 
+    /**
+     * The parameters for the distance between platforms.
+     */
     private Distance distance;
+
+    /**
+     * The position of the previous platform, used to generate the next platform
+     * position.
+     */
     private Vector2d previousPlatformPosition;
-    private Vector2d newPlatformPosition;
+
+    /**
+     * Random number generator used to generate the position of the platforms.
+     */
     private final Random randomNumber;
+
+    /**
+     * The boundary of the game world in the x-axis, used to generate the position
+     * of the platforms.
+     */
     private final Boundary boundX;
 
     /**
      * Constructs a new PlatformPositionGeneratorImpl.
+     * 
+     * @param boundWorld  the BoundWorld of the game, used to get the boundary of
+     *                    the game world.
+     * @param platformPos the position of the first platform, used to generate the
+     *                    position of the next platforms.
+     * @param distance    the parameters for the distance between platforms, used to
+     *                    generate the position of the next platforms.
      */
-    public PlatformPositionGeneratorImpl(final BoundWorld boundWorld, final Vector2d platformPos, final Distance distance) {
+    public PlatformPositionGeneratorImpl(final BoundWorld boundWorld, final Vector2d platformPos,
+            final Distance distance) {
         this.randomNumber = new Random();
         previousPlatformPosition = platformPos;
         this.distance = distance;
@@ -36,12 +57,9 @@ public class PlatformPositionGeneratorImpl implements PlatformPositionGenerator 
      * {@inheritDoc}
      */
     @Override
-    public Vector2d generatePosition(final double width, final double height, final Vector2d previousPlatformPosition) {
-        this.newPlatformPosition = new Vector2dImpl(0, 0);
-        setPreviousPosition(previousPlatformPosition);
-        genPosX(width);
-        genPosY(height);
-        return newPlatformPosition;
+    public Vector2d generatePosition(final double width, final double height, final Vector2d pP) {
+        setPreviousPosition(pP);
+        return new Vector2dImpl(genPosX(width), genPosY(height));
     }
 
     /**
@@ -52,9 +70,10 @@ public class PlatformPositionGeneratorImpl implements PlatformPositionGenerator 
         this.distance = distance;
     }
 
-    private void genPosX(final double width) {
+    private double genPosX(final double width) {
+        final double x;
         double xMin;
-        double xMax;
+        final double xMax;
 
         if (previousPlatformPosition.getX() - distance.maxDistanceX() < boundX.x0()) {
             xMin = boundX.x0();
@@ -70,13 +89,17 @@ public class PlatformPositionGeneratorImpl implements PlatformPositionGenerator 
             xMin = xMax - 1;
         }
 
-        newPlatformPosition.setX(randomNumber.nextDouble(xMin, xMax));
+        x = randomNumber.nextDouble(xMin, xMax);
+        return x;
 
     }
 
-    private void genPosY(final double height) {
-        newPlatformPosition.setY(randomNumber.nextDouble(previousPlatformPosition.getY() - distance.maxDistanceY(),
-                previousPlatformPosition.getY() - distance.minDistanceY() - height));
+    private double genPosY(final double height) {
+        final double y;
+
+        y = randomNumber.nextDouble(previousPlatformPosition.getY() - distance.maxDistanceY(),
+                previousPlatformPosition.getY() - distance.minDistanceY() - height);
+        return y;
     }
 
     private void setPreviousPosition(final Vector2d pos) {

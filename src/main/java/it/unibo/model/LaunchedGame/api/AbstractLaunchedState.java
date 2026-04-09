@@ -3,8 +3,11 @@ package it.unibo.model.LaunchedGame.api;
 /**
  * Abstract base class for launched game states.
  */
-public abstract class BaseLaunchedState implements StateOfLaunchedGame {
+public abstract class AbstractLaunchedState implements StateOfLaunchedGame {
 
+    /**
+     * The game context that this state belongs to.
+     */
     protected LaunchedGame launchedGame;
 
     /**
@@ -12,7 +15,7 @@ public abstract class BaseLaunchedState implements StateOfLaunchedGame {
      * 
      * @param launchedGame the game context
      */
-    public BaseLaunchedState(final LaunchedGame launchedGame) {
+    public AbstractLaunchedState(final LaunchedGame launchedGame) {
         this.launchedGame = launchedGame;
     }
 
@@ -29,5 +32,5 @@ public abstract class BaseLaunchedState implements StateOfLaunchedGame {
     @Override
     public void execute(final double dt) {
     }
-                        
+
 }

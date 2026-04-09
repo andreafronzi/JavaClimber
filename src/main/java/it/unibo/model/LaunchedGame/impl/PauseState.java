@@ -1,12 +1,13 @@
 package it.unibo.model.LaunchedGame.impl;
 
-import it.unibo.model.LaunchedGame.api.*;
+import it.unibo.model.LaunchedGame.api.AbstractLaunchedState;
+import it.unibo.model.LaunchedGame.api.LaunchedGame;
 
 /**
  * Represents the state where the game is paused.
  * Suspends normal gameplay logic.
  */
-public class PauseState extends BaseLaunchedState {
+public class PauseState extends AbstractLaunchedState {
 
     /**
      * Constructs a new PauseState.
@@ -16,10 +17,9 @@ public class PauseState extends BaseLaunchedState {
     public PauseState(final LaunchedGame launchedGame) {
         super(launchedGame);
     }
-    
+
     /**
      * {@inheritDoc}
-     * Performs pause operations.
      */
     @Override
     public void onEnter() {

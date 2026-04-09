@@ -2,6 +2,7 @@ package it.unibo.model.world.impl;
 
 /**
  * Represents the game boundaries.
+ * 
  * @param x0 left side
  * @param x1 right side
  */

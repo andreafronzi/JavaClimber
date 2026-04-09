@@ -4,16 +4,19 @@ package it.unibo.model.menu.api;
  * Abstract base class for menu states.
  * Provides a common structure and holds a reference to the Menu context.
  */
-public abstract class BaseMenuState implements StateOfMenu {
+public abstract class AbstractMenuState implements StateOfMenu {
 
+    /**
+     * The menu context that this state belongs to.
+     */
     protected final Menu menu;
 
     /**
-     * Constructs a new BaseMenuState.
+     * Constructs a new AbstractMenuState.
      * 
      * @param menu the Menu context 
      */
-    public BaseMenuState(final Menu menu) {
+    public AbstractMenuState(final Menu menu) {
         this.menu = menu;
     }
 }

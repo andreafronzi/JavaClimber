@@ -2,7 +2,6 @@ package it.unibo.controller.impl;
 
 import java.util.Optional;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.api.MainController;
 import it.unibo.model.LaunchedGame.api.StateOfLaunchedGame;
 import it.unibo.model.menu.api.Menu;
@@ -13,8 +12,7 @@ import it.unibo.model.persistence.api.SaveState;
 import it.unibo.model.persistence.impl.SaveManagerImpl;
 import it.unibo.view.MainView;
 
-@SuppressFBWarnings("EI_EXPOSE_REP")
-public final class MainControllerImpl implements MainController {
+public class MainControllerImpl implements MainController {
 
     private MainView mainView;
 
@@ -31,13 +29,13 @@ public final class MainControllerImpl implements MainController {
     }
 
     @Override
-    public void setView(final MainView view) {
+    public void setView(MainView view) {
         this.mainView = view;
     }
 
     @Override
     public void openMenuView() {
-        final MenuControllerImpl menuController = new MenuControllerImpl(this, this.menu.getScoreManager(), this.menu);
+        MenuControllerImpl menuController = new MenuControllerImpl(this, this.menu.getScoreManager(), this.menu);
         mainView.setMenuView(menuController);
     }
 
@@ -52,33 +50,33 @@ public final class MainControllerImpl implements MainController {
 
     @Override
     public void openInventoryView() {
-        final InventoryControllerImpl inventoryController = new InventoryControllerImpl(this, this.menu.getInventory(),
+        InventoryControllerImpl inventoryController = new InventoryControllerImpl(this, this.menu.getInventory(),
                 this.menu.getInventory().getFactory());
         mainView.setInventoryView(inventoryController);
     }
 
     @Override
     public void openShopView() {
-        final ShopControllerImpl shopController = new ShopControllerImpl(this, this.menu.getShopManager());
+        ShopControllerImpl shopController = new ShopControllerImpl(this, this.menu.getShopManager());
         mainView.setShopView(shopController);
     }
 
     @Override
     public void openEndView() {
-        final EndControllerImpl endController = new EndControllerImpl(this.menu.getLaunchedGame().get(), this.menu, this);
+        EndControllerImpl endController = new EndControllerImpl(this.menu.getLaunchedGame().get(), this.menu);
         mainView.setEndView(endController);
     }
 
     @Override
     public void openPauseView() {
-        final PauseControllerImpl pauseController = new PauseControllerImpl(this.menu.getLaunchedGame().get(), this.menu,
+        PauseControllerImpl pauseController = new PauseControllerImpl(this.menu.getLaunchedGame().get(), this.menu,
                 this.runningState, this);
         mainView.setPauseView(pauseController);
     }
 
     @Override
     public void saveProgress() {
-        final SaveState currentState = new SaveState(this.menu.getInventory().getTotalCoins(),
+        SaveState currentState = new SaveState(this.menu.getInventory().getTotalCoins(),
                 this.menu.getScoreManager().getHighScore(), this.menu.getInventory().getOwnedItems(),
                 this.menu.getInventory().getConsumablesStatus(), this.menu.getInventory().getSelectedSkin(),
                 this.menu.getInventory().getSelectedJumpLevel(), this.menu.getInventory().getSelectedSpeedLevel());
@@ -86,12 +84,12 @@ public final class MainControllerImpl implements MainController {
     }
 
     private void loadGame() {
-        final Optional<SaveState> loadedState = this.saveManager.load();
+        Optional<SaveState> loadedState = this.saveManager.load();
         if (loadedState.isPresent()) {
             this.menu.getInventory().loadState(loadedState.get());
             this.menu.getScoreManager().loadState(loadedState.get());
         } else {
-            final SaveState initialState = new SaveState(0, 0, this.menu.getInventory().getOwnedItems(),
+            SaveState initialState = new SaveState(0, 0, this.menu.getInventory().getOwnedItems(),
                     this.menu.getInventory().getConsumablesStatus(), this.menu.getInventory().getSelectedSkin(),
                     this.menu.getInventory().getSelectedJumpLevel(), this.menu.getInventory().getSelectedSpeedLevel());
             this.saveManager.save(initialState);

@@ -8,9 +8,11 @@ import it.unibo.model.world.api.BoundWorld;
  * Used to store entities that are waiting to be moved into the real world.
  */
 public class UpperWorld extends AbstractQueueWorld {
-    
+
     /**
      * Constructs a new UpperWorld.
+     * 
+     * @param boundWorld the bound of the world.
      */
     public UpperWorld(final BoundWorld boundWorld) {
         super(boundWorld);

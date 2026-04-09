@@ -8,11 +8,11 @@ import it.unibo.model.command.impl.EnterPausa;
 import it.unibo.model.command.impl.MoveAlienLeft;
 import it.unibo.model.command.impl.MoveAlienRight;
 import it.unibo.model.command.impl.StopAlienMovement;
-import it.unibo.model.gameobj.api.Alien;
-import it.unibo.model.gameobj.api.Coin;
-import it.unibo.model.gameobj.api.Enemy;
-import it.unibo.model.gameobj.api.Gadget;
-import it.unibo.model.gameobj.api.Platform;
+import it.unibo.model.gameObj.api.Alien;
+import it.unibo.model.gameObj.api.Coin;
+import it.unibo.model.gameObj.api.Enemy;
+import it.unibo.model.gameObj.api.Gadget;
+import it.unibo.model.gameObj.api.Platform;
 import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.world.api.BaseWorld;
 import it.unibo.model.world.api.GameWorld;
@@ -32,6 +32,7 @@ import javax.swing.JPanel;
 public class GameLaunchedControllerImpl implements GameLaunchedController, GameLaunchedInputController {
 
   private static final long FRAME_TIME_MS = 16;
+  private static final long DIVIDER = 1_000_000_000;
 
   /**
    * The {@link Inventory} which provide the active skin and receive the command
@@ -168,16 +169,19 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
     this.launchedGame.addCommand(new StopAlienMovement());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void runGame() {
     new Thread(() -> {
       long previousCycleStartTime = System.nanoTime();
 
       while (launchedGame.isRunning()) {
-        long currentCycleStartTime = System.nanoTime();
-        long elapsedNanos = currentCycleStartTime - previousCycleStartTime;
+        final long currentCycleStartTime = System.nanoTime();
+        final long elapsedNanos = currentCycleStartTime - previousCycleStartTime;
 
-        double dt = elapsedNanos / 1_000_000_000.0;
+        final double dt = elapsedNanos / DIVIDER;
 
         previousCycleStartTime = currentCycleStartTime;
 
@@ -198,29 +202,38 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
   }
 
   private void waitForNextFrame(final long currentCycleStartTimeNano) {
-    long elapsedTimeMs = (System.nanoTime() - currentCycleStartTimeNano) / 1_000_000;
+    final long elapsedTimeMs = (System.nanoTime() - currentCycleStartTimeNano) / DIVIDER;
 
-    long sleepTime = FRAME_TIME_MS - elapsedTimeMs;
+    final long sleepTime = FRAME_TIME_MS - elapsedTimeMs;
 
     if (sleepTime > 0) {
       try {
         Thread.sleep(sleepTime);
-      } catch (InterruptedException e) {
+      } catch (final InterruptedException e) {
         Thread.currentThread().interrupt();
       }
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void setPanel(final JPanel panel) {
     this.panel = panel;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public int getCurrentScore() {
     return this.launchedGame.getMenu().getScoreManager().getCurrentScore();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public int getCollectedCoins() {
     return this.launchedGame.getMenu().getScoreManager().getCoins();
