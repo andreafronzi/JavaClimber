@@ -7,7 +7,7 @@ import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.camera.api.AltitudeObserver;
 import it.unibo.model.camera.impl.AltitudeManager;
 import it.unibo.model.camera.impl.CameraImpl;
-import it.unibo.model.gameObj.impl.AlienImpl;
+import it.unibo.model.gameobj.impl.AlienImpl;
 import it.unibo.model.physics.collision.impl.CollisionManagerImpl;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.impl.ActiveUpgradesImpl;
