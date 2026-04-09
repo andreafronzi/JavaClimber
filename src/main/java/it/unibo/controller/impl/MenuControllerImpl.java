@@ -1,5 +1,6 @@
 package it.unibo.controller.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.api.MainController;
 import it.unibo.controller.api.MenuController;
 import it.unibo.model.menu.api.Menu;
@@ -12,6 +13,7 @@ import it.unibo.view.menu.api.MenuView;
 /**
  * Implementation of {@link MenuController} interface.
  */
+@SuppressFBWarnings("EI_EXPOSE_REP")
 public class MenuControllerImpl implements MenuController {
 
     private final Menu menu;

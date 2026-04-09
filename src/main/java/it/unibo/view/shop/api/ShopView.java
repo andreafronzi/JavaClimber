@@ -5,7 +5,7 @@ import java.util.List;
 import it.unibo.model.shop.api.ShopItem;
 
 /**
- * Interface representic the Shop View
+ * Interface representic the Shop View.
  */
 public interface ShopView {
 

@@ -200,7 +200,7 @@ public class InventoryControllerImpl implements InventoryController {
         final Set<String> active = inventory.getActiveConsumables();
         return inventory.getConsumablesStatus().keySet().stream()
                 .sorted()
-                .map(id -> active.contains(id))
+                .map(active::contains)
                 .toList();
     }
 
@@ -236,7 +236,7 @@ public class InventoryControllerImpl implements InventoryController {
         final var consumablesMap = inventory.getConsumablesStatus();
         return consumablesMap.keySet().stream()
                 .sorted()
-                .map(id -> consumablesMap.get(id))
+                .map(consumablesMap::get)
                 .toList();
     }
 
@@ -282,7 +282,7 @@ public class InventoryControllerImpl implements InventoryController {
     private int getMaxLevelOwned(final String prefix) {
         return inventory.getOwnedItems().stream()
                 .filter(id -> id.startsWith(prefix))
-                .mapToInt(id -> Integer.parseInt(id.substring(id.lastIndexOf("_") + 1)))
+                .mapToInt(id -> Integer.parseInt(id.substring(id.lastIndexOf('_') + 1)))
                 .max()
                 .orElse(0);
     }

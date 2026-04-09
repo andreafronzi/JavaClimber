@@ -1,4 +1,4 @@
-package JavaClimber.world;
+package javaclimber.world;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

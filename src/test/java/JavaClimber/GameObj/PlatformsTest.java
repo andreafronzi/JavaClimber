@@ -1,4 +1,4 @@
-package JavaClimber.GameObj;
+package javaclimber.GameObj;
 
 import org.junit.jupiter.api.Test;
 
