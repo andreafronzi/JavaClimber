@@ -35,7 +35,7 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public void openMenuView() {
-        MenuControllerImpl menuController = new MenuControllerImpl(this, this.menu.getScoreManager(), this.menu);
+        final MenuControllerImpl menuController = new MenuControllerImpl(this, this.menu.getScoreManager(), this.menu);
         mainView.setMenuView(menuController);
     }
 
@@ -50,33 +50,33 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public void openInventoryView() {
-        InventoryControllerImpl inventoryController = new InventoryControllerImpl(this, this.menu.getInventory(),
+        final InventoryControllerImpl inventoryController = new InventoryControllerImpl(this, this.menu.getInventory(),
                 this.menu.getInventory().getFactory());
         mainView.setInventoryView(inventoryController);
     }
 
     @Override
     public void openShopView() {
-        ShopControllerImpl shopController = new ShopControllerImpl(this, this.menu.getShopManager());
+        final ShopControllerImpl shopController = new ShopControllerImpl(this, this.menu.getShopManager());
         mainView.setShopView(shopController);
     }
 
     @Override
     public void openEndView() {
-        EndControllerImpl endController = new EndControllerImpl(this.menu.getLaunchedGame().get(), this.menu);
+        final EndControllerImpl endController = new EndControllerImpl(this.menu.getLaunchedGame().get(), this.menu);
         mainView.setEndView(endController);
     }
 
     @Override
     public void openPauseView() {
-        PauseControllerImpl pauseController = new PauseControllerImpl(this.menu.getLaunchedGame().get(), this.menu,
+        final PauseControllerImpl pauseController = new PauseControllerImpl(this.menu.getLaunchedGame().get(), this.menu,
                 this.runningState, this);
         mainView.setPauseView(pauseController);
     }
 
     @Override
     public void saveProgress() {
-        SaveState currentState = new SaveState(this.menu.getInventory().getTotalCoins(),
+        final SaveState currentState = new SaveState(this.menu.getInventory().getTotalCoins(),
                 this.menu.getScoreManager().getHighScore(), this.menu.getInventory().getOwnedItems(),
                 this.menu.getInventory().getConsumablesStatus(), this.menu.getInventory().getSelectedSkin(),
                 this.menu.getInventory().getSelectedJumpLevel(), this.menu.getInventory().getSelectedSpeedLevel());
@@ -84,12 +84,12 @@ public class MainControllerImpl implements MainController {
     }
 
     private void loadGame() {
-        Optional<SaveState> loadedState = this.saveManager.load();
+        final Optional<SaveState> loadedState = this.saveManager.load();
         if (loadedState.isPresent()) {
             this.menu.getInventory().loadState(loadedState.get());
             this.menu.getScoreManager().loadState(loadedState.get());
         } else {
-            SaveState initialState = new SaveState(0, 0, this.menu.getInventory().getOwnedItems(),
+            final SaveState initialState = new SaveState(0, 0, this.menu.getInventory().getOwnedItems(),
                     this.menu.getInventory().getConsumablesStatus(), this.menu.getInventory().getSelectedSkin(),
                     this.menu.getInventory().getSelectedJumpLevel(), this.menu.getInventory().getSelectedSpeedLevel());
             this.saveManager.save(initialState);
