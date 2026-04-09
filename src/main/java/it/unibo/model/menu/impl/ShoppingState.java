@@ -1,12 +1,13 @@
 package it.unibo.model.menu.impl;
 
-import it.unibo.model.menu.api.*;
+import it.unibo.model.menu.api.Menu;
+import it.unibo.model.menu.api.AbstractMenuState;
 
 /**
  * Represents the shopping state of the menu.
  * Handles the logic for purchasing items or upgrades.
  */
-public class ShoppingState extends BaseMenuState {
+public class ShoppingState extends AbstractMenuState {
 
     /**
      * Constructs a new ShoppingState.
@@ -24,5 +25,5 @@ public class ShoppingState extends BaseMenuState {
     public void execute() {
         this.menu.getMainController().openShopView();
     }
-    
+
 }

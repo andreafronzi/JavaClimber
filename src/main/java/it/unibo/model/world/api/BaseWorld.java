@@ -1,12 +1,10 @@
 package it.unibo.model.world.api;
 
 import java.util.List;
-
-import it.unibo.model.gameobj.api.Coin;
-import it.unibo.model.gameobj.api.Enemy;
-import it.unibo.model.gameobj.api.Gadget;
-import it.unibo.model.gameobj.api.Platform;
-import it.unibo.model.world.impl.BoundY;
+import it.unibo.model.gameObj.api.Coin;
+import it.unibo.model.gameObj.api.Enemy;
+import it.unibo.model.gameObj.api.Gadget;
+import it.unibo.model.gameObj.api.Platform;
 
 /**
  * Interface representing a container for game entities.
@@ -15,14 +13,24 @@ import it.unibo.model.world.impl.BoundY;
 public interface BaseWorld {
 
     /**
-     * Retrieves the list of platforms.
+     * Retrieves the list of static platforms.
      * 
      * @return a List of {@link Platform} objects.
      */
     List<Platform> getStaticPlatforms();
 
+    /**
+     * Retrieves the list of moving platforms.
+     * 
+     * @return a List of {@link Platform} objects.
+     */
     List<Platform> getMovingPlatforms();
 
+    /**
+     * Retrieves the list of on-touch platforms.
+     * 
+     * @return a List of {@link Platform} objects.
+     */
     List<Platform> getOnTouchPlatforms();
 
     /**
@@ -54,8 +62,20 @@ public interface BaseWorld {
      */
     boolean addStaticPlatform(Platform platform);
 
+    /**
+     * Adds a moving platform.
+     * 
+     * @param platform the platform to add.
+     * @return true if added successfully.
+     */
     boolean addMovingPlatform(Platform platform);
 
+    /**
+     * Adds an on-touch platform.
+     * 
+     * @param platform the platform to add.
+     * @return true if added successfully.
+     */
     boolean addOnTouchPlatform(Platform platform);
 
     /**
@@ -82,6 +102,11 @@ public interface BaseWorld {
      */
     boolean addMoney(Coin money);
 
+    /**
+     * Gets the BoundWorld associated with this world container.
+     * 
+     * @return the BoundWorld instance
+     */
     BoundWorld getBoundWorld();
 
 }

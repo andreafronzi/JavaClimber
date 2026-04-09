@@ -10,16 +10,51 @@ import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.score.api.ScoreManager;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.api.FactoryAddOn;
 
+/**
+ * Implementation of {@link FactoryAddOn}.
+ */
 public class FactoryAddOnImpl implements FactoryAddOn {
 
+    /**
+     * coin width.
+     */
     private final double coinWidth;
+
+    /**
+     * coin height.
+     */
     private final double coinHeight;
+
+    /**
+     * enemy width.
+     */
     private final double enemyWidth;
+
+    /**
+     * enemy height.
+     */
     private final double enemyHeight;
+
+    /**
+     * elycap width.
+     */
     private final double elycapWidth;
+
+    /**
+     * elycap height.
+     */ 
     private final double elycapHeight;
+
+    /**
+     * Score manager to update the score when a coin is collected.
+     */
     private final ScoreManager scoreManager;
 
+    /**
+     * Constructs a FactoryAddOnImpl.
+     *
+     * @param scoreManager the score manager to use for updating scores when coins are collected.
+     */
     public FactoryAddOnImpl(final ScoreManager scoreManager) {
         this.scoreManager = scoreManager;
         this.coinWidth = GameObjDimension.COIN_WIDTH;
@@ -31,16 +66,25 @@ public class FactoryAddOnImpl implements FactoryAddOn {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Coin createCoin(final Vector2d position) {
         return new CoinImpl(coinWidth, coinHeight, position, this.scoreManager);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Enemy createEnemy(final Vector2d position) {
         return new EnemyImpl(enemyWidth, enemyHeight, position);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Gadget createElycap(final Vector2d position) {
         return new EliCap(elycapWidth, elycapHeight, position);

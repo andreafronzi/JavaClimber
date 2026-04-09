@@ -2,13 +2,14 @@ package it.unibo.model.menu.impl;
 
 import it.unibo.model.LaunchedGame.impl.InitialState;
 import it.unibo.model.LaunchedGame.impl.LaunchedGameImpl;
-import it.unibo.model.menu.api.*;
+import it.unibo.model.menu.api.Menu;
+import it.unibo.model.menu.api.AbstractMenuState;
 
 /**
  * Represents the state where the game has been launched from the menu.
  * Acts as a transition state between the menu system and the active gameplay.
  */
-public class LaunchedGameState extends BaseMenuState {
+public class LaunchedGameState extends AbstractMenuState {
 
     /**
      * Constructs a new LaunchedGameState.
@@ -24,10 +25,10 @@ public class LaunchedGameState extends BaseMenuState {
      */
     @Override
     public void execute() {
-        var launchedGame = new LaunchedGameImpl(this.menu.getMainController(), this.menu);
+        final var launchedGame = new LaunchedGameImpl(this.menu);
         this.menu.setLaunchedGame(launchedGame);
         launchedGame.setState(new InitialState(launchedGame));
         this.menu.getMainController().launchGame();
     }
-    
+
 }

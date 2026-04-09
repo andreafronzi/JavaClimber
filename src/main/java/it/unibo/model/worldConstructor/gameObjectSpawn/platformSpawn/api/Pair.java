@@ -1,29 +1,25 @@
 package it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api;
 
-import it.unibo.model.physics.api.Vector2d;
-
 /**
- * Interface representing a pair of a spawn probability and a game object factory.
- * Used in the PlatformPool to define which objects can spawn and how likely they are.
+ * Interface representing a pair of a generic type.
  * 
- * @param <X> the type of game object this pair creates
- * @param <Y> the type of probability value
+ * @param <X> the x object.
+ * @param <Y> the y object.
  */
-public interface Pair<X,Y> {
-    
-    /**
-     * Gets the spawn probability associated with this object.
-     * 
-     * @return the probability value
-     */
-    public Y getY();
+public interface Pair<X, Y> {
 
     /**
-     * Creates a new instance of the game object at the specified position.
+     * Gets the x object.
      * 
-     * @param pos the position where the object should be created
-     * @return the created game object
+     * @return the x object
      */
-    public X getX();
-    
+    X getX();
+
+    /**
+     * Gets the y object.
+     * 
+     * @return the y object
+     */
+    Y getY();
+
 }

@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import it.unibo.model.camera.api.AltitudeObserver;
-import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.worldConstructor.data.Difficult;
 import it.unibo.model.worldConstructor.worldGenerator.api.Observer;
 import it.unibo.model.worldConstructor.worldGenerator.api.Subject;
@@ -17,9 +16,24 @@ import it.unibo.model.worldConstructor.worldGenerator.api.WorldDifficult;
  */
 public class WorldDifficultImpl implements WorldDifficult, Subject, AltitudeObserver {
 
+    /**
+     * List of observers to notify when the difficulty changes.
+     */
     private final List<Observer> observers;
+
+    /**
+     * The current difficulty level.
+     */
     private Difficult difficult;
+
+    /**
+     * List of available difficulty levels.
+     */
     private List<Difficult> difficultList;
+
+    /**
+     * The current height of the player (Alien).
+     */
     private double height;
 
     /**
@@ -38,11 +52,11 @@ public class WorldDifficultImpl implements WorldDifficult, Subject, AltitudeObse
      * {@inheritDoc}
      */
     @Override
-    public void createDifficult(final double height) {
-        this.height += height;
-        if(this.height > difficult.height()){
-            difficultList.stream().forEach((d) -> {
-                if(this.height < d.height()){
+    public void createDifficult(final double ht) {
+        this.height += ht;
+        if (this.height > difficult.height()) {
+            difficultList.stream().forEach(d -> {
+                if (this.height < d.height()) {
                     notifyObservers(d);
                 }
             });
@@ -53,7 +67,7 @@ public class WorldDifficultImpl implements WorldDifficult, Subject, AltitudeObse
      * {@inheritDoc}
      */
     @Override
-    public void registerObserver(Observer o) {
+    public void registerObserver(final Observer o) {
         this.observers.add(o);
     }
 
@@ -61,7 +75,7 @@ public class WorldDifficultImpl implements WorldDifficult, Subject, AltitudeObse
      * {@inheritDoc}
      */
     @Override
-    public void removeObserver(Observer o) {
+    public void removeObserver(final Observer o) {
         this.observers.remove(o);
     }
 
@@ -69,14 +83,17 @@ public class WorldDifficultImpl implements WorldDifficult, Subject, AltitudeObse
      * {@inheritDoc}
      */
     @Override
-    public void notifyObservers(final Difficult difficult) {
-        for (var o : observers) {
-            o.update(difficult);
+    public void notifyObservers(final Difficult dif) {
+        for (final var o : observers) {
+            o.update(dif);
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void update(double delta) {
+    public void update(final double delta) {
         this.createDifficult(delta);
     }
 

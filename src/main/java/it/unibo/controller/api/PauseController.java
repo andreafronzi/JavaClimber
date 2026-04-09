@@ -1,13 +1,32 @@
 package it.unibo.controller.api;
 
+/**
+ * Represents the controller for the pause menu.
+ */
 public interface PauseController {
-    
-    public void resume();
 
-    public void menu();
+    /**
+     * Resumes the game.
+     */
+    void resume();
 
-    public int getScore();
+    /**
+     * Returns to the main menu.
+     */
+    void menu();
 
-    public boolean isNewHighScore();
+    /**
+     * Returns the current score of the player.
+     * 
+     * @return the current score of the player.
+     */
+    int getScore();
+
+    /**
+     * Checks if the player has achieved a new high score.
+     * 
+     * @return true if the player has achieved a new high score, false otherwise.
+     */
+    boolean isNewHighScore();
 
 }

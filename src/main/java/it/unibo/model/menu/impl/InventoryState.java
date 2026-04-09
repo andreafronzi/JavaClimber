@@ -1,12 +1,13 @@
 package it.unibo.model.menu.impl;
 
-import it.unibo.model.menu.api.*;
+import it.unibo.model.menu.api.Menu;
+import it.unibo.model.menu.api.AbstractMenuState;
 
 /**
  * Represents the inventory state of the menu.
  * Allows the user to view their items and gadgets.
  */
-public class InventoryState extends BaseMenuState {
+public class InventoryState extends AbstractMenuState {
 
     /**
      * Constructs a new InventoryState.
@@ -24,5 +25,5 @@ public class InventoryState extends BaseMenuState {
     public void execute() {
         this.menu.getMainController().openInventoryView();
     }
-    
+
 }

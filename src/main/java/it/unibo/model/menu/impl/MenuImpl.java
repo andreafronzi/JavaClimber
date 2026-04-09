@@ -21,17 +21,44 @@ import it.unibo.model.shop.impl.ShopManagerImpl;
  */
 public class MenuImpl implements Menu {
 
+    /**
+     * The current state of the menu.
+     */
     private StateOfMenu currentState;
+
+    /**
+     * The launched game.
+     */
     private Optional<LaunchedGame> launchedGame;
 
+    /**
+     * The main controller of the application.
+     */
     private final MainController mainController;
+
+    /**
+     * The factory for creating shop items.
+     */
     private final ShopItemFactoryImpl shopItemFactory;
+    /**
+     * The inventory of the application.
+     */
     private final InventoryImpl inventory;
+
+    /**
+     * The shop manager of the application.
+     */
     private final ShopManagerImpl shopManager;
+
+    /**
+     * The score manager of the application.
+     */
     private final ScoreManagerImpl scoreManager;
 
     /**
      * Creates a new MenuImpl instance.
+     * 
+     * @param mainController the main controller of the application.
      */
     public MenuImpl(final MainController mainController) {
         this.mainController = mainController;
@@ -45,7 +72,7 @@ public class MenuImpl implements Menu {
      * {@inheritDoc}
      */
     @Override
-    public void setState(StateOfMenu state) {
+    public void setState(final StateOfMenu state) {
         this.currentState = state;
         this.currentState.execute();
     }
@@ -58,31 +85,49 @@ public class MenuImpl implements Menu {
         return this.currentState;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<LaunchedGame> getLaunchedGame() {
         return this.launchedGame;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setLaunchedGame(final LaunchedGame launchedGame) {
         this.launchedGame = Optional.of(launchedGame);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MainController getMainController() {
         return this.mainController;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Inventory getInventory() {
         return this.inventory;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ShopManager getShopManager() {
         return this.shopManager;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ScoreManager getScoreManager() {
         return this.scoreManager;

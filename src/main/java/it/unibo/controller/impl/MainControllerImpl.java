@@ -63,7 +63,7 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public void openEndView() {
-        EndControllerImpl endController = new EndControllerImpl(this.menu.getLaunchedGame().get(), this.menu, this);
+        EndControllerImpl endController = new EndControllerImpl(this.menu.getLaunchedGame().get(), this.menu);
         mainView.setEndView(endController);
     }
 

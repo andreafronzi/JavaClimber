@@ -4,8 +4,6 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
-import it.unibo.controller.api.MainController;
-import it.unibo.model.LaunchedGame.api.BaseLaunchedState;
 import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.LaunchedGame.api.StateOfLaunchedGame;
 import it.unibo.model.command.api.RunningCommand;
@@ -13,31 +11,50 @@ import it.unibo.model.menu.api.Menu;
 import it.unibo.model.world.impl.World;
 
 /**
- * Implementation of the LaunchedGame interface.
- * Manages the transition between different game states and runs the main game
- * loop.
+ * Implementation of the {@link LaunchedGame} interface.
  */
 public class LaunchedGameImpl implements LaunchedGame {
 
+    /**
+     * The current state of the launched game, which determines the behavior of the
+     * game loop.
+     */
     private StateOfLaunchedGame state;
+
+    /**
+     * The world instance for the launched game.
+     */
     private Optional<World> world;
+
+    /**
+     * A queue to hold running commands for the game.
+     */
     private final Queue<RunningCommand> commands;
-    private final MainController mainController;
+
+    /**
+     * The menu for the launched game.
+     */
     private final Menu menu;
 
+    /**
+     * Flag to indicate if the game is currently running.
+     */
     private boolean running;
 
-    public LaunchedGameImpl(final MainController mainController, final Menu menuController) {
-        this.mainController = mainController;
+    /**
+     * Constructs a new LaunchedGameImpl with the specified menu controller.
+     * Initializes the command queue and sets the initial state.
+     * 
+     * @param menu the menu controller to be used in the launched game
+     */
+    public LaunchedGameImpl(final Menu menu) {
         this.commands = new ArrayBlockingQueue<>(100);
         this.running = false;
-        this.menu = menuController;
+        this.menu = menu;
     }
 
     /**
      * {@inheritDoc}
-     * Also triggers the {@link BaseLaunchedState#onEnter()} method for the new
-     * state.
      */
     @Override
     public void setState(final StateOfLaunchedGame state) {
@@ -53,39 +70,60 @@ public class LaunchedGameImpl implements LaunchedGame {
         return this.state;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<World> getWorld() {
         return this.world;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setWorld(World world) {
+    public void setWorld(final World world) {
         this.world = Optional.of(world);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addCommand(final RunningCommand command) {
         commands.add(command);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<RunningCommand> pollCommand() {
         return Optional.ofNullable(commands.poll());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isRunning() {
         return this.running;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setRunning(final boolean running) {
         this.running = running;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Menu getMenu() {
         return this.menu;
     }
-    
+
 }

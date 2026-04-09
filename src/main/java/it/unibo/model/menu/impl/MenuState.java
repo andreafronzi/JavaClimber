@@ -1,12 +1,13 @@
 package it.unibo.model.menu.impl;
 
-import it.unibo.model.menu.api.*;
+import it.unibo.model.menu.api.Menu;
+import it.unibo.model.menu.api.AbstractMenuState;
 
 /**
  * Represents the main menu state.
  * This is typically the first screen the user interacts with.
  */
-public class MenuState extends BaseMenuState {
+public class MenuState extends AbstractMenuState {
 
     /**
      * Constructs a new MenuState.
@@ -24,5 +25,5 @@ public class MenuState extends BaseMenuState {
     public void execute() {
         this.menu.getMainController().openMenuView();
     }
-    
+
 }

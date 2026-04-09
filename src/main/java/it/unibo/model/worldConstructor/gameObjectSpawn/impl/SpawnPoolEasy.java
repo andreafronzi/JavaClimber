@@ -1,17 +1,21 @@
 package it.unibo.model.worldConstructor.gameObjectSpawn.impl;
 
 import it.unibo.model.score.api.ScoreManager;
-import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPoolBase;
+import it.unibo.model.worldConstructor.gameObjectSpawn.api.AbstractSpawnPool;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PairImpl;
 
 /**
  * Implementation of PlatformPool for the "Easy" difficulty level.
  * Defines the probabilities and types of objects that spawn in easy mode.
  */
-public class SpawnPoolEasy extends SpawnPoolBase {
+public class SpawnPoolEasy extends AbstractSpawnPool {
 
     /**
      * Constructs the easy platform pool and initializes the object lists.
+     * 
+     * @param width the width of the game world
+     * @param height the height of the game world
+     * @param scoreManager the score manager to be used for the factory add-on
      */
     public SpawnPoolEasy(final double width, final double height, final ScoreManager scoreManager) {
         super(width, height, scoreManager);
