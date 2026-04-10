@@ -1,18 +1,110 @@
 package javaclimber.worldConstructor.worldGenerator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.model.gameobj.impl.AlienImpl;
+import it.unibo.model.score.impl.ScoreManagerImpl;
+import it.unibo.model.shop.impl.ActiveUpgradesImpl;
+import it.unibo.model.world.api.QueueWorld;
+import it.unibo.model.world.impl.BoundWorldImpl;
+import it.unibo.model.world.impl.BoundY;
+import it.unibo.model.world.impl.Boundary;
+import it.unibo.model.world.impl.RealWorld;
+import it.unibo.model.world.impl.UpperWorld;
+import it.unibo.model.world.impl.World;
+import it.unibo.model.worldConstructor.data.Difficult;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPoolEasy;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPoolMedium;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.GameObjDimension;
+import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolCreatorImpl;
+import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.Distance;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPoolEasy;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPoolMedium;
+import it.unibo.model.worldConstructor.worldGenerator.impl.WorldConstructorImpl;
+import it.unibo.model.worldConstructor.worldGenerator.impl.WorldDifficultImpl;
+
 public class WorldDifficultTest {
-    
+
+    private WorldDifficultImpl worldDifficult;
+    private WorldConstructorImpl worldConstructor;
+    private QueueWorld upperWorld;
+    private Difficult difficultEasy;
+    private Difficult difficultMedium;
+
+    private static final double Y_MIN = 0;
+    private static final double Y_MAX = 600;
+
+    private static final double X_MIN = 0;
+    private static final double X_MAX = 800;
+
+    private static final double HEIGHT_EASY = 0;
+    private static final double HEIGHT_MEDIUM = 50_000;
+
     @BeforeEach
     public void setUp() {
-    
+        var boundary = new BoundWorldImpl(new BoundY(Y_MIN, Y_MAX), new Boundary(X_MIN, X_MAX));
+        this.upperWorld = new UpperWorld(boundary);
+        final var distanceEasy = new Distance(200, 100, 300);
+        final var distanceMedium = new Distance(300, 150, 250);
+        final var spawnPoolCreator = new SpawnPoolCreatorImpl(upperWorld);
+        final var spawnPoolEasy = new SpawnPoolEasy(GameObjDimension.EASY_PLATFORM_WIDTH,
+                GameObjDimension.EASY_PLATFORM_HEIGHT, new ScoreManagerImpl());
+        final var platformPoolEasy = new PlatformPoolEasy(spawnPoolCreator, GameObjDimension.EASY_PLATFORM_WIDTH,
+                GameObjDimension.EASY_PLATFORM_HEIGHT);
+        final var platformPoolMedium = new PlatformPoolMedium(spawnPoolCreator, GameObjDimension.MEDIUM_PLATFORM_WIDTH,
+                GameObjDimension.MEDIUM_PLATFORM_HEIGHT);
+        final var addOnPoolEasy = new AddOnPoolEasy(spawnPoolCreator, 0.3);
+        final var addOnPoolMedium = new AddOnPoolMedium(spawnPoolCreator, 0.5);
+        this.difficultEasy = new Difficult(HEIGHT_EASY, distanceEasy, spawnPoolEasy, addOnPoolEasy, platformPoolEasy);
+        this.difficultMedium = new Difficult(HEIGHT_MEDIUM, distanceMedium, spawnPoolEasy, addOnPoolMedium,
+                platformPoolMedium);
+        final var difficultList = List.of(
+                this.difficultEasy,
+                this.difficultMedium);
+        spawnPoolCreator.setSpawnPool(spawnPoolEasy);
+        this.worldConstructor = new WorldConstructorImpl(upperWorld, difficultList.getFirst(),
+                new SpawnPoolCreatorImpl(upperWorld));
+        this.worldDifficult = new WorldDifficultImpl(difficultList);
     }
 
     @Test
-    public void testDifficult() {
-         
+    public void testRegisterObserver() {
+        assertTrue(worldDifficult.registerObserver(this.worldConstructor));
+    }
+
+    @Test
+    public void testRemoveObserver() {
+        worldDifficult.registerObserver(this.worldConstructor);
+        assertTrue(worldDifficult.removeObserver(this.worldConstructor));
+    }
+
+    @Test
+    public void testNotifyObservers() {
+        this.worldDifficult.registerObserver(this.worldConstructor);
+        this.worldDifficult.notifyObservers(this.difficultMedium);
+        this.worldConstructor.fillWorld();
+        assertEquals(true,
+                !this.upperWorld.getGadgets().isEmpty() || !this.upperWorld.getMoneys().isEmpty()
+                        || !this.upperWorld.getMonsters().isEmpty() || !this.upperWorld.getMovingPlatforms().isEmpty()
+                        || !this.upperWorld.getOnTouchPlatforms().isEmpty());
+    }
+
+    @Test
+    public void testCreateDifficult() {
+        this.worldDifficult.registerObserver(this.worldConstructor);
+        this.worldDifficult.createDifficult(HEIGHT_MEDIUM + 1);
+        this.worldConstructor.fillWorld();
+        assertEquals(true,
+                !this.upperWorld.getGadgets().isEmpty() || !this.upperWorld.getMoneys().isEmpty()
+                        || !this.upperWorld.getMonsters().isEmpty() || !this.upperWorld.getMovingPlatforms().isEmpty()
+                        || !this.upperWorld.getOnTouchPlatforms().isEmpty());
     }
 
 }
