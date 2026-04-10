@@ -67,16 +67,16 @@ public class WorldDifficultImpl implements WorldDifficult, Subject, AltitudeObse
      * {@inheritDoc}
      */
     @Override
-    public void registerObserver(final Observer o) {
-        this.observers.add(o);
+    public boolean registerObserver(final Observer o) {
+        return this.observers.add(o);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void removeObserver(final Observer o) {
-        this.observers.remove(o);
+    public boolean removeObserver(final Observer o) {
+        return this.observers.remove(o);
     }
 
     /**
