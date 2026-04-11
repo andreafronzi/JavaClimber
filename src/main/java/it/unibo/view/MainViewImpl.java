@@ -21,10 +21,10 @@ import it.unibo.view.shop.impl.ShopViewImpl;
 /**
  * Implementation of {@link MainView} interface.
  */
-public class MainViewImpl implements MainView {
+public final class MainViewImpl implements MainView {
 
     public static final int DECREASE_SCREEN_SIZE = 2;
-    private static final int DEFAULT_WIDTH = 800;
+    private static final int DEFAULT_WIDTH = 1000;
     private static final int DEFAULT_HEIGHT = 800;
 
     private final JFrame frame;
@@ -44,6 +44,7 @@ public class MainViewImpl implements MainView {
 
     /**
      * Switch the current panel to the new panel.
+     * 
      * @param newPanel the new panel to be displayed
      */
     private void switchPanel(final JPanel newPanel) {
@@ -56,6 +57,9 @@ public class MainViewImpl implements MainView {
         frame.repaint();
     }
 
+    /**
+     * Method to set the window size to the screen size.
+     */
     public void setWindowSize() {
         final Toolkit toolkit = Toolkit.getDefaultToolkit();
         final Dimension screenSize = toolkit.getScreenSize();
