@@ -1,4 +1,4 @@
-package javaclimber.phisics.platformPhysic;
+package JavaClimber.phisics.platformPhysic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -105,8 +105,7 @@ class OnTouchDestroyBehaviorTest {
         final ActiveUpgrades upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
         final AlienPhysic physic = new AlienNormalPhysic();
         final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
-        final LaunchedGame launchedGame = new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()),
-                new MenuImpl(new MainControllerImpl(new MainViewImpl())));
+        final LaunchedGame launchedGame = new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl())));
 
         this.alien.setPhysic(physic);
 

@@ -88,7 +88,7 @@ class AlienEliCapPhysicTest {
         assertEquals(SPEED_Y, alien.getSpeedY(), EPSILON);
         assertEquals(SPEED_X, alien.getSpeedX(), EPSILON);
 
-        alien.updatePosition(DT, boundary, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()), new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+        alien.updatePosition(DT, boundary, new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
         assertEquals(X1, alien.getPosX(), EPSILON);
         assertEquals(Y1, alien.getPosY(), EPSILON);
         assertEquals(ELICAP_SPEED_X, alien.getSpeedX(), EPSILON);
@@ -109,7 +109,7 @@ class AlienEliCapPhysicTest {
         assertEquals(SPEED_Y, alien.getSpeedY(), EPSILON);  
         assertEquals(SPEED_X, alien.getSpeedX(), EPSILON);
 
-        alien.updatePosition(DT2, boundary, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()), new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+        alien.updatePosition(DT2, boundary, new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
         
         //after updating position
         assertEquals(X2, alien.getPosX(), EPSILON);
@@ -128,7 +128,7 @@ class AlienEliCapPhysicTest {
         final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
         
         eliCap.onCollect(alien, new RealWorld(alien, boundary));
-        alien.updatePosition(DT3, boundary, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()), new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+        alien.updatePosition(DT3, boundary, new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
 
         assertEquals(X3, alien.getPosX(), EPSILON);
         assertEquals((Y + ELICAP_SPEED_Y*DT2) + ((ELICAP_SPEED_Y + (GameObjDimension.GRAVITY * (DT3 - DT2))) * (DT3 - DT2)), alien.getPosY(), EPSILON);
@@ -149,7 +149,7 @@ class AlienEliCapPhysicTest {
         
         eliCap.onCollect(alien, new RealWorld(alien, boundary));
 
-        alien.notifyCollision(coin, boundary.getBoundX(), new RealWorld(alien, boundary), new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()), new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+        alien.notifyCollision(coin, boundary.getBoundX(), new RealWorld(alien, boundary), new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
     
         assertEquals(COINS_NUMBER, scoreManager.getCoins(), EPSILON);
   }
