@@ -1,6 +1,7 @@
 package javaclimber.worldConstructor.worldGenerator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,11 +14,14 @@ import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.UpperWorld;
 import it.unibo.model.worldConstructor.data.Difficult;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPoolEasy;
+import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPoolMedium;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.GameObjDimension;
 import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolCreatorImpl;
 import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.Distance;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPoolEasy;
+import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPoolMedium;
+import it.unibo.model.worldConstructor.worldGenerator.api.Observer;
 import it.unibo.model.worldConstructor.worldGenerator.impl.WorldConstructorImpl;
 
 public class WorldConstructorTest {
@@ -58,18 +62,20 @@ public class WorldConstructorTest {
         this.difficult = new Difficult(HEIGHT_EASY, distance, spawnPool, addOnPool, platformPool);
         this.worldConstructor = new WorldConstructorImpl(upperWorld, difficult, this.spawnPoolCreator);
     }
-    
+
     @Test
     public void fillWorldTest() {
         this.worldConstructor.fillWorld();
-        if(!this.upperWorld.getGadgets().isEmpty()){
-            assertEquals(true, this.upperWorld.getGadgets().getLast().getPosY() > Y_MIN - GameObjDimension.ELYCAP_HEIGHT);
+        if (!this.upperWorld.getGadgets().isEmpty()) {
+            assertEquals(true,
+                    this.upperWorld.getGadgets().getLast().getPosY() > Y_MIN - GameObjDimension.ELYCAP_HEIGHT);
         }
         if (!this.upperWorld.getMoneys().isEmpty()) {
             assertEquals(true, this.upperWorld.getMoneys().getLast().getPosY() > Y_MIN - GameObjDimension.COIN_HEIGHT);
         }
         if (!this.upperWorld.getMonsters().isEmpty()) {
-            assertEquals(true, this.upperWorld.getMonsters().getLast().getPosY() > Y_MIN - GameObjDimension.ENEMY_HEIGHT);
+            assertEquals(true,
+                    this.upperWorld.getMonsters().getLast().getPosY() > Y_MIN - GameObjDimension.ENEMY_HEIGHT);
         }
         if (!this.upperWorld.getMovingPlatforms().isEmpty()) {
             assertEquals(true, this.upperWorld.getMovingPlatforms().getLast().getPosY() > Y_MIN);
@@ -80,5 +86,20 @@ public class WorldConstructorTest {
         if (!this.upperWorld.getOnTouchPlatforms().isEmpty()) {
             assertEquals(true, this.upperWorld.getOnTouchPlatforms().getLast().getPosY() > Y_MIN);
         }
+    }
+
+    @Test
+    public void updateDifficultTest() {
+        var addOnPool = new AddOnPoolMedium(this.spawnPoolCreator, SPAWN_PROBABILITY);
+        var platformPool = new PlatformPoolMedium(this.spawnPoolCreator, PLATFORM_WIDTH, PLATFORM_HEIGHT);
+        var spawnPool = new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT, new ScoreManagerImpl());
+        var distance = new Distance(MAX_PLATFORM_DISTANCE_Y, MIN_PLATFORM_DISTANCE_Y, MAX_PLATFORM_DISTANCE_X);
+        var difficult = new Difficult(HEIGHT_EASY, distance, spawnPool, addOnPool, platformPool);
+        this.worldConstructor.update(difficult);
+        this.worldConstructor.fillWorld();
+        assertEquals(true,
+                !this.upperWorld.getGadgets().isEmpty() || !this.upperWorld.getMoneys().isEmpty()
+                        || !this.upperWorld.getMonsters().isEmpty() || !this.upperWorld.getMovingPlatforms().isEmpty()
+                        || !this.upperWorld.getOnTouchPlatforms().isEmpty());
     }
 }

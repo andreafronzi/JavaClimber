@@ -92,7 +92,7 @@ class CollisionManagerTest {
     @Test
     public void detectCollisionOnEnemyTest() {
         this.realWorld.addMonster(this.e);
-        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()), new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
         assertFalse(this.realWorld.getMonsters().contains(this.e));
     }
 
@@ -102,7 +102,7 @@ class CollisionManagerTest {
     @Test
     public void detectCollisionOnCoinTest() {
         this.realWorld.addMoney(this.c);
-        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()), new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
         assertFalse(this.realWorld.getMoneys().contains(this.c));
     }
 
@@ -112,7 +112,7 @@ class CollisionManagerTest {
     @Test
     public void detectCollisionOnGadgetTest() {
         this.realWorld.addGadget(this.g);
-        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()), new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
         assertFalse(this.realWorld.getGadgets().contains(this.g));
     }
 }

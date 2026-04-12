@@ -37,7 +37,7 @@ class MovementCommandTest {
     public void moveAlienLeftTest() {
         final RunningCommand moveLeft = new MoveAlienLeft();
         final AlienImpl alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
-        moveLeft.execute(alien, new LaunchedGameImpl(null, null));
+        moveLeft.execute(alien, new LaunchedGameImpl(null));
         
         assertTrue(alien.isMovingLeft());
     }
@@ -49,7 +49,7 @@ class MovementCommandTest {
     public void moveAlienRightTest() {
         final RunningCommand moveRight = new MoveAlienRight();
         final AlienImpl alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
-        moveRight.execute(alien, new LaunchedGameImpl(null, null));
+        moveRight.execute(alien, new LaunchedGameImpl(null));
         
         assertTrue(alien.isMovingRight());
     }
@@ -61,7 +61,7 @@ class MovementCommandTest {
     public void stopAlien() {
         final RunningCommand stop = new StopAlienMovement();
         final AlienImpl alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
-        stop.execute(alien, new LaunchedGameImpl(null, null));
+        stop.execute(alien, new LaunchedGameImpl(null));
         
         assertFalse(alien.isMovingLeft() || alien.isMovingRight());
     }
