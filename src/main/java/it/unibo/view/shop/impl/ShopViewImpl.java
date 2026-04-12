@@ -16,6 +16,8 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -29,6 +31,7 @@ import it.unibo.controller.api.ShopController;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.view.SpriteEnum;
 import it.unibo.view.SpriteManager;
+import it.unibo.view.ViewConstants;
 import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinRegistry;
 import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinSet;
 import it.unibo.view.GameLaunchedView.renderers.skingRegistry.impl.SkinRegistryImpl;
@@ -37,15 +40,13 @@ import it.unibo.view.shop.api.ShopView;
 /**
  * Implementation of {@link ShopView} interface.
  */
+@SuppressFBWarnings("EI_EXPOSE_REP")
 public final class ShopViewImpl extends JPanel implements ShopView {
 
-    private static final String FONT_ARIAL = "Arial";
-    private static final int CARD_WIDTH = 340;
-    private static final int MARGIN = 20;
     private static final long serialVersionUID = 1L;
-    private final ShopController controller;
-    private final SpriteManager spriteManager;
-    private final SkinRegistry skinRegistry;
+    private final transient ShopController controller;
+    private final transient SpriteManager spriteManager;
+    private final transient SkinRegistry skinRegistry;
     private JLabel coinsLabel;
     private JPanel itemsPanel;
     private JPanel skinsPanel;
@@ -74,13 +75,13 @@ public final class ShopViewImpl extends JPanel implements ShopView {
         topPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         final JLabel titleLabel = new JLabel("SHOP");
-        titleLabel.setFont(new Font(FONT_ARIAL, Font.BOLD, 24));
+        titleLabel.setFont(new Font(ViewConstants.FONT_ARIAL, Font.BOLD, ViewConstants.FONT_TITLE_SIZE));
         titleLabel.setForeground(Color.BLUE);
         topPanel.add(titleLabel, BorderLayout.WEST);
 
         final JPanel coinsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 0));
         this.coinsLabel = new JLabel("Coins: 0");
-        this.coinsLabel.setFont(new Font(FONT_ARIAL, Font.BOLD, 18));
+        this.coinsLabel.setFont(new Font(ViewConstants.FONT_ARIAL, Font.BOLD, ViewConstants.FONT_COIN_LABEL_SIZE));
 
         final JLabel coinIconLabel = new JLabel();
         final BufferedImage coinImg = spriteManager.get(SpriteEnum.COIN);
@@ -97,7 +98,7 @@ public final class ShopViewImpl extends JPanel implements ShopView {
         final JButton exitButton = new JButton("EXIT");
         exitButton.addActionListener(e -> controller.exit());
 
-        final JPanel rightHeader = new JPanel(new FlowLayout(FlowLayout.RIGHT, MARGIN, 0));
+        final JPanel rightHeader = new JPanel(new FlowLayout(FlowLayout.RIGHT, ViewConstants.SPACING_20, 0));
         rightHeader.add(coinsPanel);
         rightHeader.add(inventoryButton);
         rightHeader.add(exitButton);
@@ -146,7 +147,7 @@ public final class ShopViewImpl extends JPanel implements ShopView {
         card.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(Color.GRAY),
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        card.setMaximumSize(new Dimension(280, 250));
+        card.setMaximumSize(new Dimension(ViewConstants.SKIN_CARD_WIDTH_SHOP, ViewConstants.SKIN_CARD_HEIGHT));
         card.setAlignmentX(CENTER_ALIGNMENT);
 
         final JLabel imgLabel;
@@ -167,7 +168,7 @@ public final class ShopViewImpl extends JPanel implements ShopView {
                 "<html><div style='text-align: center; width: 180px;'>" + item.getDescription() + "</div></html>");
         descLabel.setHorizontalAlignment(SwingConstants.CENTER);
         descLabel.setAlignmentX(CENTER_ALIGNMENT);
-        final JLabel priceLabel = new JLabel(item.getPrice() + "$");
+        final JLabel priceLabel = new JLabel(item.getPrice() + ViewConstants.DOLLAR_SIMBOL);
         priceLabel.setAlignmentX(CENTER_ALIGNMENT);
 
         final JButton buyButton = new JButton();
@@ -181,7 +182,7 @@ public final class ShopViewImpl extends JPanel implements ShopView {
         buyButton.setAlignmentX(CENTER_ALIGNMENT);
 
         card.add(imgLabel);
-        card.add(Box.createVerticalStrut(15));
+        card.add(Box.createVerticalStrut(ViewConstants.SPACING_15));
         card.add(nameLabel);
         card.add(descLabel);
         card.add(priceLabel);
@@ -206,11 +207,12 @@ public final class ShopViewImpl extends JPanel implements ShopView {
                 BorderFactory.createLineBorder(Color.GRAY),
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 
-        container.setMaximumSize(new Dimension(300, 250));
+        container.setMaximumSize(
+                new Dimension(ViewConstants.PERMANENT_CONTAINER_WIDTH, ViewConstants.PERMANENT_CONTAINER_HEIGHT));
         container.setAlignmentX(CENTER_ALIGNMENT);
 
         final JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(new Font(FONT_ARIAL, Font.BOLD, 16));
+        titleLabel.setFont(new Font(ViewConstants.FONT_ARIAL, Font.BOLD, 16));
         titleLabel.setAlignmentX(CENTER_ALIGNMENT);
 
         final int currentLevel = controller.getCurrentLevel(prefix);
@@ -225,13 +227,13 @@ public final class ShopViewImpl extends JPanel implements ShopView {
         progressBar.setValue(currentLevel);
         progressBar.setStringPainted(true);
         progressBar.setString("Level " + currentLevel + "/" + maxLevel);
-        progressBar.setMaximumSize(new Dimension(250, 25));
+        progressBar.setMaximumSize(new Dimension(ViewConstants.PROGRESS_BAR_WIDTH, ViewConstants.PROGRESS_BAR_HEIGHT));
         progressBar.setAlignmentX(CENTER_ALIGNMENT);
 
         container.add(titleLabel);
-        container.add(Box.createVerticalStrut(MARGIN));
+        container.add(Box.createVerticalStrut(ViewConstants.SPACING_20));
         container.add(progressBar);
-        container.add(Box.createVerticalStrut(MARGIN));
+        container.add(Box.createVerticalStrut(ViewConstants.SPACING_20));
 
         final ShopItem nextItem = categoryItems.stream()
                 .filter(i -> !controller.isOwned(i))
@@ -243,7 +245,7 @@ public final class ShopViewImpl extends JPanel implements ShopView {
             nextname.setAlignmentX(CENTER_ALIGNMENT);
             final JLabel nextDesc = new JLabel(nextItem.getDescription());
             nextDesc.setAlignmentX(CENTER_ALIGNMENT);
-            final JLabel price = new JLabel("Cost: " + nextItem.getPrice() + "$");
+            final JLabel price = new JLabel("Cost: " + nextItem.getPrice() + ViewConstants.DOLLAR_SIMBOL);
             price.setAlignmentX(CENTER_ALIGNMENT);
             final JButton upgradeButton = new JButton("UPGRADE");
             upgradeButton.addActionListener(e -> {
@@ -282,7 +284,7 @@ public final class ShopViewImpl extends JPanel implements ShopView {
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(Color.LIGHT_GRAY), BorderFactory.createEmptyBorder(8, 8, 8, 8)));
-        card.setMaximumSize(new Dimension(280, 150));
+        card.setMaximumSize(new Dimension(ViewConstants.TEMPORARY_CARD_WIDTH, ViewConstants.TEMPORARY_CARD_HEIGHT));
         card.setAlignmentX(CENTER_ALIGNMENT);
 
         final JLabel nameLabel = new JLabel(item.getName());
@@ -291,7 +293,7 @@ public final class ShopViewImpl extends JPanel implements ShopView {
         final JLabel descLabel = new JLabel(item.getDescription());
         descLabel.setAlignmentX(CENTER_ALIGNMENT);
 
-        final JLabel priceLabel = new JLabel(item.getPrice() + "$");
+        final JLabel priceLabel = new JLabel(item.getPrice() + ViewConstants.DOLLAR_SIMBOL);
         priceLabel.setAlignmentX(CENTER_ALIGNMENT);
 
         final JButton buyButton = new JButton();
@@ -305,9 +307,9 @@ public final class ShopViewImpl extends JPanel implements ShopView {
         buyButton.setAlignmentX(CENTER_ALIGNMENT);
 
         card.add(nameLabel);
-        card.add(Box.createVerticalStrut(5));
+        card.add(Box.createVerticalStrut(ViewConstants.SPACING_5));
         card.add(descLabel);
-        card.add(Box.createVerticalStrut(5));
+        card.add(Box.createVerticalStrut(ViewConstants.SPACING_5));
         card.add(priceLabel);
         card.add(Box.createVerticalGlue());
         card.add(buyButton);
@@ -323,9 +325,9 @@ public final class ShopViewImpl extends JPanel implements ShopView {
      */
     private JLabel createSubHeader(final String text) {
         final JLabel label = new JLabel(text);
-        label.setFont(new Font(FONT_ARIAL, Font.BOLD, 16));
+        label.setFont(new Font(ViewConstants.FONT_ARIAL, Font.BOLD, 16));
         label.setAlignmentX(CENTER_ALIGNMENT);
-        label.setBorder(new EmptyBorder(10, 0, 5, 0));
+        label.setBorder(new EmptyBorder(10, 0, ViewConstants.SPACING_5, 0));
         return label;
     }
 
@@ -341,7 +343,7 @@ public final class ShopViewImpl extends JPanel implements ShopView {
         categoryContainer.setLayout(new BoxLayout(categoryContainer, BoxLayout.Y_AXIS));
         categoryContainer.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(Color.BLACK, 1),
-                BorderFactory.createEmptyBorder(10, 20, 10, 20)));
+                BorderFactory.createEmptyBorder(10, ViewConstants.SPACING_20, 10, ViewConstants.SPACING_20)));
         categoryContainer.setAlignmentX(CENTER_ALIGNMENT);
         categoryContainer.add(createSubHeader(title));
         categoryContainer.add(Box.createVerticalStrut(10));
@@ -354,9 +356,9 @@ public final class ShopViewImpl extends JPanel implements ShopView {
         }
 
         final Dimension maxSize = categoryContainer.getPreferredSize();
-        categoryContainer.setMaximumSize(new Dimension(CARD_WIDTH, maxSize.height));
+        categoryContainer.setMaximumSize(new Dimension(ViewConstants.TEMPCATEGORY_CONTAINER_WIDTH, maxSize.height));
         tempPanel.add(categoryContainer);
-        tempPanel.add(Box.createVerticalStrut(MARGIN));
+        tempPanel.add(Box.createVerticalStrut(ViewConstants.SPACING_20));
     }
 
     /**
@@ -394,7 +396,7 @@ public final class ShopViewImpl extends JPanel implements ShopView {
 
         permPanel.add(Box.createVerticalStrut(10));
         permPanel.add(createPermanentWidget("JUMP HEIGHT", "pp_jump", permUpgrades));
-        permPanel.add(Box.createVerticalStrut(30));
+        permPanel.add(Box.createVerticalStrut(ViewConstants.SPACING_30));
         permPanel.add(createPermanentWidget("SPEED BOOST", "pp_speed", permUpgrades));
 
         addTempCategory("JUMP HEIGHT", "pt_jump", tempUpgrades);
