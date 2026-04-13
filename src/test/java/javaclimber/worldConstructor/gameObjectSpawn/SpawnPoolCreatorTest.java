@@ -17,6 +17,9 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPool;
 import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolCreatorImpl;
 import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
 
+/**
+ * Test for the SpawnPoolCreatorImpl class.
+ */
 public class SpawnPoolCreatorTest {
 
     private SpawnPoolCreatorImpl platformPoolCreator;
@@ -38,6 +41,9 @@ public class SpawnPoolCreatorTest {
 
     private static final int EXPECTED_SIZE = 1;
 
+    /**
+     * Set up the test environment.
+     */
     @BeforeEach
     public void setUp() {
         this.world = new UpperWorld(new BoundWorldImpl(new BoundY(Y_MIN, Y_MAX), new Boundary(X_MIN, X_MAX)));
@@ -46,6 +52,9 @@ public class SpawnPoolCreatorTest {
                 .setSpawnPool(new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT, new ScoreManagerImpl()));
     }
 
+    /**
+     * Test for setting the spawn pool.
+     */
     @Test
     public void setSpawnPoolTest() {
         SpawnPool newPool = new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT, new ScoreManagerImpl());
@@ -54,6 +63,9 @@ public class SpawnPoolCreatorTest {
         assertEquals(EXPECTED_SIZE, world.getStaticPlatforms().size());
     }
 
+    /**
+     * Test for creating a static platform.
+     */
     @Test
     public void createStaticPlatformTest() {
         var pos = new Vector2dImpl(POS_X, POS_Y);
@@ -61,6 +73,9 @@ public class SpawnPoolCreatorTest {
         assertEquals(EXPECTED_SIZE, world.getStaticPlatforms().size());
     }
 
+    /**
+     * Test for creating a moving platform.
+     */
     @Test
     public void createMovingPlatformTest() {
         var pos = new Vector2dImpl(POS_X, POS_Y);
@@ -68,6 +83,9 @@ public class SpawnPoolCreatorTest {
         assertEquals(EXPECTED_SIZE, world.getMovingPlatforms().size());
     }
 
+    /**
+     * Test for creating an on-touch platform.
+     */
     @Test
     public void createOnTouchPlatformTest() {
         var pos = new Vector2dImpl(POS_X, POS_Y);
@@ -75,6 +93,9 @@ public class SpawnPoolCreatorTest {
         assertEquals(EXPECTED_SIZE, world.getOnTouchPlatforms().size());
     }
 
+    /**
+     * Test for creating a monster.
+     */
     @Test
     public void createMonsterTest() {
         var pos = new Vector2dImpl(POS_X, POS_Y);
@@ -83,6 +104,9 @@ public class SpawnPoolCreatorTest {
         assertEquals(EXPECTED_SIZE, world.getMonsters().size());
     }
 
+    /**
+     * Test for creating a gadget.
+     */
     @Test
     public void createGadgetTest() {
         var pos = new Vector2dImpl(POS_X, POS_Y);
@@ -91,6 +115,9 @@ public class SpawnPoolCreatorTest {
         assertEquals(EXPECTED_SIZE, world.getGadgets().size());
     }
 
+    /**
+     * Test for creating money.
+     */
     @Test
     public void createMoneyTest() {
         var pos = new Vector2dImpl(POS_X, POS_Y);
