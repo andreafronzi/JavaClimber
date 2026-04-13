@@ -16,6 +16,9 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.PlatformPool;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPoolEasy;
 
+/**
+ * Test for the PlatformPool classes.
+ */
 public class PlatformPoolTest {
 
     private PlatformPool platformPool;
@@ -30,6 +33,9 @@ public class PlatformPoolTest {
     private static final double PLATFORM_WIDTH = 10;
     private static final double PLATFORM_HEIGHT = 10;
 
+    /**
+     * Set up the test environment.
+     */
     @BeforeEach
     public void setUp() {
         this.world = new UpperWorld(new BoundWorldImpl(new BoundY(Y_MIN, Y_MAX), new Boundary(X_MIN, X_MAX)));
@@ -38,17 +44,26 @@ public class PlatformPoolTest {
         this.platformPool = new PlatformPoolEasy(spawnPoolCreator, PLATFORM_WIDTH, PLATFORM_HEIGHT);
     }
 
+    /**
+     * Test for getting the platform pool.
+     */
     @Test
     public void testGetPlatformPool() {
         var pool = this.platformPool.getPlatformPool();
         assertEquals(false, pool.isEmpty());
     }
 
+    /**
+     * Test for getting the platform width.
+     */
     @Test
     public void testGetWidth() {
         assertEquals(PLATFORM_WIDTH, this.platformPool.getWidth());
     }
 
+    /**
+     * Test for getting the platform height.
+     */
     @Test
     public void testGetHeight() {
         assertEquals(PLATFORM_HEIGHT, this.platformPool.getHeight());
