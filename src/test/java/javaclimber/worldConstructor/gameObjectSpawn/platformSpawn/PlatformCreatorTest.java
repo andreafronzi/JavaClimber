@@ -23,6 +23,9 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.Platfo
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPoolEasy;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPoolMedium;
 
+/**
+ * Test for the PlatformCreatorImpl class.
+ */
 public class PlatformCreatorTest {
 
     private PlatformCreator platformCreator;
@@ -43,6 +46,9 @@ public class PlatformCreatorTest {
     private static final double POS_X = 50;
     private static final double POS_Y = 50;
 
+    /**
+     * Set up the test environment.
+     */
     @BeforeEach
     public void setUp() {
         this.world = new UpperWorld(new BoundWorldImpl(new BoundY(Y_MIN, Y_MAX), new Boundary(X_MIN, X_MAX)));
@@ -52,6 +58,9 @@ public class PlatformCreatorTest {
                 new PlatformPoolEasy(spawnPoolCreator, PLATFORM_WIDTH, PLATFORM_HEIGHT));
     }
 
+    /**
+     * Test for creating a platform.
+     */
     @Test
     public void testCreatePlatform() {
         this.platformCreator.createPlatform(CHANCE, new Vector2dImpl(POS_X, POS_Y));
@@ -67,6 +76,9 @@ public class PlatformCreatorTest {
         }
     }
 
+    /**
+     * Test for setting the platform pool.
+     */
     @Test
     public void testSetPlatformPool() {
         PlatformPool oldPool = new PlatformPoolEasy(spawnPoolCreator, PLATFORM_WIDTH, PLATFORM_HEIGHT);
