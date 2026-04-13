@@ -64,14 +64,10 @@ public final class MainViewImpl implements MainView {
         frame.repaint();
     }
 
-<<<<<<< HEAD
-    private void setWindowSize() {
-=======
     /**
      * Method to set the window size to the screen size.
      */
     public void setWindowSize() {
->>>>>>> Fronzi
         final Toolkit toolkit = Toolkit.getDefaultToolkit();
         final Dimension screenSize = toolkit.getScreenSize();
         final int width = (int) screenSize.getWidth();
