@@ -27,7 +27,14 @@ public class MainViewImpl implements MainView {
     private static final int DEFAULT_WIDTH = 800;
     private static final int DEFAULT_HEIGHT = 800;
 
+    /**
+     * The main frame of the application, it contains the current panel displayed.
+     */
     private final JFrame frame;
+
+    /**
+     * The current panel displayed, is the panel showed in the main frame.
+     */
     private JPanel currentPanel;
 
     /**
@@ -44,6 +51,7 @@ public class MainViewImpl implements MainView {
 
     /**
      * Switch the current panel to the new panel.
+     * 
      * @param newPanel the new panel to be displayed
      */
     private void switchPanel(final JPanel newPanel) {
@@ -56,7 +64,7 @@ public class MainViewImpl implements MainView {
         frame.repaint();
     }
 
-    public void setWindowSize() {
+    private void setWindowSize() {
         final Toolkit toolkit = Toolkit.getDefaultToolkit();
         final Dimension screenSize = toolkit.getScreenSize();
         final int width = (int) screenSize.getWidth();
