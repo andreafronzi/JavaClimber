@@ -15,6 +15,9 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPool
 import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolCreatorImpl;
 import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
 
+/**
+ * Test for the AddOnPool classes.
+ */
 public class AddOnPoolTest {
 
     private final static double PLATFORM_WIDTH = 30;
@@ -28,6 +31,9 @@ public class AddOnPoolTest {
     
     private AddOnPool addOnPoolEasy;
 
+    /**
+     * Set up the test environment.
+     */
     @BeforeEach
     public void setUp() {
         var spawnPoolEasy = new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT, new ScoreManagerImpl());
@@ -37,12 +43,18 @@ public class AddOnPoolTest {
         this.addOnPoolEasy = new AddOnPoolEasy(spawnPoolCreator, 0.3);
     }
 
+    /**
+     * Test for getting the add-on pool.
+     */
     @Test
     public void testGetAddOnPool() {
         var addOnPool = this.addOnPoolEasy.getAddOnPool();
         assertEquals(false, addOnPool.isEmpty());
     }
 
+    /**
+     * Test for getting the chance of add-on.
+     */
     @Test 
     public void testGetChanceAddOn() {
         var chanceAddOn = this.addOnPoolEasy.getChanceAddOn();
