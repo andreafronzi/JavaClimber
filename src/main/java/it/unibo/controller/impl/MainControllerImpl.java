@@ -12,14 +12,40 @@ import it.unibo.model.persistence.api.SaveState;
 import it.unibo.model.persistence.impl.SaveManagerImpl;
 import it.unibo.view.MainView;
 
+/**
+ * Implementation of {@link MainController} interface.
+ */
 public class MainControllerImpl implements MainController {
 
+    /**
+     * The view currently opened. It can be a menu view, a game launched view, an
+     * inventory view, a shop view, an end view or a pause view.
+     */
     private MainView mainView;
 
+    /**
+     * The menu of the game, responsible for managing the inventory, the score and
+     * the launched game.
+     */
     private final Menu menu;
+
+    /**
+     * The save manager, responsible for saving and loading the progress of the
+     * game.
+     */
     private final SaveManager saveManager;
+
+    /**
+     * The state of the launched game, identifies the state of the game at a certain
+     * point in the game.
+     */
     private StateOfLaunchedGame runningState;
 
+    /**
+     * Construct a MainControllerImpl with the required view.
+     * 
+     * @param mainView the view to be set at the beginning of the application.
+     */
     public MainControllerImpl(final MainView mainView) {
         this.mainView = mainView;
         this.saveManager = new SaveManagerImpl();
@@ -28,17 +54,26 @@ public class MainControllerImpl implements MainController {
         this.menu.setState(new MenuState(this.menu));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setView(MainView view) {
+    public void setView(final MainView view) {
         this.mainView = view;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void openMenuView() {
         final MenuControllerImpl menuController = new MenuControllerImpl(this, this.menu.getScoreManager(), this.menu);
         mainView.setMenuView(menuController);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void launchGame() {
         final GameLaunchedControllerImpl gameLaunchedController = new GameLaunchedControllerImpl(
@@ -48,6 +83,9 @@ public class MainControllerImpl implements MainController {
         gameLaunchedController.runGame();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void openInventoryView() {
         final InventoryControllerImpl inventoryController = new InventoryControllerImpl(this, this.menu.getInventory(),
@@ -55,25 +93,38 @@ public class MainControllerImpl implements MainController {
         mainView.setInventoryView(inventoryController);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void openShopView() {
         final ShopControllerImpl shopController = new ShopControllerImpl(this, this.menu.getShopManager());
         mainView.setShopView(shopController);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void openEndView() {
         final EndControllerImpl endController = new EndControllerImpl(this.menu.getLaunchedGame().get(), this.menu);
         mainView.setEndView(endController);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void openPauseView() {
-        final PauseControllerImpl pauseController = new PauseControllerImpl(this.menu.getLaunchedGame().get(), this.menu,
+        final PauseControllerImpl pauseController = new PauseControllerImpl(this.menu.getLaunchedGame().get(),
+                this.menu,
                 this.runningState, this);
         mainView.setPauseView(pauseController);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void saveProgress() {
         final SaveState currentState = new SaveState(this.menu.getInventory().getTotalCoins(),
