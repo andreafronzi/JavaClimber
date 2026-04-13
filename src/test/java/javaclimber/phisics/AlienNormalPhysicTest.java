@@ -90,8 +90,7 @@ class AlienNormalPhysicTest {
     assertEquals(0, alien.getSpeedY(), EPSILON);
     final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD),
         new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
-    physic.update(alien, DT, boundary, activeUpgrades, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()),
-        new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+    physic.update(alien, DT, boundary, activeUpgrades, new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
     assertEquals(GameObjDimension.GRAVITY * DT, alien.getSpeedY(), EPSILON);
     assertEquals(GameObjDimension.GRAVITY * DT * DT, alien.getPosY(), EPSILON);
   }
@@ -114,8 +113,7 @@ class AlienNormalPhysicTest {
     alien.moveRight();
     final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD),
         new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
-    physic.update(alien, DT, boundary, activeUpgrades, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()),
-        new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+    physic.update(alien, DT, boundary, activeUpgrades, new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
     assertEquals(LEFT_BOUNDARY, alien.getPosX(), EPSILON);
   }
 
@@ -137,8 +135,7 @@ class AlienNormalPhysicTest {
     alien.moveLeft();
     final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD),
         new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
-    physic.update(alien, DT, boundary, activeUpgrades, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()),
-        new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+    physic.update(alien, DT, boundary, activeUpgrades, new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
     System.out.println(alien.getPosX());
     assertEquals(RIGHT_BOUNDARY - WIDTH1, alien.getPosX(), EPSILON);
   }
@@ -163,15 +160,12 @@ class AlienNormalPhysicTest {
 
     // before updating position
     physic.hitEnemy(alien, enemy, new RealWorld(alien, boundary),
-        new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()),
-            new MenuImpl(new MainControllerImpl(new MainViewImpl()))),
-        activeUpgrades);
+        new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))), activeUpgrades);
     assertEquals(alien.getPosY(), enemy.getPosY() - alien.getHeight(), EPSILON);
     assertEquals(GameObjDimension.JUMP_ALIEN_SPEED_Y, alien.getSpeedY(), EPSILON);
 
     // after updating position
-    alien.updatePosition(DT, boundary, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()),
-        new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+    alien.updatePosition(DT, boundary, new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
     assertEquals((GameObjDimension.JUMP_ALIEN_SPEED_Y + GameObjDimension.GRAVITY * DT) * DT + Y, alien.getPosY(), EPSILON);
   }
 
@@ -218,8 +212,7 @@ class AlienNormalPhysicTest {
     assertEquals(alien.getPosY(), eliCap.getPosY() - alien.getHeight(), EPSILON);
     assertEquals(SPEED1_Y, alien.getSpeedY(), EPSILON);
 
-    alien.updatePosition(DT, boundary, new LaunchedGameImpl(new MainControllerImpl(new MainViewImpl()),
-        new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+    alien.updatePosition(DT, boundary, new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
     assertEquals(SPEEDY_WITH_ELICAP, alien.getSpeedY(), EPSILON);
     assertEquals(Y + SPEEDY_WITH_ELICAP * DT, alien.getPosY(), EPSILON);
   }
@@ -295,7 +288,7 @@ class AlienNormalPhysicTest {
     };
 
     final MenuImpl menu = new MenuImpl(dummyController);
-    final LaunchedGame game = new LaunchedGameImpl(dummyController, menu);
+    final LaunchedGame game = new LaunchedGameImpl(menu);
 
     // before updating position: this collision should end the game
     physic.hitEnemy(alien, enemy, new RealWorld(alien, boundary), game, activeUpgrades);

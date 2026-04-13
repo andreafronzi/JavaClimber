@@ -1,4 +1,4 @@
-package javaclimber.GameObj;
+package javaclimber.gameobj;
 
 import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.gameobj.impl.AlienImpl;

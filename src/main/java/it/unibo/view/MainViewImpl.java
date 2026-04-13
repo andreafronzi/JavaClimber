@@ -21,10 +21,10 @@ import it.unibo.view.shop.impl.ShopViewImpl;
 /**
  * Implementation of {@link MainView} interface.
  */
-public class MainViewImpl implements MainView {
+public final class MainViewImpl implements MainView {
 
     public static final int DECREASE_SCREEN_SIZE = 2;
-    private static final int DEFAULT_WIDTH = 800;
+    private static final int DEFAULT_WIDTH = 1000;
     private static final int DEFAULT_HEIGHT = 800;
 
     /**
@@ -64,7 +64,14 @@ public class MainViewImpl implements MainView {
         frame.repaint();
     }
 
+<<<<<<< HEAD
     private void setWindowSize() {
+=======
+    /**
+     * Method to set the window size to the screen size.
+     */
+    public void setWindowSize() {
+>>>>>>> Fronzi
         final Toolkit toolkit = Toolkit.getDefaultToolkit();
         final Dimension screenSize = toolkit.getScreenSize();
         final int width = (int) screenSize.getWidth();

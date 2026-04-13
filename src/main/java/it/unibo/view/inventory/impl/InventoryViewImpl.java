@@ -15,6 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -28,6 +30,7 @@ import it.unibo.controller.api.InventoryController;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.view.SpriteEnum;
 import it.unibo.view.SpriteManager;
+import it.unibo.view.ViewConstants;
 import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinRegistry;
 import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinSet;
 import it.unibo.view.GameLaunchedView.renderers.skingRegistry.impl.SkinRegistryImpl;
@@ -36,13 +39,14 @@ import it.unibo.view.inventory.api.InventoryView;
 /**
  * Implementation of {@link InventoryView} interface.
  */
+@SuppressFBWarnings("EI_EXPOSE_REP")
 public final class InventoryViewImpl extends JPanel implements InventoryView {
 
     private static final long serialVersionUID = 1L;
     private static final String FONT_ARIAL = "Arial";
-    private final InventoryController controller;
-    private final SpriteManager spriteManager;
-    private final SkinRegistry skinRegistry;
+    private final transient InventoryController controller;
+    private final transient SpriteManager spriteManager;
+    private final transient SkinRegistry skinRegistry;
     private JLabel coinsLabel;
     private JPanel itemsPanel;
     private JPanel skinsPanel;
@@ -71,13 +75,13 @@ public final class InventoryViewImpl extends JPanel implements InventoryView {
         topPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         final JLabel titleLabel = new JLabel("INVENTORY");
-        titleLabel.setFont(new Font(FONT_ARIAL, Font.BOLD, 24));
+        titleLabel.setFont(new Font(FONT_ARIAL, Font.BOLD, ViewConstants.FONT_TITLE_SIZE));
         titleLabel.setForeground(Color.BLUE);
         topPanel.add(titleLabel, BorderLayout.WEST);
 
         final JPanel coinsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 0));
         this.coinsLabel = new JLabel("Coins: 0");
-        this.coinsLabel.setFont(new Font(FONT_ARIAL, Font.BOLD, 18));
+        this.coinsLabel.setFont(new Font(FONT_ARIAL, Font.BOLD, ViewConstants.FONT_COIN_LABEL_SIZE));
         final JLabel coinIconLabel = new JLabel();
         final BufferedImage coinImg = spriteManager.get(SpriteEnum.COIN);
         if (coinImg != null) {
@@ -143,7 +147,7 @@ public final class InventoryViewImpl extends JPanel implements InventoryView {
         card.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(Color.GRAY),
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        card.setMaximumSize(new Dimension(280, 250));
+        card.setMaximumSize(new Dimension(ViewConstants.SKIN_CARD_WIDTH_SHOP, ViewConstants.SKIN_CARD_HEIGHT));
         card.setAlignmentX(CENTER_ALIGNMENT);
 
         final JLabel imgLabel;
@@ -173,7 +177,7 @@ public final class InventoryViewImpl extends JPanel implements InventoryView {
         selectBtn.setAlignmentX(CENTER_ALIGNMENT);
 
         card.add(imgLabel);
-        card.add(Box.createVerticalStrut(30));
+        card.add(Box.createVerticalStrut(ViewConstants.SPACING_30));
         card.add(nameLabel);
         card.add(descLabel);
         card.add(priceLabel);
@@ -201,7 +205,8 @@ public final class InventoryViewImpl extends JPanel implements InventoryView {
                 BorderFactory.createLineBorder(Color.GRAY),
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 
-        container.setMaximumSize(new Dimension(300, 250));
+        container.setMaximumSize(new Dimension(ViewConstants.PERMANENT_CONTAINER_WIDTH,
+                ViewConstants.PERMANENT_CONTAINER_HEIGHT));
         container.setAlignmentX(CENTER_ALIGNMENT);
 
         final JLabel titleLabel = new JLabel(title);
@@ -218,13 +223,13 @@ public final class InventoryViewImpl extends JPanel implements InventoryView {
         progressBar.setValue(selectedLevel);
         progressBar.setStringPainted(true);
         progressBar.setString("Active/Bought: " + selectedLevel + "/" + maxOwnedLevel + "  TOTAL: " + maxLevel);
-        progressBar.setMaximumSize(new Dimension(250, 25));
+        progressBar.setMaximumSize(new Dimension(ViewConstants.PROGRESS_BAR_WIDTH, ViewConstants.PROGRESS_BAR_HEIGHT));
         progressBar.setAlignmentX(CENTER_ALIGNMENT);
 
         container.add(titleLabel);
-        container.add(Box.createVerticalStrut(20));
+        container.add(Box.createVerticalStrut(ViewConstants.SPACING_20));
         container.add(progressBar);
-        container.add(Box.createVerticalStrut(20));
+        container.add(Box.createVerticalStrut(ViewConstants.SPACING_20));
 
         final JLabel name;
         final JLabel desc;
@@ -297,7 +302,7 @@ public final class InventoryViewImpl extends JPanel implements InventoryView {
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(Color.LIGHT_GRAY), BorderFactory.createEmptyBorder(8, 8, 8, 8)));
-        card.setMaximumSize(new Dimension(280, 150));
+        card.setMaximumSize(new Dimension(ViewConstants.TEMPORARY_CARD_WIDTH, ViewConstants.TEMPORARY_CARD_HEIGHT));
         card.setAlignmentX(CENTER_ALIGNMENT);
 
         final JLabel nameLabel = new JLabel(item.getName());
@@ -314,9 +319,9 @@ public final class InventoryViewImpl extends JPanel implements InventoryView {
         selectButton.setAlignmentX(CENTER_ALIGNMENT);
 
         card.add(nameLabel);
-        card.add(Box.createVerticalStrut(5));
+        card.add(Box.createVerticalStrut(ViewConstants.SPACING_5));
         card.add(descLabel);
-        card.add(Box.createVerticalStrut(5));
+        card.add(Box.createVerticalStrut(ViewConstants.SPACING_5));
         card.add(durationLabel);
         card.add(Box.createVerticalGlue());
         card.add(selectButton);
@@ -334,7 +339,7 @@ public final class InventoryViewImpl extends JPanel implements InventoryView {
         final JLabel label = new JLabel(text);
         label.setFont(new Font(FONT_ARIAL, Font.BOLD, 16));
         label.setAlignmentX(CENTER_ALIGNMENT);
-        label.setBorder(new EmptyBorder(10, 0, 5, 0));
+        label.setBorder(new EmptyBorder(10, 0, ViewConstants.SPACING_5, 0));
         return label;
     }
 
@@ -353,8 +358,7 @@ public final class InventoryViewImpl extends JPanel implements InventoryView {
         categoryContainer.setLayout(new BoxLayout(categoryContainer, BoxLayout.Y_AXIS));
         categoryContainer.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(Color.BLACK, 1),
-                BorderFactory.createEmptyBorder(10, 20, 10, 20)));
-        categoryContainer.setMaximumSize(new Dimension(340, 1000));
+                BorderFactory.createEmptyBorder(10, ViewConstants.SPACING_20, 10, ViewConstants.SPACING_20)));
         categoryContainer.setAlignmentX(CENTER_ALIGNMENT);
         categoryContainer.add(createSubHeader(title));
         categoryContainer.add(Box.createVerticalStrut(10));
@@ -373,10 +377,12 @@ public final class InventoryViewImpl extends JPanel implements InventoryView {
             final JLabel emtyLabel = new JLabel("Nessun potenziamento temporaneo acquistato");
             emtyLabel.setAlignmentX(CENTER_ALIGNMENT);
             categoryContainer.add(emtyLabel);
-            categoryContainer.add(Box.createVerticalStrut(50));
+            categoryContainer.add(Box.createVerticalStrut(ViewConstants.SPACING_50));
         }
+        final Dimension maxSize = categoryContainer.getPreferredSize();
+        categoryContainer.setMaximumSize(new Dimension(ViewConstants.TEMPCATEGORY_CONTAINER_WIDTH, maxSize.height));
         tempPanel.add(categoryContainer);
-        tempPanel.add(Box.createVerticalStrut(20));
+        tempPanel.add(Box.createVerticalStrut(ViewConstants.SPACING_20));
     }
 
     /**
@@ -408,7 +414,7 @@ public final class InventoryViewImpl extends JPanel implements InventoryView {
 
         permPanel.add(Box.createVerticalStrut(10));
         permPanel.add(createPermanentWidget("JUMP HEIGHT", "pp_jump", allPermItems, selectedJump, maxJump));
-        permPanel.add(Box.createVerticalStrut(30));
+        permPanel.add(Box.createVerticalStrut(ViewConstants.SPACING_30));
         permPanel.add(createPermanentWidget("SPEED BOOST", "pp_speed", allPermItems, selectedSpeed, maxSpeed));
 
         if (ownedTemp != null && tempStatus != null) {

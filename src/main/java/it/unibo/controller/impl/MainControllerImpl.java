@@ -13,20 +13,29 @@ import it.unibo.model.persistence.impl.SaveManagerImpl;
 import it.unibo.view.MainView;
 
 /**
+<<<<<<< HEAD
  * Implementation of {@link MainController} interface.
  */
 public class MainControllerImpl implements MainController {
+=======
+ * Implementation of the {@link MainController} interface.
+ */
+public final class MainControllerImpl implements MainController {
+>>>>>>> Fronzi
 
     /**
      * The view currently opened. It can be a menu view, a game launched view, an
      * inventory view, a shop view, an end view or a pause view.
      */
     private MainView mainView;
+<<<<<<< HEAD
 
     /**
      * The menu of the game, responsible for managing the inventory, the score and
      * the launched game.
      */
+=======
+>>>>>>> Fronzi
     private final Menu menu;
 
     /**
@@ -42,9 +51,19 @@ public class MainControllerImpl implements MainController {
     private StateOfLaunchedGame runningState;
 
     /**
+<<<<<<< HEAD
      * Construct a MainControllerImpl with the required view.
      * 
      * @param mainView the view to be set at the beginning of the application.
+=======
+     * Constructs a new {@code MainControllerImpl}.
+     * Initializes the save manager and the menu, attempts to load a previously
+     * saved game,
+     * and sets the initial menu state.
+     * 
+     * @param mainView the main view of the application to be managed by this
+     *                 controller
+>>>>>>> Fronzi
      */
     public MainControllerImpl(final MainView mainView) {
         this.mainView = mainView;
@@ -134,6 +153,12 @@ public class MainControllerImpl implements MainController {
         this.saveManager.save(currentState);
     }
 
+    /**
+     * Loads the game's state using the save manager.
+     * If a saved state is present, it updates the inventory and score manager with
+     * the loaded data.
+     * Otherwise, it initializes a new default save state and saves it.
+     */
     private void loadGame() {
         final Optional<SaveState> loadedState = this.saveManager.load();
         if (loadedState.isPresent()) {
