@@ -1,6 +1,7 @@
 package it.unibo.model.gameobj.api;
 
 import it.unibo.model.physics.api.Vector2d;
+import it.unibo.model.physics.impl.Vector2dImpl;
 
 /**
  * Abstract game object with a two-dimensional position and a two-dimensional
@@ -36,7 +37,7 @@ public abstract class AbstractGameObj implements GameObject {
   public AbstractGameObj(final double height, final double width, final Vector2d position) {
     this.height = height;
     this.width = width;
-    this.position = position;
+    this.position = new Vector2dImpl(position.getX(), position.getY());
   }
 
   /**
@@ -77,7 +78,7 @@ public abstract class AbstractGameObj implements GameObject {
    * @return the {@link Vector2d} representing the position
    */
   public Vector2d getPosition() {
-    return this.position;
+    return new Vector2dImpl(this.position.getX(), this.position.getY());
   }
 
   /**
