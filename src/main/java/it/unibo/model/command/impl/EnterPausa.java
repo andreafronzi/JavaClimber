@@ -8,7 +8,7 @@ import it.unibo.model.gameobj.api.Alien;
 /**
  * Rapresent the command to enter in the pause state.
  */
-public class EnterPausa implements RunningCommand{
+public class EnterPausa implements RunningCommand {
 
     /**
      * {@inheritDoc} If the command is executed, the game enter in the pause state.

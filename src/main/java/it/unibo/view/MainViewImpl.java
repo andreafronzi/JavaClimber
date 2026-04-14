@@ -27,7 +27,14 @@ public final class MainViewImpl implements MainView {
     private static final int DEFAULT_WIDTH = 1000;
     private static final int DEFAULT_HEIGHT = 800;
 
+    /**
+     * The main frame of the application, it contains the current panel displayed.
+     */
     private final JFrame frame;
+
+    /**
+     * The current panel displayed, is the panel showed in the main frame.
+     */
     private JPanel currentPanel;
 
     /**

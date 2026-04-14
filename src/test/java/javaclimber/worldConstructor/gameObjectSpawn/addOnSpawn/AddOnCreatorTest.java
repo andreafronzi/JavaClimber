@@ -24,6 +24,9 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPoolCreator;
 import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolCreatorImpl;
 import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
 
+/**
+ * Test for the AddOnCreator class.
+ */
 public class AddOnCreatorTest {
 
     private static final double Y_MIN = 0;
@@ -45,6 +48,9 @@ public class AddOnCreatorTest {
     private AddOnCreator addOnCreator;
     private Platform platform;
 
+    /**
+     * Set up the test environment.
+     */
     @BeforeEach
     public void setUp(){
         this.random = new Random();
@@ -55,6 +61,9 @@ public class AddOnCreatorTest {
         this.platform = new PlatformImpl(new Vector2dImpl(POS_X, POS_Y), PLATFORM_WIDTH, PLATFORM_HEIGHT, Optional.empty(), Optional.empty());
     }
 
+    /**
+     * Test for creating an add-on.
+     */
     @Test
     public void createAddOnTest(){
         this.addOnCreator.selectAddOn(random.nextDouble(1.0), this.platform);

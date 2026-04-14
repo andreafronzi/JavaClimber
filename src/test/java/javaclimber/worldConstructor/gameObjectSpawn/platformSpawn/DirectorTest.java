@@ -10,6 +10,9 @@ import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.Director;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.DirectorImpl;
 
+/**
+ * Test for the DirectorImpl class.
+ */
 public class DirectorTest {
 
     private Director director;
@@ -22,10 +25,16 @@ public class DirectorTest {
     
     private static final double DELTA = 0.01;
 
+    /**
+     * Set up the test environment.
+     */
     private void setUp() {
         director = new DirectorImpl(WIDTH, HEIGHT);
     }
 
+    /**
+     * Test for creating a normal platform.
+     */
     @Test
     public void testNormalPlatformCreation() {
         setUp();
@@ -34,6 +43,9 @@ public class DirectorTest {
         assertEquals(Y, platform.getPosY());
     }
 
+    /**
+     * Test for creating a moving on-touch platform.
+     */
     @Test
     public void testMovingOnTouchPlatform() {
         setUp();
@@ -42,6 +54,9 @@ public class DirectorTest {
         assertEquals(Y, platform.getPosY());
     }
 
+    /**
+     * Test for creating a moving platform.
+     */
     @Test
     public void testMovingPlatform() {
         setUp();

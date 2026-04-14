@@ -10,6 +10,9 @@ import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPositionSetterImpl;
 
+/**
+ * Test for the AddOnPositionSetterImpl class.
+ */
 public class AddOnPositionSetterTest {
 
     private AddOnPositionSetterImpl addOnPositionGenerator = new AddOnPositionSetterImpl();
@@ -22,11 +25,20 @@ public class AddOnPositionSetterTest {
     private static final double POS_X = 400;
     private static final double POS_Y = 700;
 
+    /**
+     * Create a gadget at the given position.
+     * 
+     * @param pos the position of the gadget
+     * @return the gadget
+     */
     private Gadget createGadget(final Vector2d pos) {
         Gadget gadget = new EliCap(ADDON_WIDTH, ADDON_HEIGHT, pos);
         return gadget;
     }
 
+    /**
+     * Test for generating the position of an add-on.
+     */
     @Test
     public void generatePosition() {
         Gadget gadget = createGadget(new Vector2dImpl(POS_X, POS_Y));

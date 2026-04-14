@@ -10,25 +10,25 @@ public interface EndController {
     /**
      * Return to the menu.
      */
-    public void menu();
+    void menu();
 
     /**
      * Restart the game.
      */
-    public void restart();
+    void restart();
 
     /**
      * Return the score of the player.
      * 
      * @return the score of the player.
      */
-    public int getScore();
+    int getScore();
 
     /**
      * Check if the player has achieved a new high score.
      * 
      * @return true if the player has achieved a new high score, false otherwise.
      */
-    public boolean isNewHighScore();
+    boolean isNewHighScore();
 
 }

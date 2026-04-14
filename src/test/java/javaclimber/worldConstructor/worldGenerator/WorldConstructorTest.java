@@ -1,7 +1,6 @@
 package javaclimber.worldConstructor.worldGenerator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,9 +20,11 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.Distance;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPoolEasy;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPoolMedium;
-import it.unibo.model.worldConstructor.worldGenerator.api.Observer;
 import it.unibo.model.worldConstructor.worldGenerator.impl.WorldConstructorImpl;
 
+/**
+ * Test for the WorldConstructorImpl class.
+ */
 public class WorldConstructorTest {
 
     private WorldConstructorImpl worldConstructor;
@@ -49,6 +50,9 @@ public class WorldConstructorTest {
 
     private static final double HEIGHT_EASY = 0;
 
+    /**
+     * Set up the test environment.
+     */
     @BeforeEach
     public void setUp() {
         var boundary = new BoundWorldImpl(new BoundY(Y_MIN, Y_MAX), new Boundary(X_MIN, X_MAX));
@@ -63,6 +67,9 @@ public class WorldConstructorTest {
         this.worldConstructor = new WorldConstructorImpl(upperWorld, difficult, this.spawnPoolCreator);
     }
 
+    /**
+     * Test for filling the world.
+     */
     @Test
     public void fillWorldTest() {
         this.worldConstructor.fillWorld();
@@ -88,6 +95,9 @@ public class WorldConstructorTest {
         }
     }
 
+    /**
+     * Test for updating the difficulty.
+     */
     @Test
     public void updateDifficultTest() {
         var addOnPool = new AddOnPoolMedium(this.spawnPoolCreator, SPAWN_PROBABILITY);

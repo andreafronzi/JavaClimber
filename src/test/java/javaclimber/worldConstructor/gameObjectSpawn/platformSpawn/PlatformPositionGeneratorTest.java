@@ -12,6 +12,9 @@ import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.Distance;
 import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPositionGeneratorImpl;
 
+/**
+ * Test for the PlatformPositionGeneratorImpl class.
+ */
 public class PlatformPositionGeneratorTest {
 
     private PlatformPositionGeneratorImpl platformPositionGenerator;
@@ -32,6 +35,9 @@ public class PlatformPositionGeneratorTest {
     private static final double MIN_DISTANCE_Y = 50;
     private static final double MAX_DISTANCE_X = 50;
 
+    /**
+     * Set up the test environment.
+     */
     @BeforeEach
     void setUp() {
         var pos = new Vector2dImpl(POS_X, POS_Y);
@@ -40,6 +46,9 @@ public class PlatformPositionGeneratorTest {
         this.platformPositionGenerator = new PlatformPositionGeneratorImpl(bound, pos, distance);
     }
 
+    /**
+     * Test for generating a platform position.
+     */
     @Test
     void testGeneratePosition() {
         var newPos = platformPositionGenerator.generatePosition(PLATFORM_WIDTH, PLATFORM_HEIGHT, new Vector2dImpl(POS_X, POS_Y));

@@ -8,16 +8,12 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.model.gameobj.impl.AlienImpl;
 import it.unibo.model.score.impl.ScoreManagerImpl;
-import it.unibo.model.shop.impl.ActiveUpgradesImpl;
 import it.unibo.model.world.api.QueueWorld;
 import it.unibo.model.world.impl.BoundWorldImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
-import it.unibo.model.world.impl.RealWorld;
 import it.unibo.model.world.impl.UpperWorld;
-import it.unibo.model.world.impl.World;
 import it.unibo.model.worldConstructor.data.Difficult;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPoolEasy;
 import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPoolMedium;
@@ -30,6 +26,9 @@ import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.Platfo
 import it.unibo.model.worldConstructor.worldGenerator.impl.WorldConstructorImpl;
 import it.unibo.model.worldConstructor.worldGenerator.impl.WorldDifficultImpl;
 
+/**
+ * Test for the WorldDifficultImpl class.
+ */
 public class WorldDifficultTest {
 
     private WorldDifficultImpl worldDifficult;
@@ -47,6 +46,9 @@ public class WorldDifficultTest {
     private static final double HEIGHT_EASY = 0;
     private static final double HEIGHT_MEDIUM = 50_000;
 
+    /**
+     * Set up the test environment.
+     */
     @BeforeEach
     public void setUp() {
         var boundary = new BoundWorldImpl(new BoundY(Y_MIN, Y_MAX), new Boundary(X_MIN, X_MAX));
@@ -74,17 +76,26 @@ public class WorldDifficultTest {
         this.worldDifficult = new WorldDifficultImpl(difficultList);
     }
 
+    /**
+     * Test for registering an observer.
+     */
     @Test
     public void testRegisterObserver() {
         assertTrue(worldDifficult.registerObserver(this.worldConstructor));
     }
 
+    /**
+     * Test for removing an observer.
+     */
     @Test
     public void testRemoveObserver() {
         worldDifficult.registerObserver(this.worldConstructor);
         assertTrue(worldDifficult.removeObserver(this.worldConstructor));
     }
 
+    /**
+     * Test for notifying observers.
+     */
     @Test
     public void testNotifyObservers() {
         this.worldDifficult.registerObserver(this.worldConstructor);
@@ -96,6 +107,9 @@ public class WorldDifficultTest {
                         || !this.upperWorld.getOnTouchPlatforms().isEmpty());
     }
 
+    /**
+     * Test for creating a difficulty level.
+     */
     @Test
     public void testCreateDifficult() {
         this.worldDifficult.registerObserver(this.worldConstructor);
