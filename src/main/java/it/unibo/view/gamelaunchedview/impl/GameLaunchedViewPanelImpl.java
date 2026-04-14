@@ -1,17 +1,17 @@
-package it.unibo.view.GameLaunchedView.impl;
+package it.unibo.view.gamelaunchedview.impl;
 
 import it.unibo.controller.api.GameLaunchedController;
 import it.unibo.controller.api.GameLaunchedInputController;
 import it.unibo.controller.impl.GameLaunchedControllerImpl;
-import it.unibo.view.GameLaunchedView.input.impl.LaunchedGameInputHandlerImpl;
 import it.unibo.view.SpriteManager;
-import it.unibo.view.GameLaunchedView.renderers.impl.AlienRenderer;
-import it.unibo.view.GameLaunchedView.renderers.impl.CoinRender;
-import it.unibo.view.GameLaunchedView.renderers.impl.EnemyRenderer;
-import it.unibo.view.GameLaunchedView.renderers.impl.GadgetRenderer;
-import it.unibo.view.GameLaunchedView.renderers.impl.MovingPlatformRenderer;
-import it.unibo.view.GameLaunchedView.renderers.impl.OnTouchPlatformRenderer;
-import it.unibo.view.GameLaunchedView.renderers.impl.PlatformRenderer;
+import it.unibo.view.gamelaunchedview.input.impl.LaunchedGameInputHandlerImpl;
+import it.unibo.view.gamelaunchedview.renderers.impl.AlienRenderer;
+import it.unibo.view.gamelaunchedview.renderers.impl.CoinRender;
+import it.unibo.view.gamelaunchedview.renderers.impl.EnemyRenderer;
+import it.unibo.view.gamelaunchedview.renderers.impl.GadgetRenderer;
+import it.unibo.view.gamelaunchedview.renderers.impl.MovingPlatformRenderer;
+import it.unibo.view.gamelaunchedview.renderers.impl.OnTouchPlatformRenderer;
+import it.unibo.view.gamelaunchedview.renderers.impl.PlatformRenderer;
 
 import java.awt.*;
 import java.util.List;

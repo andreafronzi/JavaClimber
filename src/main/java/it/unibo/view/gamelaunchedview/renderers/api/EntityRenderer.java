@@ -1,4 +1,4 @@
-package it.unibo.view.GameLaunchedView.renderers.api;
+package it.unibo.view.gamelaunchedview.renderers.api;
 
 import java.awt.*;
 import java.util.List;

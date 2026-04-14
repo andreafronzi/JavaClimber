@@ -1,4 +1,4 @@
-package it.unibo.view.GameLaunchedView.input.impl;
+package it.unibo.view.gamelaunchedview.input.impl;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

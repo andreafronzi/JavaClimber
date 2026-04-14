@@ -1,4 +1,4 @@
-package it.unibo.view.GameLaunchedView.renderers.skingRegistry.api;
+package it.unibo.view.gamelaunchedview.renderers.skingRegistry.api;
 
 import it.unibo.view.SpriteEnum;
 

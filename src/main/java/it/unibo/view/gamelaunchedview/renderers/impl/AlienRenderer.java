@@ -1,11 +1,11 @@
-package it.unibo.view.GameLaunchedView.renderers.impl;
+package it.unibo.view.gamelaunchedview.renderers.impl;
 
 import it.unibo.model.gameobj.api.Alien;
-import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.GameObjDimension;
-import it.unibo.view.GameLaunchedView.renderers.api.EntityRenderer;
-import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinRegistry;
-import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinSet;
-import it.unibo.view.GameLaunchedView.renderers.skingRegistry.impl.SkinRegistryImpl;
+import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.GameObjDimension;
+import it.unibo.view.gamelaunchedview.renderers.api.EntityRenderer;
+import it.unibo.view.gamelaunchedview.renderers.skingRegistry.api.SkinRegistry;
+import it.unibo.view.gamelaunchedview.renderers.skingRegistry.api.SkinSet;
+import it.unibo.view.gamelaunchedview.renderers.skingRegistry.impl.SkinRegistryImpl;
 import it.unibo.view.SpriteManager;
 
 import java.awt.*;

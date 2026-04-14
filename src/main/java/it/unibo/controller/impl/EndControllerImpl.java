@@ -1,8 +1,8 @@
 package it.unibo.controller.impl;
 
 import it.unibo.controller.api.EndController;
-import it.unibo.model.LaunchedGame.api.LaunchedGame;
-import it.unibo.model.LaunchedGame.impl.InitialState;
+import it.unibo.model.launchedgame.api.LaunchedGame;
+import it.unibo.model.launchedgame.impl.InitialState;
 import it.unibo.model.menu.api.Menu;
 import it.unibo.model.menu.impl.LaunchedGameState;
 import it.unibo.model.menu.impl.MenuState;

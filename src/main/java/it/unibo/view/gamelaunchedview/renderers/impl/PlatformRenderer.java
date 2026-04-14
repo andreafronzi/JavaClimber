@@ -1,6 +1,6 @@
-package it.unibo.view.GameLaunchedView.renderers.impl;
+package it.unibo.view.gamelaunchedview.renderers.impl;
 
-import it.unibo.view.GameLaunchedView.renderers.api.EntityRenderer;
+import it.unibo.view.gamelaunchedview.renderers.api.EntityRenderer;
 import it.unibo.model.gameobj.api.Platform;
 import it.unibo.view.SpriteEnum;
 import it.unibo.view.SpriteManager;

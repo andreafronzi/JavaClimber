@@ -9,12 +9,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.controller.impl.MainControllerImpl;
-import it.unibo.model.LaunchedGame.api.LaunchedGame;
-import it.unibo.model.LaunchedGame.impl.LaunchedGameImpl;
 import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.gameobj.impl.AlienImpl;
 import it.unibo.model.gameobj.impl.PlatformImpl;
+import it.unibo.model.launchedgame.api.LaunchedGame;
+import it.unibo.model.launchedgame.impl.LaunchedGameImpl;
 import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.physics.alienphysic.api.AlienPhysic;
 import it.unibo.model.physics.alienphysic.impl.AlienNormalPhysic;

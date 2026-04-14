@@ -3,7 +3,7 @@ package it.unibo.controller.impl;
 import java.util.Optional;
 
 import it.unibo.controller.api.MainController;
-import it.unibo.model.LaunchedGame.api.StateOfLaunchedGame;
+import it.unibo.model.launchedgame.api.StateOfLaunchedGame;
 import it.unibo.model.menu.api.Menu;
 import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.menu.impl.MenuState;

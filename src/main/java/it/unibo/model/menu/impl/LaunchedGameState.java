@@ -1,8 +1,8 @@
 package it.unibo.model.menu.impl;
 
-import it.unibo.model.LaunchedGame.impl.InitialState;
-import it.unibo.model.LaunchedGame.impl.LaunchedGameImpl;
 import it.unibo.model.menu.api.Menu;
+import it.unibo.model.launchedgame.impl.InitialState;
+import it.unibo.model.launchedgame.impl.LaunchedGameImpl;
 import it.unibo.model.menu.api.AbstractMenuState;
 
 /**

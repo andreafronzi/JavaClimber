@@ -2,7 +2,6 @@ package it.unibo.controller.impl;
 
 import it.unibo.controller.api.GameLaunchedController;
 import it.unibo.controller.api.GameLaunchedInputController;
-import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.command.api.RunningCommand;
 import it.unibo.model.command.impl.EnterPausa;
 import it.unibo.model.command.impl.MoveAlienLeft;
@@ -13,6 +12,7 @@ import it.unibo.model.gameobj.api.Coin;
 import it.unibo.model.gameobj.api.Enemy;
 import it.unibo.model.gameobj.api.Gadget;
 import it.unibo.model.gameobj.api.Platform;
+import it.unibo.model.launchedgame.api.LaunchedGame;
 import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.world.api.BaseWorld;
 import it.unibo.model.world.api.GameWorld;

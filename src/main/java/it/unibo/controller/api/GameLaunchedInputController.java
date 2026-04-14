@@ -27,7 +27,7 @@ public interface GameLaunchedInputController {
 
   /**
    * <p>
-   * Handle the input to pause the {@link it.unibo.model.LaunchedGame.api.LaunchedGame}.
+   * Handle the input to pause the {@link it.unibo.model.launchedgame.api.LaunchedGame}.
    * </p>
    */
   void handlePauseCommand();

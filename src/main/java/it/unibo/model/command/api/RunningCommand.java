@@ -1,7 +1,7 @@
 package it.unibo.model.command.api;
 
-import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameobj.api.Alien;
+import it.unibo.model.launchedgame.api.LaunchedGame;
 
 /**
  * <p>

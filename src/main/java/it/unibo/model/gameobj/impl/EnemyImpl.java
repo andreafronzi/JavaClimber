@@ -1,9 +1,9 @@
 package it.unibo.model.gameobj.impl;
 
-import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.gameobj.api.Enemy;
 import it.unibo.model.gameobj.api.GameObj;
+import it.unibo.model.launchedgame.api.LaunchedGame;
 import it.unibo.model.physics.alienphysic.api.AlienPhysic;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.shop.api.ActiveUpgrades;

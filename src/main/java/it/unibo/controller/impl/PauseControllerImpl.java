@@ -1,9 +1,9 @@
 package it.unibo.controller.impl;
 
 import it.unibo.controller.api.PauseController;
-import it.unibo.model.LaunchedGame.api.LaunchedGame;
-import it.unibo.model.LaunchedGame.api.StateOfLaunchedGame;
-import it.unibo.model.LaunchedGame.impl.EndState;
+import it.unibo.model.launchedgame.api.LaunchedGame;
+import it.unibo.model.launchedgame.api.StateOfLaunchedGame;
+import it.unibo.model.launchedgame.impl.EndState;
 import it.unibo.model.menu.api.Menu;
 import it.unibo.model.menu.impl.MenuState;
 

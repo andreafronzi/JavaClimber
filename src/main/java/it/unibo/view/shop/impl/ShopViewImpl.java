@@ -32,9 +32,9 @@ import it.unibo.model.shop.api.ShopItem;
 import it.unibo.view.SpriteEnum;
 import it.unibo.view.SpriteManager;
 import it.unibo.view.ViewConstants;
-import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinRegistry;
-import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinSet;
-import it.unibo.view.GameLaunchedView.renderers.skingRegistry.impl.SkinRegistryImpl;
+import it.unibo.view.gamelaunchedview.renderers.skingRegistry.api.SkinRegistry;
+import it.unibo.view.gamelaunchedview.renderers.skingRegistry.api.SkinSet;
+import it.unibo.view.gamelaunchedview.renderers.skingRegistry.impl.SkinRegistryImpl;
 import it.unibo.view.shop.api.ShopView;
 
 /**
