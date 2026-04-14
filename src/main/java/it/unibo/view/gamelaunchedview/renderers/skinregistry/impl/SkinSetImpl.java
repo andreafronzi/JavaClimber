@@ -1,6 +1,12 @@
-package it.unibo.view.GameLaunchedView.renderers.skingRegistry.impl;
+package it.unibo.view.gamelaunchedview.renderers.skinregistry.impl;
 
 import it.unibo.view.SpriteEnum;
-import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinSet;
+import it.unibo.view.gamelaunchedview.renderers.skinregistry.api.SkinSet;
 
-public record SkinSetImpl (SpriteEnum left, SpriteEnum right) implements SkinSet { }
+/**
+ * Implementation of {@link SkinSet}.
+ * 
+ * @param left the {@link SpriteEnum} for the left-facing sprite
+ * @param right the {@link SpriteEnum} for the right-facing sprite
+ */
+public record SkinSetImpl(SpriteEnum left, SpriteEnum right) implements SkinSet { }
