@@ -1,21 +1,21 @@
-package it.unibo.view.GameLaunchedView.renderers.skingRegistry.api;
+package it.unibo.view.gamelaunchedview.renderers.skinregistry.api;
 
 import it.unibo.view.SpriteEnum;
 
 /**
- * <p>Interface representing left and right sprites faces for a character's skin.</p>
+ * Interface representing left and right sprites faces for a character's skin.
  */
 public interface SkinSet {
 
     /**
-     * <p>Gets the sprite for the left-facing character.</p>
+     * Gets the sprite for the left-facing character.
      * 
      * @return the left-facing sprite
      */
     SpriteEnum left();
-    
+
     /**
-     * <p>Gets the sprite for the right-facing character.</p>
+     * Gets the sprite for the right-facing character.
      * 
      * @return the right-facing sprite
      */
