@@ -13,7 +13,7 @@ import it.unibo.controller.api.InventoryController;
 import it.unibo.controller.api.MenuController;
 import it.unibo.controller.api.PauseController;
 import it.unibo.controller.api.ShopController;
-import it.unibo.view.GameLaunchedView.impl.GameLaunchedViewPanelImpl;
+import it.unibo.view.gamelaunchedview.impl.GameLaunchedViewPanelImpl;
 import it.unibo.view.inventory.impl.InventoryViewImpl;
 import it.unibo.view.menu.impl.MenuViewImpl;
 import it.unibo.view.shop.impl.ShopViewImpl;

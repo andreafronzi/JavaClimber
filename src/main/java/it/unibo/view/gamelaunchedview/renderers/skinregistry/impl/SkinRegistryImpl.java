@@ -1,20 +1,21 @@
-package it.unibo.view.GameLaunchedView.renderers.skingRegistry.impl;
+package it.unibo.view.gamelaunchedview.renderers.skinregistry.impl;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import it.unibo.view.SpriteEnum;
-import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinRegistry;
-import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinSet;
+import it.unibo.view.gamelaunchedview.renderers.skinregistry.api.SkinRegistry;
+import it.unibo.view.gamelaunchedview.renderers.skinregistry.api.SkinSet;
 
 /**
- * <p>Implementation of the {@link SkinRegistry} interface, responsible for managing and providing access to character skins.</p>
+ * Implementation of the {@link SkinRegistry} interface, responsible for managing and providing access to character skins.
  */
-public class SkinRegistryImpl implements SkinRegistry{
+public class SkinRegistryImpl implements SkinRegistry {
 
     /**
      * A HashMap that stores the mapping between skin ids and their corresponding SkinSet instances.
      */
-    private final HashMap<String, SkinSet> skins;
+    private final Map<String, SkinSet> skins;
 
     /**
      * Constructor for the SkinRegistryImpl class. Initializes the skin registry and loads the available skins.
@@ -49,5 +50,4 @@ public class SkinRegistryImpl implements SkinRegistry{
         this.skins.put("s_ice", new SkinSetImpl(SpriteEnum.ICE_LEFT, SpriteEnum.ICE_RIGHT));
         this.skins.put("s_jungle", new SkinSetImpl(SpriteEnum.JUNGLE_LEFT, SpriteEnum.JUNGLE_RIGHT));
     }
-    
 }
