@@ -11,26 +11,21 @@ import it.unibo.model.world.impl.BoundWorldImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.UpperWorld;
-import it.unibo.model.worldConstructor.data.Difficult;
-import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPoolEasy;
-import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPoolMedium;
-import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.GameObjDimension;
-import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolCreatorImpl;
-import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
-import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.Distance;
-import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPoolEasy;
-import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPoolMedium;
-import it.unibo.model.worldConstructor.worldGenerator.impl.WorldConstructorImpl;
+import it.unibo.model.worldconstructor.data.Difficult;
+import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.AddOnPoolEasy;
+import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.AddOnPoolMedium;
+import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.GameObjDimension;
+import it.unibo.model.worldconstructor.gameobjectspawn.impl.SpawnPoolCreatorImpl;
+import it.unibo.model.worldconstructor.gameobjectspawn.impl.SpawnPoolEasy;
+import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.impl.Distance;
+import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.impl.PlatformPoolEasy;
+import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.impl.PlatformPoolMedium;
+import it.unibo.model.worldconstructor.worldgenerator.impl.WorldConstructorImpl;
 
 /**
  * Test for the WorldConstructorImpl class.
  */
 public class WorldConstructorTest {
-
-    private WorldConstructorImpl worldConstructor;
-    private QueueWorld upperWorld;
-    private Difficult difficult;
-    private SpawnPoolCreatorImpl spawnPoolCreator;
 
     private static final double Y_MIN = 0;
     private static final double Y_MAX = 600;
@@ -51,18 +46,38 @@ public class WorldConstructorTest {
     private static final double HEIGHT_EASY = 0;
 
     /**
+     * The WorldConstructorImpl to test.
+     */
+    private WorldConstructorImpl worldConstructor;
+
+    /**
+     * The upper world for testing.
+     */
+    private QueueWorld upperWorld;
+
+    /**
+     * The difficult for testing.
+     */
+    private Difficult difficult;
+
+    /**
+     * The spawn pool creator for testing.
+     */
+    private SpawnPoolCreatorImpl spawnPoolCreator;
+
+    /**
      * Set up the test environment.
      */
     @BeforeEach
     public void setUp() {
-        var boundary = new BoundWorldImpl(new BoundY(Y_MIN, Y_MAX), new Boundary(X_MIN, X_MAX));
+        final var boundary = new BoundWorldImpl(new BoundY(Y_MIN, Y_MAX), new Boundary(X_MIN, X_MAX));
         this.upperWorld = new UpperWorld(boundary);
-        var distance = new Distance(MAX_PLATFORM_DISTANCE_Y, MIN_PLATFORM_DISTANCE_Y, MAX_PLATFORM_DISTANCE_X);
+        final var distance = new Distance(MAX_PLATFORM_DISTANCE_Y, MIN_PLATFORM_DISTANCE_Y, MAX_PLATFORM_DISTANCE_X);
         this.spawnPoolCreator = new SpawnPoolCreatorImpl(upperWorld);
-        var spawnPool = new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT, new ScoreManagerImpl());
+        final var spawnPool = new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT, new ScoreManagerImpl());
         this.spawnPoolCreator.setSpawnPool(spawnPool);
-        var addOnPool = new AddOnPoolEasy(this.spawnPoolCreator, SPAWN_PROBABILITY);
-        var platformPool = new PlatformPoolEasy(this.spawnPoolCreator, PLATFORM_WIDTH, PLATFORM_HEIGHT);
+        final var addOnPool = new AddOnPoolEasy(this.spawnPoolCreator, SPAWN_PROBABILITY);
+        final var platformPool = new PlatformPoolEasy(this.spawnPoolCreator, PLATFORM_WIDTH, PLATFORM_HEIGHT);
         this.difficult = new Difficult(HEIGHT_EASY, distance, spawnPool, addOnPool, platformPool);
         this.worldConstructor = new WorldConstructorImpl(upperWorld, difficult, this.spawnPoolCreator);
     }
@@ -100,12 +115,12 @@ public class WorldConstructorTest {
      */
     @Test
     public void updateDifficultTest() {
-        var addOnPool = new AddOnPoolMedium(this.spawnPoolCreator, SPAWN_PROBABILITY);
-        var platformPool = new PlatformPoolMedium(this.spawnPoolCreator, PLATFORM_WIDTH, PLATFORM_HEIGHT);
-        var spawnPool = new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT, new ScoreManagerImpl());
-        var distance = new Distance(MAX_PLATFORM_DISTANCE_Y, MIN_PLATFORM_DISTANCE_Y, MAX_PLATFORM_DISTANCE_X);
-        var difficult = new Difficult(HEIGHT_EASY, distance, spawnPool, addOnPool, platformPool);
-        this.worldConstructor.update(difficult);
+        final var newAddOnPool = new AddOnPoolMedium(this.spawnPoolCreator, SPAWN_PROBABILITY);
+        final var newPlatformPool = new PlatformPoolMedium(this.spawnPoolCreator, PLATFORM_WIDTH, PLATFORM_HEIGHT);
+        final var newSpawnPool = new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT, new ScoreManagerImpl());
+        final var newDistance = new Distance(MAX_PLATFORM_DISTANCE_Y, MIN_PLATFORM_DISTANCE_Y, MAX_PLATFORM_DISTANCE_X);
+        final var newDifficult = new Difficult(HEIGHT_EASY, newDistance, newSpawnPool, newAddOnPool, newPlatformPool);
+        this.worldConstructor.update(newDifficult);
         this.worldConstructor.fillWorld();
         assertEquals(true,
                 !this.upperWorld.getGadgets().isEmpty() || !this.upperWorld.getMoneys().isEmpty()

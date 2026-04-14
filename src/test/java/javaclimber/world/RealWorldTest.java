@@ -33,8 +33,6 @@ import it.unibo.model.world.impl.RealWorld;
  */
 public class RealWorldTest {
 
-    private GameWorld realWorld;
-
     private static final double Y_MIN = 0;
     private static final double Y_MAX = 800;
 
@@ -60,6 +58,11 @@ public class RealWorldTest {
     private static final double MONEY_HEIGHT = 10;
 
     /**
+     * The real world to test.
+     */
+    private GameWorld realWorld;
+
+    /**
      * Set up the real world before each test.
      */
     @BeforeEach
@@ -77,11 +80,11 @@ public class RealWorldTest {
      * @return the static platform
      */
     private Platform createStaticPlatform(final Vector2d pos) {
-        PlatformBuilderImpl platformBuilder = new PlatformBuilderImpl();
-        Platform platform = platformBuilder.at(pos).build();
+        final PlatformBuilderImpl platformBuilder = new PlatformBuilderImpl();
+        final Platform platform = platformBuilder.at(pos).build();
         return platform;
     }
-    
+
     /**
      * Create a moving platform at the given position.
      * 
@@ -89,11 +92,11 @@ public class RealWorldTest {
      * @return the moving platform
      */
     private Platform createMovingPlatform(final Vector2d pos) {
-        PlatformBuilderImpl platformBuilder = new PlatformBuilderImpl();
-        Platform platform = platformBuilder.at(pos).addMovementBehaviour(new HorizontalMovementBehavior(100)).build();
+        final PlatformBuilderImpl platformBuilder = new PlatformBuilderImpl();
+        final Platform platform = platformBuilder.at(pos).addMovementBehaviour(new HorizontalMovementBehavior(100)).build();
         return platform;
     }
-    
+
     /**
      * Create an on-touch platform at the given position.
      * 
@@ -101,8 +104,8 @@ public class RealWorldTest {
      * @return the on-touch platform
      */
     private Platform createOnTouchPlatform(final Vector2d pos) {
-        PlatformBuilderImpl platformBuilder = new PlatformBuilderImpl();
-        Platform platform = platformBuilder.at(pos).addJumpBehaviour(new OnTouchDestroyBehavior()).build();
+        final PlatformBuilderImpl platformBuilder = new PlatformBuilderImpl();
+        final Platform platform = platformBuilder.at(pos).addJumpBehaviour(new OnTouchDestroyBehavior()).build();
         return platform;
     }
 
@@ -111,18 +114,18 @@ public class RealWorldTest {
      */
     @Test
     public void getAlienTest() {
-        Alien alien = this.realWorld.getAlien();
+        final Alien alien = this.realWorld.getAlien();
         assertEquals(alien, this.realWorld.getAlien());
         assertEquals(POS_X, alien.getPosX());
         assertEquals(POS_Y, alien.getPosY());
     }
-    
+
     /**
      * Test for removing a static platform.
      */
     @Test
     public void removeStaticPlatformTest() {
-        Platform platform = createStaticPlatform(new Vector2dImpl(POS_X, POS_Y));
+        final Platform platform = createStaticPlatform(new Vector2dImpl(POS_X, POS_Y));
         this.realWorld.addStaticPlatform(platform);
         assertEquals(true, this.realWorld.removeStaticPlatform(platform));
     }
@@ -132,7 +135,7 @@ public class RealWorldTest {
      */
     @Test
     public void removeMovingPlatformTest() {
-        Platform platform = createMovingPlatform(new Vector2dImpl(POS_X, POS_Y));
+        final Platform platform = createMovingPlatform(new Vector2dImpl(POS_X, POS_Y));
         this.realWorld.addMovingPlatform(platform);
         assertEquals(true, this.realWorld.removeMovingPlatform(platform));
     }
@@ -142,7 +145,7 @@ public class RealWorldTest {
      */
     @Test
     public void removeOnTouchPlatformTest() {
-        Platform platform = createOnTouchPlatform(new Vector2dImpl(POS_X, POS_Y));
+        final Platform platform = createOnTouchPlatform(new Vector2dImpl(POS_X, POS_Y));
         this.realWorld.addOnTouchPlatform(platform);
         assertEquals(true, this.realWorld.removeOnTouchPlatform(platform));
     }
@@ -152,7 +155,7 @@ public class RealWorldTest {
      */
     @Test
     public void removeMonsterTest() {
-        Enemy monster = new EnemyImpl(MONSTER_WIDTH, MONSTER_HEIGHT, new Vector2dImpl(POS_X, POS_Y));
+        final Enemy monster = new EnemyImpl(MONSTER_WIDTH, MONSTER_HEIGHT, new Vector2dImpl(POS_X, POS_Y));
         this.realWorld.addMonster(monster);
         assertEquals(true, this.realWorld.removeMonster(monster));
     }
@@ -162,7 +165,7 @@ public class RealWorldTest {
      */
     @Test
     public void removeGadgetTest() {
-        Gadget gadget = new EliCap(GADGET_WIDTH, GADGET_HEIGHT, new Vector2dImpl(POS_X, POS_Y));
+        final Gadget gadget = new EliCap(GADGET_WIDTH, GADGET_HEIGHT, new Vector2dImpl(POS_X, POS_Y));
         this.realWorld.addGadget(gadget);
         assertEquals(true, this.realWorld.removeGadget(gadget));
     }
@@ -172,7 +175,7 @@ public class RealWorldTest {
      */
     @Test
     public void removeMoneyTest() {
-        Coin money = new CoinImpl(MONEY_WIDTH, MONEY_HEIGHT, new Vector2dImpl(POS_X, POS_Y), null);
+        final Coin money = new CoinImpl(MONEY_WIDTH, MONEY_HEIGHT, new Vector2dImpl(POS_X, POS_Y), null);
         this.realWorld.addMoney(money);
         assertEquals(true, this.realWorld.removeMoney(money));
     }

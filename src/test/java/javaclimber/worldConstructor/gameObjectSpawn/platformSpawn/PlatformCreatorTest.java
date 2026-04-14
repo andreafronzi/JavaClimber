@@ -1,12 +1,9 @@
 package javaclimber.worldConstructor.gameObjectSpawn.platformSpawn;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import com.fasterxml.jackson.databind.JsonSerializable.Base;
 
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.score.impl.ScoreManagerImpl;
@@ -15,22 +12,18 @@ import it.unibo.model.world.impl.BoundWorldImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.UpperWorld;
-import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolCreatorImpl;
-import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
-import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.PlatformCreator;
-import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.api.PlatformPool;
-import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformCreatorImpl;
-import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPoolEasy;
-import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPoolMedium;
+import it.unibo.model.worldconstructor.gameobjectspawn.impl.SpawnPoolCreatorImpl;
+import it.unibo.model.worldconstructor.gameobjectspawn.impl.SpawnPoolEasy;
+import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.api.PlatformCreator;
+import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.api.PlatformPool;
+import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.impl.PlatformCreatorImpl;
+import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.impl.PlatformPoolEasy;
+import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.impl.PlatformPoolMedium;
 
 /**
  * Test for the PlatformCreatorImpl class.
  */
 public class PlatformCreatorTest {
-
-    private PlatformCreator platformCreator;
-    private BaseWorld world;
-    private SpawnPoolCreatorImpl spawnPoolCreator;
 
     private static final double X_MIN = 0;
     private static final double X_MAX = 100;
@@ -45,6 +38,21 @@ public class PlatformCreatorTest {
 
     private static final double POS_X = 50;
     private static final double POS_Y = 50;
+
+    /**
+     * The PlatformCreator instance to be tested.
+     */
+    private PlatformCreator platformCreator;
+
+    /**
+     * The world used for testing.
+     */
+    private BaseWorld world;
+
+    /**
+     * The SpawnPoolCreator instance used for testing.
+     */
+    private SpawnPoolCreatorImpl spawnPoolCreator;
 
     /**
      * Set up the test environment.
@@ -81,12 +89,14 @@ public class PlatformCreatorTest {
      */
     @Test
     public void testSetPlatformPool() {
-        PlatformPool oldPool = new PlatformPoolEasy(spawnPoolCreator, PLATFORM_WIDTH, PLATFORM_HEIGHT);
-        PlatformPool newPool = new PlatformPoolMedium(this.spawnPoolCreator, PLATFORM_WIDTH, PLATFORM_HEIGHT);
-        this.platformCreator.setPlatformPool(new PlatformPoolEasy(this.spawnPoolCreator, PLATFORM_WIDTH, PLATFORM_HEIGHT));
-        this.platformCreator.setPlatformPool(new PlatformPoolMedium(this.spawnPoolCreator, PLATFORM_WIDTH, PLATFORM_HEIGHT));
+        final PlatformPool oldPool = new PlatformPoolEasy(spawnPoolCreator, PLATFORM_WIDTH, PLATFORM_HEIGHT);
+        final PlatformPool newPool = new PlatformPoolMedium(this.spawnPoolCreator, PLATFORM_WIDTH, PLATFORM_HEIGHT);
+        this.platformCreator
+                .setPlatformPool(new PlatformPoolEasy(this.spawnPoolCreator, PLATFORM_WIDTH, PLATFORM_HEIGHT));
+        this.platformCreator
+                .setPlatformPool(new PlatformPoolMedium(this.spawnPoolCreator, PLATFORM_WIDTH, PLATFORM_HEIGHT));
         assertEquals(false, oldPool == newPool);
-        //fare come su spawn pool creator creare un add on e vedere se ce
+        // fare come su spawn pool creator creare un add on e vedere se ce
     }
 
 }

@@ -27,8 +27,6 @@ import it.unibo.model.physics.platformphysic.impl.OnTouchDestroyBehavior;
  */
 public class QueueWorldTest {
 
-    private UpperWorld upperWorld;
-
     private static final double POS_X = 0;
     private static final double POS_Y = 0;
 
@@ -37,6 +35,14 @@ public class QueueWorldTest {
 
     private static final double X_MIN = 0;
     private static final double X_MAX = 600;
+
+    private static final double WIDTH = 0;
+    private static final double HEIGHT = 0;
+
+    /**
+     * The upper world to test.
+     */
+    private UpperWorld upperWorld;
 
     /**
      * Set up the upper world before each test.
@@ -53,8 +59,8 @@ public class QueueWorldTest {
      * @return the static platform
      */
     private Platform createStaticPlatform(final Vector2d pos) {
-        PlatformBuilderImpl platformBuilder = new PlatformBuilderImpl();
-        Platform platform = platformBuilder.at(pos).build();
+        final PlatformBuilderImpl platformBuilder = new PlatformBuilderImpl();
+        final Platform platform = platformBuilder.at(pos).build();
         return platform;
     }
 
@@ -65,8 +71,8 @@ public class QueueWorldTest {
      * @return the moving platform
      */
     private Platform createMovingPlatform(final Vector2d pos) {
-        PlatformBuilderImpl platformBuilder = new PlatformBuilderImpl();
-        Platform platform = platformBuilder.at(pos).addMovementBehaviour(new HorizontalMovementBehavior(100)).build();
+        final PlatformBuilderImpl platformBuilder = new PlatformBuilderImpl();
+        final Platform platform = platformBuilder.at(pos).addMovementBehaviour(new HorizontalMovementBehavior(100)).build();
         return platform;
     }
 
@@ -77,8 +83,8 @@ public class QueueWorldTest {
      * @return the on-touch platform
      */
     private Platform createOnToucPlatform(final Vector2d pos) {
-        PlatformBuilderImpl platformBuilder = new PlatformBuilderImpl();
-        Platform platform = platformBuilder.at(pos).addJumpBehaviour(new OnTouchDestroyBehavior()).build();
+        final PlatformBuilderImpl platformBuilder = new PlatformBuilderImpl();
+        final Platform platform = platformBuilder.at(pos).addJumpBehaviour(new OnTouchDestroyBehavior()).build();
         return platform;
     }
 
@@ -87,7 +93,7 @@ public class QueueWorldTest {
      */
     @Test
     public void addStaticPlatformTest() {
-        Platform platform = createStaticPlatform(new Vector2dImpl(POS_X, POS_Y));
+        final Platform platform = createStaticPlatform(new Vector2dImpl(POS_X, POS_Y));
         assertEquals(true, this.upperWorld.addStaticPlatform(platform));
     }
 
@@ -96,7 +102,7 @@ public class QueueWorldTest {
      */
     @Test
     public void addMovingPlatformTest() {
-        Platform platform = createMovingPlatform(new Vector2dImpl(POS_X, POS_Y));
+        final Platform platform = createMovingPlatform(new Vector2dImpl(POS_X, POS_Y));
         assertEquals(true, this.upperWorld.addMovingPlatform(platform));
     }
 
@@ -105,7 +111,7 @@ public class QueueWorldTest {
      */
     @Test
     public void addOnTouchPlatformTest() {
-        Platform platform = createOnToucPlatform(new Vector2dImpl(POS_X, POS_Y));
+        final Platform platform = createOnToucPlatform(new Vector2dImpl(POS_X, POS_Y));
         assertEquals(true, this.upperWorld.addOnTouchPlatform(platform));
     }
 
@@ -114,7 +120,7 @@ public class QueueWorldTest {
      */
     @Test
     public void addMonsterTest() {
-        Enemy monster = new EnemyImpl(0, 0, new Vector2dImpl(POS_X, POS_Y));
+        final Enemy monster = new EnemyImpl(HEIGHT, WIDTH, new Vector2dImpl(POS_X, POS_Y));
         assertEquals(true, this.upperWorld.addMonster(monster));
     }
 
@@ -123,7 +129,7 @@ public class QueueWorldTest {
      */
     @Test
     public void addGadgetTest() {
-        Gadget gadget = new EliCap(0, 0, new Vector2dImpl(POS_X, POS_Y));
+        final Gadget gadget = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(POS_X, POS_Y));
         assertEquals(true, this.upperWorld.addGadget(gadget));
     }
 
@@ -132,25 +138,16 @@ public class QueueWorldTest {
      */
     @Test
     public void addMoneyTest() {
-        Coin money = new CoinImpl(0, 0, new Vector2dImpl(POS_X, POS_Y), null);
+        final Coin money = new CoinImpl(HEIGHT, WIDTH, new Vector2dImpl(POS_X, POS_Y), null);
         assertEquals(true, this.upperWorld.addMoney(money));
     }
-
-    /*
-     * @Test
-     * public void addTrapTest() {
-     * setUpUpperWorld();
-     * Trap trap = new Trap(new Vector2dImpl(0, 0));
-     * assertEquals(true, this.upperWorld.addTrap(trap));
-     * }
-     */
 
     /**
      * Test for removing the first static platform.
      */
     @Test
     public void removeFirstStaticPlatformTest() {
-        Platform platform = createStaticPlatform(new Vector2dImpl(POS_X, POS_Y));
+        final Platform platform = createStaticPlatform(new Vector2dImpl(POS_X, POS_Y));
         this.upperWorld.addStaticPlatform(platform);
         assertEquals(platform, this.upperWorld.removeFirstStaticPlatform().get());
     }
@@ -160,7 +157,7 @@ public class QueueWorldTest {
      */
     @Test
     public void removeFirstMovingPlatformTest() {
-        Platform platform = createMovingPlatform(new Vector2dImpl(POS_X, POS_Y));
+        final Platform platform = createMovingPlatform(new Vector2dImpl(POS_X, POS_Y));
         this.upperWorld.addMovingPlatform(platform);
         assertEquals(platform, this.upperWorld.removeFirstMovingPlatform().get());
     }
@@ -170,7 +167,7 @@ public class QueueWorldTest {
      */
     @Test
     public void removeFirstOnTouchPlatformTest() {
-        Platform platform = createOnToucPlatform(new Vector2dImpl(POS_X, POS_Y));
+        final Platform platform = createOnToucPlatform(new Vector2dImpl(POS_X, POS_Y));
         this.upperWorld.addOnTouchPlatform(platform);
         assertEquals(platform, this.upperWorld.removeFirstOnTouchPlatform().get());
     }
@@ -180,7 +177,7 @@ public class QueueWorldTest {
      */
     @Test
     public void removeFirstMonsterTest() {
-        Enemy monster = new EnemyImpl(0, 0, new Vector2dImpl(POS_X, POS_Y));
+        final Enemy monster = new EnemyImpl(HEIGHT, WIDTH, new Vector2dImpl(POS_X, POS_Y));
         this.upperWorld.addMonster(monster);
         assertEquals(monster, this.upperWorld.removeFirstMonster().get());
     }
@@ -190,7 +187,7 @@ public class QueueWorldTest {
      */
     @Test
     public void removeFirstGadgetTest() {
-        Gadget gadget = new EliCap(0, 0, new Vector2dImpl(POS_X, POS_Y));
+        final Gadget gadget = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(POS_X, POS_Y));
         this.upperWorld.addGadget(gadget);
         assertEquals(gadget, this.upperWorld.removeFirstGadget().get());
     }
@@ -200,27 +197,17 @@ public class QueueWorldTest {
      */
     @Test
     public void removeFirstCoinTest() {
-        Coin coin = new CoinImpl(0, 0, new Vector2dImpl(POS_X, POS_Y), null);
+        final Coin coin = new CoinImpl(HEIGHT, WIDTH, new Vector2dImpl(POS_X, POS_Y), null);
         this.upperWorld.addMoney(coin);
         assertEquals(coin, this.upperWorld.removeFirstMoney().get());
     }
-
-    /*
-     * @Test
-     * public void removeFirstTrapTest() {
-     * setUpUpperWorld();
-     * Trap trap = new Trap(new Vector2dImpl(0, 0));
-     * this.upperWorld.addTrap(trap);
-     * assertEquals(trap, this.upperWorld.removeFirstTrap().get());
-     * }
-     */
 
     /**
      * Test for getting the static platforms.
      */
     @Test
     public void getStaticPlatformsTest() {
-        Platform platform = createStaticPlatform(new Vector2dImpl(POS_X, POS_Y));
+        final Platform platform = createStaticPlatform(new Vector2dImpl(POS_X, POS_Y));
         this.upperWorld.addStaticPlatform(platform);
         assertEquals(1, this.upperWorld.getStaticPlatforms().size());
     }
@@ -230,7 +217,7 @@ public class QueueWorldTest {
      */
     @Test
     public void getMovingPlatformsTest() {
-        Platform platform = createMovingPlatform(new Vector2dImpl(POS_X, POS_Y));
+        final Platform platform = createMovingPlatform(new Vector2dImpl(POS_X, POS_Y));
         this.upperWorld.addMovingPlatform(platform);
         assertEquals(1, this.upperWorld.getMovingPlatforms().size());
     }
@@ -240,7 +227,7 @@ public class QueueWorldTest {
      */
     @Test
     public void getOnTouchPlatformsTest() {
-        Platform platform = createOnToucPlatform(new Vector2dImpl(POS_X, POS_Y));
+        final Platform platform = createOnToucPlatform(new Vector2dImpl(POS_X, POS_Y));
         this.upperWorld.addOnTouchPlatform(platform);
         assertEquals(1, this.upperWorld.getOnTouchPlatforms().size());
     }
@@ -250,7 +237,7 @@ public class QueueWorldTest {
      */
     @Test
     public void getMonstersTest() {
-        Enemy monster = new EnemyImpl(0, 0, new Vector2dImpl(POS_X, POS_Y));
+        final Enemy monster = new EnemyImpl(HEIGHT, WIDTH, new Vector2dImpl(POS_X, POS_Y));
         this.upperWorld.addMonster(monster);
         assertEquals(1, this.upperWorld.getMonsters().size());
     }
@@ -260,7 +247,7 @@ public class QueueWorldTest {
      */
     @Test
     public void getGadgetsTest() {
-        Gadget gadget = new EliCap(0, 0, new Vector2dImpl(POS_X, POS_Y));
+        final Gadget gadget = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(POS_X, POS_Y));
         this.upperWorld.addGadget(gadget);
         assertEquals(1, this.upperWorld.getGadgets().size());
     }
@@ -270,7 +257,7 @@ public class QueueWorldTest {
      */
     @Test
     public void getCoinsTest() {
-        Coin coin = new CoinImpl(0, 0, new Vector2dImpl(POS_X, POS_Y), null);
+        final Coin coin = new CoinImpl(HEIGHT, WIDTH, new Vector2dImpl(POS_X, POS_Y), null);
         this.upperWorld.addMoney(coin);
         assertEquals(1, this.upperWorld.getMoneys().size());
     }

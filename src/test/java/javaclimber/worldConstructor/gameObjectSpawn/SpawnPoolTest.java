@@ -6,18 +6,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.model.score.impl.ScoreManagerImpl;
-import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPool;
-import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
+import it.unibo.model.worldconstructor.gameobjectspawn.api.SpawnPool;
+import it.unibo.model.worldconstructor.gameobjectspawn.impl.SpawnPoolEasy;
 
 /**
  * Test for the SpawnPool classes.
  */
 public class SpawnPoolTest {
 
-    private SpawnPool platformPool;
-
     private static final double PLATFORM_WIDTH = 30;
     private static final double PLATFORM_HEIGHT = 20;
+
+    /**
+     * The spawn pool to test.
+     */
+    private SpawnPool platformPool;
 
     /**
      * Set up the test environment.
@@ -32,7 +35,7 @@ public class SpawnPoolTest {
      */
     @Test
     public void getPlatformTest() {
-        var platforms = this.platformPool.getStaticPlatformPool();
+        final var platforms = this.platformPool.getStaticPlatformPool();
         assertEquals(1, platforms.size());
     }
 
@@ -41,7 +44,7 @@ public class SpawnPoolTest {
      */
     @Test
     public void getMovingPlatformTest() {
-        var movingPlatforms = this.platformPool.getMovingPlatformPool();
+        final var movingPlatforms = this.platformPool.getMovingPlatformPool();
         assertEquals(1, movingPlatforms.size());
     }
 
@@ -50,7 +53,7 @@ public class SpawnPoolTest {
      */
     @Test
     public void getOnTouchPlatformTest() {
-        var onTouchPlatforms = this.platformPool.getOnTouchPlatformPool();
+        final var onTouchPlatforms = this.platformPool.getOnTouchPlatformPool();
         assertEquals(1, onTouchPlatforms.size());
     }
 
@@ -59,7 +62,7 @@ public class SpawnPoolTest {
      */
     @Test
     public void getMonsterTest() {
-        var monsters = this.platformPool.getMonsterPool();
+        final var monsters = this.platformPool.getMonsterPool();
         assertEquals(1, monsters.size());
     }
 
@@ -68,7 +71,7 @@ public class SpawnPoolTest {
      */
     @Test
     public void getGadgetTest() {
-        var gadgets = this.platformPool.getGadgetPool();
+        final var gadgets = this.platformPool.getGadgetPool();
         assertEquals(1, gadgets.size());
     }
 
@@ -77,7 +80,7 @@ public class SpawnPoolTest {
      */
     @Test
     public void getMoneyTest() {
-        var money = this.platformPool.getMoneyPool();
+        final var money = this.platformPool.getMoneyPool();
         assertEquals(1, money.size());
     }
 }
