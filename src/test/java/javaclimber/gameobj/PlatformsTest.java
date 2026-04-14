@@ -75,7 +75,7 @@ class PlatformsTest {
         assertEquals(NEW_X, platform.getPosX(), EPSILON);
         assertEquals(Y, platform.getPosY(), EPSILON);
     }
-    
+
     /**
      * Tests the {@link Platform#updatePosition(Vector2d)} method without movement behaviour.
      */

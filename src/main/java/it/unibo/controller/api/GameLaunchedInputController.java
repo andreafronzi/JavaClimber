@@ -3,41 +3,35 @@ package it.unibo.controller.api;
 import it.unibo.model.gameobj.api.Alien;
 
 /**
- * <p>Rapresent the controller which handle input from user and give to the model the command to execute.</p>
+ * Rapresent the controller which handle input from user and give to the
+ * model the command to execute.
  */
 public interface GameLaunchedInputController {
 
   /**
-   * <p>
-   * Handle the input to move the Alien entity to the right.
-   * This method signals the model to update the {@link Alien}'s movement state,
-   * allowing the Alien to begin or continue moving in the rightward direction.
-   * </p>
+   * Handle the input to move the Alien entity to the right. This method
+   * signals the model to update the {@link Alien}'s movement state, allowing
+   * the Alien to begin or continue moving in the rightward direction.
    */
   void handleMoveRightCommand();
 
   /**
-   * <p>
-   * Handle the input to move the Alien entity to the left.
-   * This method signals the model to update the {@link Alien}'s movement state,
-   * allowing the Alien to begin or continue moving in the leftward direction.
-   * </p>
+   * Handle the input to move the Alien entity to the left. This method
+   * signals the model to update the {@link Alien}'s movement state, allowing
+   * the Alien to begin or continue moving in the leftward direction.
    */
   void handleMoveLeftCommand();
 
   /**
-   * <p>
-   * Handle the input to pause the {@link it.unibo.model.launchedgame.api.LaunchedGame}.
-   * </p>
+   * Handle the input to pause the {@link it.unibo.model.LaunchedGame.api.LaunchedGame}.
    */
   void handlePauseCommand();
 
   /**
-   * <p>
-   *   Handle the release of left or right movement command for the {@link Alien} entity.
-   *   This method signals the model to update the {@link Alien}'s movement state,
-   *   allowing the Alien to stop moving when the user releases the movement key.
-   * </p>
+   * Handle the release of left or right movement command for the {@link
+   * Alien} entity. This method signals the model to update the {@link
+   * Alien}'s movement state, allowing the Alien to stop moving when the user
+   * releases the movement key.
    */
   void handleReleaseMovementCommand();
 }

@@ -1,5 +1,13 @@
 package it.unibo.view.gamelaunchedview.impl;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.util.List;
+
+import javax.swing.JPanel;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.api.GameLaunchedController;
 import it.unibo.controller.api.GameLaunchedInputController;
 import it.unibo.controller.impl.GameLaunchedControllerImpl;
@@ -13,72 +21,76 @@ import it.unibo.view.gamelaunchedview.renderers.impl.MovingPlatformRenderer;
 import it.unibo.view.gamelaunchedview.renderers.impl.OnTouchPlatformRenderer;
 import it.unibo.view.gamelaunchedview.renderers.impl.PlatformRenderer;
 
-import java.awt.*;
-import java.util.List;
-
-import javax.swing.*;
-
 /**
- * <p>
  * Rapresent the application's panel seen when the game is launched.
- * </p>
  */
 public class GameLaunchedViewPanelImpl extends JPanel {
+
+  private static final double LOGICAL_WIDTH = 600.0;
+  private static final double LOGICAL_HEIGHT = 1000.0;
+  private static final int GRID_SPACING = 40;
+  private static final java.awt.Color BG_COLOR = new java.awt.Color(250, 250, 230);
+  private static final java.awt.Color STRIPE_COLOR = new java.awt.Color(230, 230, 210);
+  private static final java.awt.Font SCORE_FONT = new java.awt.Font("Arial", java.awt.Font.BOLD, 24);
+  private static final int SCORE_X = 15;
+  private static final int SCORE_Y = 30;
+  private static final int COINS_Y = 60;
 
   /**
    * The {@link GameLaunchedControllerImpl} which provide the game elements to
    * render.
    */
-  private final GameLaunchedController launchedController;
+  @SuppressFBWarnings(value = "EI_EXPOSE_REP2",
+      justification = "The launched controller is shared across the game and "
+          + "it's not modified by the view, but only read to get the game state for rendering.")
+  private final transient GameLaunchedController launchedController;
 
   /**
    * Renders the {@link it.unibo.model.gameobj.api.Alien} entity within the game
    * view panel.
    */
-  private final AlienRenderer alienRenderer;
+  private final transient AlienRenderer alienRenderer;
 
   /**
    * Renders the {@link it.unibo.model.gameobj.api.Platform} entities within the
    * game view panel.
    */
-  private final PlatformRenderer platformRenderer;
+  private final transient PlatformRenderer platformRenderer;
 
   /**
    * Renders the {@link it.unibo.model.gameobj.api.Enemy} entities within the game
    * view panel.
    */
-  private final EnemyRenderer enemyRenderer;
+  private final transient EnemyRenderer enemyRenderer;
 
   /**
    * Renders the {@link it.unibo.model.gameobj.api.Coin} entities within the game
    * view panel.
    */
-  private final CoinRender coinRenderer;
+  private final transient CoinRender coinRenderer;
 
   /**
    * Renders the {@link it.unibo.model.gameobj.api.Gadget} entities within the
    * game view panel.
    */
-  private final GadgetRenderer gadgetRenderer;
+  private final transient GadgetRenderer gadgetRenderer;
 
   /**
    * Renders the moving {@link it.unibo.model.gameobj.api.Platform} entities
    * within the
    * game view panel.
    */
-  private final MovingPlatformRenderer movingPlatformRenderer;
+  private final transient MovingPlatformRenderer movingPlatformRenderer;
 
   /**
    * Renders the moving {@link it.unibo.model.gameobj.api.Platform} entities which
    * have onTouch behaviour within the
    * game view panel.
    */
-  private final OnTouchPlatformRenderer onTouchPlatformRenderer;
+  private final transient OnTouchPlatformRenderer onTouchPlatformRenderer;
 
   /**
-   * <p>
    * Construct a new {@link GameLaunchedViewPanelImpl}.
-   * </p>
    *
    * @param launchedController the {@link GameLaunchedControllerImpl} which
    *                           provide the game elements to render.
@@ -91,7 +103,6 @@ public class GameLaunchedViewPanelImpl extends JPanel {
     this.launchedController = launchedController;
 
     final SpriteManager spriteManager = new SpriteManager();
-    spriteManager.loadResources();
 
     this.alienRenderer = new AlienRenderer(spriteManager, this.launchedController.getActiveSkin());
     this.platformRenderer = new PlatformRenderer(spriteManager);
@@ -115,13 +126,10 @@ public class GameLaunchedViewPanelImpl extends JPanel {
   protected void paintComponent(final Graphics g) {
     super.paintComponent(g);
     final Graphics2D g2d = (Graphics2D) g;
-    
-    final double LOGICAL_WIDTH = 600.0;
-    final double LOGICAL_HEIGHT = 1000.0;
 
-    double scale = Math.min(this.getWidth() / LOGICAL_WIDTH, this.getHeight() / LOGICAL_HEIGHT);
-    int xOffset = (int) ((this.getWidth() - (LOGICAL_WIDTH * scale)) / 2.0);
-    int yOffset = (int) ((this.getHeight() - (LOGICAL_HEIGHT * scale)) / 2.0);
+    final double scale = Math.min(this.getWidth() / LOGICAL_WIDTH, this.getHeight() / LOGICAL_HEIGHT);
+    final int xOffset = (int) ((this.getWidth() - (LOGICAL_WIDTH * scale)) / 2.0);
+    final int yOffset = (int) ((this.getHeight() - (LOGICAL_HEIGHT * scale)) / 2.0);
 
     g2d.setColor(Color.DARK_GRAY);
     g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
@@ -129,32 +137,30 @@ public class GameLaunchedViewPanelImpl extends JPanel {
     g2d.translate(xOffset, yOffset);
     g2d.scale(scale, scale);
 
-    g2d.setColor(new Color(250, 250, 230));
+    g2d.setColor(BG_COLOR);
     g2d.fillRect(0, 0, (int) LOGICAL_WIDTH, (int) LOGICAL_HEIGHT);
 
-    g2d.setColor(new Color(230, 230, 210));
-    for (int i = 0; i < LOGICAL_WIDTH; i += 40) {
-        g2d.drawLine(i, 0, i, (int) LOGICAL_HEIGHT);
+    g2d.setColor(STRIPE_COLOR);
+    for (int i = 0; i < (int) LOGICAL_WIDTH; i += GRID_SPACING) {
+      g2d.drawLine(i, 0, i, (int) LOGICAL_HEIGHT);
     }
-    for (int i = 0; i < LOGICAL_HEIGHT; i += 40) {
-        g2d.drawLine(0, i, (int) LOGICAL_WIDTH, i);
+    for (int i = 0; i < (int) LOGICAL_HEIGHT; i += GRID_SPACING) {
+      g2d.drawLine(0, i, (int) LOGICAL_WIDTH, i);
     }
 
     this.renderAll(g2d);
 
     g2d.setColor(Color.BLACK);
-    g2d.setFont(new Font("Arial", Font.BOLD, 24));
-    g2d.drawString("Score: " + this.launchedController.getCurrentScore(), 15, 30);
-    g2d.drawString("Coins: " + this.launchedController.getCollectedCoins(), 15, 60);
-    
+    g2d.setFont(SCORE_FONT);
+    g2d.drawString("Score: " + this.launchedController.getCurrentScore(), SCORE_X, SCORE_Y);
+    g2d.drawString("Coins: " + this.launchedController.getCollectedCoins(), SCORE_X, COINS_Y);
+
     g2d.scale(1.0 / scale, 1.0 / scale);
     g2d.translate(-xOffset, -yOffset);
   }
 
   /**
-   * <p>
    * Renders all game elements on the provided graphics context.
-   * </p>
    *
    * @param g the {@code Graphics2D} object used for rendering the game elements.
    */

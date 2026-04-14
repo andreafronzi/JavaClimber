@@ -5,29 +5,40 @@ import it.unibo.model.gameobj.api.Gadget;
 import it.unibo.view.SpriteEnum;
 import it.unibo.view.SpriteManager;
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.util.List;
 import java.util.Objects;
 
-public class GadgetRenderer implements EntityRenderer<Gadget> {
+/**
+ * Renderer for {@link Gadget} entities.
+ */
+public final class GadgetRenderer implements EntityRenderer<Gadget> {
 
+  /**
+   * The {@link SpriteManager} used to get the gadget sprite.
+   */
   private final SpriteManager spriteManager;
 
+  /**
+   * Constructor for GadgetRenderer.
+   * 
+   * @param spriteManager the sprite manager to use
+   */
   public GadgetRenderer(final SpriteManager spriteManager) {
     this.spriteManager = spriteManager;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void render(final List<Gadget> gadgets, final Graphics2D g) {
-    final Image sprite = spriteManager.get(SpriteEnum.GADGET);
-    if (!Objects.isNull(sprite)) {
-      for (Gadget gadget : gadgets) {
-        g.drawImage(sprite,
-            (int) gadget.getPosX(),
-            (int) gadget.getPosY(),
-            (int) gadget.getWidth(),
-            (int) gadget.getHeight(),
-            null);
+    final Image sprite = this.spriteManager.get(SpriteEnum.GADGET);
+    if (Objects.nonNull(sprite)) {
+      for (final Gadget gadget : gadgets) {
+        g.drawImage(sprite, (int) gadget.getPosX(), (int) gadget.getPosY(), (int) gadget.getWidth(),
+            (int) gadget.getHeight(), null);
       }
     }
   }

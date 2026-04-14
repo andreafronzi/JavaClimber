@@ -5,13 +5,14 @@ import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.launchedgame.api.LaunchedGame;
 
 /**
- * <p>Rapresent an implementation of {@link RunningCommand} that stop alien movement.</p>
+ * Rapresent an implementation of {@link RunningCommand} that stop alien
+ * movement.
  */
 public class StopAlienMovement implements RunningCommand {
 
   /**
-   * <p>Stop the {@link Alien} movement.</p>
-   * 
+   * Stop the {@link Alien} movement.
+   *
    * @param alien the {@link Alien} to stop.
    */
   @Override

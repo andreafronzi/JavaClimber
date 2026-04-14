@@ -2,8 +2,8 @@ package it.unibo.model.gameobj.impl;
 
 import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.gameobj.api.Enemy;
-import it.unibo.model.gameobj.api.GameObj;
 import it.unibo.model.launchedgame.api.LaunchedGame;
+import it.unibo.model.gameobj.api.AbstractGameObj;
 import it.unibo.model.physics.alienphysic.api.AlienPhysic;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.shop.api.ActiveUpgrades;
@@ -11,17 +11,13 @@ import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.Boundary;
 
 /**
- * <p>
  * Represents an implementation of the {@link Enemy} interface.
  * This class models an enemy entity within a two-dimensional game environment.
- * </p>
  */
-public class EnemyImpl extends GameObj implements Enemy {
+public class EnemyImpl extends AbstractGameObj implements Enemy {
 
   /**
-   * <p>
    * Constructs a new EnemyImpl.
-   * </p>
    *
    * @param height   Enemy's height
    * @param width    Enemy's width

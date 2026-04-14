@@ -1,12 +1,12 @@
-package it.unibo.view.gamelaunchedview.renderers.skingRegistry.api;
+package it.unibo.view.gamelaunchedview.renderers.skinregistry.api;
 
 /**
- * <p>This interface rapresent a registry of the skin.</p>
+ * This interface rapresent a registry of the skin.
  */
 public interface SkinRegistry {
-    
+
     /**
-     * <p>Gets the {@link SkinSet} associated with the given skin name.</p>
+     * Gets the {@link SkinSet} associated with the given skin name.
      *
      * @param skinName the name of the skin to retrieve
      * @return the SkinSet associated with the given skin name
