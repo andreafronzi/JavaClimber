@@ -32,7 +32,8 @@ class AlienTest {
    */
   @Test
   void testGetPosX() {
-    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT,
+        new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
     assertEquals(X, alien.getPosX(), EPSILON);
   }
 
@@ -41,7 +42,8 @@ class AlienTest {
    */
   @Test
   void testGetPosY() {
-    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT,
+        new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
     assertEquals(Y, alien.getPosY(), EPSILON);
   }
 
@@ -50,7 +52,8 @@ class AlienTest {
    */
   @Test
   void testGetWidth() {
-    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT,
+        new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
     assertEquals(WIDTH, alien.getWidth(), EPSILON);
   }
 
@@ -59,7 +62,8 @@ class AlienTest {
    */
   @Test
   void testGetHeight() {
-    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT,
+        new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
     assertEquals(HEIGHT, alien.getHeight(), EPSILON);
   }
 
@@ -68,7 +72,8 @@ class AlienTest {
    */
   @Test
   void testGetSpeedX() {
-    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT,
+        new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
     assertEquals(SPEED_X, alien.getSpeedX(), EPSILON);
   }
 
@@ -77,7 +82,8 @@ class AlienTest {
    */
   @Test
   void testGetSpeedY() {
-    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT,
+        new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
     assertEquals(SPEED_Y, alien.getSpeedY(), EPSILON);
   }
 
@@ -86,7 +92,8 @@ class AlienTest {
    */
   @Test
   void testSetPosition() {
-    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT,
+        new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
     alien.setPosition(new Vector2dImpl(NEW_X, NEW_Y));
     assertEquals(NEW_X, alien.getPosX(), EPSILON);
     assertEquals(NEW_Y, alien.getPosY(), EPSILON);
@@ -97,7 +104,8 @@ class AlienTest {
    */
   @Test
   void testSetSpeed() {
-    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
+    final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT,
+        new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
     alien.setSpeed(new Vector2dImpl(NEW_X, NEW_Y));
     assertEquals(NEW_X, alien.getSpeedX(), EPSILON);
     assertEquals(NEW_Y, alien.getSpeedY(), EPSILON);
