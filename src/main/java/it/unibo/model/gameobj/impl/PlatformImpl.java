@@ -2,7 +2,7 @@ package it.unibo.model.gameobj.impl;
 
 import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameobj.api.Alien;
-import it.unibo.model.gameobj.api.GameObj;
+import it.unibo.model.gameobj.api.AbstractGameObj;
 import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.physics.alienphysic.api.AlienPhysic;
 import it.unibo.model.physics.api.Vector2d;
@@ -15,37 +15,29 @@ import it.unibo.model.world.impl.Boundary;
 import java.util.Optional;
 
 /**
- * <p>
  * A concrete implementation of the {@link Platform} interface.
- * </p>
  */
-public class PlatformImpl extends GameObj implements Platform {
+public class PlatformImpl extends AbstractGameObj implements Platform {
 
   /**
-   * <p>
    * The {@link MovementBehaviour} of the Platform.
-   * </p>
    */
   private final Optional<MovementBehaviour> movementBehaviour;
 
   /**
-   * <p>
-   * The {@link OnTouchBehaviour} of the Platform
-   * </p>
+   * The {@link OnTouchBehaviour} of the Platform.
    */
   private final Optional<OnTouchBehaviour> onTouchBehaviour;
 
   /**
-   * <p>
    * Constructs a new Platform with the specified two-dimensional position,
    * dimension, and movement and touch behavior.
-   * </p>
    *
-   * @param position          the initial Platform's position,
-   * @param width             the Platform's width,
-   * @param height            the Platform's height,
-   * @param movementBehaviour the movement behavior,
-   * @param onTouchBehaviour  the touch behavior
+   * @param position the initial Platform's position
+   * @param width the Platform's width
+   * @param height the Platform's height
+   * @param movementBehaviour the movement behavior
+   * @param onTouchBehaviour the touch behavior
    */
   public PlatformImpl(
       final Vector2d position,
@@ -81,7 +73,7 @@ public class PlatformImpl extends GameObj implements Platform {
   @Override
   public void updatePosition(final double dt, final Boundary boundary) {
     this.movementBehaviour
-        .ifPresent(mb -> mb.updatePosition(this.position, super.getHeight(), super.getHeight(), dt, boundary));
+        .ifPresent(mb -> mb.updatePosition(getPosition(), super.getHeight(), super.getHeight(), dt, boundary));
   }
 
 }
