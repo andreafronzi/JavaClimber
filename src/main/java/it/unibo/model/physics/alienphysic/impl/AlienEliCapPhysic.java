@@ -6,7 +6,7 @@ import it.unibo.model.gameobj.api.Enemy;
 import it.unibo.model.gameobj.api.Gadget;
 import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.launchedgame.api.LaunchedGame;
-import it.unibo.model.physics.alienphysic.api.TemplatePhysic;
+import it.unibo.model.physics.alienphysic.api.AbstractTemplatePhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.world.api.BoundWorld;
@@ -19,7 +19,7 @@ import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.GameObjDi
  * alien will have a vertical speed for a certain time interval, then it will
  * return to normal physic.
  */
-public class AlienEliCapPhysic extends TemplatePhysic {
+public class AlienEliCapPhysic extends AbstractTemplatePhysic {
   /**
    * Represents the duration time of the gadget effect.
    */
