@@ -11,6 +11,7 @@ import it.unibo.model.gameobj.api.GameObject;
  * @param <T> the type of game entity to render, which must extend
  *            {@link GameObject}
  */
+@FunctionalInterface
 public interface EntityRenderer<T extends GameObject> {
 
     /**
