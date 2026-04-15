@@ -28,15 +28,15 @@ import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
 import it.unibo.model.world.impl.UpperWorld;
 import it.unibo.model.world.impl.World;
-import it.unibo.model.worldConstructor.data.Difficult;
-import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.AddOnPoolEasy;
-import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.GameObjDimension;
-import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolCreatorImpl;
-import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
-import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.Distance;
-import it.unibo.model.worldConstructor.gameObjectSpawn.platformSpawn.impl.PlatformPoolEasy;
-import it.unibo.model.worldConstructor.worldGenerator.api.WorldConstructor;
-import it.unibo.model.worldConstructor.worldGenerator.impl.WorldConstructorImpl;
+import it.unibo.model.worldconstructor.data.Difficult;
+import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.AddOnPoolEasy;
+import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.GameObjDimension;
+import it.unibo.model.worldconstructor.gameobjectspawn.impl.SpawnPoolCreatorImpl;
+import it.unibo.model.worldconstructor.gameobjectspawn.impl.SpawnPoolEasy;
+import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.impl.Distance;
+import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.impl.PlatformPoolEasy;
+import it.unibo.model.worldconstructor.worldgenerator.api.WorldConstructor;
+import it.unibo.model.worldconstructor.worldgenerator.impl.WorldConstructorImpl;
 import javaclimber.TestCostants;
 
 /**

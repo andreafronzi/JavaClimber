@@ -1,31 +1,32 @@
-package it.unibo.view.GameLaunchedView.renderers.impl;
+package it.unibo.view.gamelaunchedview.renderers.impl;
 
 import it.unibo.model.gameobj.api.Alien;
-import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.GameObjDimension;
-import it.unibo.view.GameLaunchedView.renderers.api.EntityRenderer;
-import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinRegistry;
-import it.unibo.view.GameLaunchedView.renderers.skingRegistry.api.SkinSet;
-import it.unibo.view.GameLaunchedView.renderers.skingRegistry.impl.SkinRegistryImpl;
+import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.GameObjDimension;
+import it.unibo.view.gamelaunchedview.renderers.api.EntityRenderer;
+import it.unibo.view.gamelaunchedview.renderers.skinregistry.api.SkinRegistry;
+import it.unibo.view.gamelaunchedview.renderers.skinregistry.api.SkinSet;
+import it.unibo.view.gamelaunchedview.renderers.skinregistry.impl.SkinRegistryImpl;
 import it.unibo.view.SpriteManager;
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.util.List;
 import java.util.Objects;
 
 /**
  * Renderer for the {@link Alien} in the game.
  */
-public class AlienRenderer implements EntityRenderer<Alien> {
+public final class AlienRenderer implements EntityRenderer<Alien> {
 
     /**
-     * An {@link SkinSet} istance 
+     * An {@link SkinSet} instance.
      */
     private final SkinSet skinSet;
 
     /**
      * The {@link SpriteManager} used to get the alien sprite.
      */
-    private final SpriteManager spriteManager;  
+    private final SpriteManager spriteManager;
 
     /**
      * Constructor for the AlienRenderer.
@@ -36,7 +37,7 @@ public class AlienRenderer implements EntityRenderer<Alien> {
     public AlienRenderer(final SpriteManager spriteManager, final String skinName) {
         final SkinRegistry skinRegistry = new SkinRegistryImpl();
         this.skinSet = skinRegistry.getSkinSet(skinName);
-        
+
         this.spriteManager = spriteManager;
     }
 
@@ -49,17 +50,13 @@ public class AlienRenderer implements EntityRenderer<Alien> {
         final Alien alien = aliens.getFirst();
 
         if (alien.getSpeedX() >= GameObjDimension.NULL_ALIEN_SPEED) {
-            sprite = spriteManager.get(this.skinSet.right());
+            sprite = this.spriteManager.get(this.skinSet.right());
         } else {
-            sprite = spriteManager.get(this.skinSet.left());
+            sprite = this.spriteManager.get(this.skinSet.left());
         }
-        if (!Objects.isNull(sprite)) {
-            g.drawImage(sprite,
-                (int) alien.getPosX(),
-                (int) alien.getPosY(),
-                (int) alien.getWidth(),
-                (int) alien.getHeight(),
-                null);
+        if (Objects.nonNull(sprite)) {
+            g.drawImage(sprite, (int) alien.getPosX(), (int) alien.getPosY(), (int) alien.getWidth(),
+                    (int) alien.getHeight(), null);
         }
     }
 }

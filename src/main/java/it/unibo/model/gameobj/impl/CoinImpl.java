@@ -1,35 +1,35 @@
 package it.unibo.model.gameobj.impl;
 
-import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.gameobj.api.Coin;
-import it.unibo.model.gameobj.api.GameObj;
+import it.unibo.model.launchedgame.api.LaunchedGame;
+import it.unibo.model.gameobj.api.AbstractGameObj;
 import it.unibo.model.physics.alienphysic.api.AlienPhysic;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.score.api.ScoreManager;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.Boundary;
 
 /**
- * <p>
  * Represents a Coin entity in a two-dimensional game environment which can be
  * collected by the {@link Alien}.
- * </p>
  */
-public class CoinImpl extends GameObj implements Coin {
+public class CoinImpl extends AbstractGameObj implements Coin {
 
     private static final int COIN_POINTS = 1;
 
     /**
      * The score manager which updates the {@link Coin} collected number.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2",
+        justification = "The score manager is shared across the game and "
+            + "should be updated by the Coin when collected.")
     private final ScoreManager scoreManager;
 
     /**
-     * <p>
      * Constructs a new CoinImpl.
-     * </p>
      *
      * @param height       Coin's height
      * @param width        Coin's width

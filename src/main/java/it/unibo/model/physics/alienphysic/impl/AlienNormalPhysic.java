@@ -1,12 +1,12 @@
 package it.unibo.model.physics.alienphysic.impl;
 
-import it.unibo.model.LaunchedGame.api.LaunchedGame;
-import it.unibo.model.LaunchedGame.impl.EndState;
 import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.gameobj.api.Coin;
 import it.unibo.model.gameobj.api.Enemy;
 import it.unibo.model.gameobj.api.Gadget;
 import it.unibo.model.gameobj.api.Platform;
+import it.unibo.model.launchedgame.api.LaunchedGame;
+import it.unibo.model.launchedgame.impl.EndState;
 import it.unibo.model.physics.alienphysic.api.AlienPhysic;
 import it.unibo.model.physics.alienphysic.api.TemplatePhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
@@ -14,7 +14,7 @@ import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.world.api.BoundWorld;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.Boundary;
-import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.GameObjDimension;
+import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.GameObjDimension;
 
 /**
  * <p>

@@ -13,7 +13,7 @@ import it.unibo.controller.api.InventoryController;
 import it.unibo.controller.api.MenuController;
 import it.unibo.controller.api.PauseController;
 import it.unibo.controller.api.ShopController;
-import it.unibo.view.GameLaunchedView.impl.GameLaunchedViewPanelImpl;
+import it.unibo.view.gamelaunchedview.impl.GameLaunchedViewPanelImpl;
 import it.unibo.view.inventory.impl.InventoryViewImpl;
 import it.unibo.view.menu.impl.MenuViewImpl;
 import it.unibo.view.shop.impl.ShopViewImpl;
@@ -27,7 +27,14 @@ public final class MainViewImpl implements MainView {
     private static final int DEFAULT_WIDTH = 1000;
     private static final int DEFAULT_HEIGHT = 800;
 
+    /**
+     * The main frame of the application, it contains the current panel displayed.
+     */
     private final JFrame frame;
+
+    /**
+     * The current panel displayed, is the panel showed in the main frame.
+     */
     private JPanel currentPanel;
 
     /**

@@ -1,9 +1,8 @@
 package it.unibo.controller.impl;
 
-import java.lang.Override;
 import it.unibo.controller.api.EndController;
-import it.unibo.model.LaunchedGame.api.LaunchedGame;
-import it.unibo.model.LaunchedGame.impl.InitialState;
+import it.unibo.model.launchedgame.api.LaunchedGame;
+import it.unibo.model.launchedgame.impl.InitialState;
 import it.unibo.model.menu.api.Menu;
 import it.unibo.model.menu.impl.LaunchedGameState;
 import it.unibo.model.menu.impl.MenuState;
@@ -62,6 +61,7 @@ public class EndControllerImpl implements EndController {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isNewHighScore() {
         return this.menu.getScoreManager().isNewHighScore();
     }

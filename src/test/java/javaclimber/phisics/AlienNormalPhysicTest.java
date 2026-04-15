@@ -4,9 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import it.unibo.controller.impl.MainControllerImpl;
-import it.unibo.model.LaunchedGame.api.LaunchedGame;
-import it.unibo.model.LaunchedGame.impl.EndState;
-import it.unibo.model.LaunchedGame.impl.LaunchedGameImpl;
 import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.gameobj.api.Coin;
 import it.unibo.model.gameobj.api.Enemy;
@@ -17,6 +14,9 @@ import it.unibo.model.gameobj.impl.CoinImpl;
 import it.unibo.model.gameobj.impl.EliCap;
 import it.unibo.model.gameobj.impl.EnemyImpl;
 import it.unibo.model.gameobj.platformbuilder.impl.PlatformBuilderImpl;
+import it.unibo.model.launchedgame.api.LaunchedGame;
+import it.unibo.model.launchedgame.impl.EndState;
+import it.unibo.model.launchedgame.impl.LaunchedGameImpl;
 import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.physics.alienphysic.api.AlienPhysic;
 import it.unibo.model.physics.alienphysic.impl.AlienNormalPhysic;
@@ -33,7 +33,7 @@ import it.unibo.model.world.impl.BoundWorldImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
-import it.unibo.model.worldConstructor.gameObjectSpawn.addOnSpawn.impl.GameObjDimension;
+import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.GameObjDimension;
 import it.unibo.view.MainViewImpl;
 
 import org.junit.jupiter.api.Test;

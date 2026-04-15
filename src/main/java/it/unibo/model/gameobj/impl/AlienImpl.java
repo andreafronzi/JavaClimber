@@ -1,25 +1,24 @@
 package it.unibo.model.gameobj.impl;
 
-import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.gameobj.api.Alien;
-import it.unibo.model.gameobj.api.GameObj;
+import it.unibo.model.gameobj.api.AbstractGameObj;
 import it.unibo.model.gameobj.api.StaticEntity;
+import it.unibo.model.launchedgame.api.LaunchedGame;
 import it.unibo.model.physics.alienphysic.api.AlienPhysic;
 import it.unibo.model.physics.alienphysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.shop.api.ActiveUpgrades;
+import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.world.api.BoundWorld;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.Boundary;
 
 /**
- * <p>
  * A concrete implementation of the {@link Alien} interface.
  * This class represents an alien entity within the game, providing
  * logic for its dimensions, speed, physic behavior, and position updates.
- * </p>
  */
-public class AlienImpl extends GameObj implements Alien {
+public class AlienImpl extends AbstractGameObj implements Alien {
 
   /**
    * The active upgrades affecting the Alien.
@@ -47,10 +46,8 @@ public class AlienImpl extends GameObj implements Alien {
   private boolean movingRight;
 
   /**
-   * <p>
    * Constructs a new Alien with the specified two-dimensional position, null
    * speed, and specified width and height.
-   * </p>
    *
    * @param position       the initial position of the Alien
    * @param speed          the initial speed of the Alien
@@ -61,7 +58,7 @@ public class AlienImpl extends GameObj implements Alien {
   public AlienImpl(final Vector2d position, final Vector2d speed, final double width, final double height,
       final ActiveUpgrades activeUpgrades) {
     super(height, width, position);
-    this.speed = speed;
+    this.speed = new Vector2dImpl(speed.getX(), speed.getY());
     this.physic = new AlienNormalPhysic();
     this.activeUpgrades = activeUpgrades;
     this.movingLeft = false;

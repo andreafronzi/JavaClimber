@@ -13,14 +13,14 @@ import it.unibo.model.world.impl.BoundWorldImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.UpperWorld;
-import it.unibo.model.worldConstructor.gameObjectSpawn.api.SpawnPool;
-import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolCreatorImpl;
-import it.unibo.model.worldConstructor.gameObjectSpawn.impl.SpawnPoolEasy;
+import it.unibo.model.worldconstructor.gameobjectspawn.api.SpawnPool;
+import it.unibo.model.worldconstructor.gameobjectspawn.impl.SpawnPoolCreatorImpl;
+import it.unibo.model.worldconstructor.gameobjectspawn.impl.SpawnPoolEasy;
 
+/**
+ * Test for the SpawnPoolCreatorImpl class.
+ */
 public class SpawnPoolCreatorTest {
-
-    private SpawnPoolCreatorImpl platformPoolCreator;
-    private QueueWorld world;
 
     private static final double Y_MIN = 0;
     private static final double Y_MAX = 600;
@@ -34,10 +34,24 @@ public class SpawnPoolCreatorTest {
     private static final double POS_X = 100;
     private static final double POS_Y = 100;
 
-    private final static double CHANCE = 0.5;
+    private static final double CHANCE = 0.5;
 
     private static final int EXPECTED_SIZE = 1;
 
+    /**
+     * The spawn pool creator to test.
+     */
+    private SpawnPoolCreatorImpl platformPoolCreator;
+
+    /**
+     * The world used for testing.
+     */
+    private QueueWorld world;
+
+
+    /**
+     * Set up the test environment.
+     */
     @BeforeEach
     public void setUp() {
         this.world = new UpperWorld(new BoundWorldImpl(new BoundY(Y_MIN, Y_MAX), new Boundary(X_MIN, X_MAX)));
@@ -46,55 +60,76 @@ public class SpawnPoolCreatorTest {
                 .setSpawnPool(new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT, new ScoreManagerImpl()));
     }
 
+    /**
+     * Test for setting the spawn pool.
+     */
     @Test
     public void setSpawnPoolTest() {
-        SpawnPool newPool = new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT, new ScoreManagerImpl());
+        final SpawnPool newPool = new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT, new ScoreManagerImpl());
         this.platformPoolCreator.setSpawnPool(newPool);
         this.platformPoolCreator.createStaticPlatform(CHANCE, new Vector2dImpl(POS_X, POS_Y));
         assertEquals(EXPECTED_SIZE, world.getStaticPlatforms().size());
     }
 
+    /**
+     * Test for creating a static platform.
+     */
     @Test
     public void createStaticPlatformTest() {
-        var pos = new Vector2dImpl(POS_X, POS_Y);
+        final var pos = new Vector2dImpl(POS_X, POS_Y);
         this.platformPoolCreator.createStaticPlatform(CHANCE, pos);
         assertEquals(EXPECTED_SIZE, world.getStaticPlatforms().size());
     }
 
+    /**
+     * Test for creating a moving platform.
+     */
     @Test
     public void createMovingPlatformTest() {
-        var pos = new Vector2dImpl(POS_X, POS_Y);
+        final var pos = new Vector2dImpl(POS_X, POS_Y);
         this.platformPoolCreator.createMovingPlatform(CHANCE, pos);
         assertEquals(EXPECTED_SIZE, world.getMovingPlatforms().size());
     }
 
+    /**
+     * Test for creating an on-touch platform.
+     */
     @Test
     public void createOnTouchPlatformTest() {
-        var pos = new Vector2dImpl(POS_X, POS_Y);
+        final var pos = new Vector2dImpl(POS_X, POS_Y);
         this.platformPoolCreator.createOnTouchPlatform(CHANCE, pos);
         assertEquals(EXPECTED_SIZE, world.getOnTouchPlatforms().size());
     }
 
+    /**
+     * Test for creating a monster.
+     */
     @Test
     public void createMonsterTest() {
-        var pos = new Vector2dImpl(POS_X, POS_Y);
-        var platform = new PlatformImpl(pos, PLATFORM_WIDTH, PLATFORM_HEIGHT, null, null);
+        final var pos = new Vector2dImpl(POS_X, POS_Y);
+        final var platform = new PlatformImpl(pos, PLATFORM_WIDTH, PLATFORM_HEIGHT, null, null);
         this.platformPoolCreator.createMonster(CHANCE, platform);
         assertEquals(EXPECTED_SIZE, world.getMonsters().size());
     }
 
+    /**
+     * Test for creating a gadget.
+     */
     @Test
     public void createGadgetTest() {
-        var pos = new Vector2dImpl(POS_X, POS_Y);
-        var platform = new PlatformImpl(pos, PLATFORM_WIDTH, PLATFORM_HEIGHT, null, null);
+        final var pos = new Vector2dImpl(POS_X, POS_Y);
+        final var platform = new PlatformImpl(pos, PLATFORM_WIDTH, PLATFORM_HEIGHT, null, null);
         this.platformPoolCreator.createGadget(CHANCE, platform);
         assertEquals(EXPECTED_SIZE, world.getGadgets().size());
     }
 
+    /**
+     * Test for creating money.
+     */
     @Test
     public void createMoneyTest() {
-        var pos = new Vector2dImpl(POS_X, POS_Y);
-        var platform = new PlatformImpl(pos, PLATFORM_WIDTH, PLATFORM_HEIGHT, null, null);
+        final var pos = new Vector2dImpl(POS_X, POS_Y);
+        final var platform = new PlatformImpl(pos, PLATFORM_WIDTH, PLATFORM_HEIGHT, null, null);
         this.platformPoolCreator.createMoney(CHANCE, platform);
         assertEquals(EXPECTED_SIZE, world.getMoneys().size());
     }

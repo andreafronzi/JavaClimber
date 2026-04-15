@@ -3,7 +3,7 @@ package it.unibo.controller.impl;
 import java.util.Optional;
 
 import it.unibo.controller.api.MainController;
-import it.unibo.model.LaunchedGame.api.StateOfLaunchedGame;
+import it.unibo.model.launchedgame.api.StateOfLaunchedGame;
 import it.unibo.model.menu.api.Menu;
 import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.menu.impl.MenuState;
@@ -17,9 +17,23 @@ import it.unibo.view.MainView;
  */
 public final class MainControllerImpl implements MainController {
 
+    /**
+     * The view currently opened. It can be a menu view, a game launched view, an
+     * inventory view, a shop view, an end view or a pause view.
+     */
     private MainView mainView;
     private final Menu menu;
+
+    /**
+     * The save manager, responsible for saving and loading the progress of the
+     * game.
+     */
     private final SaveManager saveManager;
+
+    /**
+     * The state of the launched game, identifies the state of the game at a certain
+     * point in the game.
+     */
     private StateOfLaunchedGame runningState;
 
     /**
@@ -43,7 +57,7 @@ public final class MainControllerImpl implements MainController {
      * {@inheritDoc}
      */
     @Override
-    public void setView(MainView view) {
+    public void setView(final MainView view) {
         this.mainView = view;
     }
 

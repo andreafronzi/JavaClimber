@@ -11,7 +11,7 @@ import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.gameobj.api.GameObject;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.world.impl.World;
-import it.unibo.model.worldConstructor.worldGenerator.api.WorldConstructor;
+import it.unibo.model.worldconstructor.worldgenerator.api.WorldConstructor;
 
 /**
  * Implementation of {@link Camera} and {@link AltitudeObserver} interface.

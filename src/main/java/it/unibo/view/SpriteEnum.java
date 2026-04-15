@@ -1,5 +1,8 @@
 package it.unibo.view;
 
+/**
+ * Identifiers for the various sprites used by the game.
+ */
 public enum SpriteEnum {
     DOODLER_LEFT, 
     DOODLER_RIGHT,

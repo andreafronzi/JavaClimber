@@ -1,6 +1,6 @@
-package it.unibo.view.GameLaunchedView.renderers.api;
+package it.unibo.view.gamelaunchedview.renderers.api;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.util.List;
 
 import it.unibo.model.gameobj.api.GameObject;
@@ -14,10 +14,11 @@ import it.unibo.model.gameobj.api.GameObject;
 public interface EntityRenderer<T extends GameObject> {
 
     /**
-     * Renders a list of entities of type T using the provided Graphics2D object.
+     * Renders a list of entities of type T using the provided Graphics2D
+     * object.
      *
-     * @param entitys the list of entities to render
-     * @param g       the Graphics2D object used for rendering
+     * @param entities the list of entities to render
+     * @param g the Graphics2D object used for rendering
      */
     void render(List<T> entities, Graphics2D g);
 }

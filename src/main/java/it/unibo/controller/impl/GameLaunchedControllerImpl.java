@@ -2,7 +2,6 @@ package it.unibo.controller.impl;
 
 import it.unibo.controller.api.GameLaunchedController;
 import it.unibo.controller.api.GameLaunchedInputController;
-import it.unibo.model.LaunchedGame.api.LaunchedGame;
 import it.unibo.model.command.api.RunningCommand;
 import it.unibo.model.command.impl.EnterPausa;
 import it.unibo.model.command.impl.MoveAlienLeft;
@@ -13,6 +12,7 @@ import it.unibo.model.gameobj.api.Coin;
 import it.unibo.model.gameobj.api.Enemy;
 import it.unibo.model.gameobj.api.Gadget;
 import it.unibo.model.gameobj.api.Platform;
+import it.unibo.model.launchedgame.api.LaunchedGame;
 import it.unibo.model.shop.api.Inventory;
 import it.unibo.model.world.api.BaseWorld;
 import it.unibo.model.world.api.GameWorld;
@@ -20,14 +20,13 @@ import it.unibo.model.world.impl.World;
 
 import java.util.List;
 import java.util.Optional;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import javax.swing.JPanel;
 
 /**
- * <p>
  * Rapresent the implementation of {@link GameLaunchedController} and
  * {@link GameLaunchedInputController}.
- * </p>
  */
 public class GameLaunchedControllerImpl implements GameLaunchedController, GameLaunchedInputController {
 
@@ -39,14 +38,23 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    * The {@link Inventory} which provide the active skin and receive the command
    * to update the model.
    */
+  @SuppressFBWarnings(value = "EI_EXPOSE_REP2",
+      justification = "The inventory is shared across the game and "
+          + "it's not modified by the controller, but only read to get the active skin.")
   private final Inventory inventory;
 
   /**
    * The {@link LaunchedGame} entity which provide the data to render and receive
    * the command to update the model.
    */
+  @SuppressFBWarnings(value = "EI_EXPOSE_REP2",
+      justification = "The launched game is shared across the game and "
+          + "it's not modified by the controller, but only read to get the game state.")
   private final LaunchedGame launchedGame;
 
+  @SuppressFBWarnings(value = "EI_EXPOSE_REP2",
+      justification = "The panel is a UI component managed by the view layer "
+          + "and must be shared; the controller only triggers repaints")
   private JPanel panel;
 
   /**
@@ -119,7 +127,7 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
   }
 
   /**
-   * {@inheritdoc}
+   * {@inheritDoc}
    */
   @Override
   public Optional<List<Platform>> getOnTouchPlatform() {
@@ -186,14 +194,17 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
 
         previousCycleStartTime = currentCycleStartTime;
 
-        Optional<RunningCommand> cmd;
-        while ((cmd = this.launchedGame.pollCommand()).isPresent()) {
+        Optional<RunningCommand> cmd = this.launchedGame.pollCommand();
+        while (cmd.isPresent()) {
           cmd.get().execute(launchedGame.getWorld().get().getRealWorld().getAlien(), launchedGame);
+          cmd = this.launchedGame.pollCommand();
         }
 
         this.launchedGame.getState().execute(dt);
 
-        this.panel.repaint();
+        if (this.panel != null) {
+          this.panel.repaint();
+        }
 
         java.awt.Toolkit.getDefaultToolkit().sync();
 
@@ -221,7 +232,8 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
    */
   @Override
   public void setPanel(final JPanel panel) {
-    this.panel = panel;
+    final JPanel p = panel;
+    this.panel = p;
   }
 
   /**
@@ -239,5 +251,4 @@ public class GameLaunchedControllerImpl implements GameLaunchedController, GameL
   public int getCollectedCoins() {
     return this.launchedGame.getMenu().getScoreManager().getCoins();
   }
-
 }
