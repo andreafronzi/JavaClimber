@@ -10,11 +10,9 @@ import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 
 /**
- * <p>
  * Represents a template for the alien physic. It implements the update method,
  * which is common for all the alien physic, and it defines an abstract method
  * moveAlien, which is implemented by the different alien physic.
- * </p>
  */
 public abstract class TemplatePhysic implements AlienPhysic {
 

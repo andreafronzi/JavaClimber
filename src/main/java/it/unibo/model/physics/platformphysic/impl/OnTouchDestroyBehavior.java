@@ -6,9 +6,9 @@ import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.impl.Boundary;
 
 /**
- * <p>Represents the behavior of a touched platform.
- * When a platform is touched, this behavior removes it from the {@link GameWorld}.
- * </p>
+ * Represents the behavior of a touched platform.
+ * When a platform is touched, this behavior removes it from the
+ * {@link GameWorld}.
  */
 public class OnTouchDestroyBehavior implements OnTouchBehaviour {
 

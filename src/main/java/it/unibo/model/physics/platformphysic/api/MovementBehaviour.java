@@ -4,18 +4,14 @@ import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.world.impl.Boundary;
 
 /**
- * <p>
  * Interface representing game obgect's movement behavior.
- * </p>
  */
 @FunctionalInterface
 public interface MovementBehaviour {
 
   /**
-   * <p>
    * Update Obj's position. Computed position deals with elapsed time between two
    * updates.
-   * </p>
    * 
    * @param position Obj's position to update
    * @param width    Obj's width
