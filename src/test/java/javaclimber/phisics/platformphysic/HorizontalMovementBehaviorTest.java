@@ -1,4 +1,4 @@
-package javaclimber.phisics.platformPhysic;
+package javaclimber.phisics.platformphysic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

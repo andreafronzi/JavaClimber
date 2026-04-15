@@ -1,4 +1,4 @@
-package javaclimber.phisics.platformPhysic;
+package javaclimber.phisics.platformphysic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -74,13 +74,11 @@ class OnTouchDestroyBehaviorTest {
     private Platform platformToRemove;
 
     /**
-     * <p>
      * Set up the test environment by initializing the alien, the world, and the
      * platforms before each test case.
-     * </p>
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final ActiveUpgrades upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
         this.alien = new AlienImpl(new Vector2dImpl(INITIAL_X, INITIAL_Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH,
                 HEIGHT, upgrades);
@@ -89,19 +87,17 @@ class OnTouchDestroyBehaviorTest {
         this.platformToRemove = new PlatformImpl(new Vector2dImpl(PLATFORM2_X, PLATFORM2_Y), PLATFORM_WIDTH,
                 PLATFORM_HEIGHT, Optional.empty(), Optional.of(new OnTouchDestroyBehavior()));
 
-        this.world.addOnTouchPlatform((new PlatformImpl(new Vector2dImpl(PLATFORM1_X, PLATFORM1_Y), PLATFORM_WIDTH,
-                PLATFORM_HEIGHT, Optional.empty(), Optional.empty())));
+        this.world.addOnTouchPlatform(new PlatformImpl(new Vector2dImpl(PLATFORM1_X, PLATFORM1_Y), PLATFORM_WIDTH,
+                PLATFORM_HEIGHT, Optional.empty(), Optional.empty()));
         this.world.addOnTouchPlatform(this.platformToRemove);
     }
 
     /**
-     * <p>
      * Verify that when the alien touches the {@link Platform} with the
      * {@link OnTouchDestroyBehavior}, the platform is removed from the world.
-     * </p>
      */
     @Test
-    public void verifyPlatformDestruction() {
+    void verifyPlatformDestruction() {
         final ActiveUpgrades upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
         final AlienPhysic physic = new AlienNormalPhysic();
         final Boundary boundary = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
