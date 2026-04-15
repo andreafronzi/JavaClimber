@@ -30,9 +30,11 @@ import it.unibo.model.world.impl.RealWorld;
 import it.unibo.view.MainViewImpl;
 
 /**
- * <p>Test class for the {@link CollisionManagerImpl}.
- * This class contains unit tests to verify the correct behavior of the collision detection mechanism: 
- * verify that the collision logic correctly work and that when a collision occurs the collided element is removed from the world.</p> 
+ * Test class for the {@link CollisionManagerImpl}.
+ * This class contains unit tests to verify the correct behavior of the
+ * collision detection mechanism:
+ * verify that the collision logic correctly work and that when a collision
+ * occurs the collided element is removed from the world.
  */
 class CollisionManagerTest {
 
@@ -61,58 +63,74 @@ class CollisionManagerTest {
     private CollisionManager collisionManager;
 
     /**
-     * The {@link RealWorld} instance representing the game world in which the collisions are detected and where GameObj stands.
+     * The {@link RealWorld} instance representing the game world in which the
+     * collisions are detected and where GameObj stands.
      */
     private RealWorld realWorld;
 
     /**
-     * The {@link Enemy}, {@link Coin}, and {@link Gadget} instances used in the tests to verify the collision detection and the correct removal of collided elements from the world.
+     * The {@link Enemy}, {@link Coin}, and {@link Gadget} instances used in the
+     * tests to verify the collision detection and the correct removal of collided
+     * elements from the world.
      */
     private Enemy e;
     private Coin c;
     private Gadget g;
 
     /**
-     * <p>Sets up the test environment before each test case is executed. Initializes the Alien, CollisionManager, RealWorld, and the Enemy, Coin, and Gadget instances used in the tests.</p>
+     * Sets up the test environment before each test case is executed. Initializes
+     * the Alien, CollisionManager, RealWorld, and the Enemy, Coin, and Gadget
+     * instances used in the tests.
      */
     @BeforeEach
-    public void setUp() {
-        this.alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
+    void setUp() {
+        this.alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT,
+                new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
         final Boundary boundary = new Boundary(LEFT_SIDE, RIGHT_SIDE);
         this.collisionManager = new CollisionManagerImpl(boundary);
-        this.realWorld = new RealWorld(alien, new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_SIDE, RIGHT_SIDE)));
+        this.realWorld = new RealWorld(alien,
+                new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_SIDE, RIGHT_SIDE)));
         this.e = new EnemyImpl(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT - 1));
         this.c = new CoinImpl(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT - 1), new ScoreManagerImpl());
         this.g = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT - 1));
     }
 
     /**
-     * <p>Tests the {@link CollisionManager#detectCollisions(RealWorld)} method to verify that when the Alien collides with an Enemy, the Enemy is removed from the RealWorld.</p>
+     * Tests the {@link CollisionManager#detectCollisions(RealWorld)} method to
+     * verify that when the Alien collides with an Enemy, the Enemy is removed from
+     * the RealWorld.
      */
     @Test
-    public void detectCollisionOnEnemyTest() {
+    void detectCollisionOnEnemyTest() {
         this.realWorld.addMonster(this.e);
-        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+        this.collisionManager.detectCollisions(realWorld,
+                new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
         assertFalse(this.realWorld.getMonsters().contains(this.e));
     }
 
     /**
-     * <p>Tests the {@link CollisionManager#detectCollisions(RealWorld)} method to verify that when the Alien collides with a Coin, the Coin is removed from the RealWorld.</p>
+     * Tests the {@link CollisionManager#detectCollisions(RealWorld)} method to
+     * verify that when the Alien collides with a Coin, the Coin is removed from the
+     * RealWorld.
      */
     @Test
-    public void detectCollisionOnCoinTest() {
+    void detectCollisionOnCoinTest() {
         this.realWorld.addMoney(this.c);
-        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+        this.collisionManager.detectCollisions(realWorld,
+                new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
         assertFalse(this.realWorld.getMoneys().contains(this.c));
     }
 
     /**
-     * <p>Tests the {@link CollisionManager#detectCollisions(RealWorld)} method to verify that when the Alien collides with a Gadget, the Gadget is removed from the RealWorld.</p>
+     * Tests the {@link CollisionManager#detectCollisions(RealWorld)} method to
+     * verify that when the Alien collides with a Gadget, the Gadget is removed from
+     * the RealWorld.
      */
     @Test
-    public void detectCollisionOnGadgetTest() {
+    void detectCollisionOnGadgetTest() {
         this.realWorld.addGadget(this.g);
-        this.collisionManager.detectCollisions(realWorld, new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+        this.collisionManager.detectCollisions(realWorld,
+                new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
         assertFalse(this.realWorld.getGadgets().contains(this.g));
     }
 }
