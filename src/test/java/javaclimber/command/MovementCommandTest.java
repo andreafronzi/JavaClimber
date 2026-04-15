@@ -17,7 +17,7 @@ import it.unibo.model.shop.impl.InventoryImpl;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
 
 /**
- * <p>Test class for the {@link RunningCommand} implementations.</p>
+ * Test class for the {@link RunningCommand} implementations.
  */
 class MovementCommandTest {
     
@@ -30,39 +30,51 @@ class MovementCommandTest {
     private static final double WIDTH = 50;
     private static final double HEIGHT = 50;
     
-    /**
-     * <p>Test the {@link MoveAlienLeft} command by executing it on an {@link AlienImpl} and checking if the speedX is updated correctly.</p>
-     */
+    /** Test the {@link MoveAlienLeft} command and verify movement state. */
     @Test
-    public void moveAlienLeftTest() {
+    void moveAlienLeftTest() {
         final RunningCommand moveLeft = new MoveAlienLeft();
-        final AlienImpl alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
+        final ActiveUpgradesImpl upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
+        final AlienImpl alien = new AlienImpl(
+                new Vector2dImpl(X, Y),
+                new Vector2dImpl(SPEED_X, SPEED_Y),
+                WIDTH,
+                HEIGHT,
+                upgrades
+        );
         moveLeft.execute(alien, new LaunchedGameImpl(null));
-        
         assertTrue(alien.isMovingLeft());
     }
 
-    /**
-     * <p>Test the {@link MoveAlienRight} command by executing it on an {@link AlienImpl} and checking if the speedX is updated correctly.</p>
-     */
+    /** Test the {@link MoveAlienRight} command and verify movement state. */
     @Test
-    public void moveAlienRightTest() {
+    void moveAlienRightTest() {
         final RunningCommand moveRight = new MoveAlienRight();
-        final AlienImpl alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
+        final ActiveUpgradesImpl upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
+        final AlienImpl alien = new AlienImpl(
+                new Vector2dImpl(X, Y),
+                new Vector2dImpl(SPEED_X, SPEED_Y),
+                WIDTH,
+                HEIGHT,
+                upgrades
+        );
         moveRight.execute(alien, new LaunchedGameImpl(null));
-        
         assertTrue(alien.isMovingRight());
     }
 
-    /**
-     * <p>Test the {@link StopAlienMovement} command by executing it on an {@link AlienImpl} and checking if the speedX is updated correctly.</p>
-     */
+    /** Test the {@link StopAlienMovement} command and verify no movement. */
     @Test
-    public void stopAlien() {
+    void stopAlien() {
         final RunningCommand stop = new StopAlienMovement();
-        final AlienImpl alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
+        final ActiveUpgradesImpl upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
+        final AlienImpl alien = new AlienImpl(
+                new Vector2dImpl(X, Y),
+                new Vector2dImpl(SPEED_X, SPEED_Y),
+                WIDTH,
+                HEIGHT,
+                upgrades
+        );
         stop.execute(alien, new LaunchedGameImpl(null));
-        
         assertFalse(alien.isMovingLeft() || alien.isMovingRight());
     }
 }
