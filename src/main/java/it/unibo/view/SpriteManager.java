@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
@@ -12,6 +14,8 @@ import javax.imageio.ImageIO;
  * Manages the loading and retrieval of sprites for the game.
  */
 public class SpriteManager {
+
+    private static final Logger LOGGER = Logger.getLogger(SpriteManager.class.getName());
 
     /**
      * A map that associates each {@link SpriteEnum} with its corresponding
@@ -74,7 +78,7 @@ public class SpriteManager {
         try {
             return ImageIO.read(new File("src/main/resources/" + path));
         } catch (final IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.WARNING, "Error loading sprite: " + path, e);
             return null; // O gestisci errore
         }
     }
