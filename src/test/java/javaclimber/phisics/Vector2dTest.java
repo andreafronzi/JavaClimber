@@ -26,7 +26,7 @@ class Vector2dTest {
    * <p>Tests the {@link Vector2d#getX()} method.</p>
    */
   @Test
-  public void testGetX() {
+    void testGetX() {
    final Vector2d p = new Vector2dImpl(X, Y);
     assertEquals(X, p.getX(), EPSILON);
   }
@@ -35,7 +35,7 @@ class Vector2dTest {
      * <p>Tests the {@link Vector2d#getY()} method.</p>
      */
     @Test
-    public void testGetY() {
+    void testGetY() {
       final Vector2d p = new Vector2dImpl(X, Y);
       assertEquals(Y, p.getY(), EPSILON);
     }
@@ -44,7 +44,7 @@ class Vector2dTest {
    * <p>Test for negative coordinates.</p>
    */
     @Test
-    public void testNegativeCoordinates() {
+    void testNegativeCoordinates() {
       final Vector2d p = new Vector2dImpl(NEGATIVE_X, NEGATIVE_Y);
       assertEquals(NEGATIVE_X, p.getX(), EPSILON);
       assertEquals(NEGATIVE_Y, p.getY(), EPSILON);
@@ -54,7 +54,7 @@ class Vector2dTest {
    * <p>Test for zero coordinates.</p>
    */
     @Test
-    public void testZeroCoordinates() {
+    void testZeroCoordinates() {
         final Vector2d p = new Vector2dImpl(0, 0);
         assertEquals(0, p.getX(), EPSILON);
         assertEquals(0, p.getY(), EPSILON);
@@ -64,7 +64,7 @@ class Vector2dTest {
      * <p>Tests the {@link Vector2d#setX(double)} method.</p>
      */
     @Test
-    public void testSetX() {
+    void testSetX() {
         final Vector2d p = new Vector2dImpl(X, Y);
         p.setX(NEW_X);
         assertEquals(NEW_X, p.getX(), EPSILON);
@@ -74,7 +74,7 @@ class Vector2dTest {
    * <p>Tests the {@link Vector2d#setY(double)} method.</p>
    */
   @Test
-    public void testSetY() {
+  void testSetY() {
         final Vector2d d = new Vector2dImpl(X, Y);
         d.setY(NEW_Y);
         assertEquals(NEW_Y, d.getY(), EPSILON);
