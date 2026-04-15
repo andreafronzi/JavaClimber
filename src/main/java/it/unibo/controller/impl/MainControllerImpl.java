@@ -2,6 +2,7 @@ package it.unibo.controller.impl;
 
 import java.util.Optional;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.api.MainController;
 import it.unibo.model.launchedgame.api.StateOfLaunchedGame;
 import it.unibo.model.menu.api.Menu;
@@ -45,6 +46,7 @@ public final class MainControllerImpl implements MainController {
      * @param mainView the main view of the application to be managed by this
      *                 controller
      */
+    @SuppressFBWarnings("EI_EXPOSE_REP2")
     public MainControllerImpl(final MainView mainView) {
         this.mainView = mainView;
         this.saveManager = new SaveManagerImpl();
@@ -56,6 +58,7 @@ public final class MainControllerImpl implements MainController {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings("EI_EXPOSE_REP2")
     @Override
     public void setView(final MainView view) {
         this.mainView = view;
