@@ -17,11 +17,9 @@ import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.GameObjDimension;
 
 /**
- * <p>
  * A concrete implementation of the {@link AlienPhysic} interface.
  * This class applies gravitational force on the vertical axis and
  * manages boundary behavior with a Pacman effect.
- * </p>
  */
 public class AlienNormalPhysic extends TemplatePhysic {
 
