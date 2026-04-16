@@ -16,11 +16,9 @@ import it.unibo.model.shop.impl.ActiveUpgradesImpl;
 import it.unibo.model.shop.impl.InventoryImpl;
 import it.unibo.model.shop.impl.ShopItemFactoryImpl;
 
-/**
- * Test class for the {@link RunningCommand} implementations.
- */
+/** Test class for the {@link RunningCommand} implementations. */
 class MovementCommandTest {
-    
+
     private static final double X = 10;
     private static final double Y = 20;
     
@@ -29,7 +27,7 @@ class MovementCommandTest {
 
     private static final double WIDTH = 50;
     private static final double HEIGHT = 50;
-    
+
     /** Test the {@link MoveAlienLeft} command and verify movement state. */
     @Test
     void moveAlienLeftTest() {
