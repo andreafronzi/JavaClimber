@@ -18,9 +18,7 @@ import java.util.stream.Stream;
  */
 public class CollisionManagerImpl implements CollisionManager {
 
-  /**
-   * The {@link Boundary} of the game world
-   */
+  /** The {@link Boundary} of the game world. */
   private final Boundary boundary;
 
   /**
