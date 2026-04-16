@@ -13,9 +13,7 @@ import it.unibo.model.gameobj.impl.CoinImpl;
 import it.unibo.model.gameobj.impl.EliCap;
 import it.unibo.model.launchedgame.impl.LaunchedGameImpl;
 import it.unibo.model.menu.impl.MenuImpl;
-import it.unibo.model.physics.alienphysic.api.AlienPhysic;
 import it.unibo.model.physics.alienphysic.impl.AlienEliCapPhysic;
-import it.unibo.model.physics.alienphysic.impl.AlienNormalPhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.score.api.ScoreManager;
 import it.unibo.model.score.impl.ScoreManagerImpl;
@@ -32,9 +30,7 @@ import it.unibo.model.world.impl.RealWorld;
 import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.GameObjDimension;
 import it.unibo.view.MainViewImpl;
 
-/**
- * <p>Test class for {@link AlienEliCapPhysic}.</p>
- */
+/** Test class for {@link AlienEliCapPhysic}. */
 class AlienEliCapPhysicTest {
 
     private static final double EPSILON = 0.001;
@@ -48,7 +44,7 @@ class AlienEliCapPhysicTest {
     private static final double X2 = 10;
 
     private static final double X3 = 10;
-    
+
     private static final double WIDTH = 0;
     private static final double HEIGHT = 0;
 
@@ -66,91 +62,119 @@ class AlienEliCapPhysicTest {
     private static final double UPPER_WORLD = 0;
     private static final double LOWER_WORLD = 100;
 
-
     private static final double DT = 1;
     private static final double DT2 = 3;
     private static final double DT3 = 4;
 
     private static final int COINS_NUMBER = 1;
 
-    /**
-     * <p>Verify that AlienEliCapPhysic is setted correctly when EliCap is collected through {@link Gadget#onCollect(Alien)} and wheter his application works as expected 
-     * through {@link Alien#updatePosition(double, Boundary)} and {@link AlienPhysic#update(Alien, double, Boundary)}.</p>
-     */
+    /** Verify that AlienEliCapPhysic is set correctly when EliCap is collected and that updates work as expected. */
     @Test
-    public void testAlienEliCapPhysicBehavior() {
+    void testAlienEliCapPhysicBehavior() {
         final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_SIDE, RIGHT_SIDE));
         final Gadget eliCap = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y));
-        final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
-        //velocita del mostra quando prende elicap = 10
+        final ActiveUpgradesImpl upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
+        final Alien alien = new AlienImpl(
+                new Vector2dImpl(X, Y),
+                new Vector2dImpl(SPEED_X, SPEED_Y),
+                WIDTH,
+                HEIGHT,
+                upgrades
+        );
+        // velocita del mostra quando prende elicap = 10
         eliCap.onCollect(alien, new RealWorld(alien, boundary));
 
         assertEquals(SPEED_Y, alien.getSpeedY(), EPSILON);
         assertEquals(SPEED_X, alien.getSpeedX(), EPSILON);
 
-        alien.updatePosition(DT, boundary, new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+        final MainControllerImpl mainController = new MainControllerImpl(new MainViewImpl());
+        final MenuImpl menu = new MenuImpl(mainController);
+        final LaunchedGameImpl launchedGame = new LaunchedGameImpl(menu);
+        alien.updatePosition(DT, boundary, launchedGame);
         assertEquals(X1, alien.getPosX(), EPSILON);
         assertEquals(Y1, alien.getPosY(), EPSILON);
         assertEquals(ELICAP_SPEED_X, alien.getSpeedX(), EPSILON);
         assertEquals(ELICAP_SPEED_Y, alien.getSpeedY(), EPSILON);
     }
 
-    /**
-     * <p>Test to verify if an update equals to the time interval of the EliCap gadget correctly update the alien position and speed.</p>
-     */
+    /** Test to verify an update equal to the EliCap time interval updates position and speed. */
     @Test
-    public void testAlienEliCapPhysicBehaviorUpdatingWithTimeInterval() {
+    void testAlienEliCapPhysicBehaviorUpdatingWithTimeInterval() {
         final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_SIDE, RIGHT_SIDE));
         final Gadget eliCap = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y));
-        final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
+        final ActiveUpgradesImpl upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
+        final Alien alien = new AlienImpl(
+                new Vector2dImpl(X, Y),
+                new Vector2dImpl(SPEED_X, SPEED_Y),
+                WIDTH,
+                HEIGHT,
+                upgrades
+        );
         eliCap.onCollect(alien, new RealWorld(alien, boundary));
-
-        //before updating position the physic shouldn't apply modifications on the alien speed and position
-        assertEquals(SPEED_Y, alien.getSpeedY(), EPSILON);  
+        assertEquals(SPEED_Y, alien.getSpeedY(), EPSILON);
         assertEquals(SPEED_X, alien.getSpeedX(), EPSILON);
 
-        alien.updatePosition(DT2, boundary, new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
-        
-        //after updating position
+        final MainControllerImpl mainController = new MainControllerImpl(new MainViewImpl());
+        final MenuImpl menu = new MenuImpl(mainController);
+        final LaunchedGameImpl launchedGame = new LaunchedGameImpl(menu);
+
+        alien.updatePosition(DT2, boundary, launchedGame);
         assertEquals(X2, alien.getPosX(), EPSILON);
-        assertEquals((Y +ELICAP_SPEED_Y*DT2), alien.getPosY(), EPSILON);
+        assertEquals(Y + ELICAP_SPEED_Y * DT2, alien.getPosY(), EPSILON);
         assertEquals(ELICAP_SPEED_X, alien.getSpeedX(), EPSILON);
         assertEquals(ELICAP_SPEED_Y, alien.getSpeedY(), EPSILON);
     }
 
-    /**
-     * <p>Test to verify if an update greater than the time interval of the EliCap gadget correctly update the alien position and speed, and if the alien physic is setted to {@link AlienNormalPhysic} after the time interval.</p>
-     */
+    /** Test to verify an update greater than the EliCap time interval updates position/speed and restores normal physic. */
     @Test
-    public void testAlienEliCapPhysicBehaviorUpdatingWithMoreThanTimeInterval() {
+    void testAlienEliCapPhysicBehaviorUpdatingWithMoreThanTimeInterval() {
         final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_SIDE, RIGHT_SIDE));
         final Gadget eliCap = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y));
-        final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
-        
+        final ActiveUpgradesImpl upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
+        final Alien alien = new AlienImpl(
+                new Vector2dImpl(X, Y),
+                new Vector2dImpl(SPEED_X, SPEED_Y),
+                WIDTH,
+                HEIGHT,
+                upgrades
+        );
+
         eliCap.onCollect(alien, new RealWorld(alien, boundary));
-        alien.updatePosition(DT3, boundary, new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+        final MainControllerImpl mainController = new MainControllerImpl(new MainViewImpl());
+        final MenuImpl menu = new MenuImpl(mainController);
+        final LaunchedGameImpl launchedGame = new LaunchedGameImpl(menu);
+        alien.updatePosition(DT3, boundary, launchedGame);
 
         assertEquals(X3, alien.getPosX(), EPSILON);
-        assertEquals((Y + ELICAP_SPEED_Y*DT2) + ((ELICAP_SPEED_Y + (GameObjDimension.GRAVITY * (DT3 - DT2))) * (DT3 - DT2)), alien.getPosY(), EPSILON);
+        assertEquals(Y + ELICAP_SPEED_Y * DT2 + (ELICAP_SPEED_Y + (GameObjDimension.GRAVITY * (DT3 - DT2))) * (DT3 - DT2),
+            alien.getPosY(), EPSILON);
         assertEquals(SPEED_AFTER_ELICAP_AND_GRAVITY_X, alien.getSpeedX(), EPSILON);
         assertEquals(ELICAP_SPEED_Y + GameObjDimension.GRAVITY * (DT3 - DT2), alien.getSpeedY(), EPSILON);
     }
 
-    /**
-    * <p>Tests the {@link AlienEliCapPhysic#hitCoin(Coin, ActiveUpgrades, GameWorld)} method. Verify wheter, after the touch, is updated the number of coin collected.</p>
-    */
+    /** Tests {@link AlienEliCapPhysic#hitCoin(Coin, ActiveUpgrades, GameWorld)} and verifies coin count update. */
     @Test
-    public void testHitCoin() {
+    void testHitCoin() {
         final ScoreManager scoreManager = new ScoreManagerImpl();
         final Coin coin = new CoinImpl(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT), scoreManager);
         final Gadget eliCap = new EliCap(HEIGHT, WIDTH, new Vector2dImpl(X, Y));
-        final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT, new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
+        final ActiveUpgradesImpl upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
+        final Alien alien = new AlienImpl(
+                new Vector2dImpl(X, Y),
+                new Vector2dImpl(SPEED_X, SPEED_Y),
+                WIDTH,
+                HEIGHT,
+                upgrades
+        );
         final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD), new Boundary(LEFT_SIDE, RIGHT_SIDE));
-        
+
         eliCap.onCollect(alien, new RealWorld(alien, boundary));
 
-        alien.notifyCollision(coin, boundary.getBoundX(), new RealWorld(alien, boundary), new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
-    
+        final MainControllerImpl mainController = new MainControllerImpl(new MainViewImpl());
+        final MenuImpl menu = new MenuImpl(mainController);
+        final LaunchedGameImpl launchedGame = new LaunchedGameImpl(menu);
+        alien.notifyCollision(coin, boundary.getBoundX(), new RealWorld(alien, boundary), launchedGame);
+
         assertEquals(COINS_NUMBER, scoreManager.getCoins(), EPSILON);
-  }
+    }
 }

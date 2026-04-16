@@ -39,7 +39,7 @@ class PlatformsTest {
      * Tests the {@link Platform} generation using {@link PlatformBuilder}.
      */
     @Test
-    public void generatePlatformsTest() {
+    void generatePlatformsTest() {
         final Vector2d position = new Vector2dImpl(X, Y);
         final PlatformBuilder platformBuilder = new PlatformBuilderImpl();
 
@@ -58,7 +58,7 @@ class PlatformsTest {
      * Tests the {@link Platform#updatePosition(Vector2d)} method.
      */
     @Test
-    public void testUpdatePosition() {
+    void testUpdatePosition() {
         final Vector2d position = new Vector2dImpl(X, Y);
         final Boundary boundary = new Boundary(X0, X1);
         final MovementBehaviour movementBehaviour = new HorizontalMovementBehavior(DS);

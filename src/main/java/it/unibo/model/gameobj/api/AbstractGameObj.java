@@ -2,6 +2,7 @@ package it.unibo.model.gameobj.api;
 
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.physics.impl.Vector2dImpl;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Abstract game object with a two-dimensional position and a two-dimensional
@@ -29,8 +30,8 @@ public abstract class AbstractGameObj implements GameObject {
   /**
    * Constructs a new AbstractGameObj with the specified two-dimensional position.
    *
-   * @param height the height of the game object
-   * @param width the width of the game object
+   * @param height   the height of the game object
+   * @param width    the width of the game object
    * @param position the initial position of the game object,
    *                 provided as a {@link Vector2d} instance
    */
@@ -77,8 +78,9 @@ public abstract class AbstractGameObj implements GameObject {
    *
    * @return the {@link Vector2d} representing the position
    */
+  @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The position is mutable and needs to be accessed directly for updates.")
   public Vector2d getPosition() {
-    return new Vector2dImpl(this.position.getX(), this.position.getY());
+    return this.position;
   }
 
   /**
