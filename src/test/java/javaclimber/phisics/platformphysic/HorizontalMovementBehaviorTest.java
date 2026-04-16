@@ -1,4 +1,4 @@
-package javaclimber.phisics.platformPhysic;
+package javaclimber.phisics.platformphysic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -11,9 +11,9 @@ import it.unibo.model.physics.platformphysic.impl.HorizontalMovementBehavior;
 import it.unibo.model.world.impl.Boundary;
 
 /**
- * <p>Test class for the horizontal movement behavior of game objects.
+ * Test class for the horizontal movement behavior of game objects.
  * This class ensures that the {@link HorizontalMovementBehavior} functions correctly
- * by simulating various scenarios, including movement across boundaries, and verifying results.</p>
+ * by simulating various scenarios, including movement across boundaries, and verifying results.
  */
 class HorizontalMovementBehaviorTest {
 
@@ -36,10 +36,10 @@ class HorizontalMovementBehaviorTest {
   private static final double DELTA_S_3 = -300;
 
   /**
-   * <p>Tests Obj horizontal movement behavior.</p>
+   * Tests Obj horizontal movement behavior.
    */
   @Test
-  public void testOrizzontalMovementBehaviour() {
+  void testOrizzontalMovementBehaviour() {
     final Boundary bounds = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
     final Vector2d p = new Vector2dImpl(INITIAL_X, INITIAL_Y);
     final MovementBehaviour mb = new HorizontalMovementBehavior(DELTA_S_1);
@@ -49,12 +49,12 @@ class HorizontalMovementBehaviorTest {
   }
 
   /**
-   * <p>Tests the behavior when the object reaches the right boundary.
+   * Tests the behavior when the object reaches the right boundary.
    * It verifies that the object's position is correctly clamped within the boundary limits
-   * and does not exceed the right edge.</p>
+   * and does not exceed the right edge.
    */
   @Test
-  public void testRightBourderTouchBeavior() {
+  void testRightBourderTouchBeavior() {
     final Boundary bounds = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
     final Vector2d p = new Vector2dImpl(INITIAL_X, INITIAL_Y);
     final MovementBehaviour mb = new HorizontalMovementBehavior(DELTA_S_2);
@@ -64,12 +64,12 @@ class HorizontalMovementBehaviorTest {
   }
 
   /**
-   * <p>Tests the behavior when the object reaches the left boundary.
+   * Tests the behavior when the object reaches the left boundary.
    * It verifies that the object's position is correctly clamped within the boundary limits
-   * and does not exceed the left edge.</p>
+   * and does not exceed the left edge.
    */
   @Test
-  public void testLeftBourderTouchBeavior() {
+  void testLeftBourderTouchBeavior() {
     final Boundary bounds = new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY);
     final Vector2d p = new Vector2dImpl(INITIAL_X, INITIAL_Y);
     final MovementBehaviour mb = new HorizontalMovementBehavior(DELTA_S_3);

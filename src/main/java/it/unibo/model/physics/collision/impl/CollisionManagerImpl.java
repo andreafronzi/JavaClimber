@@ -1,6 +1,7 @@
 package it.unibo.model.physics.collision.impl;
 
-import it.unibo.model.gameobj.api.*;
+import it.unibo.model.gameobj.api.Alien;
+import it.unibo.model.gameobj.api.StaticEntity;
 import it.unibo.model.launchedgame.api.LaunchedGame;
 import it.unibo.model.physics.collision.api.CollisionManager;
 import it.unibo.model.world.api.GameWorld;
@@ -17,9 +18,7 @@ import java.util.stream.Stream;
  */
 public class CollisionManagerImpl implements CollisionManager {
 
-  /**
-   * The {@link Boundary} of the game world
-   */
+  /** The {@link Boundary} of the game world. */
   private final Boundary boundary;
 
   /**

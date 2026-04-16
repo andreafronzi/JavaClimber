@@ -1,6 +1,5 @@
 package it.unibo.model.physics.collision.api;
 
-import it.unibo.model.gameobj.api.*;
 import it.unibo.model.launchedgame.api.LaunchedGame;
 import it.unibo.model.world.api.GameWorld;
 

@@ -1,6 +1,7 @@
 package it.unibo.view.gamelaunchedview.impl;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.List;
@@ -26,12 +27,14 @@ import it.unibo.view.gamelaunchedview.renderers.impl.PlatformRenderer;
  */
 public class GameLaunchedViewPanelImpl extends JPanel {
 
+  private static final long serialVersionUID = 1L;
+
   private static final double LOGICAL_WIDTH = 600.0;
   private static final double LOGICAL_HEIGHT = 1000.0;
   private static final int GRID_SPACING = 40;
-  private static final java.awt.Color BG_COLOR = new java.awt.Color(250, 250, 230);
-  private static final java.awt.Color STRIPE_COLOR = new java.awt.Color(230, 230, 210);
-  private static final java.awt.Font SCORE_FONT = new java.awt.Font("Arial", java.awt.Font.BOLD, 24);
+  private static final Color BG_COLOR = new Color(250, 250, 230);
+  private static final Color STRIPE_COLOR = new Color(230, 230, 210);
+  private static final Font SCORE_FONT = new Font("Arial", Font.BOLD, 24);
   private static final int SCORE_X = 15;
   private static final int SCORE_Y = 30;
   private static final int COINS_Y = 60;
@@ -44,6 +47,7 @@ public class GameLaunchedViewPanelImpl extends JPanel {
       justification = "The launched controller is shared across the game and "
           + "it's not modified by the view, but only read to get the game state for rendering.")
   private final transient GameLaunchedController launchedController;
+  private final transient GameLaunchedInputController inputController;
 
   /**
    * Renders the {@link it.unibo.model.gameobj.api.Alien} entity within the game
@@ -101,6 +105,7 @@ public class GameLaunchedViewPanelImpl extends JPanel {
       final GameLaunchedInputController inputController) {
     super();
     this.launchedController = launchedController;
+    this.inputController = inputController;
 
     final SpriteManager spriteManager = new SpriteManager();
 
@@ -111,9 +116,18 @@ public class GameLaunchedViewPanelImpl extends JPanel {
     this.gadgetRenderer = new GadgetRenderer(spriteManager);
     this.movingPlatformRenderer = new MovingPlatformRenderer(spriteManager);
     this.onTouchPlatformRenderer = new OnTouchPlatformRenderer(spriteManager);
+  }
 
-    this.addKeyListener(new LaunchedGameInputHandlerImpl(inputController));
-    setDoubleBuffered(true); // Aggiungi questa linea nel costruttore
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Adds a key listener to the panel to handle user input for the launched game.
+   */
+  @Override
+  public void addNotify() {
+    super.addNotify();
+    this.addKeyListener(new LaunchedGameInputHandlerImpl(this.inputController));
+    setDoubleBuffered(true);
   }
 
   /**

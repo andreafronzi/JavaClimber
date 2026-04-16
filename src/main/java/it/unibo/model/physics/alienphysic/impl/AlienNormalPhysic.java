@@ -8,7 +8,7 @@ import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.launchedgame.api.LaunchedGame;
 import it.unibo.model.launchedgame.impl.EndState;
 import it.unibo.model.physics.alienphysic.api.AlienPhysic;
-import it.unibo.model.physics.alienphysic.api.TemplatePhysic;
+import it.unibo.model.physics.alienphysic.api.AbstractTemplatePhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.world.api.BoundWorld;
@@ -21,7 +21,7 @@ import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.GameObjDi
  * This class applies gravitational force on the vertical axis and
  * manages boundary behavior with a Pacman effect.
  */
-public class AlienNormalPhysic extends TemplatePhysic {
+public class AlienNormalPhysic extends AbstractTemplatePhysic {
 
   /**
    * Update alien position and speed applying gravity.
