@@ -120,8 +120,8 @@ public class GameLaunchedViewPanelImpl extends JPanel {
 
   /**
    * {@inheritDoc}
-   * 
-   * Adds a key listener to the panel to handle user input for the launched game.
+   *
+   * <p>Adds a key listener to the panel to handle user input for the launched game.
    */
   @Override
   public void addNotify() {
