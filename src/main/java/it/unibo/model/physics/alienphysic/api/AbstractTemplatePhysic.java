@@ -25,8 +25,8 @@ public abstract class AbstractTemplatePhysic implements AlienPhysic {
    * @param activeUpgrades the active upgrades affecting the Alien
    * @param launchedGame   the launched game
    */
-  protected abstract void moveAlien(Alien alien, double dt, BoundWorld boundWorld,
-      ActiveUpgrades activeUpgrades, LaunchedGame launchedGame);
+  protected abstract void moveAlien(final Alien alien, final double dt, final BoundWorld boundWorld,
+      final ActiveUpgrades activeUpgrades, final LaunchedGame launchedGame);
 
   /**
    * Verify if the alien go beyond the boundary.
@@ -36,20 +36,21 @@ public abstract class AbstractTemplatePhysic implements AlienPhysic {
    * @param launchedGame the launched game, which can be ended if the alien go
    *                     beyond the vertical boundary
    */
-  private void verifyBoundaryTouch(Alien alien, BoundWorld boundWorld, LaunchedGame launchedGame) {
+  private void verifyBoundaryTouch(final Alien alien, final BoundWorld boundWorld, final LaunchedGame launchedGame) {
     this.verifyHorizontalBoundaryTouch(alien, boundWorld.getBoundX());
     this.verifyVerticalBoundaryTouch(alien, boundWorld.getBoundY(), launchedGame);
   }
 
   /**
-   * Verify if the alien go beyond the horizontal boundary. Apply pacman effect if it
+   * Verify if the alien go beyond the horizontal boundary. Apply pacman effect if
+   * it
    * happens.
    *
    * @param alien    the {@link Alien} which can go beyond the horizontal boundary
    * @param boundary the {@link Boundary} horizontal boundary, which can be
    *                 crossed by the alien
    */
-  private void verifyHorizontalBoundaryTouch(Alien alien, Boundary boundary) {
+  private void verifyHorizontalBoundaryTouch(final Alien alien, final Boundary boundary) {
     if (alien.getPosX() + alien.getWidth() < boundary.x0()) {
       alien.setPosition(new Vector2dImpl(boundary.x1() - alien.getWidth(), alien.getPosY()));
     }
@@ -69,8 +70,8 @@ public abstract class AbstractTemplatePhysic implements AlienPhysic {
    * @param launchedGame   the {@link LaunchedGame}, which can be ended if the
    *                       alien go beyond the vertical boundary
    */
-  private void verifyVerticalBoundaryTouch(Alien alien, BoundY verticalBounds,
-      LaunchedGame launchedGame) {
+  private void verifyVerticalBoundaryTouch(final Alien alien, final BoundY verticalBounds,
+      final LaunchedGame launchedGame) {
     if (alien.getPosY() + alien.getHeight() > verticalBounds.maxY()) {
       launchedGame.setState(new EndState(launchedGame));
     }
@@ -80,8 +81,8 @@ public abstract class AbstractTemplatePhysic implements AlienPhysic {
    * {@inheritDoc}
    */
   @Override
-  public void update(Alien alien, double dt, BoundWorld boundWorld,
-      ActiveUpgrades activeUpgrades, LaunchedGame launchedGame) {
+  public void update(final Alien alien, final double dt, final BoundWorld boundWorld,
+      final ActiveUpgrades activeUpgrades, final LaunchedGame launchedGame) {
     moveAlien(alien, dt, boundWorld, activeUpgrades, launchedGame);
     verifyBoundaryTouch(alien, boundWorld, launchedGame);
   }
