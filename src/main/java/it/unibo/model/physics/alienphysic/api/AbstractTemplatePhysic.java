@@ -25,8 +25,8 @@ public abstract class AbstractTemplatePhysic implements AlienPhysic {
    * @param activeUpgrades the active upgrades affecting the Alien
    * @param launchedGame   the launched game
    */
-  protected abstract void moveAlien(final Alien alien, final double dt, final BoundWorld boundWorld,
-      final ActiveUpgrades activeUpgrades, final LaunchedGame launchedGame);
+  protected abstract void moveAlien(Alien alien, double dt, BoundWorld boundWorld,
+      ActiveUpgrades activeUpgrades, LaunchedGame launchedGame);
 
   /**
    * Verify if the alien go beyond the boundary.
