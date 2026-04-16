@@ -3,7 +3,7 @@ package it.unibo.view;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +21,7 @@ public class SpriteManager {
      * A map that associates each {@link SpriteEnum} with its corresponding
      * {@link BufferedImage}.
      */
-    private final Map<SpriteEnum, BufferedImage> sprites = new HashMap<>();
+    private final Map<SpriteEnum, BufferedImage> sprites = new EnumMap<>(SpriteEnum.class);
 
     /**
      * Constructor for the SpriteManager. It initializes the sprite map by
