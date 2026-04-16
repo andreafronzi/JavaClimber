@@ -53,11 +53,6 @@ class CollisionManagerTest {
     private static final double LOWER_WORLD = 100;
 
     /**
-     * The {@link Alien} instance used in the tests.
-     */
-    private Alien alien;
-
-    /**
      * The {@link CollisionManager} instance used to detect collisions in the tests.
      */
     private CollisionManager collisionManager;
@@ -77,15 +72,12 @@ class CollisionManagerTest {
     private Coin c;
     private Gadget g;
 
-    /**
-     * Sets up the test environment before each test case is executed. Initializes
-     * the Alien, CollisionManager, RealWorld, and the Enemy, Coin, and Gadget
-     * instances used in the tests.
-     */
+    /** Sets up the test environment before each test case. */
     @BeforeEach
     void setUp() {
-        this.alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT,
-                new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl())));
+        final ActiveUpgradesImpl upgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
+        final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT,
+                upgrades);
         final Boundary boundary = new Boundary(LEFT_SIDE, RIGHT_SIDE);
         this.collisionManager = new CollisionManagerImpl(boundary);
         this.realWorld = new RealWorld(alien,
@@ -102,9 +94,9 @@ class CollisionManagerTest {
      */
     @Test
     void detectCollisionOnEnemyTest() {
+        final LaunchedGameImpl lg = new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl())));
         this.realWorld.addMonster(this.e);
-        this.collisionManager.detectCollisions(realWorld,
-                new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+        this.collisionManager.detectCollisions(realWorld, lg);
         assertFalse(this.realWorld.getMonsters().contains(this.e));
     }
 
@@ -115,9 +107,9 @@ class CollisionManagerTest {
      */
     @Test
     void detectCollisionOnCoinTest() {
+        final LaunchedGameImpl lg = new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl())));
         this.realWorld.addMoney(this.c);
-        this.collisionManager.detectCollisions(realWorld,
-                new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+        this.collisionManager.detectCollisions(realWorld, lg);
         assertFalse(this.realWorld.getMoneys().contains(this.c));
     }
 
@@ -128,9 +120,9 @@ class CollisionManagerTest {
      */
     @Test
     void detectCollisionOnGadgetTest() {
+        final LaunchedGameImpl lg = new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl())));
         this.realWorld.addGadget(this.g);
-        this.collisionManager.detectCollisions(realWorld,
-                new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
+        this.collisionManager.detectCollisions(realWorld, lg);
         assertFalse(this.realWorld.getGadgets().contains(this.g));
     }
 }
