@@ -44,7 +44,7 @@ class AlienEliCapPhysicTest {
     private static final double X2 = 10;
 
     private static final double X3 = 10;
-    
+
     private static final double WIDTH = 0;
     private static final double HEIGHT = 0;
 
@@ -111,17 +111,14 @@ class AlienEliCapPhysicTest {
                 upgrades
         );
         eliCap.onCollect(alien, new RealWorld(alien, boundary));
-
-        //before updating position the physic shouldn't apply modifications on the alien speed and position
-        assertEquals(SPEED_Y, alien.getSpeedY(), EPSILON);  
+        assertEquals(SPEED_Y, alien.getSpeedY(), EPSILON);
         assertEquals(SPEED_X, alien.getSpeedX(), EPSILON);
 
         final MainControllerImpl mainController = new MainControllerImpl(new MainViewImpl());
         final MenuImpl menu = new MenuImpl(mainController);
         final LaunchedGameImpl launchedGame = new LaunchedGameImpl(menu);
+
         alien.updatePosition(DT2, boundary, launchedGame);
-        
-        //after updating position
         assertEquals(X2, alien.getPosX(), EPSILON);
         assertEquals(Y + ELICAP_SPEED_Y * DT2, alien.getPosY(), EPSILON);
         assertEquals(ELICAP_SPEED_X, alien.getSpeedX(), EPSILON);

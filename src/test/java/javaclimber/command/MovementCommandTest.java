@@ -21,7 +21,7 @@ class MovementCommandTest {
 
     private static final double X = 10;
     private static final double Y = 20;
-    
+
     private static final double SPEED_X = 0;
     private static final double SPEED_Y = 0;
 
