@@ -58,7 +58,7 @@ class AlienNormalPhysicTest {
   private static final double SPEEDY_WITH_ELICAP = -500;
   private static final double SPEED1_Y = 50;
   private static final double SPEED2_X = -200;
-  private static final double SPEED2_Y = -50;
+  
 
   private static final double WIDTH = 50;
   private static final double HEIGHT = 50;
@@ -82,7 +82,7 @@ class AlienNormalPhysicTest {
    * </p>
    */
   @Test
-  public void testUpdateAlienPosition() {
+  void testUpdateAlienPosition() {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT,
@@ -105,7 +105,7 @@ class AlienNormalPhysicTest {
    * </p>
    */
   @Test
-  public void testRightToLeftPacmanEffect() {
+  void testRightToLeftPacmanEffect() {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X1, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT,
@@ -127,7 +127,7 @@ class AlienNormalPhysicTest {
    * </p>
    */
   @Test
-  public void testLeftToRightPacmanEffect() {
+  void testLeftToRightPacmanEffect() {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED2_X, SPEED_Y), WIDTH1, HEIGHT,
@@ -136,7 +136,7 @@ class AlienNormalPhysicTest {
     final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD),
         new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
     physic.update(alien, DT, boundary, activeUpgrades, new LaunchedGameImpl(new MenuImpl(new MainControllerImpl(new MainViewImpl()))));
-    System.out.println(alien.getPosX());
+    // debug: replaced System.out.println with no-op
     assertEquals(RIGHT_BOUNDARY - WIDTH1, alien.getPosX(), EPSILON);
   }
 
@@ -149,7 +149,7 @@ class AlienNormalPhysicTest {
    * </p>
    */
   @Test
-  public void testHitEnemy() {
+  void testHitEnemy() {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGHT,
@@ -177,7 +177,7 @@ class AlienNormalPhysicTest {
    * </p>
    */
   @Test
-  public void testHitCoin() {
+  void testHitCoin() {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED_Y), WIDTH, HEIGHT,
@@ -199,7 +199,7 @@ class AlienNormalPhysicTest {
    * </p>
    */
   @Test
-  public void testHitGadget() {
+  void testHitGadget() {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGHT,
@@ -225,7 +225,7 @@ class AlienNormalPhysicTest {
    * </p>
    */
   @Test
-  public void testHitPlatform() {
+  void testHitPlatform() {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, SPEED1_Y), WIDTH, HEIGHT,
@@ -252,7 +252,7 @@ class AlienNormalPhysicTest {
    * </p>
    */
   @Test
-  public void testAlienDeadOnEnemyCollision() {
+  void testAlienDeadOnEnemyCollision() {
     final ActiveUpgrades activeUpgrades = new ActiveUpgradesImpl(new InventoryImpl(new ShopItemFactoryImpl()));
     final AlienPhysic physic = new AlienNormalPhysic();
     final Alien alien = new AlienImpl(new Vector2dImpl(X, Y), new Vector2dImpl(SPEED_X, -SPEED1_Y), WIDTH, HEIGHT,
