@@ -42,12 +42,6 @@ public class PlatformBuilderImpl implements PlatformBuilder {
   private Optional<OnTouchBehaviour> onTouchBehaviour = Optional.empty();
 
   /**
-   * Constructs a new {@link PlatformBuilderImpl} with default values.
-   */
-  public PlatformBuilderImpl() {
-  }
-
-  /**
    * {@inheritDoc}
    */
   @Override
