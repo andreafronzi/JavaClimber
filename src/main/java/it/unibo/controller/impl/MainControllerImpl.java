@@ -46,7 +46,11 @@ public final class MainControllerImpl implements MainController {
      * @param mainView the main view of the application to be managed by this
      *                 controller
      */
-    @SuppressFBWarnings("EI_EXPOSE_REP2")
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP2",
+        justification = "In the MVC architecture, the Controller must hold a reference to the exact,"
+        + "mutable instance of View and Model to synchronize the application state."
+    )
     public MainControllerImpl(final MainView mainView) {
         this.mainView = mainView;
         this.saveManager = new SaveManagerImpl();
@@ -58,7 +62,11 @@ public final class MainControllerImpl implements MainController {
     /**
      * {@inheritDoc}
      */
-    @SuppressFBWarnings("EI_EXPOSE_REP2")
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP2",
+        justification = "In the MVC architecture, the Controller must hold a reference to the exact,"
+        + "mutable instance of View and Model to synchronize the application state."
+    )
     @Override
     public void setView(final MainView view) {
         this.mainView = view;

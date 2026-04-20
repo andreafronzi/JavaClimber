@@ -13,7 +13,6 @@ import it.unibo.view.menu.api.MenuView;
 /**
  * Implementation of {@link MenuController} interface.
  */
-@SuppressFBWarnings("EI_EXPOSE_REP")
 public class MenuControllerImpl implements MenuController {
 
     private final Menu menu;
@@ -29,6 +28,11 @@ public class MenuControllerImpl implements MenuController {
      * @param scoreManager   the model manager for scores
      * @param menu           the menu model
      */
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP",
+        justification = "The View must hold and interact with the actual Controller instance to dispatch user inputs correctly."
+        + "So it is intentionally exposed."
+    )
     public MenuControllerImpl(final MainController mainController, final ScoreManager scoreManager, final Menu menu) {
         this.menu = menu;
         this.mainController = mainController;

@@ -39,7 +39,6 @@ import it.unibo.view.inventory.api.InventoryView;
 /**
  * Implementation of {@link InventoryView} interface.
  */
-@SuppressFBWarnings("EI_EXPOSE_REP")
 public final class InventoryViewImpl extends JPanel implements InventoryView {
 
     private static final long serialVersionUID = 1L;
@@ -59,6 +58,11 @@ public final class InventoryViewImpl extends JPanel implements InventoryView {
      * @param controller the controller for managing user interactions and updating
      *                   the view
      */
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP",
+        justification = "The View must hold a reference to the actual Controller instance to dispatch user inputs."
+        + "A defensive copy cannot be used here as it would break the MVC communication flow."
+    )
     public InventoryViewImpl(final InventoryController controller) {
         super(new BorderLayout());
         this.controller = controller;

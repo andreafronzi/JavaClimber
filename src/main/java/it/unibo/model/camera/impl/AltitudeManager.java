@@ -12,7 +12,11 @@ import it.unibo.model.gameobj.api.Alien;
  * Manages the calculation of the player's altitude. Implements
  * {@link AltitudeSubject}.
  */
-@SuppressFBWarnings("EI_EXPOSE_REP")
+@SuppressFBWarnings(
+    value = "EI_EXPOSE_REP",
+    justification = "This component is designed to directly modify the shared game state (Alien)."
+    + "A defensive copy would render the game logic ineffective."
+)
 public class AltitudeManager implements AltitudeSubject {
 
     private final List<AltitudeObserver> observerList = new ArrayList<>();
