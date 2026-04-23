@@ -5,10 +5,16 @@ package it.unibo.model.launchedgame.api;
  */
 public abstract class AbstractLaunchedState implements StateOfLaunchedGame {
 
+    // CHECKSTYLE: VisibilityModifier OFF
+    // The rule is disabled because this class is a template and classes that extend
+    // it need to access the menu field to change the state of the launched game.
+
     /**
      * The game context that this state belongs to.
      */
     protected LaunchedGame launchedGame;
+
+    // CHECKSTYLE: VisibilityModifier ON
 
     /**
      * Constructs a new BaseLaunchedState.
