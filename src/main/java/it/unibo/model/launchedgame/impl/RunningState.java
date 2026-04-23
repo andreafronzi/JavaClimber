@@ -1,5 +1,6 @@
 package it.unibo.model.launchedgame.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.camera.impl.AltitudeManager;
 import it.unibo.model.launchedgame.api.AbstractLaunchedState;
 import it.unibo.model.launchedgame.api.LaunchedGame;
@@ -43,6 +44,8 @@ public class RunningState extends AbstractLaunchedState {
      * @param scoreManager     the score manager for tracking and updating the
      *                         score.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Score and Altitude managers are necessary for the game "
+            + "loop beacause they are responsible for updating the score and altitude during the game execution.")
     public RunningState(final LaunchedGame launchedGame, final World world, final CollisionManager collisionManager,
             final AltitudeManager altitudeManager, final ScoreManager scoreManager) {
         super(launchedGame);
