@@ -1,4 +1,4 @@
-package javaclimber.worldConstructor.gameObjectSpawn.addOnSpawn;
+package javaclimber.worldconstructor.gameobjectspawn.addonspawn;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -14,9 +14,9 @@ import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.api.FactoryAdd
 import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.FactoryAddOnImpl;
 
 /**
- * Test for the FactoryAddOnImpl class.
+ * Test for the {@link FactoryAddOn}.
  */
-public class FactoryAddOnTest {
+class FactoryAddOnTest {
 
     private static final double POSITION_X = 0;
     private static final double POSITION_Y = 0;
@@ -38,7 +38,7 @@ public class FactoryAddOnTest {
      * Test for creating a coin.
      */
     @Test
-    public void createCoinTest() {
+    void createCoinTest() {
         final Coin coin = this.factoryAddOn.createCoin(new Vector2dImpl(POSITION_X, POSITION_Y));
         assertEquals(coin, coin);
     }
@@ -47,7 +47,7 @@ public class FactoryAddOnTest {
      * Test for creating an enemy.
      */
     @Test
-    public void createEnemyTest() {
+    void createEnemyTest() {
         final Enemy enemy = this.factoryAddOn.createEnemy(new Vector2dImpl(POSITION_X, POSITION_Y));
         assertEquals(enemy, enemy);
     }
@@ -56,7 +56,7 @@ public class FactoryAddOnTest {
      * Test for creating an EliCap gadget.
      */
     @Test
-    public void createElycapTest() {
+    void createElycapTest() {
         final Gadget elycap = this.factoryAddOn.createElycap(new Vector2dImpl(POSITION_X, POSITION_Y));
         assertEquals(elycap, elycap);
     }
