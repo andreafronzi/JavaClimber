@@ -3,6 +3,7 @@ package it.unibo.model.world.api;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.gameobj.api.Coin;
 import it.unibo.model.gameobj.api.Enemy;
 import it.unibo.model.gameobj.api.Gadget;
@@ -123,6 +124,9 @@ public abstract class AbstractWorldContainer implements BaseWorld {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The method returns a reference to the internal list of gadgets,"
+            + " which allows external code to not create a copy for every time the list is modified. This is intentional for performance reasons,"
+            + " as it avoids unnecessary copying of the list.")
     @Override
     public List<Gadget> getGadgets() {
         return this.gadgets;
@@ -131,6 +135,9 @@ public abstract class AbstractWorldContainer implements BaseWorld {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The method returns a reference to the internal list of coins,"
+            + " which allows external code to not create a copy for every time the list is modified. This is intentional for performance reasons,"
+            + " as it avoids unnecessary copying of the list.")
     @Override
     public List<Coin> getMoneys() {
         return this.moneys;
@@ -139,6 +146,9 @@ public abstract class AbstractWorldContainer implements BaseWorld {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The method returns a reference to the internal list of monsters,"
+            + " which allows external code to not create a copy for every time the list is modified. This is intentional for performance reasons,"
+            + " as it avoids unnecessary copying of the list.")
     @Override
     public List<Enemy> getMonsters() {
         return this.monsters;
@@ -147,6 +157,9 @@ public abstract class AbstractWorldContainer implements BaseWorld {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The method returns a reference to the internal list of static platforms,"
+            + " which allows external code to not create a copy for every time the list is modified. This is intentional for performance reasons,"
+            + " as it avoids unnecessary copying of the list.")
     @Override
     public List<Platform> getStaticPlatforms() {
         return this.staticPlatforms;
@@ -155,6 +168,9 @@ public abstract class AbstractWorldContainer implements BaseWorld {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The method returns a reference to the internal list of moving platforms,"
+            + " which allows external code to not create a copy for every time the list is modified. This is intentional for performance reasons,"
+            + " as it avoids unnecessary copying of the list.")
     @Override
     public List<Platform> getMovingPlatforms() {
         return this.movingPlatforms;
@@ -163,6 +179,9 @@ public abstract class AbstractWorldContainer implements BaseWorld {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The method returns a reference to the internal list of on-touch platforms,"
+            + " which allows external code to not create a copy for every time the list is modified. This is intentional for performance reasons,"
+            + " as it avoids unnecessary copying of the list.")
     @Override
     public List<Platform> getOnTouchPlatforms() {
         return this.onTouchPlatforms;

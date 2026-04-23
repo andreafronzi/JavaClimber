@@ -1,9 +1,11 @@
 package it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.api;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.physics.api.Vector2d;
 import it.unibo.model.worldconstructor.gameobjectspawn.api.SpawnPoolCreator;
 
@@ -49,6 +51,8 @@ public abstract class AbstractPlatformPool implements PlatformPool {
      * @param width            the width of the platform pool
      * @param height           the height of the platform pool
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The spawnPoolCreator is modified only by the world constructor"
+            + " and is not exposed to the outside, so it is safe to expose the reference.")
     public AbstractPlatformPool(final SpawnPoolCreator spawnPoolCreator, final double width,
             final double height) {
         this.platformPool = new LinkedList<>();
@@ -62,7 +66,7 @@ public abstract class AbstractPlatformPool implements PlatformPool {
      */
     @Override
     public List<Pair<Double, BiConsumer<Double, Vector2d>>> getPlatformPool() {
-        return this.platformPool;
+        return Collections.unmodifiableList(this.platformPool);
     }
 
     /**

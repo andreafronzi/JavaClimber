@@ -22,6 +22,7 @@ public abstract class AbstractMenuState implements StateOfMenu {
      * 
      * @param menu the Menu context
      */
+    
     public AbstractMenuState(final Menu menu) {
         this.menu = menu;
     }

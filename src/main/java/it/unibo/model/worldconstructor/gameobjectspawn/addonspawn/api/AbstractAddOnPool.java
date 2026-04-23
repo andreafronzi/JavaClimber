@@ -1,9 +1,11 @@
 package it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.api;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.worldconstructor.gameobjectspawn.api.SpawnPoolCreator;
 import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.api.Pair;
@@ -43,6 +45,8 @@ public abstract class AbstractAddOnPool implements AddOnPool {
      *                         for the add-ons
      * @param chanceAddOn      the probability of spawning an add-on
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The spawnPoolCreator is modified only by the world constructor"
+            + " and is not exposed to the outside, so it is safe to expose the reference.")
     public AbstractAddOnPool(final SpawnPoolCreator spawnPoolCreator, final double chanceAddOn) {
         this.addOnPool = new LinkedList<>();
         this.chanceAddOn = chanceAddOn;
@@ -54,7 +58,7 @@ public abstract class AbstractAddOnPool implements AddOnPool {
      */
     @Override
     public List<Pair<Double, BiConsumer<Double, Platform>>> getAddOnPool() {
-        return this.addOnPool;
+        return Collections.unmodifiableList(this.addOnPool);
     }
 
     /**

@@ -48,7 +48,7 @@ public class PlatformPositionGeneratorImpl implements PlatformPositionGenerator 
     public PlatformPositionGeneratorImpl(final BoundWorld boundWorld, final Vector2d platformPos,
             final Distance distance) {
         this.randomNumber = new Random();
-        previousPlatformPosition = platformPos;
+        previousPlatformPosition = new Vector2dImpl(platformPos.getX(), platformPos.getY());
         this.distance = distance;
         this.boundX = boundWorld.getBoundX();
     }
