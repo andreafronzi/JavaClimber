@@ -120,7 +120,8 @@ class WorldDifficultTest {
                 assertTrue(!this.upperWorld.getGadgets().isEmpty() || !this.upperWorld.getMoneys().isEmpty()
                                 || !this.upperWorld.getMonsters().isEmpty()
                                 || !this.upperWorld.getMovingPlatforms().isEmpty()
-                                || !this.upperWorld.getOnTouchPlatforms().isEmpty());
+                                || !this.upperWorld.getOnTouchPlatforms().isEmpty()
+                                || !this.upperWorld.getStaticPlatforms().isEmpty());
         }
 
         /**
@@ -134,7 +135,8 @@ class WorldDifficultTest {
                 assertTrue(!this.upperWorld.getGadgets().isEmpty() || !this.upperWorld.getMoneys().isEmpty()
                                 || !this.upperWorld.getMonsters().isEmpty()
                                 || !this.upperWorld.getMovingPlatforms().isEmpty()
-                                || !this.upperWorld.getOnTouchPlatforms().isEmpty());
+                                || !this.upperWorld.getOnTouchPlatforms().isEmpty()
+                                || !this.upperWorld.getStaticPlatforms().isEmpty());
         }
 
 }
