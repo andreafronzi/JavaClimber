@@ -1,4 +1,4 @@
-package javaclimber.worldConstructor.gameObjectSpawn;
+package javaclimber.worldconstructor.gameobjectspawn;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,9 +18,9 @@ import it.unibo.model.worldconstructor.gameobjectspawn.impl.SpawnPoolCreatorImpl
 import it.unibo.model.worldconstructor.gameobjectspawn.impl.SpawnPoolEasy;
 
 /**
- * Test for the SpawnPoolCreatorImpl class.
+ * Test for the {@link SpawnPoolCreatorImpl}.
  */
-public class SpawnPoolCreatorTest {
+class SpawnPoolCreatorTest {
 
     private static final double Y_MIN = 0;
     private static final double Y_MAX = 600;
@@ -53,7 +53,7 @@ public class SpawnPoolCreatorTest {
      * Set up the test environment.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         this.world = new UpperWorld(new BoundWorldImpl(new BoundY(Y_MIN, Y_MAX), new Boundary(X_MIN, X_MAX)));
         this.platformPoolCreator = new SpawnPoolCreatorImpl(world);
         this.platformPoolCreator
@@ -64,7 +64,7 @@ public class SpawnPoolCreatorTest {
      * Test for setting the spawn pool.
      */
     @Test
-    public void setSpawnPoolTest() {
+    void setSpawnPoolTest() {
         final SpawnPool newPool = new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT, new ScoreManagerImpl());
         this.platformPoolCreator.setSpawnPool(newPool);
         this.platformPoolCreator.createStaticPlatform(CHANCE, new Vector2dImpl(POS_X, POS_Y));
@@ -75,7 +75,7 @@ public class SpawnPoolCreatorTest {
      * Test for creating a static platform.
      */
     @Test
-    public void createStaticPlatformTest() {
+    void createStaticPlatformTest() {
         final var pos = new Vector2dImpl(POS_X, POS_Y);
         this.platformPoolCreator.createStaticPlatform(CHANCE, pos);
         assertEquals(EXPECTED_SIZE, world.getStaticPlatforms().size());
@@ -85,7 +85,7 @@ public class SpawnPoolCreatorTest {
      * Test for creating a moving platform.
      */
     @Test
-    public void createMovingPlatformTest() {
+    void createMovingPlatformTest() {
         final var pos = new Vector2dImpl(POS_X, POS_Y);
         this.platformPoolCreator.createMovingPlatform(CHANCE, pos);
         assertEquals(EXPECTED_SIZE, world.getMovingPlatforms().size());
@@ -95,7 +95,7 @@ public class SpawnPoolCreatorTest {
      * Test for creating an on-touch platform.
      */
     @Test
-    public void createOnTouchPlatformTest() {
+    void createOnTouchPlatformTest() {
         final var pos = new Vector2dImpl(POS_X, POS_Y);
         this.platformPoolCreator.createOnTouchPlatform(CHANCE, pos);
         assertEquals(EXPECTED_SIZE, world.getOnTouchPlatforms().size());
@@ -105,7 +105,7 @@ public class SpawnPoolCreatorTest {
      * Test for creating a monster.
      */
     @Test
-    public void createMonsterTest() {
+    void createMonsterTest() {
         final var pos = new Vector2dImpl(POS_X, POS_Y);
         final var platform = new PlatformImpl(pos, PLATFORM_WIDTH, PLATFORM_HEIGHT, null, null);
         this.platformPoolCreator.createMonster(CHANCE, platform);
@@ -116,7 +116,7 @@ public class SpawnPoolCreatorTest {
      * Test for creating a gadget.
      */
     @Test
-    public void createGadgetTest() {
+    void createGadgetTest() {
         final var pos = new Vector2dImpl(POS_X, POS_Y);
         final var platform = new PlatformImpl(pos, PLATFORM_WIDTH, PLATFORM_HEIGHT, null, null);
         this.platformPoolCreator.createGadget(CHANCE, platform);
@@ -127,7 +127,7 @@ public class SpawnPoolCreatorTest {
      * Test for creating money.
      */
     @Test
-    public void createMoneyTest() {
+    void createMoneyTest() {
         final var pos = new Vector2dImpl(POS_X, POS_Y);
         final var platform = new PlatformImpl(pos, PLATFORM_WIDTH, PLATFORM_HEIGHT, null, null);
         this.platformPoolCreator.createMoney(CHANCE, platform);

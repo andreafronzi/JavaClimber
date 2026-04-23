@@ -1,6 +1,7 @@
-package javaclimber.worldConstructor.gameObjectSpawn.addOnSpawn;
+package javaclimber.worldconstructor.gameobjectspawn.addonspawn;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,9 +17,9 @@ import it.unibo.model.worldconstructor.gameobjectspawn.impl.SpawnPoolCreatorImpl
 import it.unibo.model.worldconstructor.gameobjectspawn.impl.SpawnPoolEasy;
 
 /**
- * Test for the AddOnPool classes.
+ * Test for the {@link AddOnPool}.
  */
-public class AddOnPoolTest {
+class AddOnPoolTest {
 
     private static final double PLATFORM_WIDTH = 30;
     private static final double PLATFORM_HEIGHT = 20;
@@ -40,7 +41,7 @@ public class AddOnPoolTest {
      * Set up the test environment.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final var spawnPoolEasy = new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT, new ScoreManagerImpl());
         final var world = new UpperWorld(new BoundWorldImpl(new BoundY(MIN_Y, MAX_Y), new Boundary(MIN_X, MAX_X)));
         final var spawnPoolCreator = new SpawnPoolCreatorImpl(world);
@@ -52,16 +53,16 @@ public class AddOnPoolTest {
      * Test for getting the add-on pool.
      */
     @Test
-    public void testGetAddOnPool() {
+    void getterAddOnPoolTest() {
         final var addOnPool = this.addOnPoolEasy.getAddOnPool();
-        assertEquals(false, addOnPool.isEmpty());
+        assertFalse(addOnPool.isEmpty());
     }
 
     /**
      * Test for getting the chance of add-on.
      */
     @Test
-    public void testGetChanceAddOn() {
+    void getterChanceAddOnTest() {
         final var chanceAddOn = this.addOnPoolEasy.getChanceAddOn();
         assertEquals(CHANCE_ADD_ON, chanceAddOn);
     }

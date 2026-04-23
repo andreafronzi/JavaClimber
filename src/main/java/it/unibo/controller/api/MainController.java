@@ -1,5 +1,6 @@
 package it.unibo.controller.api;
 
+import it.unibo.model.menu.api.Menu;
 import it.unibo.view.MainView;
 
 /**
@@ -49,4 +50,9 @@ public interface MainController {
      * Save the current game progress.
      */
     void saveProgress();
+
+    /**
+     * Get the menu.
+     */
+    Menu getMenu();
 }

@@ -21,6 +21,10 @@ import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.impl.Direct
  */
 public abstract class AbstractSpawnPool implements SpawnPool {
 
+    // CHECKSTYLE: VisibilityModifier OFF
+    // The rule is disabled because this class is a template and classes that extend
+    // it need to access the fields to set the pool of objects to spawn.
+
     /**
      * Represents a list of multiple types of static platforms with their associated
      * spawn probabilities.
@@ -66,6 +70,8 @@ public abstract class AbstractSpawnPool implements SpawnPool {
      * Represents the factory add-on for managing additional object spawning.
      */
     protected final FactoryAddOn factoryAddOn;
+
+    // CHECKSTYLE: <VisibilityModifier> ON
 
     /**
      * Constructs the easy platform pool and initializes the object lists.
