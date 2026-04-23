@@ -53,6 +53,8 @@ public interface MainController {
 
     /**
      * Get the menu.
+     * 
+     * @return the menu
      */
     Menu getMenu();
 }
