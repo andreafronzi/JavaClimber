@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.command.api.RunningCommand;
 import it.unibo.model.launchedgame.api.LaunchedGame;
 import it.unibo.model.launchedgame.api.StateOfLaunchedGame;
@@ -47,6 +48,8 @@ public class LaunchedGameImpl implements LaunchedGame {
      * 
      * @param menu the menu controller to be used in the launched game
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Menu is necessary because the state of the launched "
+            + "game needs to interact with it.")
     public LaunchedGameImpl(final Menu menu) {
         this.commands = new ArrayBlockingQueue<>(100);
         this.running = false;
@@ -121,6 +124,8 @@ public class LaunchedGameImpl implements LaunchedGame {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Menu is necessary because the state of the launched "
+            + "game needs to interact with it.")
     @Override
     public Menu getMenu() {
         return this.menu;
