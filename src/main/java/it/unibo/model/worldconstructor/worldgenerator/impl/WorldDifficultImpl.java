@@ -29,7 +29,7 @@ public class WorldDifficultImpl implements WorldDifficult, Subject, AltitudeObse
     /**
      * List of available difficulty levels.
      */
-    private List<Difficult> difficultList;
+    private final List<Difficult> difficultList;
 
     /**
      * The current height of the player (Alien).
@@ -57,6 +57,7 @@ public class WorldDifficultImpl implements WorldDifficult, Subject, AltitudeObse
         if (this.height > difficult.height()) {
             difficultList.stream().forEach(d -> {
                 if (this.height < d.height()) {
+                    this.difficult = d;
                     notifyObservers(d);
                 }
             });
