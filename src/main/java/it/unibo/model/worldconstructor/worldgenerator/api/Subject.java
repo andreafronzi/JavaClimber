@@ -12,6 +12,7 @@ public interface Subject {
      * Registers an observer to receive updates.
      * 
      * @param o the observer to register
+     * @return true if the observer was successfully registered, false otherwise.
      */
     boolean registerObserver(Observer o);
 
@@ -19,6 +20,7 @@ public interface Subject {
      * Removes an observer from the notification list.
      * 
      * @param o the observer to remove
+     * @return true if the observer was successfully removed, false otherwise.
      */
     boolean removeObserver(Observer o);
 
