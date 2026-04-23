@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.model.gameobj.impl.AlienImpl;
+import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.world.api.BoundWorld;
 import it.unibo.model.world.api.GameWorld;
 import it.unibo.model.world.api.QueueWorld;
@@ -29,6 +30,12 @@ class WorldTest {
     private static final double WIDTH = 0;
     private static final double HEIGHT = 0;
 
+    private static final double POSITION_X = 10;
+    private static final double POSITION_Y = 5;
+
+    private static final double VELOCITY_X = 10;
+    private static final double VELOCITY_Y = 10;
+
     /**
      * The world to test.
      */
@@ -38,7 +45,7 @@ class WorldTest {
      * Set up the world before each test.
      * 
      * @param upperWorld the upper world
-     * @param realWorld the real world
+     * @param realWorld  the real world
      */
     private void setUpWorld(final QueueWorld upperWorld, final GameWorld realWorld) {
         this.world = new World(upperWorld, realWorld);
@@ -50,7 +57,8 @@ class WorldTest {
     @Test
     void getterUpperWorldTest() {
         final BoundWorld boundWorld = new BoundWorldImpl(new BoundY(Y_MIN, Y_MAX), new Boundary(X_MIN, X_MAX));
-        final AlienImpl alien = new AlienImpl(null, null, WIDTH, HEIGHT, null);
+        final AlienImpl alien = new AlienImpl(new Vector2dImpl(POSITION_X, POSITION_Y),
+                new Vector2dImpl(VELOCITY_X, VELOCITY_Y), WIDTH, HEIGHT, null);
         final QueueWorld upperWorld = new UpperWorld(boundWorld);
         final GameWorld realWorld = new RealWorld(alien, boundWorld);
         setUpWorld(upperWorld, realWorld);
@@ -63,7 +71,8 @@ class WorldTest {
     @Test
     void getterRealWorldTest() {
         final BoundWorld boundWorld = new BoundWorldImpl(new BoundY(Y_MIN, Y_MAX), new Boundary(X_MIN, X_MAX));
-        final AlienImpl alien = new AlienImpl(null, null, WIDTH, HEIGHT, null);
+        final AlienImpl alien = new AlienImpl(new Vector2dImpl(POSITION_X, POSITION_Y),
+                new Vector2dImpl(VELOCITY_X, VELOCITY_Y), WIDTH, HEIGHT, null);
         final QueueWorld upperWorld = new UpperWorld(boundWorld);
         final GameWorld realWorld = new RealWorld(alien, boundWorld);
         setUpWorld(upperWorld, realWorld);
