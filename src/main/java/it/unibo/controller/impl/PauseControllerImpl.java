@@ -1,5 +1,6 @@
 package it.unibo.controller.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.api.PauseController;
 import it.unibo.model.launchedgame.api.LaunchedGame;
 import it.unibo.model.launchedgame.api.StateOfLaunchedGame;
@@ -41,6 +42,8 @@ public class PauseControllerImpl implements PauseController {
      * @param runningState   the running state entity.
      * @param mainController the main controller entity.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The main controller is necessary for call the pause view"
+            + "the launched game and the menu are necessary for relaunch the game and for return to the menu")
     public PauseControllerImpl(final LaunchedGame launchedGame, final Menu menu, final StateOfLaunchedGame runningState,
             final MainControllerImpl mainController) {
         this.launchedGame = launchedGame;
