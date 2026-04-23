@@ -5,12 +5,10 @@ import it.unibo.model.physics.platformphysic.api.MovementBehaviour;
 import it.unibo.model.world.impl.Boundary;
 
 /**
- * <p>
  * Defines horizontal movement behavior for game objects.
  * This behavior updates the position of an object along the X-axis and handles
  * collisions with specified horizontal boundaries, reversing direction when a
  * boundary is reached.
- * </p>
  */
 public class HorizontalMovementBehavior implements MovementBehaviour {
 
@@ -20,11 +18,9 @@ public class HorizontalMovementBehavior implements MovementBehaviour {
   private double ds;
 
   /**
-   * <p>
    * Constructs an instance of {@link HorizontalMovementBehavior} with the
    * specified horizontal
    * displacement speed.
-   * </p>
    *
    * @param ds the horizontal displacement speed for the movement behavior
    */
@@ -42,7 +38,7 @@ public class HorizontalMovementBehavior implements MovementBehaviour {
     if (position.getX() + (ds * dt) < boundary.x0()) {
       x = boundary.x0();
       this.ds = -this.ds;
-    } else if (position.getX() + width + ds*dt > boundary.x1()) {
+    } else if (position.getX() + width + (ds * dt) > boundary.x1()) {
       x = boundary.x1() - width;
       this.ds = -this.ds;
     }

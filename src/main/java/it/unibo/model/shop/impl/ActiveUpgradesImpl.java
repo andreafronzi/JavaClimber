@@ -8,7 +8,11 @@ import it.unibo.model.shop.api.ShopItemFactory;
 /**
  * Implementation of {@link ActiveUpgrades}.
  */
-@SuppressFBWarnings("EI_EXPOSE_REP")
+@SuppressFBWarnings(
+    value = "EI_EXPOSE_REP",
+    justification = "This component is designed to directly modify the shared game state (Inventory)."
+    + "A defensive copy would render the game logic ineffective."
+)
 public class ActiveUpgradesImpl implements ActiveUpgrades {
 
     private static final String PREFIX_SPEED = "pp_speed_";

@@ -6,7 +6,7 @@ import it.unibo.model.gameobj.api.Enemy;
 import it.unibo.model.gameobj.api.Gadget;
 import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.launchedgame.api.LaunchedGame;
-import it.unibo.model.physics.alienphysic.api.TemplatePhysic;
+import it.unibo.model.physics.alienphysic.api.AbstractTemplatePhysic;
 import it.unibo.model.physics.impl.Vector2dImpl;
 import it.unibo.model.shop.api.ActiveUpgrades;
 import it.unibo.model.world.api.BoundWorld;
@@ -15,13 +15,11 @@ import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.GameObjDimension;
 
 /**
- * <p>
  * Represents the alien physic when the alien collects the EliCap gadget. The
  * alien will have a vertical speed for a certain time interval, then it will
  * return to normal physic.
- * </p>
  */
-public class AlienEliCapPhysic extends TemplatePhysic {
+public class AlienEliCapPhysic extends AbstractTemplatePhysic {
   /**
    * Represents the duration time of the gadget effect.
    */
@@ -33,9 +31,7 @@ public class AlienEliCapPhysic extends TemplatePhysic {
   private final double verticalSpeed;
 
   /**
-   * <p>
    * Constructor of AlienEliCapPhysic.
-   * </p>
    *
    * @param timeInterval  the duration time of the gadget effect
    * @param verticalSpeed the vertical speed of the gadget effect
@@ -46,9 +42,7 @@ public class AlienEliCapPhysic extends TemplatePhysic {
   }
 
   /**
-   * <p>
    * Update alien position and speed using the gadget effect.
-   * </p>
    *
    * @param alien          the alien to update
    * @param dt             the time step
@@ -107,7 +101,7 @@ public class AlienEliCapPhysic extends TemplatePhysic {
   @Override
   public void hitEnemy(final Alien alien, final Enemy e, final GameWorld gameWorld, final LaunchedGame launchedGame,
       final ActiveUpgrades activeUpgrades) {
-        
+
   }
 
   /**

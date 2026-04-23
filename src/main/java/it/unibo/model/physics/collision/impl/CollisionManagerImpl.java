@@ -1,6 +1,7 @@
 package it.unibo.model.physics.collision.impl;
 
-import it.unibo.model.gameobj.api.*;
+import it.unibo.model.gameobj.api.Alien;
+import it.unibo.model.gameobj.api.StaticEntity;
 import it.unibo.model.launchedgame.api.LaunchedGame;
 import it.unibo.model.physics.collision.api.CollisionManager;
 import it.unibo.model.world.api.GameWorld;
@@ -11,25 +12,17 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * <p>
  * Implementation of the CollisionManager interface.
- * </p>
- * <p>
  * This class is responsible for detecting collisions between the Alien and
  * other game objects in the GameWorld.
- * </p>
  */
 public class CollisionManagerImpl implements CollisionManager {
 
-  /**
-   * The {@link Boundary} of the game world
-   */
+  /** The {@link Boundary} of the game world. */
   private final Boundary boundary;
 
   /**
-   * <p>
    * Constructs a new CollisionManagerImpl with the specified boundary.
-   * </p>
    *
    * @param boundary the {@link Boundary} of the game world
    */
@@ -45,7 +38,9 @@ public class CollisionManagerImpl implements CollisionManager {
 
     final Alien alien = gameWorld.getAlien();
 
-    Stream.of(gameWorld.getMovingPlatforms(), gameWorld.getOnTouchPlatforms(), gameWorld.getStaticPlatforms(), gameWorld.getGadgets(), gameWorld.getMoneys(), gameWorld.getMonsters())
+    Stream
+        .of(gameWorld.getMovingPlatforms(), gameWorld.getOnTouchPlatforms(), gameWorld.getStaticPlatforms(),
+            gameWorld.getGadgets(), gameWorld.getMoneys(), gameWorld.getMonsters())
         .flatMap(List::stream)
         .filter(se -> checkCollision(alien, se))
         .toList()

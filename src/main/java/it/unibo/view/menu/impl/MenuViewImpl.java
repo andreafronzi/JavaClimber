@@ -32,7 +32,6 @@ import it.unibo.view.menu.api.MenuView;
 /**
  * Implementation of {@link MenuView} interface.
  */
-@SuppressFBWarnings("EI_EXPOSE_REP")
 public final class MenuViewImpl extends JPanel implements MenuView {
 
     private static final Logger LOGGER = Logger.getLogger(MenuViewImpl.class.getName());
@@ -51,6 +50,11 @@ public final class MenuViewImpl extends JPanel implements MenuView {
      * @param controller the controller for managing user interactions and updating
      *                   the view
      */
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP",
+        justification = "The View must hold a reference to the actual Controller instance to dispatch user inputs."
+        + "A defensive copy cannot be used here as it would break the MVC communication flow."
+    )
     public MenuViewImpl(final MenuController controller) {
         super(new BorderLayout());
         this.controller = controller;

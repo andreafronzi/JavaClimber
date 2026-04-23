@@ -10,13 +10,11 @@ import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 
 /**
- * <p>
  * Represents a template for the alien physic. It implements the update method,
  * which is common for all the alien physic, and it defines an abstract method
  * moveAlien, which is implemented by the different alien physic.
- * </p>
  */
-public abstract class TemplatePhysic implements AlienPhysic {
+public abstract class AbstractTemplatePhysic implements AlienPhysic {
 
   /**
    * Template Methods which update alien position and speed.
@@ -27,8 +25,8 @@ public abstract class TemplatePhysic implements AlienPhysic {
    * @param activeUpgrades the active upgrades affecting the Alien
    * @param launchedGame   the launched game
    */
-  protected abstract void moveAlien(final Alien alien, final double dt, final BoundWorld boundWorld,
-      final ActiveUpgrades activeUpgrades, final LaunchedGame launchedGame);
+  protected abstract void moveAlien(Alien alien, double dt, BoundWorld boundWorld,
+      ActiveUpgrades activeUpgrades, LaunchedGame launchedGame);
 
   /**
    * Verify if the alien go beyond the boundary.
@@ -44,9 +42,10 @@ public abstract class TemplatePhysic implements AlienPhysic {
   }
 
   /**
-   * Verify if the alien go beyond the boundary. Apply pacman effect if it
+   * Verify if the alien go beyond the horizontal boundary. Apply pacman effect if
+   * it
    * happens.
-   * 
+   *
    * @param alien    the {@link Alien} which can go beyond the horizontal boundary
    * @param boundary the {@link Boundary} horizontal boundary, which can be
    *                 crossed by the alien

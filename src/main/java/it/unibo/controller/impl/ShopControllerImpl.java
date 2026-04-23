@@ -32,7 +32,10 @@ public class ShopControllerImpl implements ShopController {
      *                       saving progress
      * @param shopManager    the model manager
      */
-    @SuppressFBWarnings("EI_EXPOSE_REP2")
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP2",
+        justification = "The View must hold and interact with the actual Controller instance to dispatch user inputs correctly."
+    )
     public ShopControllerImpl(final MainController mainController, final ShopManager shopManager) {
         this.mainController = mainController;
         this.shopManager = shopManager;

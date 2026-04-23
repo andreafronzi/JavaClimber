@@ -3,6 +3,7 @@ package it.unibo.view.gamelaunchedview.renderers.skinregistry.api;
 /**
  * This interface rapresent a registry of the skin.
  */
+@FunctionalInterface
 public interface SkinRegistry {
 
     /**

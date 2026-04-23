@@ -2,6 +2,7 @@ package it.unibo.controller.impl;
 
 import java.util.Optional;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.api.MainController;
 import it.unibo.model.launchedgame.api.StateOfLaunchedGame;
 import it.unibo.model.menu.api.Menu;
@@ -45,6 +46,11 @@ public final class MainControllerImpl implements MainController {
      * @param mainView the main view of the application to be managed by this
      *                 controller
      */
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP2",
+        justification = "In the MVC architecture, the Controller must hold a reference to the exact,"
+        + "mutable instance of View and Model to synchronize the application state."
+    )
     public MainControllerImpl(final MainView mainView) {
         this.mainView = mainView;
         this.saveManager = new SaveManagerImpl();
@@ -56,6 +62,11 @@ public final class MainControllerImpl implements MainController {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP2",
+        justification = "In the MVC architecture, the Controller must hold a reference to the exact,"
+        + "mutable instance of View and Model to synchronize the application state."
+    )
     @Override
     public void setView(final MainView view) {
         this.mainView = view;
@@ -155,6 +166,11 @@ public final class MainControllerImpl implements MainController {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP",
+        justification = "The Controller must return the exact, "
+                      + "mutable instance of the Menù model to allow correct interactions."
+    )
     @Override
     public Menu getMenu() {
         return this.menu;

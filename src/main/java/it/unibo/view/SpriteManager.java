@@ -3,8 +3,10 @@ package it.unibo.view;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
@@ -13,11 +15,13 @@ import javax.imageio.ImageIO;
  */
 public class SpriteManager {
 
+    private static final Logger LOGGER = Logger.getLogger(SpriteManager.class.getName());
+
     /**
      * A map that associates each {@link SpriteEnum} with its corresponding
      * {@link BufferedImage}.
      */
-    private final Map<SpriteEnum, BufferedImage> sprites = new HashMap<>();
+    private final Map<SpriteEnum, BufferedImage> sprites = new EnumMap<>(SpriteEnum.class);
 
     /**
      * Constructor for the SpriteManager. It initializes the sprite map by
@@ -74,7 +78,7 @@ public class SpriteManager {
         try {
             return ImageIO.read(new File("src/main/resources/" + path));
         } catch (final IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.WARNING, "Error loading sprite: " + path, e);
             return null; // O gestisci errore
         }
     }

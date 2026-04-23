@@ -35,7 +35,11 @@ public class InventoryControllerImpl implements InventoryController {
      * @param inventory      the model inventory
      * @param factory        the factory for items
      */
-    @SuppressFBWarnings("EI_EXPOSE_REP2")
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP2",
+        justification = "The View must hold and interact with the actual Controller instance to dispatch user inputs correctly."
+        + "So it is intentionally exposed."
+    )
     public InventoryControllerImpl(final MainController mainController, final Inventory inventory,
             final ShopItemFactory factory) {
         this.mainController = mainController;
