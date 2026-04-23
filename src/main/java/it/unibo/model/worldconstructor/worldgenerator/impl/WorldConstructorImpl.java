@@ -154,7 +154,6 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
 
   private Vector2d getLastPlatformPos() {
     final List<Platform> platforms = new LinkedList<>();
-    Vector2d pos = new Vector2dImpl(0, 0);
     if (!world.getStaticPlatforms().isEmpty()) {
       platforms.add(world.getStaticPlatforms().getLast());
     }
@@ -168,7 +167,7 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
     if (platforms.isEmpty()) {
       return new Vector2dImpl(bound.getBoundX().x1() / 2, bound.getBoundY().maxY());
     }
-    pos = new Vector2dImpl(platforms.getFirst().getPosX(), platforms.getFirst().getPosY());
+    var pos = new Vector2dImpl(platforms.getFirst().getPosX(), platforms.getFirst().getPosY());
     for (final Platform p : platforms) {
       if (p.getPosY() < pos.getY()) {
         pos = new Vector2dImpl(p.getPosX(), p.getPosY());
