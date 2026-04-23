@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.gameobj.api.GameObject;
 import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.physics.api.Vector2d;
@@ -44,6 +45,8 @@ public class SpawnPoolCreatorImpl implements SpawnPoolCreator {
      *
      * @param world the game world where the created objects will be added
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Is necesery to have a reference to the world to"
+            + " add the created objects to it")
     public SpawnPoolCreatorImpl(final BaseWorld world) {
         this.addOnPositionSetter = new AddOnPositionSetterImpl();
         this.world = world;
@@ -112,14 +115,16 @@ public class SpawnPoolCreatorImpl implements SpawnPoolCreator {
     }
 
     /**
-     * Selects a game object from the provided pool based on the given spawn chance. 
+     * Selects a game object from the provided pool based on the given spawn chance.
      * 
-     * @param <X> the type of game object to be created 
+     * @param <X>    the type of game object to be created
      * @param chance the spawn chance to compare against the pool probabilities
-     * @param x the x-coordinate for the position of the game object
-     * @param y the y-coordinate for the position of the game object
-     * @param addOns the list of pairs containing spawn probabilities and corresponding game object creation functions
-     * @return an Optional containing the created game object if a match is found, or an empty Optional if no match is found
+     * @param x      the x-coordinate for the position of the game object
+     * @param y      the y-coordinate for the position of the game object
+     * @param addOns the list of pairs containing spawn probabilities and
+     *               corresponding game object creation functions
+     * @return an Optional containing the created game object if a match is found,
+     *         or an empty Optional if no match is found
      */
     public <X extends GameObject> Optional<X> selector(final double chance, final double x, final double y,
             final List<Pair<Double, Function<Vector2d, X>>> addOns) {
