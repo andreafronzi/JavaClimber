@@ -32,7 +32,6 @@ public final class GameObjDimension {
     public static final double HARD_PLATFORM_WIDTH = 30;
     public static final double HARD_PLATFORM_HEIGHT = 10;
 
-
     private GameObjDimension() {
     }
 }
