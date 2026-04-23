@@ -7,8 +7,7 @@ import it.unibo.model.gameobj.api.GameObject;
  * Determines where an add-on should be placed relative to a platform.
  */
 public interface AddOnPositionSetter { // NOPMD this interface is necessary to define the contract for position
-                                       // generation of add-ons.
-
+    // generation of add-ons.
     /**
      * Generates a position for an add-on.
      * 
