@@ -166,6 +166,11 @@ public final class MainControllerImpl implements MainController {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP",
+        justification = "The Controller must return the exact, "
+                      + "mutable instance of the Menù model to allow correct interactions."
+    )
     @Override
     public Menu getMenu() {
         return this.menu;
