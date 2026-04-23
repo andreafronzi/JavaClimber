@@ -152,6 +152,9 @@ public final class MainControllerImpl implements MainController {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Menu getMenu() {
         return this.menu;
