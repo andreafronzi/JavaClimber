@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.gameobj.impl.PlatformImpl;
 import it.unibo.model.physics.api.Vector2d;
@@ -29,6 +30,8 @@ import it.unibo.model.worldconstructor.worldgenerator.api.WorldConstructor;
  * based on the current difficulty.
  */
 public class WorldConstructorImpl implements WorldConstructor, Observer {
+
+  private static final double EPSILON = 1e-4;
 
   /**
    * The current difficulty configuration.
@@ -83,10 +86,14 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
   /**
    * Constructs a new WorldConstructorImpl.
    *
-   * @param world the game world to be filled with platforms and add-ons.
-   * @param difficult the initial difficulty configuration.
-   * @param spawnPoolCreator the creator for spawn pools, used to generate game objects.
+   * @param world            the game world to be filled with platforms and
+   *                         add-ons.
+   * @param difficult        the initial difficulty configuration.
+   * @param spawnPoolCreator the creator for spawn pools, used to generate game
+   *                         objects.
    */
+  @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The spawn pool creator is necessary for the world "
+      + "constructor to generate game objects based on the difficulty configuration")
   public WorldConstructorImpl(final QueueWorld world, final Difficult difficult,
       final SpawnPoolCreator spawnPoolCreator) {
     this.spawnPoolCreator = spawnPoolCreator;
@@ -130,7 +137,8 @@ public class WorldConstructorImpl implements WorldConstructor, Observer {
     }
 
     if (chanceAddOn < difficult.addOnPool().getChanceAddOn()
-        && lastStaticPlatform.isPresent() && lastStaticPlatform.get().getPosY() == lastPlatformPos.getY()) {
+        && lastStaticPlatform.isPresent()
+        && Math.abs(lastStaticPlatform.get().getPosY() - lastPlatformPos.getY()) < EPSILON) {
       createAddOn();
     }
   }
