@@ -2,6 +2,7 @@ package it.unibo.model.menu.impl;
 
 import java.util.Optional;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.api.MainController;
 import it.unibo.model.launchedgame.api.LaunchedGame;
 import it.unibo.model.menu.api.Menu;
@@ -20,6 +21,8 @@ import it.unibo.model.shop.impl.ShopManagerImpl;
  * where you can start the various functions of the game.
  */
 public class MenuImpl implements Menu {
+
+    private static final String ERROR_TYPE = "EI_EXPOSE_REP";
 
     /**
      * The current state of the menu.
@@ -60,6 +63,7 @@ public class MenuImpl implements Menu {
      * 
      * @param mainController the main controller of the application.
      */
+    @SuppressFBWarnings(value = ERROR_TYPE, justification = "The main controller is necessary for the menu to manage the view")
     public MenuImpl(final MainController mainController) {
         this.mainController = mainController;
         this.shopItemFactory = new ShopItemFactoryImpl();
@@ -104,6 +108,8 @@ public class MenuImpl implements Menu {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(value = ERROR_TYPE, justification = "The main controller is useful to the launched game to manage"
+            + " the view, like call to the pause menu")
     @Override
     public MainController getMainController() {
         return this.mainController;
@@ -112,6 +118,7 @@ public class MenuImpl implements Menu {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(value = ERROR_TYPE, justification = "The inventory is useful to the main controller")
     @Override
     public Inventory getInventory() {
         return this.inventory;
@@ -128,6 +135,7 @@ public class MenuImpl implements Menu {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(value = ERROR_TYPE, justification = "The score manager is useful for the main controller")
     @Override
     public ScoreManager getScoreManager() {
         return this.scoreManager;
