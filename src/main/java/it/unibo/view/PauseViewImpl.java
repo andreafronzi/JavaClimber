@@ -1,7 +1,6 @@
 package it.unibo.view;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 
@@ -16,7 +15,9 @@ import it.unibo.controller.api.PauseController;
 /**
  * Implementation of the {@link PauseView} interface.
  */
-public class PauseViewImpl extends JPanel implements PauseView {
+public final class PauseViewImpl extends JPanel implements PauseView {
+
+    private static final long serialVersionUID = 1L;
 
     private static final int SIZE_FONT_TITLE = 60;
 
@@ -62,15 +63,15 @@ public class PauseViewImpl extends JPanel implements PauseView {
         final JLabel pauseTitle = new JLabel("PAUSA");
         pauseTitle.setFont(new Font(Font.SERIF, Font.BOLD, SIZE_FONT_TITLE));
         pauseTitle.setForeground(Color.WHITE);
-        pauseTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+        pauseTitle.setAlignmentX(CENTER_ALIGNMENT);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.resume = new JButton("Resume");
-        this.resume.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.resume.setAlignmentX(CENTER_ALIGNMENT);
 
         this.menu = new JButton("Menu");
-        this.menu.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.menu.setAlignmentX(CENTER_ALIGNMENT);
 
         this.add(Box.createVerticalGlue());
         this.add(pauseTitle);
@@ -81,13 +82,13 @@ public class PauseViewImpl extends JPanel implements PauseView {
             final JLabel newRecordLabel = new JLabel("NEW HIGH SCORE: " + this.controller.getScore());
             newRecordLabel.setFont(new Font(Font.SERIF, Font.BOLD, SIZE_FONT_RECORD));
             newRecordLabel.setForeground(new Color(RED_VALUE_RECORD, GREEN_VALUE_RECORD, BLUE_VALUE_RECORD));
-            newRecordLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            newRecordLabel.setAlignmentX(CENTER_ALIGNMENT);
             this.add(newRecordLabel);
         } else {
             final JLabel scoreLabel = new JLabel("Score: " + this.controller.getScore());
             scoreLabel.setFont(new Font(Font.SERIF, Font.BOLD, SIZE_FONT_RECORD));
             scoreLabel.setForeground(Color.WHITE);
-            scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            scoreLabel.setAlignmentX(CENTER_ALIGNMENT);
             this.add(scoreLabel);
         }
 
