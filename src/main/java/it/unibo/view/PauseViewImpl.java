@@ -38,7 +38,7 @@ public final class PauseViewImpl extends JPanel implements PauseView {
      * The pause controller associated with this view. It is used to handle user
      * interactions and control the flow of the pause screen.
      */
-    private final PauseController controller;
+    private final transient PauseController controller;
 
     /**
      * The resume button, allowing the player to resume the game.
