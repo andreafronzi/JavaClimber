@@ -14,6 +14,11 @@ import it.unibo.model.gameobj.api.Platform;
  */
 public abstract class AbstractWorldContainer implements BaseWorld {
 
+    // CHECKSTYLE: VisibilityModifier OFF
+    // The rule was disabled for an architectural reason. The camera must lower each
+    // game object, so instead of copying all the lists into a new list each time,
+    // the object is passed directly to it.
+
     /**
      * Represents the list of static platforms in the world.
      */
@@ -44,10 +49,12 @@ public abstract class AbstractWorldContainer implements BaseWorld {
      */
     protected final List<Gadget> gadgets;
 
+    // CHECKSTYLE: VisibilityModifier OFF
+
     /**
      * Represents the list of static platforms in the world.
      */
-    protected final BoundWorld boundWorld;
+    private final BoundWorld boundWorld;
 
     /**
      * Constructs a new AbstractWorldContainer.
