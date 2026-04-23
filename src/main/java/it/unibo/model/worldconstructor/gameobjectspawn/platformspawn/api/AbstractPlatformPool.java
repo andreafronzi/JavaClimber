@@ -12,6 +12,10 @@ import it.unibo.model.worldconstructor.gameobjectspawn.api.SpawnPoolCreator;
  */
 public abstract class AbstractPlatformPool implements PlatformPool {
 
+    // CHECKSTYLE: VisibilityModifier OFF
+    // The rule is disabled because this class is a template and classes that extend
+    // it need to access the fields to set the pool of platforms to spawn.
+
     /**
      * The platform pool is a list of pairs, where the first element is a double
      * representing the chance of spawning a platform, and the second element is a
@@ -24,6 +28,8 @@ public abstract class AbstractPlatformPool implements PlatformPool {
      */
     protected final SpawnPoolCreator spawnPoolCreator;
 
+    // CHECKSTYLE: VisibilityModifier ON
+
     /**
      * The width of the platform pool.
      */
@@ -35,11 +41,13 @@ public abstract class AbstractPlatformPool implements PlatformPool {
     private final double height;
 
     /**
-     * Constructs a PlatformPoolBase with the given spawn pool creator, width, and height.
+     * Constructs a PlatformPoolBase with the given spawn pool creator, width, and
+     * height.
      *
-     * @param spawnPoolCreator the spawn pool creator to use for creating the platform pool
-     * @param width the width of the platform pool
-     * @param height the height of the platform pool
+     * @param spawnPoolCreator the spawn pool creator to use for creating the
+     *                         platform pool
+     * @param width            the width of the platform pool
+     * @param height           the height of the platform pool
      */
     public AbstractPlatformPool(final SpawnPoolCreator spawnPoolCreator, final double width,
             final double height) {

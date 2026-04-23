@@ -1,12 +1,12 @@
-package javaclimber.worldConstructor.gameObjectSpawn.platformSpawn;
+package javaclimber.worldconstructor.gameobjectspawn.platformspawn;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.model.score.impl.ScoreManagerImpl;
-import it.unibo.model.world.api.BaseWorld;
 import it.unibo.model.world.impl.BoundWorldImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
@@ -17,9 +17,9 @@ import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.api.Platfor
 import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.impl.PlatformPoolEasy;
 
 /**
- * Test for the PlatformPool classes.
+ * Test for the {@link PlatformPool}.
  */
-public class PlatformPoolTest {
+class PlatformPoolTest {
 
     private static final double X_MIN = 0;
     private static final double X_MAX = 100;
@@ -36,17 +36,12 @@ public class PlatformPoolTest {
     private PlatformPool platformPool;
 
     /**
-     * The world instance to be used in the tests.
-     */
-    private BaseWorld world;
-
-    /**
      * Set up the test environment.
      */
     @BeforeEach
-    public void setUp() {
-        this.world = new UpperWorld(new BoundWorldImpl(new BoundY(Y_MIN, Y_MAX), new Boundary(X_MIN, X_MAX)));
-        final var spawnPoolCreator = new SpawnPoolCreatorImpl(this.world);
+    void setUp() {
+        final var world = new UpperWorld(new BoundWorldImpl(new BoundY(Y_MIN, Y_MAX), new Boundary(X_MIN, X_MAX)));
+        final var spawnPoolCreator = new SpawnPoolCreatorImpl(world);
         spawnPoolCreator.setSpawnPool(new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT, new ScoreManagerImpl()));
         this.platformPool = new PlatformPoolEasy(spawnPoolCreator, PLATFORM_WIDTH, PLATFORM_HEIGHT);
     }
@@ -55,16 +50,16 @@ public class PlatformPoolTest {
      * Test for getting the platform pool.
      */
     @Test
-    public void testGetPlatformPool() {
+    void getterPlatformPoolTest() {
         final var pool = this.platformPool.getPlatformPool();
-        assertEquals(false, pool.isEmpty());
+        assertFalse(pool.isEmpty());
     }
 
     /**
      * Test for getting the platform width.
      */
     @Test
-    public void testGetWidth() {
+    void getterWidthTest() {
         assertEquals(PLATFORM_WIDTH, this.platformPool.getWidth());
     }
 
@@ -72,7 +67,7 @@ public class PlatformPoolTest {
      * Test for getting the platform height.
      */
     @Test
-    public void testGetHeight() {
+    void getterHeightTest() {
         assertEquals(PLATFORM_HEIGHT, this.platformPool.getHeight());
     }
 }

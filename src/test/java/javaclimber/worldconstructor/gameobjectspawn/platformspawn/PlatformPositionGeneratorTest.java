@@ -1,6 +1,6 @@
-package javaclimber.worldConstructor.gameObjectSpawn.platformSpawn;
+package javaclimber.worldconstructor.gameobjectspawn.platformspawn;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,9 +13,9 @@ import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.impl.Distan
 import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.impl.PlatformPositionGeneratorImpl;
 
 /**
- * Test for the PlatformPositionGeneratorImpl class.
+ * Test for the {@link PlatformPositionGeneratorImpl}.
  */
-public class PlatformPositionGeneratorTest {
+class PlatformPositionGeneratorTest {
 
     private static final double MAX_X = 400;
     private static final double MIN_X = 0;
@@ -56,12 +56,12 @@ public class PlatformPositionGeneratorTest {
     void testGeneratePosition() {
         final var newPos = platformPositionGenerator.generatePosition(PLATFORM_WIDTH, PLATFORM_HEIGHT,
                 new Vector2dImpl(POS_X, POS_Y));
-        assertEquals(true, newPos.getX() >= MIN_X && newPos.getX() <= MAX_X);
-        assertEquals(true, newPos.getY() >= MIN_Y && newPos.getY() <= MAX_Y);
-        assertEquals(true, newPos.getX() >= POS_X - MAX_DISTANCE_X);
-        assertEquals(true, newPos.getX() <= POS_X + MAX_DISTANCE_X);
-        assertEquals(true, newPos.getY() >= POS_Y - MAX_DISTANCE_Y);
-        assertEquals(true, newPos.getY() <= POS_Y - MIN_DISTANCE_Y);
+        assertTrue(newPos.getX() >= MIN_X && newPos.getX() <= MAX_X);
+        assertTrue(newPos.getY() >= MIN_Y && newPos.getY() <= MAX_Y);
+        assertTrue(newPos.getX() >= POS_X - MAX_DISTANCE_X);
+        assertTrue(newPos.getX() <= POS_X + MAX_DISTANCE_X);
+        assertTrue(newPos.getY() >= POS_Y - MAX_DISTANCE_Y);
+        assertTrue(newPos.getY() <= POS_Y - MIN_DISTANCE_Y);
     }
 
 }

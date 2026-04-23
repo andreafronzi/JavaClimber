@@ -13,6 +13,10 @@ import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.api.Pair;
  */
 public abstract class AbstractAddOnPool implements AddOnPool {
 
+    // CHECKSTYLE: VisibilityModifier OFF
+    // The rule is disabled because this class is a template and classes that extend
+    // it need to access the fields to set the pool of add-ons to spawn.
+
     /**
      * List of pairs where the first element is the probability of spawning the
      * add-on and the second element is a BiConsumer that takes the time and the
@@ -25,6 +29,8 @@ public abstract class AbstractAddOnPool implements AddOnPool {
      */
     protected final SpawnPoolCreator spawnPoolCreator;
 
+    // CHECKSTYLE: VisibilityModifier ON
+
     /**
      * The probability of spawning an add-on.
      */
@@ -33,7 +39,8 @@ public abstract class AbstractAddOnPool implements AddOnPool {
     /**
      * Constructor for AddOnPoolBase.
      *
-     * @param spawnPoolCreator the spawn pool creator used to create the spawn pool for the add-ons
+     * @param spawnPoolCreator the spawn pool creator used to create the spawn pool
+     *                         for the add-ons
      * @param chanceAddOn      the probability of spawning an add-on
      */
     public AbstractAddOnPool(final SpawnPoolCreator spawnPoolCreator, final double chanceAddOn) {

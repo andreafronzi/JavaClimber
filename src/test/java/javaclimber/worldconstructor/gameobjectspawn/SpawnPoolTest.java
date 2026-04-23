@@ -1,4 +1,4 @@
-package javaclimber.worldConstructor.gameObjectSpawn;
+package javaclimber.worldconstructor.gameobjectspawn;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,9 +10,9 @@ import it.unibo.model.worldconstructor.gameobjectspawn.api.SpawnPool;
 import it.unibo.model.worldconstructor.gameobjectspawn.impl.SpawnPoolEasy;
 
 /**
- * Test for the SpawnPool classes.
+ * Test for the {@link SpawnPool}.
  */
-public class SpawnPoolTest {
+class SpawnPoolTest {
 
     private static final double PLATFORM_WIDTH = 30;
     private static final double PLATFORM_HEIGHT = 20;
@@ -26,7 +26,7 @@ public class SpawnPoolTest {
      * Set up the test environment.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         this.platformPool = new SpawnPoolEasy(PLATFORM_WIDTH, PLATFORM_HEIGHT, new ScoreManagerImpl());
     }
 
@@ -34,7 +34,7 @@ public class SpawnPoolTest {
      * Test for getting the static platform pool.
      */
     @Test
-    public void getPlatformTest() {
+    void getterPlatformTest() {
         final var platforms = this.platformPool.getStaticPlatformPool();
         assertEquals(1, platforms.size());
     }
@@ -43,7 +43,7 @@ public class SpawnPoolTest {
      * Test for getting the moving platform pool.
      */
     @Test
-    public void getMovingPlatformTest() {
+    void getterMovingPlatformTest() {
         final var movingPlatforms = this.platformPool.getMovingPlatformPool();
         assertEquals(1, movingPlatforms.size());
     }
@@ -52,7 +52,7 @@ public class SpawnPoolTest {
      * Test for getting the on-touch platform pool.
      */
     @Test
-    public void getOnTouchPlatformTest() {
+    void getterOnTouchPlatformTest() {
         final var onTouchPlatforms = this.platformPool.getOnTouchPlatformPool();
         assertEquals(1, onTouchPlatforms.size());
     }
@@ -61,7 +61,7 @@ public class SpawnPoolTest {
      * Test for getting the monster pool.
      */
     @Test
-    public void getMonsterTest() {
+    void getterMonsterTest() {
         final var monsters = this.platformPool.getMonsterPool();
         assertEquals(1, monsters.size());
     }
@@ -70,7 +70,7 @@ public class SpawnPoolTest {
      * Test for getting the gadget pool.
      */
     @Test
-    public void getGadgetTest() {
+    void getterGadgetTest() {
         final var gadgets = this.platformPool.getGadgetPool();
         assertEquals(1, gadgets.size());
     }
@@ -79,7 +79,7 @@ public class SpawnPoolTest {
      * Test for getting the money pool.
      */
     @Test
-    public void getMoneyTest() {
+    void getterMoneyTest() {
         final var money = this.platformPool.getMoneyPool();
         assertEquals(1, money.size());
     }

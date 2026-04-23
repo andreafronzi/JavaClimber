@@ -1,7 +1,6 @@
 package it.unibo.view;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 
@@ -17,7 +16,9 @@ import it.unibo.controller.api.EndController;
  * Implementation of the {@link EndView} interface, representing the end screen
  * of the game.
  */
-public class EndViewImpl extends JPanel implements EndView {
+public final class EndViewImpl extends JPanel implements EndView {
+
+    private static final long serialVersionUID = 1L;
 
     private static final int SIZE_FONT_TITLE = 60;
 
@@ -67,32 +68,31 @@ public class EndViewImpl extends JPanel implements EndView {
         final JLabel titoloMorte = new JLabel("SEI MORTO");
         titoloMorte.setFont(new Font(Font.SERIF, Font.BOLD, SIZE_FONT_TITLE));
         titoloMorte.setForeground(new Color(RED_VALUE_MORTE, GREEN_VALUE_MORTE, BLUE_VALUE_MORTE));
-        titoloMorte.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titoloMorte.setAlignmentX(CENTER_ALIGNMENT);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.restart = new JButton("Restart");
-        this.restart.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.restart.setAlignmentX(CENTER_ALIGNMENT);
 
         this.menu = new JButton("Menu");
-        this.menu.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.menu.setAlignmentX(CENTER_ALIGNMENT);
 
         this.add(Box.createVerticalGlue());
         this.add(titoloMorte);
-
         this.add(Box.createRigidArea(new Dimension(DIMENSION_WIDTH, DIMENSION_HEIGHT_FIRST)));
 
         if (this.controller.isNewHighScore()) {
             final JLabel newRecordLabel = new JLabel("NEW HIGH SCORE: " + this.controller.getScore());
             newRecordLabel.setFont(new Font(Font.SERIF, Font.BOLD, SIZE_FONT_RECORD));
             newRecordLabel.setForeground(new Color(RED_VALUE_RECORD, GREEN_VALUE_RECORD, BLUE_VALUE_RECORD));
-            newRecordLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            newRecordLabel.setAlignmentX(CENTER_ALIGNMENT);
             this.add(newRecordLabel);
         } else {
             final JLabel scoreLabel = new JLabel("Score: " + this.controller.getScore());
             scoreLabel.setFont(new Font(Font.SERIF, Font.BOLD, SIZE_FONT_RECORD));
             scoreLabel.setForeground(Color.WHITE);
-            scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            scoreLabel.setAlignmentX(CENTER_ALIGNMENT);
             this.add(scoreLabel);
         }
 

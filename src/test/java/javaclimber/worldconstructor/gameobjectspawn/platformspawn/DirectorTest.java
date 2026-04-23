@@ -1,4 +1,4 @@
-package javaclimber.worldConstructor.gameObjectSpawn.platformSpawn;
+package javaclimber.worldconstructor.gameobjectspawn.platformspawn;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,9 +12,9 @@ import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.api.Directo
 import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.impl.DirectorImpl;
 
 /**
- * Test for the DirectorImpl class.
+ * Test for the {@link Director}.
  */
-public class DirectorTest {
+class DirectorTest {
 
     private static final double X = 50;
     private static final double Y = 50;
@@ -36,7 +36,7 @@ public class DirectorTest {
      * Set up the test environment.
      */
     @BeforeEach
-    private void setUp() {
+    void setUp() {
         this.director = new DirectorImpl(WIDTH, HEIGHT);
     }
 
@@ -44,7 +44,7 @@ public class DirectorTest {
      * Test for creating a normal platform.
      */
     @Test
-    public void testNormalPlatformCreation() {
+    void testNormalPlatformCreation() {
         final Platform platform = director.normalPlatform(new Vector2dImpl(X, Y));
         assertEquals(X, platform.getPosX());
         assertEquals(Y, platform.getPosY());
@@ -54,7 +54,7 @@ public class DirectorTest {
      * Test for creating a moving on-touch platform.
      */
     @Test
-    public void testMovingOnTouchPlatform() {
+    void testMovingOnTouchPlatform() {
         final Platform platform = director.movingOnTouchPlatform(new Vector2dImpl(X, Y));
         assertEquals(X, platform.getPosX());
         assertEquals(Y, platform.getPosY());
@@ -64,7 +64,7 @@ public class DirectorTest {
      * Test for creating a moving platform.
      */
     @Test
-    public void testMovingPlatform() {
+    void testMovingPlatform() {
         final Platform platform = director.movingPlatform(new Vector2dImpl(X, Y));
         platform.updatePosition(DELTA, new Boundary(X0, X1));
     }

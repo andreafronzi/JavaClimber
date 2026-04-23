@@ -1,4 +1,4 @@
-package javaclimber.worldConstructor.gameObjectSpawn.platformSpawn;
+package javaclimber.worldconstructor.gameobjectspawn.platformspawn;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -9,9 +9,9 @@ import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.api.Pair;
 import it.unibo.model.worldconstructor.gameobjectspawn.platformspawn.impl.PairImpl;
 
 /**
- * Test for the PairImpl class.
+ * Test for the {@link Pair}.
  */
-public class PairTest {
+class PairTest {
 
     private static final int X = 10;
     private static final int Y = 20;
@@ -25,7 +25,7 @@ public class PairTest {
      * Set up the test environment.
      */
     @BeforeEach
-    private void setUpPair() {
+    void setUpPair() {
         this.pairPlatform = new PairImpl<>(X, Y);
     }
 
@@ -33,7 +33,7 @@ public class PairTest {
      * Test for getting the first element of the pair.
      */
     @Test
-    public void getXTest() {
+    void getterXTest() {
         assertEquals(X, this.pairPlatform.getX());
     }
 
@@ -41,7 +41,7 @@ public class PairTest {
      * Test for getting the second element of the pair.
      */
     @Test
-    public void getYTest() {
+    void getterYTest() {
         assertEquals(Y, this.pairPlatform.getY());
     }
 
