@@ -1,5 +1,6 @@
 package it.unibo.controller.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.api.EndController;
 import it.unibo.model.launchedgame.api.LaunchedGame;
 import it.unibo.model.launchedgame.impl.InitialState;
@@ -28,6 +29,8 @@ public class EndControllerImpl implements EndController {
      * @param launchedGame the launched game entity
      * @param menu         the menu entity
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The LaunchedGame and Menu instances are intentionally"
+            + " shared with the controller because they need to be accessed for go back to the menu or restart the game.")
     public EndControllerImpl(final LaunchedGame launchedGame, final Menu menu) {
         this.launchedGame = launchedGame;
         this.menu = menu;
