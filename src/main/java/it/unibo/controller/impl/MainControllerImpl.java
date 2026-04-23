@@ -151,4 +151,9 @@ public final class MainControllerImpl implements MainController {
             this.saveManager.save(initialState);
         }
     }
+
+    @Override
+    public Menu getMenu() {
+        return this.menu;
+    }
 }
