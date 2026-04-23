@@ -16,9 +16,9 @@ import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 
 /**
- * Test for the World class.
+ * Test for the {@link World}.
  */
-public class WorldTest {
+class WorldTest {
 
     private static final double Y_MIN = 0;
     private static final double Y_MAX = 800;
@@ -48,7 +48,7 @@ public class WorldTest {
      * Test for getting the upper world.
      */
     @Test
-    public void getUpperWorldTest() {
+    void getterUpperWorldTest() {
         final BoundWorld boundWorld = new BoundWorldImpl(new BoundY(Y_MIN, Y_MAX), new Boundary(X_MIN, X_MAX));
         final AlienImpl alien = new AlienImpl(null, null, WIDTH, HEIGHT, null);
         final QueueWorld upperWorld = new UpperWorld(boundWorld);
@@ -61,7 +61,7 @@ public class WorldTest {
      * Test for getting the real world.
      */
     @Test
-    public void getRealWorldTest() {
+    void getterRealWorldTest() {
         final BoundWorld boundWorld = new BoundWorldImpl(new BoundY(Y_MIN, Y_MAX), new Boundary(X_MIN, X_MAX));
         final AlienImpl alien = new AlienImpl(null, null, WIDTH, HEIGHT, null);
         final QueueWorld upperWorld = new UpperWorld(boundWorld);
