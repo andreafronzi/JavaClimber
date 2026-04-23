@@ -17,6 +17,7 @@ import it.unibo.model.gameobj.platformbuilder.impl.PlatformBuilderImpl;
 import it.unibo.model.launchedgame.api.LaunchedGame;
 import it.unibo.model.launchedgame.impl.EndState;
 import it.unibo.model.launchedgame.impl.LaunchedGameImpl;
+import it.unibo.model.menu.api.Menu;
 import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.physics.alienphysic.api.AlienPhysic;
 import it.unibo.model.physics.alienphysic.impl.AlienNormalPhysic;
@@ -285,6 +286,11 @@ class AlienNormalPhysicTest {
 
       @Override
       public void saveProgress() {}
+
+        @Override
+        public Menu getMenu() {
+            return null;
+        }
     };
 
     final MenuImpl menu = new MenuImpl(dummyController);
