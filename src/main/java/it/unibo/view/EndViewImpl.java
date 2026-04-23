@@ -43,7 +43,7 @@ public final class EndViewImpl extends JPanel implements EndView {
      * The end controller associated with this view. It is used to handle user
      * interactions and control the flow of the end screen.
      */
-    private final EndController controller;
+    private final transient EndController controller;
 
     /**
      * The restart button, allowing the player to restart the game.
