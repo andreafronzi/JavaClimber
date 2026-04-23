@@ -1,5 +1,6 @@
 package it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.gameobj.api.Coin;
 import it.unibo.model.gameobj.api.Enemy;
 import it.unibo.model.gameobj.api.Gadget;
@@ -42,7 +43,7 @@ public class FactoryAddOnImpl implements FactoryAddOn {
 
     /**
      * elycap height.
-     */ 
+     */
     private final double elycapHeight;
 
     /**
@@ -53,8 +54,11 @@ public class FactoryAddOnImpl implements FactoryAddOn {
     /**
      * Constructs a FactoryAddOnImpl.
      *
-     * @param scoreManager the score manager to use for updating scores when coins are collected.
+     * @param scoreManager the score manager to use for updating scores when coins
+     *                     are collected.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The score manager is necessary for the"
+            + " coin to update the score")
     public FactoryAddOnImpl(final ScoreManager scoreManager) {
         this.scoreManager = scoreManager;
         this.coinWidth = GameObjDimension.COIN_WIDTH;
