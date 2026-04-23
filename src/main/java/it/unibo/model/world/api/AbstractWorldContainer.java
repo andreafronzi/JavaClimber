@@ -20,6 +20,12 @@ public abstract class AbstractWorldContainer implements BaseWorld {
     // game object, so instead of copying all the lists into a new list each time,
     // the object is passed directly to it.
 
+    private static final String ERROR_TYPE = "EI_EXPOSE_REP";
+
+    private static final String ERROR_MESSAGE = "The method returns a reference to the internal list of entities,"
+            + " which allows external code to not create a copy for every time the list is modified. This is"
+            + " intentional for performance reasons, as it avoids unnecessary copying of the list.";
+
     /**
      * Represents the list of static platforms in the world.
      */
@@ -124,9 +130,7 @@ public abstract class AbstractWorldContainer implements BaseWorld {
     /**
      * {@inheritDoc}
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The method returns a reference to the internal list of gadgets,"
-            + " which allows external code to not create a copy for every time the list is modified. This is intentional for performance reasons,"
-            + " as it avoids unnecessary copying of the list.")
+    @SuppressFBWarnings(value = ERROR_TYPE, justification = ERROR_MESSAGE)
     @Override
     public List<Gadget> getGadgets() {
         return this.gadgets;
@@ -135,9 +139,7 @@ public abstract class AbstractWorldContainer implements BaseWorld {
     /**
      * {@inheritDoc}
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The method returns a reference to the internal list of coins,"
-            + " which allows external code to not create a copy for every time the list is modified. This is intentional for performance reasons,"
-            + " as it avoids unnecessary copying of the list.")
+    @SuppressFBWarnings(value = ERROR_TYPE, justification = ERROR_MESSAGE)
     @Override
     public List<Coin> getMoneys() {
         return this.moneys;
@@ -146,9 +148,7 @@ public abstract class AbstractWorldContainer implements BaseWorld {
     /**
      * {@inheritDoc}
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The method returns a reference to the internal list of monsters,"
-            + " which allows external code to not create a copy for every time the list is modified. This is intentional for performance reasons,"
-            + " as it avoids unnecessary copying of the list.")
+    @SuppressFBWarnings(value = ERROR_TYPE, justification = ERROR_MESSAGE)
     @Override
     public List<Enemy> getMonsters() {
         return this.monsters;
@@ -157,9 +157,7 @@ public abstract class AbstractWorldContainer implements BaseWorld {
     /**
      * {@inheritDoc}
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The method returns a reference to the internal list of static platforms,"
-            + " which allows external code to not create a copy for every time the list is modified. This is intentional for performance reasons,"
-            + " as it avoids unnecessary copying of the list.")
+    @SuppressFBWarnings(value = ERROR_TYPE, justification = ERROR_MESSAGE)
     @Override
     public List<Platform> getStaticPlatforms() {
         return this.staticPlatforms;
@@ -168,9 +166,7 @@ public abstract class AbstractWorldContainer implements BaseWorld {
     /**
      * {@inheritDoc}
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The method returns a reference to the internal list of moving platforms,"
-            + " which allows external code to not create a copy for every time the list is modified. This is intentional for performance reasons,"
-            + " as it avoids unnecessary copying of the list.")
+    @SuppressFBWarnings(value = ERROR_TYPE, justification = ERROR_MESSAGE)
     @Override
     public List<Platform> getMovingPlatforms() {
         return this.movingPlatforms;
@@ -179,9 +175,7 @@ public abstract class AbstractWorldContainer implements BaseWorld {
     /**
      * {@inheritDoc}
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The method returns a reference to the internal list of on-touch platforms,"
-            + " which allows external code to not create a copy for every time the list is modified. This is intentional for performance reasons,"
-            + " as it avoids unnecessary copying of the list.")
+    @SuppressFBWarnings(value = ERROR_TYPE, justification = ERROR_MESSAGE)
     @Override
     public List<Platform> getOnTouchPlatforms() {
         return this.onTouchPlatforms;
