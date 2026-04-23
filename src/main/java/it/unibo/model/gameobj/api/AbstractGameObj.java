@@ -78,7 +78,8 @@ public abstract class AbstractGameObj implements GameObject {
    *
    * @return the {@link Vector2d} representing the position
    */
-  @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The position is mutable and needs to be accessed directly for updates.")
+  @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The position is mutable and needs to be "
+      + "accessed directly for updates.")
   public Vector2d getPosition() {
     return this.position;
   }
