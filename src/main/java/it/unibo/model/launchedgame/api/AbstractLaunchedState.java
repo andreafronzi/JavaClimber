@@ -1,5 +1,7 @@
 package it.unibo.model.launchedgame.api;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Abstract base class for launched game states.
  */
@@ -21,6 +23,8 @@ public abstract class AbstractLaunchedState implements StateOfLaunchedGame {
      * 
      * @param launchedGame the game context
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The launched game is a mutable object, but it is necessary"
+            + " to pass it to the state to comply to the state pattern.")
     public AbstractLaunchedState(final LaunchedGame launchedGame) {
         this.launchedGame = launchedGame;
     }
