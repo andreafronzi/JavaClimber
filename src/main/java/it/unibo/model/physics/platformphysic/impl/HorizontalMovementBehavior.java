@@ -32,13 +32,13 @@ public class HorizontalMovementBehavior implements MovementBehaviour {
    * {@inheritDoc}
    */
   @Override
-  public void updatePosition(final Vector2d position, final double width, final double heigth, final double dt,
+  public void updatePosition(final Vector2d position, final double width, final double height, final double dt,
       final Boundary boundary) {
     double x = position.getX() + (ds * dt);
-    if (position.getX() + (ds * dt) < boundary.x0()) {
+    if (x < boundary.x0()) {
       x = boundary.x0();
       this.ds = -this.ds;
-    } else if (position.getX() + width + (ds * dt) > boundary.x1()) {
+    } else if (x + width > boundary.x1()) {
       x = boundary.x1() - width;
       this.ds = -this.ds;
     }
