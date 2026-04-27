@@ -73,7 +73,7 @@ public class PlatformImpl extends AbstractGameObj implements Platform {
   @Override
   public void updatePosition(final double dt, final Boundary boundary) {
     this.movementBehaviour
-        .ifPresent(mb -> mb.updatePosition(getPosition(), super.getHeight(), super.getHeight(), dt, boundary));
+        .ifPresent(mb -> mb.updatePosition(super.getPosition(), super.getHeight(), super.getHeight(), dt, boundary));
   }
 
 }
