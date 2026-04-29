@@ -1,6 +1,6 @@
 package it.unibo;
 
-import it.unibo.controller.impl.MainControllerImpl;
+import it.unibo.controller.app.impl.MainControllerImpl;
 import it.unibo.view.app.api.MainView;
 import it.unibo.view.app.impl.MainViewImpl;
 

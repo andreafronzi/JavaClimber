@@ -1,9 +1,15 @@
-package it.unibo.controller.impl;
+package it.unibo.controller.app.impl;
 
 import java.util.Optional;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.controller.api.MainController;
+import it.unibo.controller.app.api.MainController;
+import it.unibo.controller.end.impl.EndControllerImpl;
+import it.unibo.controller.gamelaunched.impl.GameLaunchedControllerImpl;
+import it.unibo.controller.inventory.impl.InventoryControllerImpl;
+import it.unibo.controller.menu.impl.MenuControllerImpl;
+import it.unibo.controller.pause.impl.PauseControllerImpl;
+import it.unibo.controller.shop.impl.ShopControllerImpl;
 import it.unibo.model.launchedgame.api.StateOfLaunchedGame;
 import it.unibo.model.menu.api.Menu;
 import it.unibo.model.menu.impl.MenuImpl;

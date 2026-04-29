@@ -9,9 +9,9 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.controller.api.GameLaunchedController;
-import it.unibo.controller.api.GameLaunchedInputController;
-import it.unibo.controller.impl.GameLaunchedControllerImpl;
+import it.unibo.controller.gamelaunched.api.GameLaunchedController;
+import it.unibo.controller.gamelaunched.api.GameLaunchedInputController;
+import it.unibo.controller.gamelaunched.impl.GameLaunchedControllerImpl;
 import it.unibo.view.gamelaunchedview.input.impl.LaunchedGameInputHandlerImpl;
 import it.unibo.view.gamelaunchedview.renderers.impl.AlienRenderer;
 import it.unibo.view.gamelaunchedview.renderers.impl.CoinRender;

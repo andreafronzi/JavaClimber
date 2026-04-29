@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.controller.impl.MainControllerImpl;
+import it.unibo.controller.app.impl.MainControllerImpl;
 import it.unibo.model.menu.api.Menu;
 import it.unibo.model.menu.api.StateOfMenu;
 import it.unibo.model.menu.impl.LaunchedGameState;

@@ -8,7 +8,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.controller.impl.MainControllerImpl;
+import it.unibo.controller.app.impl.MainControllerImpl;
 import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.gameobj.impl.AlienImpl;

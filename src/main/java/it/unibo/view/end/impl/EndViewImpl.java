@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import it.unibo.controller.api.EndController;
+import it.unibo.controller.end.api.EndController;
 import it.unibo.view.end.api.EndView;
 
 /**

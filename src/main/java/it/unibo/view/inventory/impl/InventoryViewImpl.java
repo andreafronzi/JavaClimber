@@ -26,7 +26,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-import it.unibo.controller.api.InventoryController;
+import it.unibo.controller.inventory.api.InventoryController;
 import it.unibo.model.shop.api.ShopItem;
 import it.unibo.view.gamelaunchedview.renderers.skinregistry.api.SkinRegistry;
 import it.unibo.view.gamelaunchedview.renderers.skinregistry.api.SkinSet;

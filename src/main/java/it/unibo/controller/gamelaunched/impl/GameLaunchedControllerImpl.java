@@ -1,7 +1,7 @@
-package it.unibo.controller.impl;
+package it.unibo.controller.gamelaunched.impl;
 
-import it.unibo.controller.api.GameLaunchedController;
-import it.unibo.controller.api.GameLaunchedInputController;
+import it.unibo.controller.gamelaunched.api.GameLaunchedController;
+import it.unibo.controller.gamelaunched.api.GameLaunchedInputController;
 import it.unibo.model.command.api.RunningCommand;
 import it.unibo.model.command.impl.EnterPausa;
 import it.unibo.model.command.impl.MoveAlienLeft;

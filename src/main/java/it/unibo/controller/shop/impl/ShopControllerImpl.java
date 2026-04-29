@@ -1,11 +1,11 @@
-package it.unibo.controller.impl;
+package it.unibo.controller.shop.impl;
 
 import java.util.Comparator;
 import java.util.List;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.controller.api.MainController;
-import it.unibo.controller.api.ShopController;
+import it.unibo.controller.app.api.MainController;
+import it.unibo.controller.shop.api.ShopController;
 import it.unibo.model.menu.api.Menu;
 import it.unibo.model.menu.impl.InventoryState;
 import it.unibo.model.menu.impl.MenuImpl;

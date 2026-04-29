@@ -3,7 +3,8 @@ package javaclimber.phisics;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import it.unibo.controller.impl.MainControllerImpl;
+import it.unibo.controller.app.api.MainController;
+import it.unibo.controller.app.impl.MainControllerImpl;
 import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.gameobj.api.Coin;
 import it.unibo.model.gameobj.api.Enemy;
@@ -35,6 +36,7 @@ import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
 import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.GameObjDimension;
+import it.unibo.view.app.api.MainView;
 import it.unibo.view.app.impl.MainViewImpl;
 
 import org.junit.jupiter.api.Test;
@@ -265,11 +267,9 @@ class AlienNormalPhysicTest {
                 final BoundWorld boundary = new BoundWorldImpl(new BoundY(UPPER_WORLD, LOWER_WORLD),
                                 new Boundary(LEFT_BOUNDARY, RIGHT_BOUNDARY));
                 final Enemy enemy = new EnemyImpl(HEIGHT, WIDTH, new Vector2dImpl(X, Y + HEIGHT));
-                // create a lightweight dummy MainController to avoid UI interactions during
-                // onEnter
-                final it.unibo.controller.api.MainController dummyController = new it.unibo.controller.api.MainController() {
+                final MainController dummyController = new MainController() {
                         @Override
-                        public void setView(final it.unibo.view.app.api.MainView view) {
+                        public void setView(final MainView view) {
                         }
 
                         @Override

@@ -1,8 +1,8 @@
-package it.unibo.controller.impl;
+package it.unibo.controller.menu.impl;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.controller.api.MainController;
-import it.unibo.controller.api.MenuController;
+import it.unibo.controller.app.api.MainController;
+import it.unibo.controller.menu.api.MenuController;
 import it.unibo.model.menu.api.Menu;
 import it.unibo.model.menu.impl.InventoryState;
 import it.unibo.model.menu.impl.LaunchedGameState;

@@ -3,7 +3,7 @@ package it.unibo.model.menu.impl;
 import java.util.Optional;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.controller.api.MainController;
+import it.unibo.controller.app.api.MainController;
 import it.unibo.model.launchedgame.api.LaunchedGame;
 import it.unibo.model.menu.api.Menu;
 import it.unibo.model.menu.api.StateOfMenu;

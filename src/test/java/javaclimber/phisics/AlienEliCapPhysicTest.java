@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.controller.impl.MainControllerImpl;
+import it.unibo.controller.app.impl.MainControllerImpl;
 import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.gameobj.api.Coin;
 import it.unibo.model.gameobj.api.Gadget;

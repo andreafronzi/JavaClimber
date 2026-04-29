@@ -1,12 +1,12 @@
 package it.unibo.view.app.api;
 
-import it.unibo.controller.api.EndController;
-import it.unibo.controller.api.GameLaunchedController;
-import it.unibo.controller.api.GameLaunchedInputController;
-import it.unibo.controller.api.InventoryController;
-import it.unibo.controller.api.MenuController;
-import it.unibo.controller.api.PauseController;
-import it.unibo.controller.api.ShopController;
+import it.unibo.controller.end.api.EndController;
+import it.unibo.controller.gamelaunched.api.GameLaunchedController;
+import it.unibo.controller.gamelaunched.api.GameLaunchedInputController;
+import it.unibo.controller.inventory.api.InventoryController;
+import it.unibo.controller.menu.api.MenuController;
+import it.unibo.controller.pause.api.PauseController;
+import it.unibo.controller.shop.api.ShopController;
 
 /**
  * Interface for the main view.

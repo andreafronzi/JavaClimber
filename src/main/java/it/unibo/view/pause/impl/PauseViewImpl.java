@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import it.unibo.controller.api.PauseController;
+import it.unibo.controller.pause.api.PauseController;
 import it.unibo.view.pause.api.PauseView;
 
 /**

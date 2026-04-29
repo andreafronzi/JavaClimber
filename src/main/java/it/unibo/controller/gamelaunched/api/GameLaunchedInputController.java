@@ -1,4 +1,4 @@
-package it.unibo.controller.api;
+package it.unibo.controller.gamelaunched.api;
 
 import it.unibo.model.gameobj.api.Alien;
 

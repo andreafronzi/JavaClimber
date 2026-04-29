@@ -1,4 +1,4 @@
-package it.unibo.controller.api;
+package it.unibo.controller.app.api;
 
 import it.unibo.model.menu.api.Menu;
 import it.unibo.view.app.api.MainView;

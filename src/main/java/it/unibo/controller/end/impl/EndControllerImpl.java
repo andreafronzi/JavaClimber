@@ -1,7 +1,7 @@
-package it.unibo.controller.impl;
+package it.unibo.controller.end.impl;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.controller.api.EndController;
+import it.unibo.controller.end.api.EndController;
 import it.unibo.model.launchedgame.api.LaunchedGame;
 import it.unibo.model.launchedgame.impl.InitialState;
 import it.unibo.model.menu.api.Menu;

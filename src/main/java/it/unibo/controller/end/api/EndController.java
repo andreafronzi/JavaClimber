@@ -1,4 +1,4 @@
-package it.unibo.controller.api;
+package it.unibo.controller.end.api;
 
 /**
  * Interface representing the controller for the end screen of the game. It

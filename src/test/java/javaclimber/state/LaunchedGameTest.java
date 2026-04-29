@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.model.physics.impl.Vector2dImpl;
-import it.unibo.controller.impl.MainControllerImpl;
+import it.unibo.controller.app.impl.MainControllerImpl;
 import it.unibo.model.gameobj.impl.AlienImpl;
 import it.unibo.model.launchedgame.api.LaunchedGame;
 import it.unibo.model.launchedgame.impl.LaunchedGameImpl;

@@ -2,7 +2,7 @@ package it.unibo.model.menu.api;
 
 import java.util.Optional;
 
-import it.unibo.controller.api.MainController;
+import it.unibo.controller.app.api.MainController;
 import it.unibo.model.launchedgame.api.LaunchedGame;
 import it.unibo.model.score.api.ScoreManager;
 import it.unibo.model.shop.api.Inventory;

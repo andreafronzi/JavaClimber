@@ -1,4 +1,4 @@
-package it.unibo.controller.api;
+package it.unibo.controller.inventory.api;
 
 import java.util.List;
 

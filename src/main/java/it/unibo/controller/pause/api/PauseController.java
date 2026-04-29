@@ -1,4 +1,4 @@
-package it.unibo.controller.api;
+package it.unibo.controller.pause.api;
 
 /**
  * Represents the controller for the pause menu.

@@ -1,7 +1,8 @@
-package it.unibo.controller.impl;
+package it.unibo.controller.pause.impl;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.controller.api.PauseController;
+import it.unibo.controller.app.impl.MainControllerImpl;
+import it.unibo.controller.pause.api.PauseController;
 import it.unibo.model.launchedgame.api.LaunchedGame;
 import it.unibo.model.launchedgame.api.StateOfLaunchedGame;
 import it.unibo.model.launchedgame.impl.EndState;
