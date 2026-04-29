@@ -47,7 +47,6 @@ public final class MainViewImpl implements MainView {
         this.frame = new JFrame("Java Climber");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-        // this.setWindowSize();
         this.frame.setLocationRelativeTo(null);
         this.frame.setVisible(true);
     }
@@ -65,17 +64,6 @@ public final class MainViewImpl implements MainView {
         frame.add(currentPanel);
         frame.revalidate();
         frame.repaint();
-    }
-
-    /**
-     * Method to set the window size to the screen size.
-     */
-    public void setWindowSize() {
-        final Toolkit toolkit = Toolkit.getDefaultToolkit();
-        final Dimension screenSize = toolkit.getScreenSize();
-        final int width = (int) screenSize.getWidth();
-        final int height = (int) screenSize.getHeight();
-        this.frame.setSize(width, height);
     }
 
     /**
