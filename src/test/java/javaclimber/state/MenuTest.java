@@ -11,7 +11,7 @@ import it.unibo.model.launchedgame.impl.LaunchedGameImpl;
 import it.unibo.model.menu.api.Menu;
 import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.menu.impl.MenuState;
-import it.unibo.view.MainViewImpl;
+import it.unibo.view.app.impl.MainViewImpl;
 
 /**
  * Test class for {@link Menu}.

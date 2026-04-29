@@ -14,7 +14,7 @@ import it.unibo.model.launchedgame.impl.RunningState;
 import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.physics.collision.impl.CollisionManagerImpl;
 import it.unibo.model.score.impl.ScoreManagerImpl;
-import it.unibo.view.MainViewImpl;
+import it.unibo.view.app.impl.MainViewImpl;
 
 /**
  * Test class for {@link StateOfLaunchedGame}.

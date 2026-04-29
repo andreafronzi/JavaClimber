@@ -11,7 +11,7 @@ import it.unibo.model.menu.impl.MenuState;
 import it.unibo.model.persistence.api.SaveManager;
 import it.unibo.model.persistence.api.SaveState;
 import it.unibo.model.persistence.impl.SaveManagerImpl;
-import it.unibo.view.MainView;
+import it.unibo.view.app.api.MainView;
 
 /**
  * Implementation of the {@link MainController} interface.

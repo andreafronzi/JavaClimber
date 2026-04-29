@@ -20,7 +20,7 @@ import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
 import it.unibo.model.world.impl.UpperWorld;
 import it.unibo.model.world.impl.World;
-import it.unibo.view.MainViewImpl;
+import it.unibo.view.app.impl.MainViewImpl;
 
 /**
  * Test class for {@link LaunchedGame}.

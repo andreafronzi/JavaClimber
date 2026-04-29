@@ -1,7 +1,7 @@
 package it.unibo.controller.api;
 
 import it.unibo.model.menu.api.Menu;
-import it.unibo.view.MainView;
+import it.unibo.view.app.api.MainView;
 
 /**
  * Interface for the main controller, which manages the main menu and the

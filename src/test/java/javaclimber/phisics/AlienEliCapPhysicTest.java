@@ -28,7 +28,7 @@ import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
 import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.GameObjDimension;
-import it.unibo.view.MainViewImpl;
+import it.unibo.view.app.impl.MainViewImpl;
 
 /** Test class for {@link AlienEliCapPhysic}. */
 class AlienEliCapPhysicTest {

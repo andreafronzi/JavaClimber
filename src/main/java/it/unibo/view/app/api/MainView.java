@@ -1,4 +1,4 @@
-package it.unibo.view;
+package it.unibo.view.app.api;
 
 import it.unibo.controller.api.EndController;
 import it.unibo.controller.api.GameLaunchedController;

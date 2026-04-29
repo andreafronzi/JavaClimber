@@ -35,7 +35,7 @@ import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
 import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.GameObjDimension;
-import it.unibo.view.MainViewImpl;
+import it.unibo.view.app.impl.MainViewImpl;
 
 import org.junit.jupiter.api.Test;
 
@@ -269,7 +269,7 @@ class AlienNormalPhysicTest {
                 // onEnter
                 final it.unibo.controller.api.MainController dummyController = new it.unibo.controller.api.MainController() {
                         @Override
-                        public void setView(final it.unibo.view.MainView view) {
+                        public void setView(final it.unibo.view.app.api.MainView view) {
                         }
 
                         @Override

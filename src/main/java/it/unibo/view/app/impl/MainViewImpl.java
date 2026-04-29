@@ -1,4 +1,4 @@
-package it.unibo.view;
+package it.unibo.view.app.impl;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -13,6 +13,7 @@ import it.unibo.controller.api.InventoryController;
 import it.unibo.controller.api.MenuController;
 import it.unibo.controller.api.PauseController;
 import it.unibo.controller.api.ShopController;
+import it.unibo.view.app.api.MainView;
 import it.unibo.view.end.impl.EndViewImpl;
 import it.unibo.view.gamelaunchedview.impl.GameLaunchedViewPanelImpl;
 import it.unibo.view.inventory.impl.InventoryViewImpl;
