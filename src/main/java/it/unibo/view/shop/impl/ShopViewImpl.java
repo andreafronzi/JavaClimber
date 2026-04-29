@@ -29,13 +29,13 @@ import java.awt.image.BufferedImage;
 
 import it.unibo.controller.api.ShopController;
 import it.unibo.model.shop.api.ShopItem;
-import it.unibo.view.SpriteEnum;
-import it.unibo.view.SpriteManager;
-import it.unibo.view.ViewConstants;
 import it.unibo.view.gamelaunchedview.renderers.skinregistry.api.SkinRegistry;
 import it.unibo.view.gamelaunchedview.renderers.skinregistry.api.SkinSet;
 import it.unibo.view.gamelaunchedview.renderers.skinregistry.impl.SkinRegistryImpl;
 import it.unibo.view.shop.api.ShopView;
+import it.unibo.view.utilities.SpriteEnum;
+import it.unibo.view.utilities.SpriteManager;
+import it.unibo.view.utilities.ViewConstants;
 
 /**
  * Implementation of {@link ShopView} interface.

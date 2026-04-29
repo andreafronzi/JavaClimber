@@ -1,4 +1,4 @@
-package it.unibo.view;
+package it.unibo.view.utilities;
 
 /**
  * Utility class for View constants.

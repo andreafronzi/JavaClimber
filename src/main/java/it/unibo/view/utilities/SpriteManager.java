@@ -1,4 +1,4 @@
-package it.unibo.view;
+package it.unibo.view.utilities;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

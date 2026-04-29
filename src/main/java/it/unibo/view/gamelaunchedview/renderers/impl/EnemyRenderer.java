@@ -1,9 +1,9 @@
 package it.unibo.view.gamelaunchedview.renderers.impl;
 
 import it.unibo.view.gamelaunchedview.renderers.api.EntityRenderer;
+import it.unibo.view.utilities.SpriteEnum;
+import it.unibo.view.utilities.SpriteManager;
 import it.unibo.model.gameobj.api.Enemy;
-import it.unibo.view.SpriteEnum;
-import it.unibo.view.SpriteManager;
 
 import java.awt.Graphics2D;
 import java.awt.Image;

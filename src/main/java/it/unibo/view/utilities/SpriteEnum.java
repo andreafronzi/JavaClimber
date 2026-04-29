@@ -1,4 +1,4 @@
-package it.unibo.view;
+package it.unibo.view.utilities;
 
 /**
  * Identifiers for the various sprites used by the game.

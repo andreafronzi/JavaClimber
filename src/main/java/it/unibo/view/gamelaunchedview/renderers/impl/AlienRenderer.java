@@ -6,7 +6,7 @@ import it.unibo.view.gamelaunchedview.renderers.api.EntityRenderer;
 import it.unibo.view.gamelaunchedview.renderers.skinregistry.api.SkinRegistry;
 import it.unibo.view.gamelaunchedview.renderers.skinregistry.api.SkinSet;
 import it.unibo.view.gamelaunchedview.renderers.skinregistry.impl.SkinRegistryImpl;
-import it.unibo.view.SpriteManager;
+import it.unibo.view.utilities.SpriteManager;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
