@@ -242,8 +242,8 @@ public final class InventoryViewImpl extends JPanel implements InventoryView {
             name = new JLabel("Actual: " + actualItem.getName());
             desc = new JLabel(actualItem.getDescription());
         } else {
-            name = new JLabel("Actual: NESSUNO");
-            desc = new JLabel("Nessun potenziamento attivo");
+            name = new JLabel("Actual: None");
+            desc = new JLabel("No active power-up");
         }
         name.setAlignmentX(CENTER_ALIGNMENT);
         desc.setAlignmentX(CENTER_ALIGNMENT);
@@ -378,7 +378,7 @@ public final class InventoryViewImpl extends JPanel implements InventoryView {
         }
 
         if (!hasCategoryItems) {
-            final JLabel emtyLabel = new JLabel("Nessun potenziamento temporaneo acquistato");
+            final JLabel emtyLabel = new JLabel("No temporary power-ups purchased");
             emtyLabel.setAlignmentX(CENTER_ALIGNMENT);
             categoryContainer.add(emtyLabel);
             categoryContainer.add(Box.createVerticalStrut(ViewConstants.SPACING_50));
