@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.controller.impl.MainControllerImpl;
+import it.unibo.controller.app.impl.MainControllerImpl;
 import it.unibo.model.camera.impl.AltitudeManager;
 import it.unibo.model.launchedgame.impl.InitialState;
 import it.unibo.model.launchedgame.impl.LaunchedGameImpl;
@@ -14,7 +14,7 @@ import it.unibo.model.launchedgame.impl.RunningState;
 import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.physics.collision.impl.CollisionManagerImpl;
 import it.unibo.model.score.impl.ScoreManagerImpl;
-import it.unibo.view.MainViewImpl;
+import it.unibo.view.app.impl.MainViewImpl;
 
 /**
  * Test class for {@link StateOfLaunchedGame}.

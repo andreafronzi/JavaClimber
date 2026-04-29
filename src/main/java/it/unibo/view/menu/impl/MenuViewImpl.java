@@ -25,9 +25,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import it.unibo.controller.api.MenuController;
-import it.unibo.view.ViewConstants;
+import it.unibo.controller.menu.api.MenuController;
 import it.unibo.view.menu.api.MenuView;
+import it.unibo.view.utilities.ViewConstants;
 
 /**
  * Implementation of {@link MenuView} interface.

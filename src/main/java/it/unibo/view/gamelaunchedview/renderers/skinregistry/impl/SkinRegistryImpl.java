@@ -3,9 +3,9 @@ package it.unibo.view.gamelaunchedview.renderers.skinregistry.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import it.unibo.view.SpriteEnum;
 import it.unibo.view.gamelaunchedview.renderers.skinregistry.api.SkinRegistry;
 import it.unibo.view.gamelaunchedview.renderers.skinregistry.api.SkinSet;
+import it.unibo.view.utilities.SpriteEnum;
 
 /**
  * Implementation of the {@link SkinRegistry} interface, responsible for managing and providing access to character skins.

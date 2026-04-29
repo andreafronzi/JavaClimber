@@ -1,6 +1,6 @@
 package it.unibo.view.gamelaunchedview.renderers.skinregistry.api;
 
-import it.unibo.view.SpriteEnum;
+import it.unibo.view.utilities.SpriteEnum;
 
 /**
  * Interface representing left and right sprites faces for a character's skin.

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.controller.impl.MainControllerImpl;
+import it.unibo.controller.app.impl.MainControllerImpl;
 import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.gameobj.api.Coin;
 import it.unibo.model.gameobj.api.Gadget;
@@ -28,7 +28,7 @@ import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
 import it.unibo.model.worldconstructor.gameobjectspawn.addonspawn.impl.GameObjDimension;
-import it.unibo.view.MainViewImpl;
+import it.unibo.view.app.impl.MainViewImpl;
 
 /** Test class for {@link AlienEliCapPhysic}. */
 class AlienEliCapPhysicTest {

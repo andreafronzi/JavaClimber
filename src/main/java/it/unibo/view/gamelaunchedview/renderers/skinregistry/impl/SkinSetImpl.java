@@ -1,7 +1,7 @@
 package it.unibo.view.gamelaunchedview.renderers.skinregistry.impl;
 
-import it.unibo.view.SpriteEnum;
 import it.unibo.view.gamelaunchedview.renderers.skinregistry.api.SkinSet;
+import it.unibo.view.utilities.SpriteEnum;
 
 /**
  * Implementation of {@link SkinSet}.

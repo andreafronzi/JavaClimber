@@ -6,12 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.controller.impl.MainControllerImpl;
+import it.unibo.controller.app.impl.MainControllerImpl;
 import it.unibo.model.launchedgame.impl.LaunchedGameImpl;
 import it.unibo.model.menu.api.Menu;
 import it.unibo.model.menu.impl.MenuImpl;
 import it.unibo.model.menu.impl.MenuState;
-import it.unibo.view.MainViewImpl;
+import it.unibo.view.app.impl.MainViewImpl;
 
 /**
  * Test class for {@link Menu}.

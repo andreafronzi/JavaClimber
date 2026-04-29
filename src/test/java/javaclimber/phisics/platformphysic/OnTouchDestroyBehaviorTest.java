@@ -8,7 +8,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.controller.impl.MainControllerImpl;
+import it.unibo.controller.app.impl.MainControllerImpl;
 import it.unibo.model.gameobj.api.Alien;
 import it.unibo.model.gameobj.api.Platform;
 import it.unibo.model.gameobj.impl.AlienImpl;
@@ -28,7 +28,7 @@ import it.unibo.model.world.impl.BoundWorldImpl;
 import it.unibo.model.world.impl.BoundY;
 import it.unibo.model.world.impl.Boundary;
 import it.unibo.model.world.impl.RealWorld;
-import it.unibo.view.MainViewImpl;
+import it.unibo.view.app.impl.MainViewImpl;
 
 /**
  * Test class for {@link OnTouchDestroyBehavior}.

@@ -9,10 +9,9 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.controller.api.GameLaunchedController;
-import it.unibo.controller.api.GameLaunchedInputController;
-import it.unibo.controller.impl.GameLaunchedControllerImpl;
-import it.unibo.view.SpriteManager;
+import it.unibo.controller.gamelaunched.api.GameLaunchedController;
+import it.unibo.controller.gamelaunched.api.GameLaunchedInputController;
+import it.unibo.controller.gamelaunched.impl.GameLaunchedControllerImpl;
 import it.unibo.view.gamelaunchedview.input.impl.LaunchedGameInputHandlerImpl;
 import it.unibo.view.gamelaunchedview.renderers.impl.AlienRenderer;
 import it.unibo.view.gamelaunchedview.renderers.impl.CoinRender;
@@ -21,6 +20,7 @@ import it.unibo.view.gamelaunchedview.renderers.impl.GadgetRenderer;
 import it.unibo.view.gamelaunchedview.renderers.impl.MovingPlatformRenderer;
 import it.unibo.view.gamelaunchedview.renderers.impl.OnTouchPlatformRenderer;
 import it.unibo.view.gamelaunchedview.renderers.impl.PlatformRenderer;
+import it.unibo.view.utilities.SpriteManager;
 
 /**
  * Rapresent the application's panel seen when the game is launched.

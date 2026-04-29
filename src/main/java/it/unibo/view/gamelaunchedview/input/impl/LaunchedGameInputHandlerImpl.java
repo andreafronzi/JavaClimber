@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Map;
 
-import it.unibo.controller.api.GameLaunchedInputController;
+import it.unibo.controller.gamelaunched.api.GameLaunchedInputController;
 
 /**
  * Rapresents {@link KeyListener} which handle user's action and convert it
