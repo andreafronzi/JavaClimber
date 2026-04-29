@@ -70,8 +70,8 @@ public class InitialState extends AbstractLaunchedState {
                 GameObjDimension.MEDIUM_PLATFORM_HEIGHT);
         final var addOnPoolEasy = new AddOnPoolEasy(spawnPoolCreator, 0.3);
         final var addOnPoolMedium = new AddOnPoolMedium(spawnPoolCreator, 0.5);
-        final var difficultList = List.of(new Difficult(50_000, distanceEasy, spawnPoolEasy, addOnPoolEasy, platformPoolEasy),
-                new Difficult(100_000, distanceMedium, spawnPoolEasy, addOnPoolMedium, platformPoolMedium));
+        final var difficultList = List.of(new Difficult(10_000, distanceEasy, spawnPoolEasy, addOnPoolEasy, platformPoolEasy),
+                new Difficult(20_000, distanceMedium, spawnPoolEasy, addOnPoolMedium, platformPoolMedium));
         spawnPoolCreator.setSpawnPool(spawnPoolEasy);
         final var worldConstructor = new WorldConstructorImpl(upperWorld, difficultList.getFirst(), spawnPoolCreator);
         final var worldDifficult = new WorldDifficultImpl(difficultList);
