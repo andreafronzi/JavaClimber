@@ -1,4 +1,4 @@
-package it.unibo.view;
+package it.unibo.view.end.api;
 
 /**
  * Represents the end view of the game.

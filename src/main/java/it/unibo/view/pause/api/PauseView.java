@@ -1,4 +1,4 @@
-package it.unibo.view;
+package it.unibo.view.pause.api;
 
 /**
  * Interface representing the pause screen of the game.

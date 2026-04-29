@@ -1,4 +1,4 @@
-package it.unibo.view;
+package it.unibo.view.end.impl;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,16 +10,22 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import it.unibo.controller.api.PauseController;
+import it.unibo.controller.api.EndController;
+import it.unibo.view.end.api.EndView;
 
 /**
- * Implementation of the {@link PauseView} interface.
+ * Implementation of the {@link EndView} interface, representing the end screen
+ * of the game.
  */
-public final class PauseViewImpl extends JPanel implements PauseView {
+public final class EndViewImpl extends JPanel implements EndView {
 
     private static final long serialVersionUID = 1L;
 
     private static final int SIZE_FONT_TITLE = 60;
+
+    private static final int RED_VALUE_MORTE = 180;
+    private static final int GREEN_VALUE_MORTE = 0;
+    private static final int BLUE_VALUE_MORTE = 0;
 
     private static final int RED_VALUE_RECORD = 255;
     private static final int GREEN_VALUE_RECORD = 215;
@@ -35,15 +41,15 @@ public final class PauseViewImpl extends JPanel implements PauseView {
     private static final int DIMENSION_HEIGHT_THIRD = 10;
 
     /**
-     * The pause controller associated with this view. It is used to handle user
-     * interactions and control the flow of the pause screen.
+     * The end controller associated with this view. It is used to handle user
+     * interactions and control the flow of the end screen.
      */
-    private final transient PauseController controller;
+    private final transient EndController controller;
 
     /**
-     * The resume button, allowing the player to resume the game.
+     * The restart button, allowing the player to restart the game.
      */
-    private final JButton resume;
+    private final JButton restart;
 
     /**
      * The menu button, allowing the player to return to the main menu.
@@ -51,31 +57,30 @@ public final class PauseViewImpl extends JPanel implements PauseView {
     private final JButton menu;
 
     /**
-     * Constructs a new PauseViewImpl with the specified controller. Initializes the
+     * Constructs a new EndViewImpl with the specified controller. Initializes the
      * view components and layout.
      * 
-     * @param controller the pause controller associated with this view.
+     * @param controller the end controller associated with this view.
      */
-    public PauseViewImpl(final PauseController controller) {
+    public EndViewImpl(final EndController controller) {
         this.controller = controller;
         this.setBackground(Color.BLACK);
 
-        final JLabel pauseTitle = new JLabel("PAUSA");
-        pauseTitle.setFont(new Font(Font.SERIF, Font.BOLD, SIZE_FONT_TITLE));
-        pauseTitle.setForeground(Color.WHITE);
-        pauseTitle.setAlignmentX(CENTER_ALIGNMENT);
+        final JLabel titoloMorte = new JLabel("SEI MORTO");
+        titoloMorte.setFont(new Font(Font.SERIF, Font.BOLD, SIZE_FONT_TITLE));
+        titoloMorte.setForeground(new Color(RED_VALUE_MORTE, GREEN_VALUE_MORTE, BLUE_VALUE_MORTE));
+        titoloMorte.setAlignmentX(CENTER_ALIGNMENT);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        this.resume = new JButton("Resume");
-        this.resume.setAlignmentX(CENTER_ALIGNMENT);
+        this.restart = new JButton("Restart");
+        this.restart.setAlignmentX(CENTER_ALIGNMENT);
 
         this.menu = new JButton("Menu");
         this.menu.setAlignmentX(CENTER_ALIGNMENT);
 
         this.add(Box.createVerticalGlue());
-        this.add(pauseTitle);
-
+        this.add(titoloMorte);
         this.add(Box.createRigidArea(new Dimension(DIMENSION_WIDTH, DIMENSION_HEIGHT_FIRST)));
 
         if (this.controller.isNewHighScore()) {
@@ -93,17 +98,17 @@ public final class PauseViewImpl extends JPanel implements PauseView {
         }
 
         this.add(Box.createRigidArea(new Dimension(DIMENSION_WIDTH, DIMENSION_HEIGHT_SECOND)));
-        this.add(this.resume);
+        this.add(this.restart);
         this.add(Box.createRigidArea(new Dimension(DIMENSION_WIDTH, DIMENSION_HEIGHT_THIRD)));
         this.add(this.menu);
         this.add(Box.createVerticalGlue());
 
-        this.setResumeListener();
+        this.setRestartListener();
         this.setMenuListener();
     }
 
-    private void setResumeListener() {
-        this.resume.addActionListener(e -> this.resume());
+    private void setRestartListener() {
+        this.restart.addActionListener(e -> this.restart());
     }
 
     private void setMenuListener() {
@@ -114,8 +119,8 @@ public final class PauseViewImpl extends JPanel implements PauseView {
      * {@inheritDoc}
      */
     @Override
-    public void resume() {
-        this.controller.resume();
+    public void restart() {
+        this.controller.restart();
     }
 
     /**
@@ -125,4 +130,5 @@ public final class PauseViewImpl extends JPanel implements PauseView {
     public void menu() {
         this.controller.menu();
     }
+
 }
