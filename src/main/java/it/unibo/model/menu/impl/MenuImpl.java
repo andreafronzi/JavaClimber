@@ -43,6 +43,7 @@ public class MenuImpl implements Menu {
      * The factory for creating shop items.
      */
     private final ShopItemFactoryImpl shopItemFactory;
+
     /**
      * The inventory of the application.
      */
