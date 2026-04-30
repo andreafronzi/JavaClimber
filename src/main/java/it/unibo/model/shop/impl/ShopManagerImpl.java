@@ -24,7 +24,8 @@ public class ShopManagerImpl implements ShopManager {
      * @param itemFactory the factory for shop items
      * @param inventory   the inventory to manage purchases and ownership
      */
-    @SuppressFBWarnings("EI_EXPOSE_REP2")
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The ShopManager is designed"
+            + "to directly manage the Inventory instance.")
     public ShopManagerImpl(final ShopItemFactory itemFactory, final Inventory inventory) {
         this.itemFactory = itemFactory;
         this.inventory = inventory;
@@ -92,7 +93,8 @@ public class ShopManagerImpl implements ShopManager {
     /**
      * {@inheritDoc}
      */
-    @SuppressFBWarnings("EI_EXPOSE_REP")
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The ShopManager is designed"
+            + "to directly manage the Inventory instance")
     @Override
     public Inventory getInventory() {
         return this.inventory;
