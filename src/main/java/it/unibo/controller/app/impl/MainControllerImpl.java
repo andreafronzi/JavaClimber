@@ -29,7 +29,7 @@ public final class MainControllerImpl implements MainController {
      * inventory view, a shop view, an end view or a pause view.
      */
     private MainView mainView;
-    
+
     /**
      * The menu istance for the application.
      */

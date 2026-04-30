@@ -29,7 +29,7 @@ public class PauseControllerImpl implements PauseController {
      * running state.
      */
     private final StateOfLaunchedGame runningState;
-    
+
     /**
      * The entity which provide the istance of the main
      * controller.
